@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class PDDrawView;
+
 @interface ViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet PDDrawView *drawView;
 
 @end
 

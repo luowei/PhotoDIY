@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "PDDrawView.h"
 
 @interface ViewController ()
 
@@ -22,6 +23,24 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+- (IBAction)selPhotoAction:(UIBarButtonItem *)sender {
+
+    [self.drawView loadPhoto];
+}
+
+- (IBAction)filterAction:(UIBarButtonItem *)sender {
+}
+
+- (IBAction)cropAction:(UIBarButtonItem *)sender {
+}
+
+- (IBAction)undoAction:(UIBarButtonItem *)sender {
+}
+
+- (IBAction)saveAction:(UIBarButtonItem *)sender {
 }
 
 @end

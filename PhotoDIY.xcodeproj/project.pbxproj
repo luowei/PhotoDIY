@@ -7,15 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CCD59F3ADD3AFC82051038E6 /* libPods-PhotoDIY.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FFC87A4A05A2799BD5A7991E /* libPods-PhotoDIY.a */; };
 		EAB292C21D2A16C4004D5EED /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB292C11D2A16C4004D5EED /* main.m */; };
 		EAB292C51D2A16C4004D5EED /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB292C41D2A16C4004D5EED /* AppDelegate.m */; };
 		EAB292C81D2A16C4004D5EED /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB292C71D2A16C4004D5EED /* ViewController.m */; };
 		EAB292CB1D2A16C4004D5EED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EAB292C91D2A16C4004D5EED /* Main.storyboard */; };
 		EAB292CD1D2A16C4004D5EED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EAB292CC1D2A16C4004D5EED /* Assets.xcassets */; };
 		EAB292D01D2A16C4004D5EED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EAB292CE1D2A16C4004D5EED /* LaunchScreen.storyboard */; };
+		EAB292DA1D2A460D004D5EED /* PDDrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB292D91D2A460D004D5EED /* PDDrawView.m */; };
+		EAB292E51D2A665A004D5EED /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB292E41D2A665A004D5EED /* CoreMedia.framework */; };
+		EAB292E71D2A6665004D5EED /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB292E61D2A6665004D5EED /* CoreVideo.framework */; };
+		EAB292E91D2A6670004D5EED /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB292E81D2A6670004D5EED /* OpenGLES.framework */; };
+		EAB292EB1D2A667B004D5EED /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB292EA1D2A667B004D5EED /* QuartzCore.framework */; };
+		EAB292ED1D2A668B004D5EED /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB292EC1D2A668B004D5EED /* CoreGraphics.framework */; };
+		EAB292EF1D2A6697004D5EED /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB292EE1D2A6697004D5EED /* AssetsLibrary.framework */; };
+		EAB292F11D2A66A4004D5EED /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB292F01D2A66A4004D5EED /* AVFoundation.framework */; };
+		EAB292F61D2A6ECB004D5EED /* Lambeau.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EAB292F51D2A6ECB004D5EED /* Lambeau.jpg */; };
+		EAB292F91D2A701F004D5EED /* Categorys.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB292F81D2A701F004D5EED /* Categorys.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		475E9ECC827629C9DEAAE6D1 /* Pods-PhotoDIY.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoDIY.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PhotoDIY/Pods-PhotoDIY.debug.xcconfig"; sourceTree = "<group>"; };
 		EAB292BD1D2A16C4004D5EED /* PhotoDIY.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoDIY.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAB292C11D2A16C4004D5EED /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		EAB292C31D2A16C4004D5EED /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -26,6 +38,20 @@
 		EAB292CC1D2A16C4004D5EED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EAB292CF1D2A16C4004D5EED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EAB292D11D2A16C4004D5EED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EAB292D81D2A460D004D5EED /* PDDrawView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDDrawView.h; sourceTree = "<group>"; };
+		EAB292D91D2A460D004D5EED /* PDDrawView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDDrawView.m; sourceTree = "<group>"; };
+		EAB292E41D2A665A004D5EED /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		EAB292E61D2A6665004D5EED /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		EAB292E81D2A6670004D5EED /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		EAB292EA1D2A667B004D5EED /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		EAB292EC1D2A668B004D5EED /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		EAB292EE1D2A6697004D5EED /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		EAB292F01D2A66A4004D5EED /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		EAB292F51D2A6ECB004D5EED /* Lambeau.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Lambeau.jpg; sourceTree = "<group>"; };
+		EAB292F71D2A701F004D5EED /* Categorys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Categorys.h; sourceTree = "<group>"; };
+		EAB292F81D2A701F004D5EED /* Categorys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Categorys.m; sourceTree = "<group>"; };
+		FB3752B7BE3FC2C396F9E492 /* Pods-PhotoDIY.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoDIY.release.xcconfig"; path = "Pods/Target Support Files/Pods-PhotoDIY/Pods-PhotoDIY.release.xcconfig"; sourceTree = "<group>"; };
+		FFC87A4A05A2799BD5A7991E /* libPods-PhotoDIY.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PhotoDIY.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,17 +59,44 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAB292F11D2A66A4004D5EED /* AVFoundation.framework in Frameworks */,
+				EAB292EF1D2A6697004D5EED /* AssetsLibrary.framework in Frameworks */,
+				EAB292ED1D2A668B004D5EED /* CoreGraphics.framework in Frameworks */,
+				EAB292EB1D2A667B004D5EED /* QuartzCore.framework in Frameworks */,
+				EAB292E91D2A6670004D5EED /* OpenGLES.framework in Frameworks */,
+				EAB292E71D2A6665004D5EED /* CoreVideo.framework in Frameworks */,
+				EAB292E51D2A665A004D5EED /* CoreMedia.framework in Frameworks */,
+				CCD59F3ADD3AFC82051038E6 /* libPods-PhotoDIY.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BEF06957E3080BCFA1496337 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				EAB292F51D2A6ECB004D5EED /* Lambeau.jpg */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		D3C4F9F4B69BA8AACD84BAC6 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				475E9ECC827629C9DEAAE6D1 /* Pods-PhotoDIY.debug.xcconfig */,
+				FB3752B7BE3FC2C396F9E492 /* Pods-PhotoDIY.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		EAB292B41D2A16C4004D5EED = {
 			isa = PBXGroup;
 			children = (
 				EAB292BF1D2A16C4004D5EED /* PhotoDIY */,
 				EAB292BE1D2A16C4004D5EED /* Products */,
+				D3C4F9F4B69BA8AACD84BAC6 /* Pods */,
+				F966CF9E9090B9C4FA064864 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,6 +111,8 @@
 		EAB292BF1D2A16C4004D5EED /* PhotoDIY */ = {
 			isa = PBXGroup;
 			children = (
+				EAB292DD1D2A5889004D5EED /* HandBoard */,
+				EAB292D71D2A45E3004D5EED /* DrawView */,
 				EAB292C31D2A16C4004D5EED /* AppDelegate.h */,
 				EAB292C41D2A16C4004D5EED /* AppDelegate.m */,
 				EAB292C61D2A16C4004D5EED /* ViewController.h */,
@@ -67,6 +122,9 @@
 				EAB292CE1D2A16C4004D5EED /* LaunchScreen.storyboard */,
 				EAB292D11D2A16C4004D5EED /* Info.plist */,
 				EAB292C01D2A16C4004D5EED /* Supporting Files */,
+				BEF06957E3080BCFA1496337 /* Resource */,
+				EAB292F71D2A701F004D5EED /* Categorys.h */,
+				EAB292F81D2A701F004D5EED /* Categorys.m */,
 			);
 			path = PhotoDIY;
 			sourceTree = "<group>";
@@ -79,6 +137,37 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		EAB292D71D2A45E3004D5EED /* DrawView */ = {
+			isa = PBXGroup;
+			children = (
+				EAB292D81D2A460D004D5EED /* PDDrawView.h */,
+				EAB292D91D2A460D004D5EED /* PDDrawView.m */,
+			);
+			name = DrawView;
+			sourceTree = "<group>";
+		};
+		EAB292DD1D2A5889004D5EED /* HandBoard */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = HandBoard;
+			sourceTree = "<group>";
+		};
+		F966CF9E9090B9C4FA064864 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EAB292F01D2A66A4004D5EED /* AVFoundation.framework */,
+				EAB292EE1D2A6697004D5EED /* AssetsLibrary.framework */,
+				EAB292EC1D2A668B004D5EED /* CoreGraphics.framework */,
+				EAB292EA1D2A667B004D5EED /* QuartzCore.framework */,
+				EAB292E81D2A6670004D5EED /* OpenGLES.framework */,
+				EAB292E61D2A6665004D5EED /* CoreVideo.framework */,
+				EAB292E41D2A665A004D5EED /* CoreMedia.framework */,
+				FFC87A4A05A2799BD5A7991E /* libPods-PhotoDIY.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -86,9 +175,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EAB292D41D2A16C4004D5EED /* Build configuration list for PBXNativeTarget "PhotoDIY" */;
 			buildPhases = (
+				1178616B0ABF5FD9A36D298C /* [CP] Check Pods Manifest.lock */,
 				EAB292B91D2A16C4004D5EED /* Sources */,
 				EAB292BA1D2A16C4004D5EED /* Frameworks */,
 				EAB292BB1D2A16C4004D5EED /* Resources */,
+				3616C498982DB4843765FFE9 /* [CP] Embed Pods Frameworks */,
+				142619B6A129C1B4D0A6B270 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -137,6 +229,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EAB292D01D2A16C4004D5EED /* LaunchScreen.storyboard in Resources */,
+				EAB292F61D2A6ECB004D5EED /* Lambeau.jpg in Resources */,
 				EAB292CD1D2A16C4004D5EED /* Assets.xcassets in Resources */,
 				EAB292CB1D2A16C4004D5EED /* Main.storyboard in Resources */,
 			);
@@ -144,11 +237,61 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1178616B0ABF5FD9A36D298C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		142619B6A129C1B4D0A6B270 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PhotoDIY/Pods-PhotoDIY-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3616C498982DB4843765FFE9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PhotoDIY/Pods-PhotoDIY-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		EAB292B91D2A16C4004D5EED /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAB292DA1D2A460D004D5EED /* PDDrawView.m in Sources */,
+				EAB292F91D2A701F004D5EED /* Categorys.m in Sources */,
 				EAB292C81D2A16C4004D5EED /* ViewController.m in Sources */,
 				EAB292C51D2A16C4004D5EED /* AppDelegate.m in Sources */,
 				EAB292C21D2A16C4004D5EED /* main.m in Sources */,
@@ -263,9 +406,11 @@
 		};
 		EAB292D51D2A16C4004D5EED /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 475E9ECC827629C9DEAAE6D1 /* Pods-PhotoDIY.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = PhotoDIY/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wodedata.PhotoDIY;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -274,9 +419,11 @@
 		};
 		EAB292D61D2A16C4004D5EED /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FB3752B7BE3FC2C396F9E492 /* Pods-PhotoDIY.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = PhotoDIY/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wodedata.PhotoDIY;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -302,6 +449,7 @@
 				EAB292D61D2A16C4004D5EED /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
