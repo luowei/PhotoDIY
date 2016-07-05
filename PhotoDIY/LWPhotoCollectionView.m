@@ -33,7 +33,13 @@
 - (void)reloadPhotos {
     CGFloat scale = [UIScreen mainScreen].scale;
     CGSize itemSize = CGSizeMake(80 * scale, 100 * scale);
-    self.photoPicker = [[PDPhotoLibPicker alloc] initWithDelegate:self itemSize:itemSize];
+    
+    if(!self.photoPicker){
+        self.photoPicker = [[PDPhotoLibPicker alloc] initWithDelegate:self itemSize:itemSize];
+    }else{
+        [self.photoPicker getAllPictures];
+    }
+    
 
 }
 

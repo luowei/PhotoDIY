@@ -10,7 +10,6 @@
 
 
 @implementation PDPhotoLibPicker{
-    dispatch_semaphore_t sema;
 }
 
 
@@ -19,6 +18,12 @@
     if (self) {
         self.delegate = delegate;
         self.itemSize = size;
+        
+        self.assetsCount = 0;
+        self.photoDict = @{}.mutableCopy;
+        self.photoURLs = @[].mutableCopy;
+        self.library = [[ALAssetsLibrary alloc] init];
+        
         [self getAllPictures];
     }
 
@@ -48,9 +53,7 @@
 }
 
 - (void)getAllPictures {
-    self.photoDict = @{}.mutableCopy;
-    self.photoURLs = @[].mutableCopy;
-    self.library = [[ALAssetsLibrary alloc] init];
+    
     NSMutableArray *assetGroups = [[NSMutableArray alloc] init];
 
     typedef enum {
@@ -59,40 +62,63 @@
     } ThreadState;
 
     //NSConditionLock *condition = [[NSConditionLock alloc] initWithCondition:running];
-    sema = dispatch_semaphore_create(0);
+
+    __weak typeof(self) weakSelf = self;
+
+    __block int count = 0;
+    [self.library enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+        if (group != nil) {
+            [assetGroups addObject:group];
+            count = count + group.numberOfAssets;
+        }else{
+            NSLog(@"========groups count:%lu",(unsigned long)assetGroups.count);
+
+            //如果数量发生变化
+            if(count != self.assetsCount){
+                [self loadAllAssetGroup];
+            }else{
+                dispatch_async(dispatch_get_main_queue(), ^() {
+                    if ([weakSelf.delegate respondsToSelector:@selector(allPhotosCollected:)]) {
+                        [weakSelf.delegate allPhotosCollected:weakSelf.photoDict];
+                    }
+                });
+            }
+        }
+
+    }                         failureBlock:^(NSError *error) {
+        NSLog(@"There is an error");
+    }];
+
+}
+
+//加载所有AssetGroup
+- (void)loadAllAssetGroup {
+    NSMutableArray *assetGroups = [[NSMutableArray alloc] init];
 
     __weak typeof(self) weakSelf = self;
     [self.library enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
         if (group != nil) {
             [weakSelf enumerateAssetGroup:group];
             [assetGroups addObject:group];
-        }else{
-            NSLog(@"========groups count:%lu",(unsigned long)assetGroups.count);
+            self.assetsCount = self.assetsCount + group.numberOfAssets;
+        } else {
+            NSLog(@"========groups count:%lu", (unsigned long) assetGroups.count);
             dispatch_async(dispatch_get_main_queue(), ^() {
                 if ([weakSelf.delegate respondsToSelector:@selector(allPhotosCollected:)]) {
                     [weakSelf.delegate allPhotosCollected:weakSelf.photoDict];
                 }
             });
         }
-        
+
     }                         failureBlock:^(NSError *error) {
         NSLog(@"There is an error");
     }];
-
-    //NSLog(@"========groups count:%lu",(unsigned long)assetGroups.count);
-
-//    dispatch_async(dispatch_get_main_queue(), ^() {
-//        //最多加载200张图片
-//        if ([self.delegate respondsToSelector:@selector(allPhotosCollected:)]) {
-//            [self.delegate allPhotosCollected:self.photoDict];
-//        }
-//    });
-
 }
 
 //遍历 AssertGroup
 - (void)enumerateAssetGroup:(ALAssetsGroup *)group {
 
+    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     __weak typeof(self) weakSelf = self;
     [group enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *inStop) {
         if (result == nil || ![[result valueForProperty:ALAssetPropertyType] isEqualToString:ALAssetTypePhoto]) {
@@ -109,9 +135,9 @@
                             if (cgImage) {
                                 UIImage *image = [PDPhotoLibPicker imageWithImage:[UIImage imageWithCGImage:cgImage]
                                                                      scaledToSize:weakSelf.itemSize];
-                                dispatch_async(dispatch_get_main_queue(), ^() {
+//                                dispatch_async(dispatch_get_main_queue(), ^() {
                                     weakSelf.photoDict[url.absoluteString] = image;
-                                });
+//                                });
                             }
                         }
                         dispatch_semaphore_signal(sema);
@@ -121,10 +147,9 @@
                                  NSLog(@"operation was not successfull!");
                              }];
         });
-
+        dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
     }];
-    dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
-    
+
 }
 
 - (void)pictureWithURL:(NSURL *)url {

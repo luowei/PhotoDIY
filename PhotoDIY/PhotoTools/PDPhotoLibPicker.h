@@ -30,6 +30,8 @@
 
 @property(nonatomic, strong) NSMutableArray *photoURLs;
 
+@property(nonatomic, assign) int assetsCount;
+
 - (instancetype)initWithDelegate:(id<PDPhotoPickerProtocol>) delegate itemSize:(CGSize)size;
 + (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize;
 
