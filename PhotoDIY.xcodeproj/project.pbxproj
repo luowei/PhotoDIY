@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		CCD59F3ADD3AFC82051038E6 /* libPods-PhotoDIY.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FFC87A4A05A2799BD5A7991E /* libPods-PhotoDIY.a */; };
+		EA6F611B1D2B566900827523 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA6F611D1D2B566900827523 /* InfoPlist.strings */; };
+		EA6F611F1D2B567100827523 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA6F61211D2B567100827523 /* Localizable.strings */; };
+		EA6F61251D2B5A4500827523 /* LWFilterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6F61241D2B5A4500827523 /* LWFilterManager.m */; };
+		EA6F61281D2B5C4900827523 /* LWFilterCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6F61271D2B5C4900827523 /* LWFilterCollectionView.m */; };
+		EA6F612B1D2B60DC00827523 /* LWPhotoCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6F612A1D2B60DC00827523 /* LWPhotoCollectionView.m */; };
+		EA6F612E1D2B937600827523 /* PDPhotoLibPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6F612D1D2B937600827523 /* PDPhotoLibPicker.m */; };
 		EAB292C21D2A16C4004D5EED /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB292C11D2A16C4004D5EED /* main.m */; };
 		EAB292C51D2A16C4004D5EED /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB292C41D2A16C4004D5EED /* AppDelegate.m */; };
 		EAB292C81D2A16C4004D5EED /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB292C71D2A16C4004D5EED /* ViewController.m */; };
@@ -28,6 +34,18 @@
 
 /* Begin PBXFileReference section */
 		475E9ECC827629C9DEAAE6D1 /* Pods-PhotoDIY.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoDIY.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PhotoDIY/Pods-PhotoDIY.debug.xcconfig"; sourceTree = "<group>"; };
+		EA6F611C1D2B566900827523 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EA6F611E1D2B566C00827523 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EA6F61201D2B567100827523 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		EA6F61221D2B567400827523 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		EA6F61231D2B5A4500827523 /* LWFilterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWFilterManager.h; sourceTree = "<group>"; };
+		EA6F61241D2B5A4500827523 /* LWFilterManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWFilterManager.m; sourceTree = "<group>"; };
+		EA6F61261D2B5C4900827523 /* LWFilterCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWFilterCollectionView.h; sourceTree = "<group>"; };
+		EA6F61271D2B5C4900827523 /* LWFilterCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWFilterCollectionView.m; sourceTree = "<group>"; };
+		EA6F61291D2B60DC00827523 /* LWPhotoCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWPhotoCollectionView.h; sourceTree = "<group>"; };
+		EA6F612A1D2B60DC00827523 /* LWPhotoCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWPhotoCollectionView.m; sourceTree = "<group>"; };
+		EA6F612C1D2B937600827523 /* PDPhotoLibPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDPhotoLibPicker.h; sourceTree = "<group>"; };
+		EA6F612D1D2B937600827523 /* PDPhotoLibPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDPhotoLibPicker.m; sourceTree = "<group>"; };
 		EAB292BD1D2A16C4004D5EED /* PhotoDIY.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoDIY.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAB292C11D2A16C4004D5EED /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		EAB292C31D2A16C4004D5EED /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -81,6 +99,24 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
+		BEF06A7D3A612643CDD7DF8F /* PhotoTools */ = {
+			isa = PBXGroup;
+			children = (
+				EA6F612C1D2B937600827523 /* PDPhotoLibPicker.h */,
+				EA6F612D1D2B937600827523 /* PDPhotoLibPicker.m */,
+			);
+			path = PhotoTools;
+			sourceTree = "<group>";
+		};
+		BEF06D1AE73117D3C5B28302 /* ImageFilters */ = {
+			isa = PBXGroup;
+			children = (
+				EA6F61231D2B5A4500827523 /* LWFilterManager.h */,
+				EA6F61241D2B5A4500827523 /* LWFilterManager.m */,
+			);
+			path = ImageFilters;
+			sourceTree = "<group>";
+		};
 		D3C4F9F4B69BA8AACD84BAC6 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -113,6 +149,8 @@
 			children = (
 				EAB292DD1D2A5889004D5EED /* HandBoard */,
 				EAB292D71D2A45E3004D5EED /* DrawView */,
+				BEF06D1AE73117D3C5B28302 /* ImageFilters */,
+				BEF06A7D3A612643CDD7DF8F /* PhotoTools */,
 				EAB292C31D2A16C4004D5EED /* AppDelegate.h */,
 				EAB292C41D2A16C4004D5EED /* AppDelegate.m */,
 				EAB292C61D2A16C4004D5EED /* ViewController.h */,
@@ -120,7 +158,6 @@
 				EAB292C91D2A16C4004D5EED /* Main.storyboard */,
 				EAB292CC1D2A16C4004D5EED /* Assets.xcassets */,
 				EAB292CE1D2A16C4004D5EED /* LaunchScreen.storyboard */,
-				EAB292D11D2A16C4004D5EED /* Info.plist */,
 				EAB292C01D2A16C4004D5EED /* Supporting Files */,
 				BEF06957E3080BCFA1496337 /* Resource */,
 				EAB292F71D2A701F004D5EED /* Categorys.h */,
@@ -132,7 +169,10 @@
 		EAB292C01D2A16C4004D5EED /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				EAB292D11D2A16C4004D5EED /* Info.plist */,
 				EAB292C11D2A16C4004D5EED /* main.m */,
+				EA6F611D1D2B566900827523 /* InfoPlist.strings */,
+				EA6F61211D2B567100827523 /* Localizable.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -149,6 +189,10 @@
 		EAB292DD1D2A5889004D5EED /* HandBoard */ = {
 			isa = PBXGroup;
 			children = (
+				EA6F61261D2B5C4900827523 /* LWFilterCollectionView.h */,
+				EA6F61271D2B5C4900827523 /* LWFilterCollectionView.m */,
+				EA6F61291D2B60DC00827523 /* LWPhotoCollectionView.h */,
+				EA6F612A1D2B60DC00827523 /* LWPhotoCollectionView.m */,
 			);
 			name = HandBoard;
 			sourceTree = "<group>";
@@ -229,9 +273,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				EAB292D01D2A16C4004D5EED /* LaunchScreen.storyboard in Resources */,
+				EA6F611F1D2B567100827523 /* Localizable.strings in Resources */,
 				EAB292F61D2A6ECB004D5EED /* Lambeau.jpg in Resources */,
 				EAB292CD1D2A16C4004D5EED /* Assets.xcassets in Resources */,
 				EAB292CB1D2A16C4004D5EED /* Main.storyboard in Resources */,
+				EA6F611B1D2B566900827523 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,8 +338,12 @@
 			files = (
 				EAB292DA1D2A460D004D5EED /* PDDrawView.m in Sources */,
 				EAB292F91D2A701F004D5EED /* Categorys.m in Sources */,
+				EA6F61281D2B5C4900827523 /* LWFilterCollectionView.m in Sources */,
 				EAB292C81D2A16C4004D5EED /* ViewController.m in Sources */,
 				EAB292C51D2A16C4004D5EED /* AppDelegate.m in Sources */,
+				EA6F61251D2B5A4500827523 /* LWFilterManager.m in Sources */,
+				EA6F612B1D2B60DC00827523 /* LWPhotoCollectionView.m in Sources */,
+				EA6F612E1D2B937600827523 /* PDPhotoLibPicker.m in Sources */,
 				EAB292C21D2A16C4004D5EED /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -301,6 +351,24 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		EA6F611D1D2B566900827523 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EA6F611C1D2B566900827523 /* Base */,
+				EA6F611E1D2B566C00827523 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		EA6F61211D2B567100827523 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EA6F61201D2B567100827523 /* Base */,
+				EA6F61221D2B567400827523 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		EAB292C91D2A16C4004D5EED /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

@@ -32,6 +32,8 @@
 }
 
 - (IBAction)filterAction:(UIBarButtonItem *)sender {
+    
+    [self.drawView loadFilter];
 }
 
 - (IBAction)cropAction:(UIBarButtonItem *)sender {
