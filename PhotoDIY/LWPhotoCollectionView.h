@@ -16,9 +16,6 @@
 
 @property(nonatomic, strong) PDPhotoLibPicker *photoPicker;
 
-@property(nonatomic, strong) NSMutableDictionary *photoDict;
-@property(nonatomic, strong) NSMutableArray *photoURLs;
-
 @property(nonatomic, strong) ALAssetsLibrary *library;
 
 - (void)reloadPhotos;

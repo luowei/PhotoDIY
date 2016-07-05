@@ -18,14 +18,17 @@
 @end
 
 @interface PDPhotoLibPicker : NSObject {
-    ALAssetsLibrary *library;
-    NSMutableDictionary *photoDict;
-    NSMutableArray *photoURLs;
 }
 
 @property (nonatomic, weak) id<PDPhotoPickerProtocol> delegate;
 
 @property(nonatomic) CGSize itemSize;
+
+@property(nonatomic, strong) NSMutableDictionary *photoDict;
+
+@property(nonatomic, strong) ALAssetsLibrary *library;
+
+@property(nonatomic, strong) NSMutableArray *photoURLs;
 
 - (instancetype)initWithDelegate:(id<PDPhotoPickerProtocol>) delegate itemSize:(CGSize)size;
 + (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize;
