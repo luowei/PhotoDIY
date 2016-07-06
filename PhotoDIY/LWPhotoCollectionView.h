@@ -12,6 +12,7 @@
 @interface LWPhotoCollectionView : UICollectionView<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,PDPhotoPickerProtocol>
 
 @property(nonatomic,strong) IBOutlet UIView *topLine;
+@property(nonatomic,strong) IBOutlet UIActivityIndicatorView *loadingIndicator;
 @property(nonatomic,strong) IBOutlet NSLayoutConstraint *photoCollectionHeight;
 
 @property(nonatomic, strong) PDPhotoLibPicker *photoPicker;

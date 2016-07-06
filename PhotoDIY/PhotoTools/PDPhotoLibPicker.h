@@ -2,8 +2,8 @@
 //  PDPhotoLibPicker.h
 //  多选相册照片
 //
-//  Created by long on 15/11/30.
-//  Copyright © 2015年 long. All rights reserved.
+//  Created by luowei on 16/7/5.
+//  Copyright (c) 2016 wodedata. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -14,6 +14,7 @@
 - (void)allPhotosCollected:(NSDictionary *)photoDict;
 - (void)allPhotoURLsCollected:(NSArray *)photoURLs;
 -(void)loadPhoto:(UIImage *)image;
+-(void)collectPhotoFailed;
 
 @end
 

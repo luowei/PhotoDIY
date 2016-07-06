@@ -2,8 +2,8 @@
 //  PDPhotoLibPicker.m
 //  多选相册照片
 //
-//  Created by long on 15/11/30.
-//  Copyright © 2015年 long. All rights reserved.
+//  Created by luowei on 16/7/5.
+//  Copyright (c) 2016 wodedata. All rights reserved.
 //
 
 #import "PDPhotoLibPicker.h"
@@ -18,12 +18,12 @@
     if (self) {
         self.delegate = delegate;
         self.itemSize = size;
-        
+
         self.assetsCount = 0;
         self.photoDict = @{}.mutableCopy;
         self.photoURLs = @[].mutableCopy;
         self.library = [[ALAssetsLibrary alloc] init];
-        
+
         [self getAllPictures];
     }
 
@@ -53,7 +53,7 @@
 }
 
 - (void)getAllPictures {
-    
+
     NSMutableArray *assetGroups = [[NSMutableArray alloc] init];
 
     typedef enum {
@@ -69,7 +69,7 @@
     [self.library enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
         if (group != nil) {
             [assetGroups addObject:group];
-            count = count + group.numberOfAssets;
+            count = count + (int)(group.numberOfAssets);
         }else{
             NSLog(@"========groups count:%lu",(unsigned long)assetGroups.count);
 
@@ -86,7 +86,12 @@
         }
 
     }                         failureBlock:^(NSError *error) {
-        NSLog(@"There is an error");
+        NSLog(@"getAllPictures There is an error");
+        dispatch_async(dispatch_get_main_queue(), ^() {
+            if ([weakSelf.delegate respondsToSelector:@selector(collectPhotoFailed)]) {
+                [weakSelf.delegate collectPhotoFailed];
+            }
+        });
     }];
 
 }
@@ -100,7 +105,7 @@
         if (group != nil) {
             [weakSelf enumerateAssetGroup:group];
             [assetGroups addObject:group];
-            self.assetsCount = self.assetsCount + group.numberOfAssets;
+            self.assetsCount = self.assetsCount + (int)(group.numberOfAssets);
         } else {
             NSLog(@"========groups count:%lu", (unsigned long) assetGroups.count);
             dispatch_async(dispatch_get_main_queue(), ^() {
@@ -111,7 +116,7 @@
         }
 
     }                         failureBlock:^(NSError *error) {
-        NSLog(@"There is an error");
+        NSLog(@"loadAllAssetGroup There is an error");
     }];
 }
 
@@ -126,7 +131,7 @@
         }
         NSURL *url = (NSURL *) [[result defaultRepresentation] url];
         [weakSelf.photoURLs addObject:url];
-        
+
         //使用信号量解决 assetForURL 同步问题
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             [weakSelf.library assetForURL:url resultBlock:^(ALAsset *asset) {
@@ -166,7 +171,7 @@
 
                 //在主线程执行delegate的调用
                 dispatch_async(dispatch_get_main_queue(), ^() {
-                    if ([weakSelf.delegate respondsToSelector:@selector(getPhoto:)]) {
+                    if ([weakSelf.delegate respondsToSelector:@selector(loadPhoto:)]) {
                         [weakSelf.delegate loadPhoto:image];
                     }
                 });

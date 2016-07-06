@@ -11,6 +11,7 @@
 @interface LWFilterCollectionView : UICollectionView<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
 @property(nonatomic,strong) IBOutlet UIView *topLine;
+@property(nonatomic,strong) IBOutlet UIActivityIndicatorView *loadingIndicator;
 @property(nonatomic,strong) IBOutlet NSLayoutConstraint *photoCollectionHeight;
 
 @end

@@ -44,6 +44,10 @@
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
+                                        <activityIndicatorView key="backgroundView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" id="hh4-wi-fN8" userLabel="Loading">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </activityIndicatorView>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="LWPhotoCollectionCell" id="a18-I8-tvf" customClass="LWPhotoCollectionCell">
                                                 <rect key="frame" x="0.0" y="0.0" width="80" height="100"/>
@@ -75,6 +79,7 @@
                                             </collectionViewCell>
                                         </cells>
                                         <connections>
+                                            <outlet property="loadingIndicator" destination="hh4-wi-fN8" id="Uh0-6M-vKx"/>
                                             <outlet property="photoCollectionHeight" destination="Y0A-Rv-1eH" id="XM6-ec-SbL"/>
                                             <outlet property="topLine" destination="UzC-kM-k4R" id="g5E-vs-6W2"/>
                                         </connections>

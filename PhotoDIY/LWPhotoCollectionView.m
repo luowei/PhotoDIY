@@ -31,15 +31,17 @@
 }
 
 - (void)reloadPhotos {
+    [self.loadingIndicator startAnimating];
+
     CGFloat scale = [UIScreen mainScreen].scale;
     CGSize itemSize = CGSizeMake(80 * scale, 100 * scale);
-    
+
     if(!self.photoPicker){
         self.photoPicker = [[PDPhotoLibPicker alloc] initWithDelegate:self itemSize:itemSize];
     }else{
         [self.photoPicker getAllPictures];
     }
-    
+
 
 }
 
@@ -80,13 +82,17 @@
     NSLog(@"all pictures count: %ul", self.photoPicker.photoDict.allValues.count);
 
     [self reloadData];
+    [self.loadingIndicator stopAnimating];
 }
 
 - (void)allPhotoURLsCollected:(NSArray *)urls {
 }
 
-
 - (void)loadPhoto:(UIImage *)image {
+}
+
+-(void)collectPhotoFailed{
+    //self.msgView.hidden = NO;
 }
 
 
