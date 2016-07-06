@@ -18,7 +18,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+
 }
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+
+    //绘图板添加默认图片
+    [self.drawView loadDefaultImage];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -28,12 +37,12 @@
 
 - (IBAction)selPhotoAction:(UIBarButtonItem *)sender {
 
-    [self.drawView loadPhotos];
+    [self.drawView showPhotos];
 }
 
 - (IBAction)filterAction:(UIBarButtonItem *)sender {
-    
-    [self.drawView loadFilter];
+
+    [self.drawView showFilters];
 }
 
 - (IBAction)cropAction:(UIBarButtonItem *)sender {

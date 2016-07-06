@@ -14,6 +14,12 @@
 @property(nonatomic,strong) IBOutlet UIActivityIndicatorView *loadingIndicator;
 @property(nonatomic,strong) IBOutlet NSLayoutConstraint *photoCollectionHeight;
 
+@property(nonatomic, strong) NSDictionary *filterDict;
+
+
+//重新加载Filters
+-(void)reloadFilters;
+
 @end
 
 

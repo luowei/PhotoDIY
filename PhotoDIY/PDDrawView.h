@@ -19,17 +19,21 @@
 @property(nonatomic,strong) IBOutlet LWFilterCollectionView *filterCollectionView;
 @property(nonatomic,strong) IBOutlet LWPhotoCollectionView *photoCollectionView;
 
-@property(nonatomic,strong) IBOutlet NSLayoutConstraint *gpuImageHeight;
-
+@property(nonatomic,strong) IBOutlet NSLayoutConstraint *gpuImgPaddingBottomZero;
+@property(nonatomic,strong) IBOutlet NSLayoutConstraint *gpuImgPaddingPhotosCollectionV;
+@property(nonatomic,strong) IBOutlet NSLayoutConstraint *gpuImgPaddingFiltersCollectionV;
 
 
 @property(nonatomic,strong) GPUImagePicture *sourcePicture;
 @property(nonatomic,strong) GPUImageOutput<GPUImageInput> *filter;
 
+//加载默认图片
+- (void)loadDefaultImage;
+
 //加载照片
-- (void)loadPhotos;
+- (void)showPhotos;
 
 //加载滤镜
--(void)loadFilter;
+-(void)showFilters;
 
 @end

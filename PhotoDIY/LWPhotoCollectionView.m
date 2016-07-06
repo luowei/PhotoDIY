@@ -45,7 +45,6 @@
     self.photoPicker.delegate = self;
     [self.photoPicker getAllPicturesWithItemSize:itemSize];
 
-
 }
 
 

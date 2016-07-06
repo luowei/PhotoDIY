@@ -18,28 +18,49 @@
 
 }
 
-//加载照片
--(void)loadImageWithURL:(NSURL *)url{
-    PDPhotoLibPicker *photoPicker = [[PDPhotoLibPicker alloc] initWithDelegate:self];
-    photoPicker.delegate = self;
-    [photoPicker pictureWithURL:url];
+//加载默认图片
+- (void)loadDefaultImage {
+    UIImage *inputImage = [UIImage imageNamed:@"Lambeau.jpg"];
+    self.sourcePicture = [[GPUImagePicture alloc] initWithImage:inputImage smoothlyScaleOutput:YES];
+    [self.sourcePicture addTarget:self.gpuImageView];
+    [self.sourcePicture processImage];
 }
 
 //加载照片选择器
-- (void)loadPhotos {
+- (void)showPhotos {
 
     self.photoCollectionView.hidden = !self.photoCollectionView.hidden;
     if(!self.photoCollectionView.hidden){
+        [self removeConstraint:self.gpuImgPaddingBottomZero];
+        [self.gpuImageView removeConstraint:self.gpuImgPaddingFiltersCollectionV];
+        [self addConstraint:self.gpuImgPaddingPhotosCollectionV];
+        [self setNeedsUpdateConstraints];
+
         [self.photoCollectionView reloadPhotos];
+    }else{
+        [self.gpuImageView removeConstraint:self.gpuImgPaddingFiltersCollectionV];
+        [self removeConstraint:self.gpuImgPaddingPhotosCollectionV];
+        [self addConstraint:self.gpuImgPaddingBottomZero];
+        [self setNeedsUpdateConstraints];
     }
 
 }
 
 //加载滤镜
--(void)loadFilter{
+-(void)showFilters{
     self.filterCollectionView.hidden = !self.filterCollectionView.hidden;
     if(!self.filterCollectionView.hidden){
-        [self.filterCollectionView reloadData];
+        [self removeConstraint:self.gpuImgPaddingBottomZero];
+        [self removeConstraint:self.gpuImgPaddingPhotosCollectionV];
+        [self addConstraint:self.gpuImgPaddingFiltersCollectionV];
+        [self setNeedsUpdateConstraints];
+
+        [self.filterCollectionView reloadFilters];
+    }else{
+        [self removeConstraint:self.gpuImgPaddingFiltersCollectionV];
+        [self removeConstraint:self.gpuImgPaddingPhotosCollectionV];
+        [self addConstraint:self.gpuImgPaddingBottomZero];
+        [self setNeedsUpdateConstraints];
     }
 
     //加载滤镜图
@@ -67,8 +88,8 @@
         return;
     }
     self.sourcePicture = [[GPUImagePicture alloc] initWithImage:image smoothlyScaleOutput:YES];
-    [self.sourcePicture processImage];
     [self.sourcePicture addTarget: self.gpuImageView];
+    [self.sourcePicture processImage];
 }
 
 
