@@ -76,6 +76,9 @@
     _selectedIndexPath = indexPath;
 
     PDDrawView *drawView = [self superViewWithClass:[PDDrawView class]];
+    NSString *key = cell.titleLbl.text;
+    GPUImageOutput<GPUImageInput> *filter = self.filterDict[key];
+    [drawView renderWithFilter:filter];
 
 }
 

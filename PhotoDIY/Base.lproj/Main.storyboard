@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
         <!--照片编辑-->
@@ -309,7 +310,14 @@
                         </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="照片编辑" id="N0f-SJ-Bit">
-                        <barButtonItem key="leftBarButtonItem" image="deleteButton" id="ARS-vx-twU"/>
+                        <leftBarButtonItems>
+                            <barButtonItem image="redoButton" width="30" id="ARS-vx-twU">
+                                <inset key="imageInsets" minX="-15" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            </barButtonItem>
+                            <barButtonItem image="undoButton" width="30" id="Yx8-xh-UVn">
+                                <inset key="imageInsets" minX="-80" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            </barButtonItem>
+                        </leftBarButtonItems>
                         <barButtonItem key="rightBarButtonItem" image="shareButtonPressed" id="Bzm-KM-BWv"/>
                     </navigationItem>
                     <nil key="simulatedStatusBarMetrics"/>
@@ -351,11 +359,12 @@
     <resources>
         <image name="albumButton" width="40" height="40"/>
         <image name="cropButton" width="40" height="40"/>
-        <image name="deleteButton" width="44" height="44"/>
         <image name="filterButton" width="44" height="44"/>
         <image name="iconSelect" width="16" height="16"/>
         <image name="placeHolder" width="80" height="100"/>
+        <image name="redoButton" width="40" height="40"/>
         <image name="saveButton" width="40" height="40"/>
         <image name="shareButtonPressed" width="44" height="44"/>
+        <image name="undoButton" width="40" height="40"/>
     </resources>
 </document>

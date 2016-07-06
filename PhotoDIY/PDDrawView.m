@@ -93,4 +93,16 @@
 }
 
 
+- (void)renderWithFilter:(GPUImageOutput<GPUImageInput> *)filter {
+    self.filter = filter;
+    [self.sourcePicture removeAllTargets];
+    [self.filter removeAllTargets];
+
+    [self.filter forceProcessingAtSize:self.sourcePicture.outputImageSize];
+    [self.sourcePicture addTarget:self.filter];
+    [self.filter addTarget:self.gpuImageView];
+
+    [self.sourcePicture processImage];
+}
+
 @end

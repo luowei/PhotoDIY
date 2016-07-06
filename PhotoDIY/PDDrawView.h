@@ -36,4 +36,5 @@
 //加载滤镜
 -(void)showFilters;
 
+- (void)renderWithFilter:(GPUImageOutput<GPUImageInput> *)output;
 @end
