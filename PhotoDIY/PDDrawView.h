@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import <GPUImage/GPUImage.h>
+#import "PDPhotoLibPicker.h"
 
 @class LWFilterCollectionView;
 @class LWPhotoCollectionView;
 
-@interface PDDrawView : UIView
+@interface PDDrawView : UIView<PDPhotoPickerProtocol>
 
 @property(nonatomic,strong) IBOutlet GPUImageView *gpuImageView;
 @property(nonatomic,strong) IBOutlet LWFilterCollectionView *filterCollectionView;
@@ -26,7 +27,7 @@
 @property(nonatomic,strong) GPUImageOutput<GPUImageInput> *filter;
 
 //加载照片
-- (void)loadPhoto;
+- (void)loadPhotos;
 
 //加载滤镜
 -(void)loadFilter;

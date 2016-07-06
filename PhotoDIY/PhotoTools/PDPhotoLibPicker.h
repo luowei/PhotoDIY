@@ -9,19 +9,22 @@
 #import <UIKit/UIKit.h>
 #include <AssetsLibrary/AssetsLibrary.h>
 
-@protocol PDPhotoPickerProtocol<NSObject>
+@protocol PDPhotoPickerProtocol <NSObject>
 
+- (void)collectPhotoFailed;
+
+@optional
 - (void)allPhotosCollected:(NSDictionary *)photoDict;
-- (void)allPhotoURLsCollected:(NSArray *)photoURLs;
--(void)loadPhoto:(UIImage *)image;
--(void)collectPhotoFailed;
+
+- (void)loadPhoto:(UIImage *)image;
+
 
 @end
 
 @interface PDPhotoLibPicker : NSObject {
 }
 
-@property (nonatomic, weak) id<PDPhotoPickerProtocol> delegate;
+@property(nonatomic, weak) id <PDPhotoPickerProtocol> delegate;
 
 @property(nonatomic) CGSize itemSize;
 
@@ -33,10 +36,16 @@
 
 @property(nonatomic, assign) int assetsCount;
 
-- (instancetype)initWithDelegate:(id<PDPhotoPickerProtocol>) delegate itemSize:(CGSize)size;
+
 + (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize;
 
-- (void)getAllPictures;
--(void)pictureWithURL:(NSURL *)url;
+
+- (instancetype)initWithDelegate:(id <PDPhotoPickerProtocol>)delegate;
+
+- (void)getAllPicturesWithItemSize:(CGSize)itemSize;
+
+- (void)pictureWithURL:(NSURL *)url;
+
+- (void)pictureWithURL:(NSURL *)url size:(CGSize)size;
 
 @end

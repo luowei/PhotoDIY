@@ -28,7 +28,7 @@
 
 - (IBAction)selPhotoAction:(UIBarButtonItem *)sender {
 
-    [self.drawView loadPhoto];
+    [self.drawView loadPhotos];
 }
 
 - (IBAction)filterAction:(UIBarButtonItem *)sender {

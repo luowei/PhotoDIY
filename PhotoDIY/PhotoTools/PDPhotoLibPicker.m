@@ -9,22 +9,18 @@
 #import "PDPhotoLibPicker.h"
 
 
-@implementation PDPhotoLibPicker{
+@implementation PDPhotoLibPicker {
 }
 
-
-- (instancetype)initWithDelegate:(id <PDPhotoPickerProtocol>)delegate itemSize:(CGSize)size {
+- (instancetype)initWithDelegate:(id <PDPhotoPickerProtocol>)delegate {
     self = [super init];
     if (self) {
         self.delegate = delegate;
-        self.itemSize = size;
 
         self.assetsCount = 0;
         self.photoDict = @{}.mutableCopy;
         self.photoURLs = @[].mutableCopy;
         self.library = [[ALAssetsLibrary alloc] init];
-
-        [self getAllPictures];
     }
 
     return self;
@@ -52,8 +48,8 @@
     return newImage;
 }
 
-- (void)getAllPictures {
-
+- (void)getAllPicturesWithItemSize:(CGSize)itemSize {
+    self.itemSize = itemSize;
     NSMutableArray *assetGroups = [[NSMutableArray alloc] init];
 
     typedef enum {
@@ -69,14 +65,14 @@
     [self.library enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
         if (group != nil) {
             [assetGroups addObject:group];
-            count = count + (int)(group.numberOfAssets);
-        }else{
-            NSLog(@"========groups count:%lu",(unsigned long)assetGroups.count);
+            count = count + (int) (group.numberOfAssets);
+        } else {
+            NSLog(@"========groups count:%lu", (unsigned long) assetGroups.count);
 
             //如果数量发生变化
-            if(count != self.assetsCount){
+            if (count != self.assetsCount) {
                 [self loadAllAssetGroup];
-            }else{
+            } else {
                 dispatch_async(dispatch_get_main_queue(), ^() {
                     if ([weakSelf.delegate respondsToSelector:@selector(allPhotosCollected:)]) {
                         [weakSelf.delegate allPhotosCollected:weakSelf.photoDict];
@@ -105,7 +101,7 @@
         if (group != nil) {
             [weakSelf enumerateAssetGroup:group];
             [assetGroups addObject:group];
-            self.assetsCount = self.assetsCount + (int)(group.numberOfAssets);
+            self.assetsCount = self.assetsCount + (int) (group.numberOfAssets);
         } else {
             NSLog(@"========groups count:%lu", (unsigned long) assetGroups.count);
             dispatch_async(dispatch_get_main_queue(), ^() {
@@ -141,7 +137,7 @@
                                 UIImage *image = [PDPhotoLibPicker imageWithImage:[UIImage imageWithCGImage:cgImage]
                                                                      scaledToSize:weakSelf.itemSize];
 //                                dispatch_async(dispatch_get_main_queue(), ^() {
-                                    weakSelf.photoDict[url.absoluteString] = image;
+                                weakSelf.photoDict[url.absoluteString] = image;
 //                                });
                             }
                         }
@@ -158,6 +154,9 @@
 }
 
 - (void)pictureWithURL:(NSURL *)url {
+    if (!url) {
+        return;
+    }
     __weak typeof(self) weakSelf = self;
 
     //使用信号量解决 assetForURL 同步问题
@@ -168,20 +167,47 @@
             CGImageRef cgImage = [[asset defaultRepresentation] fullScreenImage];
             if (cgImage) {
                 UIImage *image = [UIImage imageWithCGImage:cgImage];
-
-                //在主线程执行delegate的调用
-                dispatch_async(dispatch_get_main_queue(), ^() {
-                    if ([weakSelf.delegate respondsToSelector:@selector(loadPhoto:)]) {
-                        [weakSelf.delegate loadPhoto:image];
-                    }
-                });
+                if ([weakSelf.delegate respondsToSelector:@selector(loadPhoto:)]) {
+                    [weakSelf.delegate loadPhoto:image];
+                }
             }
+            dispatch_semaphore_signal(sema);
         }            failureBlock:^(NSError *error) {
             NSLog(@"operation was not successfull!");
+            dispatch_semaphore_signal(sema);
         }];
     });
     dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
 }
 
+- (void)pictureWithURL:(NSURL *)url size:(CGSize)size {
+    if (!url) {
+        return;
+    }
+    __weak typeof(self) weakSelf = self;
+
+    //使用信号量解决 assetForURL 同步问题
+    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_async(queue, ^{
+        [self.library assetForURL:url resultBlock:^(ALAsset *asset) {
+            CGImageRef cgImage = [[asset defaultRepresentation] fullScreenImage];
+            if (cgImage) {
+                UIImage *image = [PDPhotoLibPicker imageWithImage:[UIImage imageWithCGImage:cgImage]
+                                                     scaledToSize:size];
+
+                //在主线程执行delegate的调用
+                if ([weakSelf.delegate respondsToSelector:@selector(loadPhoto:)]) {
+                    [weakSelf.delegate loadPhoto:image];
+                }
+            }
+            dispatch_semaphore_signal(sema);
+        }            failureBlock:^(NSError *error) {
+            NSLog(@"operation was not successfull!");
+            dispatch_semaphore_signal(sema);
+        }];
+    });
+    dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+}
 
 @end

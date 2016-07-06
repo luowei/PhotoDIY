@@ -13,6 +13,8 @@
 
 @property(nonatomic,strong) IBOutlet UIView *topLine;
 @property(nonatomic,strong) IBOutlet UIActivityIndicatorView *loadingIndicator;
+@property(nonatomic,strong) IBOutlet UIView *msgView;
+
 @property(nonatomic,strong) IBOutlet NSLayoutConstraint *photoCollectionHeight;
 
 @property(nonatomic, strong) PDPhotoLibPicker *photoPicker;
@@ -26,6 +28,7 @@
 @interface LWPhotoCollectionCell : UICollectionViewCell
 
 @property(nonatomic, strong) IBOutlet UIImageView *imageView;
+@property(nonatomic,strong) IBOutlet UIImageView *selectIcon;
 
 @property(nonatomic, strong) NSURL *url;
 @end

@@ -8,8 +8,11 @@
 
 #import "LWPhotoCollectionView.h"
 #import "LWFilterManager.h"
+#import "Categorys.h"
+#import "PDDrawView.h"
 
 @implementation LWPhotoCollectionView {
+    NSIndexPath *_selectedIndexPath;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame collectionViewLayout:(UICollectionViewLayout *)layout {
@@ -37,10 +40,10 @@
     CGSize itemSize = CGSizeMake(80 * scale, 100 * scale);
 
     if(!self.photoPicker){
-        self.photoPicker = [[PDPhotoLibPicker alloc] initWithDelegate:self itemSize:itemSize];
-    }else{
-        [self.photoPicker getAllPictures];
+        self.photoPicker = [[PDPhotoLibPicker alloc] initWithDelegate:self];
     }
+    self.photoPicker.delegate = self;
+    [self.photoPicker getAllPicturesWithItemSize:itemSize];
 
 
 }
@@ -49,6 +52,9 @@
 - (void)setHidden:(BOOL)hidden {
     [super setHidden:hidden];
     self.topLine.hidden = hidden;
+    if(!hidden){
+        [self reloadData];
+    }
 }
 
 
@@ -68,11 +74,49 @@
         NSURL *url = [NSURL URLWithString:urlString];
 
         cell.url = url;
-        cell.imageView.image = self.photoPicker.photoDict[urlString];
+        UIImage *image = self.photoPicker.photoDict[urlString];
+        cell.imageView.image = image;
+        cell.imageView.highlightedImage = image;
     }
 
     return cell;
 }
+
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath{
+    NSArray *pathes = collectionView.indexPathsForSelectedItems;
+//    [pathes enumerateObjectsUsingBlock:^(NSIndexPath *path, NSUInteger idx, BOOL *stop) {
+//
+//    }];
+
+    LWPhotoCollectionCell *cel = (LWPhotoCollectionCell *)cell;
+    if(_selectedIndexPath != nil && _selectedIndexPath.item == indexPath.item){
+        cel.selectIcon.hidden = NO;
+        [collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+    }else{
+        cel.selectIcon.hidden = YES;
+        [collectionView deselectItemAtIndexPath:indexPath animated:NO];
+    }
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    LWPhotoCollectionCell *cell = (LWPhotoCollectionCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    [collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
+    cell.selected = YES;
+    cell.selectIcon.hidden = NO;
+    _selectedIndexPath = indexPath;
+
+    PDDrawView *drawView = [self superViewWithClass:[PDDrawView class]];
+    PDPhotoLibPicker *photoPicker = [[PDPhotoLibPicker alloc] initWithDelegate:drawView];
+    [photoPicker pictureWithURL:cell.url];
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath{
+    LWPhotoCollectionCell *cell = (LWPhotoCollectionCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    [collectionView deselectItemAtIndexPath:indexPath animated:NO];
+    cell.selected = NO;
+    cell.selectIcon.hidden = YES;
+}
+
 
 
 #pragma mark - PDPhotoPickerProtocol 实现
@@ -92,9 +136,20 @@
 }
 
 -(void)collectPhotoFailed{
-    //self.msgView.hidden = NO;
+    [self.loadingIndicator stopAnimating];
+    self.msgView.hidden = NO;
 }
 
+
+#pragma mark - Action
+
+-(IBAction)settingAction:(UIButton *)btn{
+    [[UIApplication sharedApplication]openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+}
+
+-(IBAction)reloadAction:(UIButton *)btn{
+    [self reloadPhotos];
+}
 
 @end
 

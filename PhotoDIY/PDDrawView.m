@@ -19,7 +19,14 @@
 }
 
 //加载照片
-- (void)loadPhoto {
+-(void)loadImageWithURL:(NSURL *)url{
+    PDPhotoLibPicker *photoPicker = [[PDPhotoLibPicker alloc] initWithDelegate:self];
+    photoPicker.delegate = self;
+    [photoPicker pictureWithURL:url];
+}
+
+//加载照片选择器
+- (void)loadPhotos {
 
     self.photoCollectionView.hidden = !self.photoCollectionView.hidden;
     if(!self.photoCollectionView.hidden){
@@ -36,16 +43,32 @@
     }
 
     //加载滤镜图
-    UIImage *inputImage = [UIImage imageNamed:@"Lambeau.jpg"];
-    self.sourcePicture = [[GPUImagePicture alloc] initWithImage:inputImage smoothlyScaleOutput:YES];
-    self.filter = [[GPUImageTiltShiftFilter alloc] init];
+//    UIImage *inputImage = [UIImage imageNamed:@"Lambeau.jpg"];
+//    self.sourcePicture = [[GPUImagePicture alloc] initWithImage:inputImage smoothlyScaleOutput:YES];
+//    self.filter = [[GPUImageTiltShiftFilter alloc] init];
+//
+//    [self.filter forceProcessingAtSize:self.gpuImageView.sizeInPixels];
+//
+//    [self.sourcePicture addTarget:self.filter];
+//    [self.filter addTarget:self.gpuImageView];
+//
+//    [self.sourcePicture processImage];
+}
 
-    [self.filter forceProcessingAtSize:self.gpuImageView.sizeInPixels];
 
-    [self.sourcePicture addTarget:self.filter];
-    [self.filter addTarget:self.gpuImageView];
+#pragma mark - PDPhotoPickerProtocol 实现
 
+- (void)collectPhotoFailed {
+
+}
+
+- (void)loadPhoto:(UIImage *)image{
+    if(!image){
+        return;
+    }
+    self.sourcePicture = [[GPUImagePicture alloc] initWithImage:image smoothlyScaleOutput:YES];
     [self.sourcePicture processImage];
+    [self.sourcePicture addTarget: self.gpuImageView];
 }
 
 

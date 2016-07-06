@@ -22,4 +22,6 @@
 @property(nonatomic, strong) IBOutlet UIImageView *imageView;
 @property(nonatomic, strong) IBOutlet UILabel *titleLbl;
 
+@property(nonatomic,strong) IBOutlet UIImageView *selectIcon;
+
 @end
