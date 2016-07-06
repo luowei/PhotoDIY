@@ -21,24 +21,25 @@
 //加载默认图片
 - (void)loadDefaultImage {
     UIImage *inputImage = [UIImage imageNamed:@"Lambeau.jpg"];
-    self.sourcePicture = [[GPUImagePicture alloc] initWithImage:inputImage smoothlyScaleOutput:YES];
-    [self.sourcePicture addTarget:self.gpuImageView];
-    [self.sourcePicture processImage];
+    [self loadPhoto:inputImage];
 }
 
 //加载照片选择器
 - (void)showPhotos {
+    if(!self.filterCollectionView.hidden){
+        self.filterCollectionView.hidden = !self.filterCollectionView.hidden;
+    }
 
     self.photoCollectionView.hidden = !self.photoCollectionView.hidden;
     if(!self.photoCollectionView.hidden){
         [self removeConstraint:self.gpuImgPaddingBottomZero];
-        [self.gpuImageView removeConstraint:self.gpuImgPaddingFiltersCollectionV];
+        [self removeConstraint:self.gpuImgPaddingFiltersCollectionV];
         [self addConstraint:self.gpuImgPaddingPhotosCollectionV];
         [self setNeedsUpdateConstraints];
 
         [self.photoCollectionView reloadPhotos];
     }else{
-        [self.gpuImageView removeConstraint:self.gpuImgPaddingFiltersCollectionV];
+        [self removeConstraint:self.gpuImgPaddingFiltersCollectionV];
         [self removeConstraint:self.gpuImgPaddingPhotosCollectionV];
         [self addConstraint:self.gpuImgPaddingBottomZero];
         [self setNeedsUpdateConstraints];
@@ -48,6 +49,10 @@
 
 //加载滤镜
 -(void)showFilters{
+    if(!self.photoCollectionView.hidden){
+        self.photoCollectionView.hidden = !self.photoCollectionView.hidden;
+    }
+
     self.filterCollectionView.hidden = !self.filterCollectionView.hidden;
     if(!self.filterCollectionView.hidden){
         [self removeConstraint:self.gpuImgPaddingBottomZero];
@@ -62,18 +67,6 @@
         [self addConstraint:self.gpuImgPaddingBottomZero];
         [self setNeedsUpdateConstraints];
     }
-
-    //加载滤镜图
-//    UIImage *inputImage = [UIImage imageNamed:@"Lambeau.jpg"];
-//    self.sourcePicture = [[GPUImagePicture alloc] initWithImage:inputImage smoothlyScaleOutput:YES];
-//    self.filter = [[GPUImageTiltShiftFilter alloc] init];
-//
-//    [self.filter forceProcessingAtSize:self.gpuImageView.sizeInPixels];
-//
-//    [self.sourcePicture addTarget:self.filter];
-//    [self.filter addTarget:self.gpuImageView];
-//
-//    [self.sourcePicture processImage];
 }
 
 
@@ -87,6 +80,8 @@
     if(!image){
         return;
     }
+    self.currentImage = image;
+    
     self.sourcePicture = [[GPUImagePicture alloc] initWithImage:image smoothlyScaleOutput:YES];
     [self.sourcePicture addTarget: self.gpuImageView];
     [self.sourcePicture processImage];
@@ -95,14 +90,57 @@
 
 - (void)renderWithFilter:(GPUImageOutput<GPUImageInput> *)filter {
     self.filter = filter;
+    [self.filter forceProcessingAtSize:self.sourcePicture.outputImageSize];
     [self.sourcePicture removeAllTargets];
     [self.filter removeAllTargets];
 
-    [self.filter forceProcessingAtSize:self.sourcePicture.outputImageSize];
     [self.sourcePicture addTarget:self.filter];
     [self.filter addTarget:self.gpuImageView];
 
+    [self.filter useNextFrameForImageCapture];
     [self.sourcePicture processImage];
+    
+    self.currentImage = [self.filter imageFromCurrentFramebuffer];
+}
+
+- (void)saveImage {
+    [self.filter forceProcessingAtSize:self.sourcePicture.outputImageSize];
+    [self.sourcePicture processImageUpToFilter:self.filter withCompletionHandler:^(UIImage *processedImage) {
+        if(!processedImage){
+            UIImageWriteToSavedPhotosAlbum(self.currentImage, self, nil, nil);
+        }else{
+            UIImageWriteToSavedPhotosAlbum(processedImage, self, nil, nil);
+        }
+    }];
+}
+
+
+- (void)rotateWithRotateMode:(GPUImageRotationMode)rotateMode {
+    [self.filter setInputRotation:rotateMode atIndex:0];
+    CGSize size = self.sourcePicture.outputImageSize;
+    if(rotateMode == kGPUImageRotateRight || rotateMode == kGPUImageRotateLeft
+            || rotateMode == kGPUImageRotateRightFlipHorizontal || rotateMode == kGPUImageRotateRightFlipVertical){
+        size = CGSizeMake(self.sourcePicture.outputImageSize.height, self.sourcePicture.outputImageSize.width);
+    }
+    [self.filter forceProcessingAtSize:size];
+
+    [self.filter useNextFrameForImageCapture];
+    [self.sourcePicture processImage];
+
+    UIImage *image = [self.filter imageByFilteringImage:self.currentImage];
+    [self loadPhoto:image];
+}
+
+- (void)rotateRight {
+    [self rotateWithRotateMode:kGPUImageRotateRight];
+}
+
+- (void)rotateLeft {
+    [self rotateWithRotateMode:kGPUImageRotateLeft];
+}
+
+- (void)flipHorizonal {
+    [self rotateWithRotateMode:kGPUImageFlipHorizonal];
 }
 
 @end

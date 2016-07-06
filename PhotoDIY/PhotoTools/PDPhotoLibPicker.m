@@ -7,6 +7,7 @@
 //
 
 #import "PDPhotoLibPicker.h"
+#import <ImageIO/ImageIO.h>
 
 
 @implementation PDPhotoLibPicker {
@@ -136,9 +137,7 @@
                             if (cgImage) {
                                 UIImage *image = [PDPhotoLibPicker imageWithImage:[UIImage imageWithCGImage:cgImage]
                                                                      scaledToSize:weakSelf.itemSize];
-//                                dispatch_async(dispatch_get_main_queue(), ^() {
                                 weakSelf.photoDict[url.absoluteString] = image;
-//                                });
                             }
                         }
                         dispatch_semaphore_signal(sema);
@@ -164,6 +163,7 @@
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_async(queue, ^{
         [self.library assetForURL:url resultBlock:^(ALAsset *asset) {
+            //CGImageRef cgImage = [[asset defaultRepresentation] fullResolutionImage];
             CGImageRef cgImage = [[asset defaultRepresentation] fullScreenImage];
             if (cgImage) {
                 UIImage *image = [UIImage imageWithCGImage:cgImage];
@@ -191,6 +191,7 @@
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_async(queue, ^{
         [self.library assetForURL:url resultBlock:^(ALAsset *asset) {
+//            CGImageRef cgImage = [[asset defaultRepresentation] fullResolutionImage];
             CGImageRef cgImage = [[asset defaultRepresentation] fullScreenImage];
             if (cgImage) {
                 UIImage *image = [PDPhotoLibPicker imageWithImage:[UIImage imageWithCGImage:cgImage]

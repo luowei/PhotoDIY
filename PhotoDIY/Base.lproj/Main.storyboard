@@ -311,14 +311,33 @@
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="照片编辑" id="N0f-SJ-Bit">
                         <leftBarButtonItems>
-                            <barButtonItem image="redoButton" width="30" id="ARS-vx-twU">
-                                <inset key="imageInsets" minX="-15" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <barButtonItem image="redoButton" width="30" id="ARS-vx-twU" userLabel="rotateRight">
+                                <inset key="imageInsets" minX="-15" minY="0.0" maxX="15" maxY="0.0"/>
+                                <connections>
+                                    <action selector="rotateRight:" destination="BYZ-38-t0r" id="hKX-i1-NfL"/>
+                                </connections>
                             </barButtonItem>
-                            <barButtonItem image="undoButton" width="30" id="Yx8-xh-UVn">
-                                <inset key="imageInsets" minX="-80" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <barButtonItem image="undoButton" width="30" id="Yx8-xh-UVn" userLabel="rotateLeft">
+                                <inset key="imageInsets" minX="-80" minY="0.0" maxX="30" maxY="0.0"/>
+                                <connections>
+                                    <action selector="rotateLeft:" destination="BYZ-38-t0r" id="tdC-P6-JLQ"/>
+                                </connections>
                             </barButtonItem>
                         </leftBarButtonItems>
-                        <barButtonItem key="rightBarButtonItem" image="shareButtonPressed" id="Bzm-KM-BWv"/>
+                        <rightBarButtonItems>
+                            <barButtonItem image="shareButtonPressed" width="30" id="J9T-ek-bTa" userLabel="share">
+                                <inset key="imageInsets" minX="-20" minY="0.0" maxX="10" maxY="0.0"/>
+                                <connections>
+                                    <action selector="share:" destination="BYZ-38-t0r" id="vsz-Eu-pet"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem image="flip" id="Bzm-KM-BWv" userLabel="flip">
+                                <inset key="imageInsets" minX="15" minY="0.0" maxX="-20" maxY="0.0"/>
+                                <connections>
+                                    <action selector="flipHorizonal:" destination="BYZ-38-t0r" id="OWB-ws-x9i"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <nil key="simulatedStatusBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -360,6 +379,7 @@
         <image name="albumButton" width="40" height="40"/>
         <image name="cropButton" width="40" height="40"/>
         <image name="filterButton" width="44" height="44"/>
+        <image name="flip" width="44" height="44"/>
         <image name="iconSelect" width="16" height="16"/>
         <image name="placeHolder" width="80" height="100"/>
         <image name="redoButton" width="40" height="40"/>

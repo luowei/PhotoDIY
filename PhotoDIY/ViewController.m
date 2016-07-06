@@ -36,22 +36,34 @@
 
 
 - (IBAction)selPhotoAction:(UIBarButtonItem *)sender {
-
     [self.drawView showPhotos];
 }
 
 - (IBAction)filterAction:(UIBarButtonItem *)sender {
-
     [self.drawView showFilters];
 }
 
 - (IBAction)cropAction:(UIBarButtonItem *)sender {
 }
 
-- (IBAction)undoAction:(UIBarButtonItem *)sender {
+- (IBAction)saveAction:(UIBarButtonItem *)sender {
+    [self.drawView saveImage];
 }
 
-- (IBAction)saveAction:(UIBarButtonItem *)sender {
+- (IBAction)rotateRight:(UIBarButtonItem *)sender {
+    [self.drawView rotateRight];
 }
+
+- (IBAction)rotateLeft:(UIBarButtonItem *)sender {
+    [self.drawView rotateLeft];
+}
+
+- (IBAction)flipHorizonal:(UIBarButtonItem *)sender {
+    [self.drawView flipHorizonal];
+}
+
+- (IBAction)share:(UIBarButtonItem *)sender {
+}
+
 
 @end

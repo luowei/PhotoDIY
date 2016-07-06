@@ -27,6 +27,8 @@
 @property(nonatomic,strong) GPUImagePicture *sourcePicture;
 @property(nonatomic,strong) GPUImageOutput<GPUImageInput> *filter;
 
+@property(nonatomic, strong) UIImage *currentImage;
+
 //加载默认图片
 - (void)loadDefaultImage;
 
@@ -37,4 +39,12 @@
 -(void)showFilters;
 
 - (void)renderWithFilter:(GPUImageOutput<GPUImageInput> *)output;
+
+- (void)saveImage;
+
+- (void)rotateRight;
+
+- (void)rotateLeft;
+
+- (void)flipHorizonal;
 @end
