@@ -254,7 +254,7 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vbu-qT-KrD" userLabel="cancel">
                                                 <rect key="frame" x="15" y="337" width="40" height="40"/>
-                                                <state key="normal" image="btnCloseNormal"/>
+                                                <state key="normal" image="btnCancel"/>
                                                 <connections>
                                                     <action selector="cropCancelAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NSe-6y-wTc"/>
                                                 </connections>
@@ -366,7 +366,7 @@
                             </barButtonItem>
                         </leftBarButtonItems>
                         <rightBarButtonItems>
-                            <barButtonItem image="shareButtonPressed" width="30" id="J9T-ek-bTa" userLabel="share">
+                            <barButtonItem image="shareBtn" width="30" id="J9T-ek-bTa" userLabel="share">
                                 <inset key="imageInsets" minX="-20" minY="0.0" maxX="10" maxY="0.0"/>
                                 <connections>
                                     <action selector="share:" destination="BYZ-38-t0r" id="vsz-Eu-pet"/>
@@ -418,7 +418,7 @@
     </scenes>
     <resources>
         <image name="albumButton" width="40" height="40"/>
-        <image name="btnCloseNormal" width="40" height="40"/>
+        <image name="btnCancel" width="40" height="40"/>
         <image name="btnOK" width="40" height="40"/>
         <image name="cropButton" width="40" height="40"/>
         <image name="filterButton" width="44" height="44"/>
@@ -427,7 +427,7 @@
         <image name="placeHolder" width="80" height="100"/>
         <image name="redoButton" width="40" height="40"/>
         <image name="saveButton" width="40" height="40"/>
-        <image name="shareButtonPressed" width="44" height="44"/>
+        <image name="shareBtn" width="44" height="44"/>
         <image name="undoButton" width="40" height="40"/>
     </resources>
 </document>
