@@ -249,14 +249,14 @@
                                                 <state key="normal" image="btnOK"/>
                                                 <state key="highlighted" image="btnOK"/>
                                                 <connections>
-                                                    <action selector="cropOkAction:" destination="OyO-Fb-QTL" eventType="touchUpInside" id="rh4-tx-GlC"/>
+                                                    <action selector="cropOkAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="67x-h5-Rqy"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vbu-qT-KrD" userLabel="cancel">
                                                 <rect key="frame" x="15" y="337" width="40" height="40"/>
                                                 <state key="normal" image="btnCloseNormal"/>
                                                 <connections>
-                                                    <action selector="cropCancelAction:" destination="OyO-Fb-QTL" eventType="touchUpInside" id="U3r-hQ-Plf"/>
+                                                    <action selector="cropCancelAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NSe-6y-wTc"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -269,8 +269,8 @@
                                             <constraint firstItem="HzR-QA-1ed" firstAttribute="height" secondItem="Vbu-qT-KrD" secondAttribute="height" id="qlV-zn-pyG"/>
                                         </constraints>
                                         <connections>
-                                            <outlet property="cropCancel" destination="Vbu-qT-KrD" id="OWG-UK-vyj"/>
-                                            <outlet property="cropOk" destination="HzR-QA-1ed" id="RLe-tB-0TQ"/>
+                                            <outlet property="cropCancel" destination="Vbu-qT-KrD" id="5Pz-1T-YhP"/>
+                                            <outlet property="cropOk" destination="HzR-QA-1ed" id="COA-0K-oWS"/>
                                         </connections>
                                     </view>
                                 </subviews>

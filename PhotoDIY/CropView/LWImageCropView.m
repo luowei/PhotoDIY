@@ -129,6 +129,7 @@ CGRect SquareCGRectAtCenter(CGFloat centerX, CGFloat centerY, CGFloat size) {
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     if (self = [super initWithCoder:aDecoder]) {
+        self.userInteractionEnabled = YES;
         [self updateSubViews];
     }
     return self;
@@ -150,6 +151,9 @@ CGRect SquareCGRectAtCenter(CGFloat centerX, CGFloat centerY, CGFloat size) {
     [super rotationToInterfaceOrientation:orientation];
     [self updateSubViews];
     [self setImage:self.imageView.image];
+
+    [self bringSubviewToFront:self.cropOk];
+    [self bringSubviewToFront:self.cropCancel];
 }
 
 
@@ -204,6 +208,11 @@ CGRect SquareCGRectAtCenter(CGFloat centerX, CGFloat centerY, CGFloat size) {
     dragRecognizer.minimumNumberOfTouches = 1;
     dragRecognizer.maximumNumberOfTouches = 2;
     [self.viewForBaselineLayout addGestureRecognizer:dragRecognizer];
+    dragRecognizer.delegate = self;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    return ![touch.view isKindOfClass:[UIControl class]];
 }
 
 - (void)updateControlPoint {
@@ -274,11 +283,11 @@ CGRect SquareCGRectAtCenter(CGFloat centerX, CGFloat centerY, CGFloat size) {
     return view;
 }
 
-// Overriding this method to create a larger touch surface area without changing view
-- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
-    CGRect frame = CGRectInset(self.cropAreaView.frame, -30, -30);
-    return CGRectContainsPoint(frame, point) ? self.cropAreaView : nil;
-}
+//// Overriding this method to create a larger touch surface area without changing view
+//- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
+//    CGRect frame = CGRectInset(self.cropAreaView.frame, -30, -30);
+//    return CGRectContainsPoint(frame, point) ? self.cropAreaView : nil;
+//}
 
 - (void)handleDrag:(UIPanGestureRecognizer *)recognizer {
     NSUInteger count = [recognizer numberOfTouches];

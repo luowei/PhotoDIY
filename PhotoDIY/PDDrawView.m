@@ -92,6 +92,7 @@
         [self setNeedsUpdateConstraints];
 
         [self.photoCollectionView reloadPhotos];
+        
     } else {
         [self removeConstraint:self.gpuImgPaddingFiltersCollectionV];
         [self removeConstraint:self.gpuImgPaddingPhotosCollectionV];
@@ -269,9 +270,12 @@
 - (void)cropImageOk {
     if (self.currentImage) {
         CGRect CropRect = self.cropView.cropAreaInImage;
-        CGImageRef imageRef = CGImageCreateWithImageInRect([self.currentImage CGImage], CropRect);
+        CGImageRef imageRef = CGImageCreateWithImageInRect([self.cropView.imageView.image CGImage], CropRect);
         UIImage *croppedImg = [UIImage imageWithCGImage:imageRef];
+
         [self loadImage2GPUImagePicture:croppedImg];
+        [self showOrHideCropView];
+
         CGImageRelease(imageRef);
     } else {
         [self showErrorHud];

@@ -56,7 +56,7 @@ typedef struct {
 
 #pragma mark -  LWImageCropView
 
-@interface LWImageCropView : UIView {
+@interface LWImageCropView : UIView<UIGestureRecognizerDelegate> {
     CGRect imageFrame;
 
     CGFloat controlPointSize;
@@ -73,10 +73,8 @@ typedef struct {
     UIView* dragViewOne;
     UIView* dragViewTwo;
 }
-- (void)setImage:(UIImage*)image;
 
 @property (nonatomic) CGFloat controlPointSize;
-@property (nonatomic, retain) UIImage* image;
 @property (nonatomic) CGRect cropAreaInView;
 @property (nonatomic) CGRect cropAreaInImage;
 @property (nonatomic, assign) CGFloat imageScale;
@@ -89,9 +87,10 @@ typedef struct {
 @property(nonatomic, strong) UIView *cropAreaView;
 
 
-@property(nonatomic, strong) IBOutlet UIButton *cropOk;
-@property(nonatomic, strong) IBOutlet UIButton *cropCancel;
+@property(nonatomic, weak) IBOutlet UIButton *cropOk;
+@property(nonatomic, weak) IBOutlet UIButton *cropCancel;
 
+- (void)setImage:(UIImage*)image;
 
 @end
 
