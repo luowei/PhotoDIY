@@ -1,0 +1,12 @@
+
+/* Class = "UILabel"; text = "访问照片失败,请确认是否打开了照片访问权限"; ObjectID = "2LQ-Wg-hTq"; */
+"2LQ-Wg-hTq.text" = "访问照片失败,请确认是否打开了照片访问权限";
+
+/* Class = "UINavigationItem"; title = "照片编辑"; ObjectID = "N0f-SJ-Bit"; */
+"N0f-SJ-Bit.title" = "照片编辑";
+
+/* Class = "UIButton"; normalTitle = "设置"; ObjectID = "okW-wH-jMv"; */
+"okW-wH-jMv.normalTitle" = "设置";
+
+/* Class = "UIButton"; normalTitle = "刷新"; ObjectID = "ucn-Ll-sAf"; */
+"ucn-Ll-sAf.normalTitle" = "刷新";

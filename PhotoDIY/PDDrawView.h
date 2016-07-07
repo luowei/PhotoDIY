@@ -12,22 +12,29 @@
 
 @class LWFilterCollectionView;
 @class LWPhotoCollectionView;
+@class MBProgressHUD;
+@class ImageCropView;
 
 @interface PDDrawView : UIView<PDPhotoPickerProtocol>
 
-@property(nonatomic,strong) IBOutlet GPUImageView *gpuImageView;
-@property(nonatomic,strong) IBOutlet LWFilterCollectionView *filterCollectionView;
-@property(nonatomic,strong) IBOutlet LWPhotoCollectionView *photoCollectionView;
+@property(nonatomic,weak) IBOutlet GPUImageView *gpuImageView;
+@property(nonatomic,weak) IBOutlet LWFilterCollectionView *filterCollectionView;
+@property(nonatomic,weak) IBOutlet LWPhotoCollectionView *photoCollectionView;
 
-@property(nonatomic,strong) IBOutlet NSLayoutConstraint *gpuImgPaddingBottomZero;
-@property(nonatomic,strong) IBOutlet NSLayoutConstraint *gpuImgPaddingPhotosCollectionV;
-@property(nonatomic,strong) IBOutlet NSLayoutConstraint *gpuImgPaddingFiltersCollectionV;
+@property(nonatomic,weak) IBOutlet ImageCropView *cropView;
+
+
+@property(nonatomic,weak) IBOutlet NSLayoutConstraint *gpuImgPaddingBottomZero;
+@property(nonatomic,weak) IBOutlet NSLayoutConstraint *gpuImgPaddingPhotosCollectionV;
+@property(nonatomic,weak) IBOutlet NSLayoutConstraint *gpuImgPaddingFiltersCollectionV;
 
 
 @property(nonatomic,strong) GPUImagePicture *sourcePicture;
 @property(nonatomic,strong) GPUImageOutput<GPUImageInput> *filter;
 
 @property(nonatomic, strong) UIImage *currentImage;
+
+@property(nonatomic, strong) MBProgressHUD *hud;
 
 //加载默认图片
 - (void)loadDefaultImage;
@@ -47,4 +54,6 @@
 - (void)rotateLeft;
 
 - (void)flipHorizonal;
+
+- (void)showCropView;
 @end

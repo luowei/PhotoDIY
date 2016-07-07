@@ -44,6 +44,7 @@
 }
 
 - (IBAction)cropAction:(UIBarButtonItem *)sender {
+    [self.drawView showCropView];
 }
 
 - (IBAction)saveAction:(UIBarButtonItem *)sender {

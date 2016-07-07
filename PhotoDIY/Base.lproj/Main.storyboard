@@ -237,6 +237,9 @@
                                             <outlet property="topLine" destination="zwm-Fq-YWP" id="1DS-ok-Cfy"/>
                                         </connections>
                                     </collectionView>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OyO-Fb-QTL" userLabel="Crop View" customClass="ImageCropView">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="392"/>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -251,11 +254,15 @@
                                     <constraint firstItem="zwm-Fq-YWP" firstAttribute="width" secondItem="BNY-mx-jRu" secondAttribute="width" id="Ie2-Tk-T6c"/>
                                     <constraint firstAttribute="trailing" secondItem="sQH-bp-mwK" secondAttribute="trailing" id="LYq-YT-F4i"/>
                                     <constraint firstAttribute="bottom" secondItem="sQH-bp-mwK" secondAttribute="bottom" constant="100" id="Nbx-Ju-fMD" userLabel="PaddingBottom_100"/>
+                                    <constraint firstAttribute="trailing" secondItem="OyO-Fb-QTL" secondAttribute="trailing" id="Ocb-eg-YgA"/>
                                     <constraint firstItem="UzC-kM-k4R" firstAttribute="width" secondItem="tKt-Dx-G3i" secondAttribute="width" id="Rng-qJ-MQ7"/>
                                     <constraint firstItem="BNY-mx-jRu" firstAttribute="top" secondItem="zwm-Fq-YWP" secondAttribute="bottom" id="Y9m-Q1-RnJ"/>
                                     <constraint firstItem="tKt-Dx-G3i" firstAttribute="top" secondItem="UzC-kM-k4R" secondAttribute="bottom" id="gFk-XM-cfH"/>
+                                    <constraint firstItem="OyO-Fb-QTL" firstAttribute="leading" secondItem="hc7-a9-rQJ" secondAttribute="leading" id="kYu-AR-WsZ"/>
                                     <constraint firstItem="sQH-bp-mwK" firstAttribute="top" secondItem="hc7-a9-rQJ" secondAttribute="top" id="khu-DJ-WYP"/>
+                                    <constraint firstAttribute="bottom" secondItem="OyO-Fb-QTL" secondAttribute="bottom" id="pF1-2X-vFG"/>
                                     <constraint firstAttribute="bottom" secondItem="BNY-mx-jRu" secondAttribute="bottom" id="rRf-na-egL"/>
+                                    <constraint firstItem="OyO-Fb-QTL" firstAttribute="top" secondItem="hc7-a9-rQJ" secondAttribute="top" id="tIX-EG-n16"/>
                                     <constraint firstItem="zwm-Fq-YWP" firstAttribute="centerX" secondItem="BNY-mx-jRu" secondAttribute="centerX" id="tYK-rP-oyq"/>
                                     <constraint firstAttribute="bottom" secondItem="sQH-bp-mwK" secondAttribute="bottom" id="wjc-XQ-7Nf" userLabel="PaddingBottom_0"/>
                                 </constraints>
@@ -266,6 +273,7 @@
                                     </mask>
                                 </variation>
                                 <connections>
+                                    <outlet property="cropView" destination="OyO-Fb-QTL" id="cs7-rt-SMz"/>
                                     <outlet property="filterCollectionView" destination="BNY-mx-jRu" id="4Yy-Dq-fA9"/>
                                     <outlet property="gpuImageView" destination="sQH-bp-mwK" id="Qph-ij-lw2"/>
                                     <outlet property="gpuImgPaddingBottomZero" destination="wjc-XQ-7Nf" id="oEV-Pf-zHu"/>

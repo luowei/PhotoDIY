@@ -30,6 +30,7 @@
 		EAB292F11D2A66A4004D5EED /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB292F01D2A66A4004D5EED /* AVFoundation.framework */; };
 		EAB292F61D2A6ECB004D5EED /* Lambeau.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EAB292F51D2A6ECB004D5EED /* Lambeau.jpg */; };
 		EAB292F91D2A701F004D5EED /* Categorys.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB292F81D2A701F004D5EED /* Categorys.m */; };
+		EAE5B4601D2DFEAC00DD865D /* ImageCropView.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE5B45F1D2DFEAC00DD865D /* ImageCropView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +69,13 @@
 		EAB292F51D2A6ECB004D5EED /* Lambeau.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Lambeau.jpg; sourceTree = "<group>"; };
 		EAB292F71D2A701F004D5EED /* Categorys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Categorys.h; sourceTree = "<group>"; };
 		EAB292F81D2A701F004D5EED /* Categorys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Categorys.m; sourceTree = "<group>"; };
+		EAE5B4571D2DE1A500DD865D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		EAE5B4581D2DE1A500DD865D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		EAE5B4591D2DE1A500DD865D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		EAE5B45B1D2DE1EC00DD865D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		EAE5B45D1D2DE22000DD865D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		EAE5B45E1D2DFEAC00DD865D /* ImageCropView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCropView.h; sourceTree = "<group>"; };
+		EAE5B45F1D2DFEAC00DD865D /* ImageCropView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCropView.m; sourceTree = "<group>"; };
 		FB3752B7BE3FC2C396F9E492 /* Pods-PhotoDIY.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoDIY.release.xcconfig"; path = "Pods/Target Support Files/Pods-PhotoDIY/Pods-PhotoDIY.release.xcconfig"; sourceTree = "<group>"; };
 		FFC87A4A05A2799BD5A7991E /* libPods-PhotoDIY.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PhotoDIY.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -91,6 +99,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BEF06226597A6C6198194402 /* CropView */ = {
+			isa = PBXGroup;
+			children = (
+				EAE5B45E1D2DFEAC00DD865D /* ImageCropView.h */,
+				EAE5B45F1D2DFEAC00DD865D /* ImageCropView.m */,
+			);
+			path = CropView;
+			sourceTree = "<group>";
+		};
 		BEF06957E3080BCFA1496337 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
@@ -149,6 +166,7 @@
 			children = (
 				EAB292DD1D2A5889004D5EED /* HandBoard */,
 				EAB292D71D2A45E3004D5EED /* DrawView */,
+				BEF06226597A6C6198194402 /* CropView */,
 				BEF06D1AE73117D3C5B28302 /* ImageFilters */,
 				BEF06A7D3A612643CDD7DF8F /* PhotoTools */,
 				EAB292C31D2A16C4004D5EED /* AppDelegate.h */,
@@ -256,6 +274,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = EAB292B41D2A16C4004D5EED;
 			productRefGroup = EAB292BE1D2A16C4004D5EED /* Products */;
@@ -339,6 +358,7 @@
 				EAB292DA1D2A460D004D5EED /* PDDrawView.m in Sources */,
 				EAB292F91D2A701F004D5EED /* Categorys.m in Sources */,
 				EA6F61281D2B5C4900827523 /* LWFilterCollectionView.m in Sources */,
+				EAE5B4601D2DFEAC00DD865D /* ImageCropView.m in Sources */,
 				EAB292C81D2A16C4004D5EED /* ViewController.m in Sources */,
 				EAB292C51D2A16C4004D5EED /* AppDelegate.m in Sources */,
 				EA6F61251D2B5A4500827523 /* LWFilterManager.m in Sources */,
@@ -356,6 +376,7 @@
 			children = (
 				EA6F611C1D2B566900827523 /* Base */,
 				EA6F611E1D2B566C00827523 /* en */,
+				EAE5B4581D2DE1A500DD865D /* zh-Hans */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -365,6 +386,7 @@
 			children = (
 				EA6F61201D2B567100827523 /* Base */,
 				EA6F61221D2B567400827523 /* en */,
+				EAE5B4591D2DE1A500DD865D /* zh-Hans */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -373,6 +395,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				EAB292CA1D2A16C4004D5EED /* Base */,
+				EAE5B45B1D2DE1EC00DD865D /* en */,
+				EAE5B45D1D2DE22000DD865D /* zh-Hans */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -381,6 +405,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				EAB292CF1D2A16C4004D5EED /* Base */,
+				EAE5B4571D2DE1A500DD865D /* zh-Hans */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";

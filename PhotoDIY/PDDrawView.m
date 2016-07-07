@@ -10,35 +10,38 @@
 #import "Categorys.h"
 #import "LWFilterCollectionView.h"
 #import "LWPhotoCollectionView.h"
+#import "MBProgressHUD.h"
+#import "ImageCropView.h"
+#import <MBProgressHUD/MBProgressHUD.h>
 
 @implementation PDDrawView
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-
 }
 
 //加载默认图片
 - (void)loadDefaultImage {
     UIImage *inputImage = [UIImage imageNamed:@"Lambeau.jpg"];
     [self loadPhoto:inputImage];
+    //[self renderWithFilter:[GPUImageLookupFilter new]];
 }
 
 //加载照片选择器
 - (void)showPhotos {
-    if(!self.filterCollectionView.hidden){
+    if (!self.filterCollectionView.hidden) {
         self.filterCollectionView.hidden = !self.filterCollectionView.hidden;
     }
 
     self.photoCollectionView.hidden = !self.photoCollectionView.hidden;
-    if(!self.photoCollectionView.hidden){
+    if (!self.photoCollectionView.hidden) {
         [self removeConstraint:self.gpuImgPaddingBottomZero];
         [self removeConstraint:self.gpuImgPaddingFiltersCollectionV];
         [self addConstraint:self.gpuImgPaddingPhotosCollectionV];
         [self setNeedsUpdateConstraints];
 
         [self.photoCollectionView reloadPhotos];
-    }else{
+    } else {
         [self removeConstraint:self.gpuImgPaddingFiltersCollectionV];
         [self removeConstraint:self.gpuImgPaddingPhotosCollectionV];
         [self addConstraint:self.gpuImgPaddingBottomZero];
@@ -48,20 +51,20 @@
 }
 
 //加载滤镜
--(void)showFilters{
-    if(!self.photoCollectionView.hidden){
+- (void)showFilters {
+    if (!self.photoCollectionView.hidden) {
         self.photoCollectionView.hidden = !self.photoCollectionView.hidden;
     }
 
     self.filterCollectionView.hidden = !self.filterCollectionView.hidden;
-    if(!self.filterCollectionView.hidden){
+    if (!self.filterCollectionView.hidden) {
         [self removeConstraint:self.gpuImgPaddingBottomZero];
         [self removeConstraint:self.gpuImgPaddingPhotosCollectionV];
         [self addConstraint:self.gpuImgPaddingFiltersCollectionV];
         [self setNeedsUpdateConstraints];
 
         [self.filterCollectionView reloadFilters];
-    }else{
+    } else {
         [self removeConstraint:self.gpuImgPaddingFiltersCollectionV];
         [self removeConstraint:self.gpuImgPaddingPhotosCollectionV];
         [self addConstraint:self.gpuImgPaddingBottomZero];
@@ -76,19 +79,19 @@
 
 }
 
-- (void)loadPhoto:(UIImage *)image{
-    if(!image){
+- (void)loadPhoto:(UIImage *)image {
+    if (!image) {
         return;
     }
     self.currentImage = image;
-    
+
     self.sourcePicture = [[GPUImagePicture alloc] initWithImage:image smoothlyScaleOutput:YES];
-    [self.sourcePicture addTarget: self.gpuImageView];
+    [self.sourcePicture addTarget:self.gpuImageView];
     [self.sourcePicture processImage];
 }
 
 
-- (void)renderWithFilter:(GPUImageOutput<GPUImageInput> *)filter {
+- (void)renderWithFilter:(GPUImageOutput <GPUImageInput> *)filter {
     self.filter = filter;
     [self.filter forceProcessingAtSize:self.sourcePicture.outputImageSize];
     [self.sourcePicture removeAllTargets];
@@ -99,36 +102,68 @@
 
     [self.filter useNextFrameForImageCapture];
     [self.sourcePicture processImage];
-    
+
     self.currentImage = [self.filter imageFromCurrentFramebuffer];
 }
 
 - (void)saveImage {
     [self.filter forceProcessingAtSize:self.sourcePicture.outputImageSize];
+    self.hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
     [self.sourcePicture processImageUpToFilter:self.filter withCompletionHandler:^(UIImage *processedImage) {
-        if(!processedImage){
+        if (!processedImage) {
             UIImageWriteToSavedPhotosAlbum(self.currentImage, self, nil, nil);
-        }else{
+        } else {
             UIImageWriteToSavedPhotosAlbum(processedImage, self, nil, nil);
         }
+        self.hud.mode = MBProgressHUDModeText;
+        self.hud.labelText = NSLocalizedString(@"Save Success",nil);
     }];
+    [self.hud hide:YES afterDelay:1.0];
 }
 
-
 - (void)rotateWithRotateMode:(GPUImageRotationMode)rotateMode {
-    [self.filter setInputRotation:rotateMode atIndex:0];
-    CGSize size = self.sourcePicture.outputImageSize;
-    if(rotateMode == kGPUImageRotateRight || rotateMode == kGPUImageRotateLeft
-            || rotateMode == kGPUImageRotateRightFlipHorizontal || rotateMode == kGPUImageRotateRightFlipVertical){
-        size = CGSizeMake(self.sourcePicture.outputImageSize.height, self.sourcePicture.outputImageSize.width);
+    UIImage *image = self.currentImage;
+    CGFloat scale = [UIScreen mainScreen].scale;
+    switch (rotateMode) {
+        case kGPUImageRotateLeft: {
+            image = [self rotateUIImage:image orientation:UIImageOrientationLeft];
+            break;
+        }
+        case kGPUImageRotateRight: {
+            image = [self rotateUIImage:image orientation:UIImageOrientationRight];
+            break;
+        }
+        case kGPUImageFlipVertical:{
+            image = [self rotateUIImage:image orientation:UIImageOrientationDownMirrored];
+            image = [self rotateUIImage:image orientation:UIImageOrientationUp];
+            break;
+        }
+        case kGPUImageFlipHorizonal: {
+            image = [self rotateUIImage:image orientation:UIImageOrientationLeftMirrored];
+            image = [self rotateUIImage:image orientation:UIImageOrientationRight];
+            break;
+        }
+        case kGPUImageRotate180: {
+            image = [self rotateUIImage:image orientation:UIImageOrientationDown];
+            break;
+        }
+        default: {
+            break;
+        }
     }
-    [self.filter forceProcessingAtSize:size];
-
-    [self.filter useNextFrameForImageCapture];
-    [self.sourcePicture processImage];
-
-    UIImage *image = [self.filter imageByFilteringImage:self.currentImage];
     [self loadPhoto:image];
+
+}
+
+- (UIImage *)rotateUIImage:(UIImage *)sourceImage orientation:(UIImageOrientation)orientation {
+    CGSize size = sourceImage.size;
+    CGFloat scale = [UIScreen mainScreen].scale;
+    UIGraphicsBeginImageContext(CGSizeMake(size.height, size.width));
+    [[UIImage imageWithCGImage:[sourceImage CGImage] scale:scale orientation:orientation] drawInRect:CGRectMake(0, 0, size.height, size.width)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return newImage;
 }
 
 - (void)rotateRight {
@@ -141,6 +176,17 @@
 
 - (void)flipHorizonal {
     [self rotateWithRotateMode:kGPUImageFlipHorizonal];
+}
+
+- (void)showCropView {
+    if(!self.currentImage){
+        self.hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
+        self.hud.mode = MBProgressHUDModeText;
+        self.hud.labelText = NSLocalizedString(@"Error",nil);
+    }else{
+        [self.cropView setImage:self.currentImage];
+        self.cropView.hidden = !self.cropView.hidden;
+    }
 }
 
 @end
