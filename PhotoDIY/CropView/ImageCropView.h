@@ -56,9 +56,7 @@ typedef struct {
 #pragma mark -  ImageCropView
 
 @interface ImageCropView : UIView {
-    UIImageView* imageView;
-    CGRect imageFrameInView;
-    CGFloat imageScale;
+    CGRect imageFrame;
 
     CGFloat controlPointSize;
     ControlPointView* topLeftPoint;
@@ -68,26 +66,26 @@ typedef struct {
     NSArray *PointsArray;
     UIColor* controlColor;
 
-    UIView* cropAreaView;
     DragPoint dragPoint;
     MultiDragPoint multiDragPoint;
 
     UIView* dragViewOne;
     UIView* dragViewTwo;
 }
-- (id)initWithFrame:(CGRect)frame blurOn:(BOOL)blurOn;
 - (void)setImage:(UIImage*)image;
 
 @property (nonatomic) CGFloat controlPointSize;
 @property (nonatomic, retain) UIImage* image;
 @property (nonatomic) CGRect cropAreaInView;
 @property (nonatomic) CGRect cropAreaInImage;
-@property (nonatomic, readonly) CGFloat imageScale;
+@property (nonatomic, assign) CGFloat imageScale;
 @property (nonatomic) CGFloat maskAlpha;
 @property (nonatomic, retain) UIColor* controlColor;
 @property (nonatomic, strong) ShadeView* shadeView;
 @property (nonatomic) BOOL blurred;
 
+@property(nonatomic, strong) UIImageView *imageView;
+@property(nonatomic, strong) UIView *cropAreaView;
 @end
 
 @interface UIImage (fixOrientation)
