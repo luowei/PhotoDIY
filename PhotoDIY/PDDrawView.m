@@ -11,14 +11,58 @@
 #import "LWFilterCollectionView.h"
 #import "LWPhotoCollectionView.h"
 #import "MBProgressHUD.h"
-#import "ImageCropView.h"
+#import "LWImageCropView.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 
 @implementation PDDrawView
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+
+    self.backgroundColor = [UIColor blackColor];
+    self.gpuImageView.backgroundColor = [UIColor blackColor];
+    self.gpuImageView.contentMode = UIViewContentModeScaleAspectFill;
 }
+
+- (void)rotationToInterfaceOrientation:(UIInterfaceOrientation)orientation {
+    [super rotationToInterfaceOrientation:orientation];
+
+    [self hiddenHandBoard];
+    [self reloadGPUImagePicture];
+}
+
+- (void)reloadGPUImagePicture{
+    if (!self.currentImage) {
+        return;
+    }
+    self.gpuImageView.contentMode = UIViewContentModeScaleAspectFill;
+
+    self.sourcePicture = [[GPUImagePicture alloc] initWithImage:self.currentImage smoothlyScaleOutput:YES];
+    [self.sourcePicture forceProcessingAtSize:self.currentImage.size];
+    [self.sourcePicture addTarget:self.gpuImageView];
+    [self.sourcePicture processImage];
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [super touchesBegan:touches withEvent:event];
+    //隐藏HandBoard
+    [self hiddenHandBoard];
+}
+
+//隐藏HandBoard
+- (void)hiddenHandBoard {
+    if (!self.filterCollectionView.hidden) {
+        self.filterCollectionView.hidden = !self.filterCollectionView.hidden;
+    }
+    if (!self.photoCollectionView.hidden) {
+        self.photoCollectionView.hidden = !self.photoCollectionView.hidden;
+    }
+    [self removeConstraint:self.gpuImgPaddingFiltersCollectionV];
+    [self removeConstraint:self.gpuImgPaddingPhotosCollectionV];
+    [self addConstraint:self.gpuImgPaddingBottomZero];
+    [self setNeedsUpdateConstraints];
+}
+
 
 //加载默认图片
 - (void)loadDefaultImage {
@@ -29,6 +73,13 @@
 
 //加载照片选择器
 - (void)showPhotos {
+    //隐藏cropView
+    if (!self.cropView.hidden) {
+        self.cropView.hidden = !self.cropView.hidden;
+    } else {
+        self.gpuImageView.hidden = NO;
+    }
+
     if (!self.filterCollectionView.hidden) {
         self.filterCollectionView.hidden = !self.filterCollectionView.hidden;
     }
@@ -52,6 +103,13 @@
 
 //加载滤镜
 - (void)showFilters {
+    //隐藏cropView
+    if (!self.cropView.hidden) {
+        self.cropView.hidden = !self.cropView.hidden;
+    } else {
+        self.gpuImageView.hidden = NO;
+    }
+
     if (!self.photoCollectionView.hidden) {
         self.photoCollectionView.hidden = !self.photoCollectionView.hidden;
     }
@@ -83,17 +141,28 @@
     if (!image) {
         return;
     }
+    self.originImage = image;
+    [self loadImage2GPUImagePicture:image];
+}
+
+//load 照片到 GPUImagePicture
+- (void)loadImage2GPUImagePicture:(UIImage *)image {
+    if (!image) {
+        return;
+    }
+
     self.currentImage = image;
+    self.gpuImageView.contentMode = UIViewContentModeScaleAspectFill;
 
     self.sourcePicture = [[GPUImagePicture alloc] initWithImage:image smoothlyScaleOutput:YES];
+    [self.sourcePicture forceProcessingAtSize:image.size];
     [self.sourcePicture addTarget:self.gpuImageView];
     [self.sourcePicture processImage];
 }
 
-
 - (void)renderWithFilter:(GPUImageOutput <GPUImageInput> *)filter {
     self.filter = filter;
-    [self.filter forceProcessingAtSize:self.sourcePicture.outputImageSize];
+    [self.filter forceProcessingAtSize:self.currentImage.size];
     [self.sourcePicture removeAllTargets];
     [self.filter removeAllTargets];
 
@@ -107,7 +176,7 @@
 }
 
 - (void)saveImage {
-    [self.filter forceProcessingAtSize:self.sourcePicture.outputImageSize];
+    [self.filter forceProcessingAtSize:self.currentImage.size];
     self.hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
     [self.sourcePicture processImageUpToFilter:self.filter withCompletionHandler:^(UIImage *processedImage) {
         if (!processedImage) {
@@ -116,7 +185,7 @@
             UIImageWriteToSavedPhotosAlbum(processedImage, self, nil, nil);
         }
         self.hud.mode = MBProgressHUDModeText;
-        self.hud.labelText = NSLocalizedString(@"Save Success",nil);
+        self.hud.labelText = NSLocalizedString(@"Save Success", nil);
     }];
     [self.hud hide:YES afterDelay:1.0];
 }
@@ -133,7 +202,7 @@
             image = [self rotateUIImage:image orientation:UIImageOrientationRight];
             break;
         }
-        case kGPUImageFlipVertical:{
+        case kGPUImageFlipVertical: {
             image = [self rotateUIImage:image orientation:UIImageOrientationDownMirrored];
             image = [self rotateUIImage:image orientation:UIImageOrientationUp];
             break;
@@ -151,7 +220,7 @@
             break;
         }
     }
-    [self loadPhoto:image];
+    [self loadImage2GPUImagePicture:image];
 
 }
 
@@ -159,7 +228,8 @@
     CGSize size = sourceImage.size;
     CGFloat scale = [UIScreen mainScreen].scale;
     UIGraphicsBeginImageContext(CGSizeMake(size.height, size.width));
-    [[UIImage imageWithCGImage:[sourceImage CGImage] scale:scale orientation:orientation] drawInRect:CGRectMake(0, 0, size.height, size.width)];
+    [[UIImage imageWithCGImage:[sourceImage CGImage] scale:scale orientation:orientation]
+            drawInRect:CGRectMake(0, 0, size.height, size.width)];
     UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
 
@@ -178,15 +248,39 @@
     [self rotateWithRotateMode:kGPUImageFlipHorizonal];
 }
 
-- (void)showCropView {
-    if(!self.currentImage){
-        self.hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
-        self.hud.mode = MBProgressHUDModeText;
-        self.hud.labelText = NSLocalizedString(@"Error",nil);
-    }else{
+- (void)showErrorHud {
+    self.hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
+    self.hud.mode = MBProgressHUDModeText;
+    self.hud.labelText = NSLocalizedString(@"Error", nil);
+}
+
+- (void)showOrHideCropView {
+    [self hiddenHandBoard];
+
+    if (!self.currentImage) {
+        [self showErrorHud];
+    } else {
         [self.cropView setImage:self.currentImage];
         self.cropView.hidden = !self.cropView.hidden;
+        self.gpuImageView.hidden = !self.cropView.hidden;
     }
 }
+
+- (void)cropImageOk {
+    if (self.currentImage) {
+        CGRect CropRect = self.cropView.cropAreaInImage;
+        CGImageRef imageRef = CGImageCreateWithImageInRect([self.currentImage CGImage], CropRect);
+        UIImage *croppedImg = [UIImage imageWithCGImage:imageRef];
+        [self loadImage2GPUImagePicture:croppedImg];
+        CGImageRelease(imageRef);
+    } else {
+        [self showErrorHud];
+    }
+}
+
+- (void)cancelCropImage {
+    [self showOrHideCropView];
+}
+
 
 @end

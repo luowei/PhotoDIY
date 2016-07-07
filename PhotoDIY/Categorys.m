@@ -27,3 +27,14 @@
 }
 
 @end
+
+@implementation UIView (Rotation)
+
+//递归的向子视图发送屏幕发生旋转了的消息
+- (void)rotationToInterfaceOrientation:(UIInterfaceOrientation)orientation {
+    for (UIView *v in self.subviews) {
+        [v rotationToInterfaceOrientation:orientation];
+    }
+}
+
+@end

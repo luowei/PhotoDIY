@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "PDDrawView.h"
+#import "Categorys.h"
 
 @interface ViewController ()
 
@@ -34,6 +35,12 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
+
+    [self.view rotationToInterfaceOrientation:toInterfaceOrientation];
+}
+
 
 - (IBAction)selPhotoAction:(UIBarButtonItem *)sender {
     [self.drawView showPhotos];
@@ -44,7 +51,7 @@
 }
 
 - (IBAction)cropAction:(UIBarButtonItem *)sender {
-    [self.drawView showCropView];
+    [self.drawView showOrHideCropView];
 }
 
 - (IBAction)saveAction:(UIBarButtonItem *)sender {
@@ -64,6 +71,14 @@
 }
 
 - (IBAction)share:(UIBarButtonItem *)sender {
+}
+
+- (IBAction)cropOkAction:(UIButton *)sender {
+    [self.drawView cropImageOk];
+}
+
+- (IBAction)cropCancelAction:(UIButton *)sender {
+    [self.drawView cancelCropImage];
 }
 
 

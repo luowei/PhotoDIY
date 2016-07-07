@@ -237,8 +237,41 @@
                                             <outlet property="topLine" destination="zwm-Fq-YWP" id="1DS-ok-Cfy"/>
                                         </connections>
                                     </collectionView>
-                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OyO-Fb-QTL" userLabel="Crop View" customClass="ImageCropView">
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OyO-Fb-QTL" userLabel="Crop View" customClass="LWImageCropView">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="392"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HzR-QA-1ed" userLabel="ok">
+                                                <rect key="frame" x="265" y="337" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="puC-bM-pqu"/>
+                                                    <constraint firstAttribute="width" constant="40" id="xnw-yE-0D6"/>
+                                                </constraints>
+                                                <state key="normal" image="btnOK"/>
+                                                <state key="highlighted" image="btnOK"/>
+                                                <connections>
+                                                    <action selector="cropOkAction:" destination="OyO-Fb-QTL" eventType="touchUpInside" id="rh4-tx-GlC"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vbu-qT-KrD" userLabel="cancel">
+                                                <rect key="frame" x="15" y="337" width="40" height="40"/>
+                                                <state key="normal" image="btnCloseNormal"/>
+                                                <connections>
+                                                    <action selector="cropCancelAction:" destination="OyO-Fb-QTL" eventType="touchUpInside" id="U3r-hQ-Plf"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="HzR-QA-1ed" secondAttribute="bottom" constant="15" id="Fmv-d8-IyO"/>
+                                            <constraint firstAttribute="trailing" secondItem="HzR-QA-1ed" secondAttribute="trailing" constant="15" id="a43-wh-TUK"/>
+                                            <constraint firstItem="HzR-QA-1ed" firstAttribute="width" secondItem="Vbu-qT-KrD" secondAttribute="width" id="d1C-1q-nlj"/>
+                                            <constraint firstItem="HzR-QA-1ed" firstAttribute="centerY" secondItem="Vbu-qT-KrD" secondAttribute="centerY" id="gNk-2I-HeN"/>
+                                            <constraint firstItem="Vbu-qT-KrD" firstAttribute="leading" secondItem="OyO-Fb-QTL" secondAttribute="leading" constant="15" id="hse-YY-zvX"/>
+                                            <constraint firstItem="HzR-QA-1ed" firstAttribute="height" secondItem="Vbu-qT-KrD" secondAttribute="height" id="qlV-zn-pyG"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="cropCancel" destination="Vbu-qT-KrD" id="OWG-UK-vyj"/>
+                                            <outlet property="cropOk" destination="HzR-QA-1ed" id="RLe-tB-0TQ"/>
+                                        </connections>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -385,6 +418,8 @@
     </scenes>
     <resources>
         <image name="albumButton" width="40" height="40"/>
+        <image name="btnCloseNormal" width="40" height="40"/>
+        <image name="btnOK" width="40" height="40"/>
         <image name="cropButton" width="40" height="40"/>
         <image name="filterButton" width="44" height="44"/>
         <image name="flip" width="44" height="44"/>

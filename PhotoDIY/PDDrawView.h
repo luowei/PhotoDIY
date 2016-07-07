@@ -13,7 +13,7 @@
 @class LWFilterCollectionView;
 @class LWPhotoCollectionView;
 @class MBProgressHUD;
-@class ImageCropView;
+@class LWImageCropView;
 
 @interface PDDrawView : UIView<PDPhotoPickerProtocol>
 
@@ -21,7 +21,7 @@
 @property(nonatomic,weak) IBOutlet LWFilterCollectionView *filterCollectionView;
 @property(nonatomic,weak) IBOutlet LWPhotoCollectionView *photoCollectionView;
 
-@property(nonatomic,weak) IBOutlet ImageCropView *cropView;
+@property(nonatomic,weak) IBOutlet LWImageCropView *cropView;
 
 
 @property(nonatomic,weak) IBOutlet NSLayoutConstraint *gpuImgPaddingBottomZero;
@@ -35,6 +35,8 @@
 @property(nonatomic, strong) UIImage *currentImage;
 
 @property(nonatomic, strong) MBProgressHUD *hud;
+
+@property(nonatomic, strong) UIImage *originImage;
 
 //加载默认图片
 - (void)loadDefaultImage;
@@ -55,5 +57,9 @@
 
 - (void)flipHorizonal;
 
-- (void)showCropView;
+- (void)showOrHideCropView;
+
+- (void)cropImageOk;
+
+- (void)cancelCropImage;
 @end

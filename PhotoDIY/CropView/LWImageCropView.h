@@ -1,5 +1,5 @@
 //
-//  ImageCropView.h
+//  LWImageCropView.h
 //  PhotoDIY
 //
 //  Created by luowei on 16/7/7.
@@ -50,12 +50,13 @@ typedef struct {
 @property (nonatomic) CGFloat shadeAlpha;
 @property (nonatomic, strong) UIImageView *blurredImageView;
 
+@property(nonatomic, strong) CALayer *maskLayer;
 @end
 
 
-#pragma mark -  ImageCropView
+#pragma mark -  LWImageCropView
 
-@interface ImageCropView : UIView {
+@interface LWImageCropView : UIView {
     CGRect imageFrame;
 
     CGFloat controlPointSize;
@@ -86,6 +87,12 @@ typedef struct {
 
 @property(nonatomic, strong) UIImageView *imageView;
 @property(nonatomic, strong) UIView *cropAreaView;
+
+
+@property(nonatomic, strong) IBOutlet UIButton *cropOk;
+@property(nonatomic, strong) IBOutlet UIButton *cropCancel;
+
+
 @end
 
 @interface UIImage (fixOrientation)

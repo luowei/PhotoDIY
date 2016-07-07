@@ -1,13 +1,15 @@
 //
-//  ImageCropView.m
+//  LWImageCropView.m
 //  PhotoDIY
 //
 //  Created by luowei on 16/7/7.
 //  Copyright © 2016年 wodedata. All rights reserved.
 //
 
-#import "ImageCropView.h"
+#import "LWImageCropView.h"
 #import "FXBlurView.h"
+#import "Categorys.h"
+#import "PDDrawView.h"
 
 static CGFloat const DEFAULT_MASK_ALPHA = 0.75;
 static bool const square = NO;
@@ -65,6 +67,7 @@ CGRect SquareCGRectAtCenter(CGFloat centerX, CGFloat centerY, CGFloat size) {
         // Initialization code
         self.opaque = NO;
         self.blurredImageView = [[UIImageView alloc] init];
+        self.blurredImageView.contentMode = UIViewContentModeScaleAspectFill;
     }
     return self;
 }
@@ -109,10 +112,10 @@ CGRect SquareCGRectAtCenter(CGFloat centerX, CGFloat centerY, CGFloat size) {
     UIImage *maskim = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
 
-    CALayer *mask = [CALayer layer];
-    mask.frame = rect;
-    mask.contents = (id) maskim.CGImage;
-    layer.mask = mask;
+    self.maskLayer = [CALayer layer];
+    self.maskLayer.frame = rect;
+    self.maskLayer.contents = (id) maskim.CGImage;
+    layer.mask = self.maskLayer;
 }
 
 @end
@@ -120,88 +123,112 @@ CGRect SquareCGRectAtCenter(CGFloat centerX, CGFloat centerY, CGFloat size) {
 
 //--------------------------
 
-#pragma mark - ImageCropView
+#pragma mark - LWImageCropView
 
-@implementation ImageCropView
+@implementation LWImageCropView
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     if (self = [super initWithCoder:aDecoder]) {
-        [self initViews];
+        [self updateSubViews];
     }
     return self;
 }
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    self.backgroundColor = [UIColor blackColor];
 
     self.blurred = YES;
-    [self initViews];
+    [self updateSubViews];
+    [self addGestureRecognizer];
+
+    [self bringSubviewToFront:self.cropOk];
+    [self bringSubviewToFront:self.cropCancel];
+}
+
+- (void)rotationToInterfaceOrientation:(UIInterfaceOrientation)orientation {
+    [super rotationToInterfaceOrientation:orientation];
+    [self updateSubViews];
+    [self setImage:self.imageView.image];
 }
 
 
-- (void)initViews {
-    CGRect subviewFrame = self.bounds;
+- (void)setHidden:(BOOL)hidden {
+    [super setHidden:hidden];
+    self.cropOk.hidden = hidden;
+    self.cropCancel.hidden = hidden;
+}
 
-    //the shade
-    self.shadeView = [[ShadeView alloc] initWithFrame:subviewFrame];
+
+- (void)updateSubViews {
+
+    self.maskAlpha = DEFAULT_MASK_ALPHA;
 
     //the image
-    self.imageView = [[UIImageView alloc] initWithFrame:subviewFrame];
+    if (!self.imageView) {
+        self.imageView = [[UIImageView alloc] init];
+        [self addSubview:self.imageView];
+    }
+    self.imageView.frame = self.bounds;
     self.imageView.contentMode = UIViewContentModeScaleAspectFill;
+    imageFrame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+    self.imageView.frame = imageFrame;
 
+    //the shade
+    if (!self.shadeView) {
+        self.shadeView = [[ShadeView alloc] init];
+        [self addSubview:self.shadeView];
+        [self addSubview:self.shadeView.blurredImageView];
+    }
+    self.shadeView.frame = self.bounds;
 
     //control points
-    controlPointSize = Default_ControlPoint_Size;
-    int initialCropAreaSize = self.frame.size.width / 5;
-    CGPoint centerInView = CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2);
-    topLeftPoint = [self createControlPointAt:SquareCGRectAtCenter(centerInView.x - initialCropAreaSize,
-            centerInView.y - initialCropAreaSize,
-            controlPointSize)];
-
-    bottomLeftPoint = [self createControlPointAt:SquareCGRectAtCenter(centerInView.x - initialCropAreaSize,
-            centerInView.y + initialCropAreaSize,
-            controlPointSize)];
-
-    bottomRightPoint = [self createControlPointAt:SquareCGRectAtCenter(centerInView.x + initialCropAreaSize,
-            centerInView.y + initialCropAreaSize, controlPointSize)];
-
-    topRightPoint = [self createControlPointAt:SquareCGRectAtCenter(centerInView.x + initialCropAreaSize,
-            centerInView.y - initialCropAreaSize, controlPointSize)];
+    [self updateControlPoint];
 
     //the "hole"
-    CGRect cropArea = [self cropAreaFromControlPoints];
-    self.cropAreaView = [[UIView alloc] initWithFrame:cropArea];
+    if (!self.cropAreaView) {
+        self.cropAreaView = [[UIView alloc] init];
+        [self addSubview:self.cropAreaView];
+    }
+    self.cropAreaView.frame = [self cropAreaFromControlPoints];
     self.cropAreaView.layer.borderWidth = 1.0;
     self.cropAreaView.layer.borderColor = [UIColor whiteColor].CGColor;
     self.cropAreaView.opaque = NO;
     self.cropAreaView.backgroundColor = [UIColor clearColor];
+
+}
+
+- (void)addGestureRecognizer {
     UIPanGestureRecognizer *dragRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleDrag:)];
     dragRecognizer.view.multipleTouchEnabled = YES;
     dragRecognizer.minimumNumberOfTouches = 1;
     dragRecognizer.maximumNumberOfTouches = 2;
     [self.viewForBaselineLayout addGestureRecognizer:dragRecognizer];
-
-    [self addSubview:self.imageView];
-    [self addSubview:self.shadeView];
-    [self addSubview:self.shadeView.blurredImageView];
-    [self addSubview:self.cropAreaView];
-    [self addSubview:topRightPoint];
-    [self addSubview:bottomRightPoint];
-    [self addSubview:topLeftPoint];
-    [self addSubview:bottomLeftPoint];
-
-    PointsArray = [[NSArray alloc] initWithObjects:topRightPoint, bottomRightPoint, topLeftPoint, bottomLeftPoint, nil];
-
-    self.maskAlpha = DEFAULT_MASK_ALPHA;
-
-    imageFrame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
-    self.imageView.frame = imageFrame;
-
 }
 
-- (ControlPointView *)createControlPointAt:(CGRect)frame {
-    ControlPointView *point = [[ControlPointView alloc] initWithFrame:frame];
-    return point;
+- (void)updateControlPoint {
+    controlPointSize = Default_ControlPoint_Size;
+    int initialCropAreaSize = self.frame.size.width / 5;
+    CGPoint centerInView = CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2);
+    if (!topLeftPoint || !bottomLeftPoint || !bottomRightPoint || !topRightPoint || !PointsArray) {
+        topLeftPoint = [ControlPointView new];
+        [self addSubview:topLeftPoint];
+
+        bottomLeftPoint = [ControlPointView new];
+        [self addSubview:bottomLeftPoint];
+
+        bottomRightPoint = [ControlPointView new];
+        [self addSubview:bottomRightPoint];
+
+        topRightPoint = [ControlPointView new];
+        [self addSubview:topRightPoint];
+
+        PointsArray = @[topRightPoint, bottomRightPoint, topLeftPoint, bottomLeftPoint];
+    }
+    topLeftPoint.frame = SquareCGRectAtCenter(centerInView.x - initialCropAreaSize, centerInView.y - initialCropAreaSize, controlPointSize);
+    bottomLeftPoint.frame = SquareCGRectAtCenter(centerInView.x - initialCropAreaSize, centerInView.y + initialCropAreaSize, controlPointSize);
+    bottomRightPoint.frame = SquareCGRectAtCenter(centerInView.x + initialCropAreaSize, centerInView.y + initialCropAreaSize, controlPointSize);
+    topRightPoint.frame = SquareCGRectAtCenter(centerInView.x + initialCropAreaSize, centerInView.y - initialCropAreaSize, controlPointSize);
 }
 
 - (CGRect)cropAreaFromControlPoints {
@@ -650,12 +677,6 @@ CGRect SquareCGRectAtCenter(CGFloat centerX, CGFloat centerY, CGFloat size) {
     self.imageView.frame = imageFrame;
     self.imageView.image = image;
 
-    /* prepare imageviews and their frame */
-    self.shadeView.blurredImageView.contentMode = UIViewContentModeScaleAspectFill;
-    self.imageView.contentMode = UIViewContentModeScaleAspectFill;
-    self.imageView.clipsToBounds = YES;
-    self.shadeView.blurredImageView.clipsToBounds = YES;
-
     CGRect blurFrame;
     if (imageFrame.origin.x < 0 && (imageFrame.size.width - fabs(imageFrame.origin.x) >= 320)) {
         blurFrame = self.frame;
@@ -710,6 +731,16 @@ CGRect SquareCGRectAtCenter(CGFloat centerX, CGFloat centerY, CGFloat size) {
     [super setUserInteractionEnabled:_userInteractionEnabled];
 }
 
+
+- (IBAction)cropOkAction:(UIButton *)sender {
+    PDDrawView *drawView = [self superViewWithClass:[PDDrawView class]];
+    [drawView cropImageOk];
+}
+
+- (IBAction)cropCancelAction:(UIButton *)sender {
+    PDDrawView *drawView = [self superViewWithClass:[PDDrawView class]];
+    [drawView cancelCropImage];
+}
 
 @end
 
