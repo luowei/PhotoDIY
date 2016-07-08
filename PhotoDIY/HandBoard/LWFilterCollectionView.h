@@ -17,6 +17,8 @@
 @property(nonatomic, strong) NSDictionary *filterDict;
 
 
+@property(nonatomic, strong) NSIndexPath *selectedIndexPath;
+
 //重新加载Filters
 -(void)reloadFilters;
 

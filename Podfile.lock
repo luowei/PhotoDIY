@@ -1,0 +1,18 @@
+PODS:
+  - FXBlurView (1.6.4)
+  - GPUImage (0.1.7)
+  - MBProgressHUD (0.9.2)
+
+DEPENDENCIES:
+  - FXBlurView (~> 1.6.4)
+  - GPUImage (~> 0.1.7)
+  - MBProgressHUD
+
+SPEC CHECKSUMS:
+  FXBlurView: db786c2561cb49a09ae98407f52460096ab8a44f
+  GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
+  MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
+
+PODFILE CHECKSUM: bf24e58c2afa5d81662d22891ba8a3fe7ad04a0c
+
+COCOAPODS: 1.0.1

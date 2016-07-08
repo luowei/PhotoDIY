@@ -57,10 +57,13 @@
     if (!self.photoCollectionView.hidden) {
         self.photoCollectionView.hidden = !self.photoCollectionView.hidden;
     }
-    [self removeConstraint:self.gpuImgPaddingFiltersCollectionV];
-    [self removeConstraint:self.gpuImgPaddingPhotosCollectionV];
-    [self addConstraint:self.gpuImgPaddingBottomZero];
-    [self setNeedsUpdateConstraints];
+    NSComparisonResult result = [[UIDevice currentDevice].systemVersion compare:@"8.0"];
+    if(result == NSOrderedSame || result == NSOrderedDescending){
+        [self removeConstraint:self.gpuImgPaddingFiltersCollectionV];
+        [self removeConstraint:self.gpuImgPaddingPhotosCollectionV];
+        [self addConstraint:self.gpuImgPaddingBottomZero];
+        [self setNeedsUpdateConstraints];
+    }
 }
 
 
@@ -76,9 +79,8 @@
     //隐藏cropView
     if (!self.cropView.hidden) {
         self.cropView.hidden = !self.cropView.hidden;
-    } else {
-        self.gpuImageView.hidden = NO;
     }
+    self.gpuImageView.hidden = NO;
 
     if (!self.filterCollectionView.hidden) {
         self.filterCollectionView.hidden = !self.filterCollectionView.hidden;
@@ -86,18 +88,24 @@
 
     self.photoCollectionView.hidden = !self.photoCollectionView.hidden;
     if (!self.photoCollectionView.hidden) {
-        [self removeConstraint:self.gpuImgPaddingBottomZero];
-        [self removeConstraint:self.gpuImgPaddingFiltersCollectionV];
-        [self addConstraint:self.gpuImgPaddingPhotosCollectionV];
-        [self setNeedsUpdateConstraints];
+        NSComparisonResult result = [[UIDevice currentDevice].systemVersion compare:@"8.0"];
+        if(result == NSOrderedSame || result == NSOrderedDescending){
+            [self removeConstraint:self.gpuImgPaddingBottomZero];
+            [self removeConstraint:self.gpuImgPaddingFiltersCollectionV];
+            [self addConstraint:self.gpuImgPaddingPhotosCollectionV];
+            [self setNeedsUpdateConstraints];
+        }
 
         [self.photoCollectionView reloadPhotos];
-        
+
     } else {
-        [self removeConstraint:self.gpuImgPaddingFiltersCollectionV];
-        [self removeConstraint:self.gpuImgPaddingPhotosCollectionV];
-        [self addConstraint:self.gpuImgPaddingBottomZero];
-        [self setNeedsUpdateConstraints];
+        NSComparisonResult result = [[UIDevice currentDevice].systemVersion compare:@"8.0"];
+        if(result == NSOrderedSame || result == NSOrderedDescending){
+            [self removeConstraint:self.gpuImgPaddingFiltersCollectionV];
+            [self removeConstraint:self.gpuImgPaddingPhotosCollectionV];
+            [self addConstraint:self.gpuImgPaddingBottomZero];
+            [self setNeedsUpdateConstraints];
+        }
     }
 
 }
@@ -107,9 +115,8 @@
     //隐藏cropView
     if (!self.cropView.hidden) {
         self.cropView.hidden = !self.cropView.hidden;
-    } else {
-        self.gpuImageView.hidden = NO;
     }
+    self.gpuImageView.hidden = NO;
 
     if (!self.photoCollectionView.hidden) {
         self.photoCollectionView.hidden = !self.photoCollectionView.hidden;
@@ -117,17 +124,23 @@
 
     self.filterCollectionView.hidden = !self.filterCollectionView.hidden;
     if (!self.filterCollectionView.hidden) {
-        [self removeConstraint:self.gpuImgPaddingBottomZero];
-        [self removeConstraint:self.gpuImgPaddingPhotosCollectionV];
-        [self addConstraint:self.gpuImgPaddingFiltersCollectionV];
-        [self setNeedsUpdateConstraints];
+        NSComparisonResult result = [[UIDevice currentDevice].systemVersion compare:@"8.0"];
+        if(result == NSOrderedSame || result == NSOrderedDescending){
+            [self removeConstraint:self.gpuImgPaddingBottomZero];
+            [self removeConstraint:self.gpuImgPaddingPhotosCollectionV];
+            [self addConstraint:self.gpuImgPaddingFiltersCollectionV];
+            [self setNeedsUpdateConstraints];
+        }
 
         [self.filterCollectionView reloadFilters];
     } else {
-        [self removeConstraint:self.gpuImgPaddingFiltersCollectionV];
-        [self removeConstraint:self.gpuImgPaddingPhotosCollectionV];
-        [self addConstraint:self.gpuImgPaddingBottomZero];
-        [self setNeedsUpdateConstraints];
+        NSComparisonResult result = [[UIDevice currentDevice].systemVersion compare:@"8.0"];
+        if(result == NSOrderedSame || result == NSOrderedDescending){
+            [self removeConstraint:self.gpuImgPaddingFiltersCollectionV];
+            [self removeConstraint:self.gpuImgPaddingPhotosCollectionV];
+            [self addConstraint:self.gpuImgPaddingBottomZero];
+            [self setNeedsUpdateConstraints];
+        }
     }
 }
 
@@ -249,6 +262,21 @@
     [self rotateWithRotateMode:kGPUImageFlipHorizonal];
 }
 
+- (void)recovery {
+    [self loadImage2GPUImagePicture:self.originImage];
+    if(self.filterCollectionView){
+        NSArray *selectedItems = self.filterCollectionView.indexPathsForSelectedItems;
+        for(NSIndexPath *path in selectedItems){
+            LWFilterCollectionCell *cell = (LWFilterCollectionCell *)[self.filterCollectionView cellForItemAtIndexPath:path];
+            [self.filterCollectionView deselectItemAtIndexPath:path animated:NO];
+            cell.selected = NO;
+            cell.selectIcon.hidden = YES;
+        }
+        self.filterCollectionView.selectedIndexPath = nil;
+        [self.filterCollectionView reloadItemsAtIndexPaths:selectedItems];
+    }
+}
+
 - (void)showErrorHud {
     self.hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
     self.hud.mode = MBProgressHUDModeText;
@@ -285,6 +313,5 @@
 - (void)cancelCropImage {
     [self showOrHideCropView];
 }
-
 
 @end

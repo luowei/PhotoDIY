@@ -12,7 +12,6 @@
 #import "Categorys.h"
 
 @implementation LWFilterCollectionView{
-    NSIndexPath *_selectedIndexPath;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame collectionViewLayout:(UICollectionViewLayout *)layout {
@@ -59,7 +58,7 @@
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath{
     LWFilterCollectionCell *cel = (LWFilterCollectionCell *)cell;
-    if(_selectedIndexPath != nil && _selectedIndexPath.item == indexPath.item){
+    if(self.selectedIndexPath != nil && self.selectedIndexPath.item == indexPath.item){
         cel.selectIcon.hidden = NO;
         [collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
     }else{
@@ -73,7 +72,7 @@
     [collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
     cell.selected = YES;
     cell.selectIcon.hidden = NO;
-    _selectedIndexPath = indexPath;
+    self.selectedIndexPath = indexPath;
 
     PDDrawView *drawView = [self superViewWithClass:[PDDrawView class]];
     NSString *key = cell.titleLbl.text;
@@ -88,6 +87,7 @@
     cell.selected = NO;
     cell.selectIcon.hidden = YES;
 }
+
 
 
 @end

@@ -8,3 +8,24 @@
 
 "Save Success" = "Save Success";
 "Error" = "Error Occurred";
+
+"contrast" 				 = "Contrast";
+"levels" 				 = "Levels";
+"rgb" 					 = "RGB";
+"hue" 					 = "HUE";
+"whiteBalance" 			 = "WhiteBalance";
+"sharpen" 				 = "Sharpen";
+"gamma" 				 = "Gamma";
+"toneCurve" 			 = "ToneCurve";
+"sepiaTone" 			 = "SepiaTone";
+"colorInvert" 			 = "ColorInvert";
+"grayScale" 			 = "GrayScale";
+"sobelEdge" 			 = "SobelEdge";
+"sketch" 				 = "Sketch";
+"emboss" 				 = "Emboss";
+"vignette" 				 = "Vignette";
+"gaussianBlur" 			 = "GaussianBlur";
+"gaussianSelectiveBlur"	 = "HoleBlur";
+"boxBlur" 				 = "BoxBlur";
+"motionBlur" 			 = "MotionBlur";
+"zoomBlur" 				 = "Zoom";

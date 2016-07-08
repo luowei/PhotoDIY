@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
@@ -135,12 +134,12 @@
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </view>
                                                 <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="2fs-VQ-pyA" secondAttribute="trailing" id="KT1-LC-1Va"/>
+                                                    <constraint firstAttribute="bottom" secondItem="2fs-VQ-pyA" secondAttribute="bottom" constant="2" id="MId-XM-bCi"/>
                                                     <constraint firstItem="cvN-kW-I6i" firstAttribute="centerX" secondItem="a18-I8-tvf" secondAttribute="centerX" id="SCK-dv-qVQ"/>
+                                                    <constraint firstItem="2fs-VQ-pyA" firstAttribute="leading" secondItem="a18-I8-tvf" secondAttribute="leading" id="XuC-JR-LmU"/>
+                                                    <constraint firstItem="2fs-VQ-pyA" firstAttribute="top" secondItem="a18-I8-tvf" secondAttribute="top" constant="2" id="eGS-po-gd3"/>
                                                     <constraint firstItem="cvN-kW-I6i" firstAttribute="centerY" secondItem="a18-I8-tvf" secondAttribute="centerY" id="fj0-it-Bgi"/>
-                                                    <constraint firstItem="2fs-VQ-pyA" firstAttribute="leading" secondItem="a18-I8-tvf" secondAttribute="leadingMargin" constant="-8" id="kF3-nS-0yk"/>
-                                                    <constraint firstAttribute="trailingMargin" secondItem="2fs-VQ-pyA" secondAttribute="trailing" constant="-8" id="wbz-Fd-8hR"/>
-                                                    <constraint firstAttribute="bottomMargin" secondItem="2fs-VQ-pyA" secondAttribute="bottom" constant="-6" id="xZa-8k-3Aw"/>
-                                                    <constraint firstItem="2fs-VQ-pyA" firstAttribute="top" secondItem="a18-I8-tvf" secondAttribute="topMargin" constant="-6" id="yh1-Ly-KUf"/>
                                                 </constraints>
                                                 <connections>
                                                     <outlet property="imageView" destination="2fs-VQ-pyA" id="Tbh-Ho-u3Q"/>
@@ -215,15 +214,15 @@
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </view>
                                                 <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="MEF-i7-G6v" secondAttribute="trailing" id="0Ut-vd-XRV"/>
                                                     <constraint firstItem="V9C-Uy-M4J" firstAttribute="centerY" secondItem="qBc-7J-4j3" secondAttribute="centerY" id="0Z2-d4-CgB"/>
-                                                    <constraint firstAttribute="bottomMargin" secondItem="MEF-i7-G6v" secondAttribute="bottom" constant="-6" id="1fw-WA-wCH"/>
-                                                    <constraint firstAttribute="trailingMargin" secondItem="7KM-Uz-48n" secondAttribute="trailing" constant="-8" id="1qS-3w-Fxy"/>
                                                     <constraint firstItem="MEF-i7-G6v" firstAttribute="top" secondItem="7KM-Uz-48n" secondAttribute="bottom" id="3aS-0M-N9v"/>
                                                     <constraint firstItem="V9C-Uy-M4J" firstAttribute="centerX" secondItem="qBc-7J-4j3" secondAttribute="centerX" id="ELG-z3-uBE"/>
-                                                    <constraint firstItem="7KM-Uz-48n" firstAttribute="leading" secondItem="qBc-7J-4j3" secondAttribute="leadingMargin" constant="-8" id="Hzt-Bj-CyJ"/>
-                                                    <constraint firstItem="MEF-i7-G6v" firstAttribute="leading" secondItem="qBc-7J-4j3" secondAttribute="leadingMargin" constant="-8" id="JQc-Oh-bHr"/>
-                                                    <constraint firstItem="7KM-Uz-48n" firstAttribute="top" secondItem="qBc-7J-4j3" secondAttribute="topMargin" constant="-6" id="Rz3-3t-lxJ"/>
-                                                    <constraint firstAttribute="trailingMargin" secondItem="MEF-i7-G6v" secondAttribute="trailing" constant="-8" id="fmc-1M-hc0"/>
+                                                    <constraint firstItem="7KM-Uz-48n" firstAttribute="top" secondItem="qBc-7J-4j3" secondAttribute="top" constant="2" id="Tk5-gg-Pg1"/>
+                                                    <constraint firstAttribute="trailing" secondItem="7KM-Uz-48n" secondAttribute="trailing" id="YsP-9J-MFs"/>
+                                                    <constraint firstAttribute="bottom" secondItem="MEF-i7-G6v" secondAttribute="bottom" constant="2" id="ZV7-Q9-A3Z"/>
+                                                    <constraint firstItem="7KM-Uz-48n" firstAttribute="leading" secondItem="qBc-7J-4j3" secondAttribute="leading" id="eFp-mz-gcD"/>
+                                                    <constraint firstItem="MEF-i7-G6v" firstAttribute="leading" secondItem="qBc-7J-4j3" secondAttribute="leading" id="gGm-bd-USA"/>
                                                 </constraints>
                                                 <connections>
                                                     <outlet property="imageView" destination="7KM-Uz-48n" id="bnJ-xp-vl5"/>
@@ -332,7 +331,7 @@
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="IXl-aS-fBH"/>
-                        <barButtonItem image="filterButton" id="PNs-Ag-O9O" userLabel="滤镜">
+                        <barButtonItem image="filter" id="PNs-Ag-O9O" userLabel="滤镜">
                             <connections>
                                 <action selector="filterAction:" destination="BYZ-38-t0r" id="ZUM-ik-mcf"/>
                             </connections>
@@ -421,7 +420,7 @@
         <image name="btnCancel" width="40" height="40"/>
         <image name="btnOK" width="40" height="40"/>
         <image name="cropButton" width="40" height="40"/>
-        <image name="filterButton" width="44" height="44"/>
+        <image name="filter" width="44" height="44"/>
         <image name="flip" width="44" height="44"/>
         <image name="iconSelect" width="16" height="16"/>
         <image name="placeHolder" width="80" height="100"/>

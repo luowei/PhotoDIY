@@ -8,3 +8,24 @@
 
 "Save Success" = "保存成功";
 "Error" = "发生错误";
+
+"contrast" 				 = "对比度调节";
+"levels" 				 = "色阶调节";
+"rgb" 					 = "RGB调节";
+"hue" 					 = "HUE调节";
+"whiteBalance" 			 = "白平衡";
+"sharpen" 				 = "锐化";
+"gamma" 				 = "Gamma";
+"toneCurve" 			 = "色调美化";
+"sepiaTone" 			 = "褐色调";
+"colorInvert" 			 = "反转";
+"grayScale" 			 = "灰度";
+"sobelEdge" 			 = "边缘突显";
+"sketch" 				 = "素描";
+"emboss" 				 = "浮雕";
+"vignette" 				 = "晕映";
+"gaussianBlur" 			 = "高斯模糊";
+"gaussianSelectiveBlur"	 = "虚化背影";
+"boxBlur" 				 = "盒状模糊";
+"motionBlur" 			 = "运动模糊";
+"zoomBlur" 				 = "变焦模糊";
