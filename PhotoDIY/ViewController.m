@@ -42,44 +42,57 @@
 }
 
 
-- (IBAction)selPhotoAction:(UIBarButtonItem *)sender {
+- (IBAction)selPhotoAction:(id)sender {
     [self.drawView showPhotos];
 }
 
-- (IBAction)filterAction:(UIBarButtonItem *)sender {
+- (IBAction)filterAction:(id)sender {
     [self.drawView showFilters];
 }
 
-- (IBAction)cropAction:(UIBarButtonItem *)sender {
+- (IBAction)cropAction:(id)sender {
     [self.drawView showOrHideCropView];
 }
 
-- (IBAction)saveAction:(UIBarButtonItem *)sender {
+- (IBAction)saveAction:(id)sender {
     [self.drawView saveImage];
 }
 
-- (IBAction)rotateRight:(UIBarButtonItem *)sender {
+- (IBAction)rotateRight:(id)sender {
     [self.drawView rotateRight];
 }
 
-- (IBAction)rotateLeft:(UIBarButtonItem *)sender {
+- (IBAction)rotateLeft:(id)sender {
     [self.drawView rotateLeft];
 }
 
-- (IBAction)flipHorizonal:(UIBarButtonItem *)sender {
+- (IBAction)flipHorizonal:(id)sender {
     [self.drawView flipHorizonal];
 }
 
-- (IBAction)share:(UIBarButtonItem *)sender {
+- (IBAction)share:(id)sender {
 }
 
-- (IBAction)cropOkAction:(UIButton *)sender {
+- (IBAction)cropOkAction:(id)sender {
     [self.drawView cropImageOk];
 }
 
-- (IBAction)cropCancelAction:(UIButton *)sender {
+- (IBAction)cropCancelAction:(id)sender {
     [self.drawView cancelCropImage];
 }
 
 
 @end
+
+
+@implementation LWToolBar{
+    CALayer *_topLine;
+}
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+
+}
+
+@end
+

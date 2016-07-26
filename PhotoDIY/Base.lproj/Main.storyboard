@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="UFw-lB-Auc">
     <dependencies>
-        <deployment identifier="iOS"/>
+        <deployment version="2304" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
@@ -15,7 +15,7 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="44" width="320" height="392"/>
+                        <rect key="frame" x="0.0" y="44" width="320" height="436"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hc7-a9-rQJ" customClass="PDDrawView">
@@ -24,6 +24,54 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sQH-bp-mwK" customClass="GPUImageView">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="392"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OyO-Fb-QTL" userLabel="Crop View" customClass="LWImageCropView">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="392"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HzR-QA-1ed" userLabel="ok">
+                                                <rect key="frame" x="265" y="337" width="40" height="40"/>
+                                                <color key="backgroundColor" red="0.47058823529411764" green="0.47058823529411764" blue="0.47058823529411764" alpha="0.5" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="puC-bM-pqu"/>
+                                                    <constraint firstAttribute="width" constant="40" id="xnw-yE-0D6"/>
+                                                </constraints>
+                                                <state key="normal" image="btnOK"/>
+                                                <state key="highlighted" image="btnOK"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="cropOkAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="67x-h5-Rqy"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vbu-qT-KrD" userLabel="cancel">
+                                                <rect key="frame" x="15" y="337" width="40" height="40"/>
+                                                <color key="backgroundColor" red="0.47058823529411764" green="0.47058823529411764" blue="0.47058823529411764" alpha="0.5" colorSpace="calibratedRGB"/>
+                                                <state key="normal" image="btnCancel"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="cropCancelAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NSe-6y-wTc"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="HzR-QA-1ed" secondAttribute="bottom" constant="15" id="Fmv-d8-IyO"/>
+                                            <constraint firstAttribute="trailing" secondItem="HzR-QA-1ed" secondAttribute="trailing" constant="15" id="a43-wh-TUK"/>
+                                            <constraint firstItem="HzR-QA-1ed" firstAttribute="width" secondItem="Vbu-qT-KrD" secondAttribute="width" id="d1C-1q-nlj"/>
+                                            <constraint firstItem="HzR-QA-1ed" firstAttribute="centerY" secondItem="Vbu-qT-KrD" secondAttribute="centerY" id="gNk-2I-HeN"/>
+                                            <constraint firstItem="Vbu-qT-KrD" firstAttribute="leading" secondItem="OyO-Fb-QTL" secondAttribute="leading" constant="15" id="hse-YY-zvX"/>
+                                            <constraint firstItem="HzR-QA-1ed" firstAttribute="height" secondItem="Vbu-qT-KrD" secondAttribute="height" id="qlV-zn-pyG"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="cropCancel" destination="Vbu-qT-KrD" id="5Pz-1T-YhP"/>
+                                            <outlet property="cropOk" destination="HzR-QA-1ed" id="COA-0K-oWS"/>
+                                        </connections>
                                     </view>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UzC-kM-k4R" userLabel="Photo TopLine">
                                         <rect key="frame" x="0.0" y="291" width="320" height="0.5"/>
@@ -236,42 +284,6 @@
                                             <outlet property="topLine" destination="zwm-Fq-YWP" id="1DS-ok-Cfy"/>
                                         </connections>
                                     </collectionView>
-                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OyO-Fb-QTL" userLabel="Crop View" customClass="LWImageCropView">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="392"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HzR-QA-1ed" userLabel="ok">
-                                                <rect key="frame" x="265" y="337" width="40" height="40"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="40" id="puC-bM-pqu"/>
-                                                    <constraint firstAttribute="width" constant="40" id="xnw-yE-0D6"/>
-                                                </constraints>
-                                                <state key="normal" image="btnOK"/>
-                                                <state key="highlighted" image="btnOK"/>
-                                                <connections>
-                                                    <action selector="cropOkAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="67x-h5-Rqy"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vbu-qT-KrD" userLabel="cancel">
-                                                <rect key="frame" x="15" y="337" width="40" height="40"/>
-                                                <state key="normal" image="btnCancel"/>
-                                                <connections>
-                                                    <action selector="cropCancelAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NSe-6y-wTc"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="HzR-QA-1ed" secondAttribute="bottom" constant="15" id="Fmv-d8-IyO"/>
-                                            <constraint firstAttribute="trailing" secondItem="HzR-QA-1ed" secondAttribute="trailing" constant="15" id="a43-wh-TUK"/>
-                                            <constraint firstItem="HzR-QA-1ed" firstAttribute="width" secondItem="Vbu-qT-KrD" secondAttribute="width" id="d1C-1q-nlj"/>
-                                            <constraint firstItem="HzR-QA-1ed" firstAttribute="centerY" secondItem="Vbu-qT-KrD" secondAttribute="centerY" id="gNk-2I-HeN"/>
-                                            <constraint firstItem="Vbu-qT-KrD" firstAttribute="leading" secondItem="OyO-Fb-QTL" secondAttribute="leading" constant="15" id="hse-YY-zvX"/>
-                                            <constraint firstItem="HzR-QA-1ed" firstAttribute="height" secondItem="Vbu-qT-KrD" secondAttribute="height" id="qlV-zn-pyG"/>
-                                        </constraints>
-                                        <connections>
-                                            <outlet property="cropCancel" destination="Vbu-qT-KrD" id="5Pz-1T-YhP"/>
-                                            <outlet property="cropOk" destination="HzR-QA-1ed" id="COA-0K-oWS"/>
-                                        </connections>
-                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -314,41 +326,73 @@
                                     <outlet property="photoCollectionView" destination="tKt-Dx-G3i" id="95e-ze-BxR"/>
                                 </connections>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t0H-Ca-AMv" userLabel="Tool Bar" customClass="LWToolBar">
+                                <rect key="frame" x="0.0" y="392" width="320" height="44"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="T8E-8s-elr" userLabel="Buttons">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NSP-Ro-Dr3" userLabel="Photos">
+                                                <rect key="frame" x="0.0" y="2" width="40" height="40"/>
+                                                <state key="normal" image="albumButton"/>
+                                                <connections>
+                                                    <action selector="selPhotoAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="S39-XC-EEd"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ahE-di-4l0" userLabel="Filters">
+                                                <rect key="frame" x="92" y="0.0" width="44" height="44"/>
+                                                <state key="normal" image="filter"/>
+                                                <connections>
+                                                    <action selector="filterAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7b1-ai-y8j"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AT2-lB-Mpy" userLabel="Crop">
+                                                <rect key="frame" x="188" y="2" width="40" height="40"/>
+                                                <state key="normal" image="cropButton"/>
+                                                <connections>
+                                                    <action selector="cropAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Kh8-9k-P6X"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ezf-AL-fHW" userLabel="Draw">
+                                                <rect key="frame" x="280" y="2" width="40" height="40"/>
+                                                <state key="normal" image="doodleButton"/>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.086274509803921567" green="0.086274509803921567" blue="0.086274509803921567" alpha="1" colorSpace="calibratedRGB"/>
+                                    </stackView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NMg-Wv-BtS" userLabel="topLine">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="0.5"/>
+                                        <color key="backgroundColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="0.5" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="0.5" id="TXE-5i-v6Z"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.086274509803921567" green="0.086274509803921567" blue="0.086274509803921567" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="T8E-8s-elr" firstAttribute="leading" secondItem="t0H-Ca-AMv" secondAttribute="leading" id="37o-Tv-pK6"/>
+                                    <constraint firstItem="NMg-Wv-BtS" firstAttribute="top" secondItem="t0H-Ca-AMv" secondAttribute="top" id="MLK-jM-VlW"/>
+                                    <constraint firstItem="NMg-Wv-BtS" firstAttribute="leading" secondItem="t0H-Ca-AMv" secondAttribute="leading" id="Q36-NX-CJe"/>
+                                    <constraint firstItem="T8E-8s-elr" firstAttribute="top" secondItem="t0H-Ca-AMv" secondAttribute="top" id="WjJ-6O-FxD"/>
+                                    <constraint firstAttribute="trailing" secondItem="T8E-8s-elr" secondAttribute="trailing" id="WqQ-Od-jzD"/>
+                                    <constraint firstAttribute="bottom" secondItem="T8E-8s-elr" secondAttribute="bottom" id="lj4-bg-Rh9"/>
+                                    <constraint firstAttribute="trailing" secondItem="NMg-Wv-BtS" secondAttribute="trailing" id="yx3-Ds-xcg"/>
+                                </constraints>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="hc7-a9-rQJ" secondAttribute="bottom" id="IQ8-rT-kj9"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="t0H-Ca-AMv" secondAttribute="bottom" id="Dbu-tK-ztm"/>
+                            <constraint firstItem="t0H-Ca-AMv" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="aXK-zl-NnF"/>
+                            <constraint firstItem="t0H-Ca-AMv" firstAttribute="top" secondItem="hc7-a9-rQJ" secondAttribute="bottom" id="bhL-Dy-Agj"/>
                             <constraint firstItem="hc7-a9-rQJ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="cso-m7-GrJ"/>
                             <constraint firstItem="hc7-a9-rQJ" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="eGj-VP-rmt"/>
                             <constraint firstAttribute="trailing" secondItem="hc7-a9-rQJ" secondAttribute="trailing" id="kjG-4U-ISt"/>
+                            <constraint firstAttribute="trailing" secondItem="t0H-Ca-AMv" secondAttribute="trailing" id="uwY-2R-vCk"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <toolbarItems>
-                        <barButtonItem image="albumButton" id="zi2-G3-dZU" userLabel="相册">
-                            <connections>
-                                <action selector="selPhotoAction:" destination="BYZ-38-t0r" id="QYR-e7-bJ6"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem style="plain" systemItem="flexibleSpace" id="IXl-aS-fBH"/>
-                        <barButtonItem image="filter" id="PNs-Ag-O9O" userLabel="滤镜">
-                            <connections>
-                                <action selector="filterAction:" destination="BYZ-38-t0r" id="ZUM-ik-mcf"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem style="plain" systemItem="flexibleSpace" id="2xc-P0-HmI"/>
-                        <barButtonItem image="cropButton" id="xb9-ro-qNd" userLabel="裁剪">
-                            <connections>
-                                <action selector="cropAction:" destination="BYZ-38-t0r" id="Xba-qx-rbp"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem style="plain" systemItem="flexibleSpace" id="ikh-QQ-2eW"/>
-                        <barButtonItem image="saveButton" id="Yn9-El-dn7" userLabel="保存">
-                            <connections>
-                                <action selector="saveAction:" destination="BYZ-38-t0r" id="t2i-D1-cLi"/>
-                            </connections>
-                        </barButtonItem>
-                    </toolbarItems>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" title="照片编辑" id="N0f-SJ-Bit">
                         <leftBarButtonItems>
                             <barButtonItem image="redoButton" width="30" id="ARS-vx-twU" userLabel="rotateRight">
@@ -384,6 +428,7 @@
                     <size key="freeformSize" width="320" height="480"/>
                     <connections>
                         <outlet property="drawView" destination="hc7-a9-rQJ" id="XoY-do-SX8"/>
+                        <outlet property="toolBar" destination="t0H-Ca-AMv" id="wbv-HK-Wxu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -393,11 +438,11 @@
         <!--Navigation Controller-->
         <scene sceneID="2Sp-Gx-pku">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="UFw-lB-Auc" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="UFw-lB-Auc" sceneMemberID="viewController">
                     <toolbarItems/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="480"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="0LN-IN-gSp">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="0LN-IN-gSp">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -420,12 +465,12 @@
         <image name="btnCancel" width="40" height="40"/>
         <image name="btnOK" width="40" height="40"/>
         <image name="cropButton" width="40" height="40"/>
+        <image name="doodleButton" width="40" height="40"/>
         <image name="filter" width="44" height="44"/>
         <image name="flip" width="44" height="44"/>
         <image name="iconSelect" width="16" height="16"/>
         <image name="placeHolder" width="80" height="100"/>
         <image name="redoButton" width="40" height="40"/>
-        <image name="saveButton" width="40" height="40"/>
         <image name="shareBtn" width="44" height="44"/>
         <image name="undoButton" width="40" height="40"/>
     </resources>

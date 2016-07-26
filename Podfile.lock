@@ -1,18 +1,21 @@
 PODS:
+  - FDStackView (1.0)
   - FXBlurView (1.6.4)
   - GPUImage (0.1.7)
-  - MBProgressHUD (0.9.2)
+  - MBProgressHUD (1.0.0)
 
 DEPENDENCIES:
+  - FDStackView (= 1.0)
   - FXBlurView (~> 1.6.4)
   - GPUImage (~> 0.1.7)
   - MBProgressHUD
 
 SPEC CHECKSUMS:
+  FDStackView: 3a4bbe0ce9c35e974246a585168b9da8c32213f1
   FXBlurView: db786c2561cb49a09ae98407f52460096ab8a44f
   GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
-  MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
+  MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
 
-PODFILE CHECKSUM: bf24e58c2afa5d81662d22891ba8a3fe7ad04a0c
+PODFILE CHECKSUM: 467cf92b6f9f4408508cbd7fd3d1ec4537b66ab8
 
 COCOAPODS: 1.0.1

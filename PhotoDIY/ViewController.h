@@ -9,10 +9,17 @@
 #import <UIKit/UIKit.h>
 
 @class PDDrawView;
+@class LWToolBar;
 
 @interface ViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet PDDrawView *drawView;
+@property (weak, nonatomic) IBOutlet LWToolBar *toolBar;
 
 @end
 
+
+@interface LWToolBar:UIView
+
+
+@end
