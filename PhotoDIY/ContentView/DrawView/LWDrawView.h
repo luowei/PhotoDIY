@@ -10,4 +10,5 @@
 
 @interface LWDrawView : UIView
 
+- (void)setImage:(UIImage *)image;
 @end

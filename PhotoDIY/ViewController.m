@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "LWContentView.h"
 #import "Categorys.h"
+#import "LWImageView.h"
 
 @interface ViewController ()
 
@@ -59,15 +60,15 @@
 }
 
 - (IBAction)rotateRight:(id)sender {
-    [self.drawView rotateRight];
+    [self.drawView.imageView rotateRight];
 }
 
 - (IBAction)rotateLeft:(id)sender {
-    [self.drawView rotateLeft];
+    [self.drawView.imageView rotateLeft];
 }
 
 - (IBAction)flipHorizonal:(id)sender {
-    [self.drawView flipHorizonal];
+    [self.drawView.imageView flipHorizonal];
 }
 
 - (IBAction)share:(id)sender {

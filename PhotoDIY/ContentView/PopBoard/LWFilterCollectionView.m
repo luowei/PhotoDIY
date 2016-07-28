@@ -7,9 +7,10 @@
 //
 
 #import "LWFilterCollectionView.h"
-#import "LWFilterManager.h"
+#import "LWDataManager.h"
 #import "LWContentView.h"
 #import "Categorys.h"
+#import "LWFilterImageView.h"
 
 @implementation LWFilterCollectionView{
 }
@@ -37,7 +38,7 @@
 
 //重新加载Filters
 -(void)reloadFilters{
-    self.filterDict = [LWFilterManager filters];
+    self.filterDict = [[LWDataManager sharedInstance] filters];
     [self reloadData];
 }
 
@@ -77,7 +78,7 @@
     LWContentView *drawView = [self superViewWithClass:[LWContentView class]];
     NSString *key = cell.titleLbl.text;
     GPUImageOutput<GPUImageInput> *filter = self.filterDict[key];
-    [drawView renderWithFilter:filter];
+    [drawView.filterView renderWithFilter:filter];
 
 }
 

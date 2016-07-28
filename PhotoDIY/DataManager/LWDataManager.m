@@ -1,17 +1,25 @@
 //
-//  LWFilterManager.m
+//  LWDataManager.m
 //  PhotoDIY
 //
 //  Created by luowei on 16/7/5.
 //  Copyright (c) 2016 wodedata. All rights reserved.
 //
 
-#import "LWFilterManager.h"
+#import "LWDataManager.h"
 #import "GPUImageFilter.h"
 
-@implementation LWFilterManager
+@implementation LWDataManager
 
-+(NSDictionary *)filters{
++ (LWDataManager *)sharedInstance {
+    static LWDataManager *sharedInstance = nil;
+    if (sharedInstance == nil) {
+        sharedInstance = [[LWDataManager alloc] init];
+    }
+    return sharedInstance;
+}
+
+-(NSDictionary *)filters{
     GPUImageOutput *contrast = [GPUImageContrastFilter new];
     [((GPUImageContrastFilter *)contrast) setContrast:2.0];
 

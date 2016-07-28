@@ -329,11 +329,11 @@
                                     <outlet property="cropView" destination="OyO-Fb-QTL" id="cs7-rt-SMz"/>
                                     <outlet property="drawView" destination="7kQ-2N-VDE" id="bU8-iN-Rbu"/>
                                     <outlet property="filterCollectionView" destination="BNY-mx-jRu" id="4Yy-Dq-fA9"/>
-                                    <outlet property="gpuImageView" destination="sQH-bp-mwK" id="Qph-ij-lw2"/>
-                                    <outlet property="gpuImgPaddingBottomZero" destination="wjc-XQ-7Nf" id="oEV-Pf-zHu"/>
-                                    <outlet property="gpuImgPaddingFiltersCollectionV" destination="Ea9-uX-egs" id="dm9-Vl-hxY"/>
-                                    <outlet property="gpuImgPaddingPhotosCollectionV" destination="Nbx-Ju-fMD" id="IIN-NY-PTA"/>
+                                    <outlet property="filterView" destination="sQH-bp-mwK" id="Qph-ij-lw2"/>
                                     <outlet property="imageView" destination="4ij-qm-Hl0" id="vb3-M5-fB4"/>
+                                    <outlet property="paddingBottomZero" destination="wjc-XQ-7Nf" id="oEV-Pf-zHu"/>
+                                    <outlet property="paddingFiltersCollectionV" destination="Ea9-uX-egs" id="dm9-Vl-hxY"/>
+                                    <outlet property="paddingPhotosCollectionV" destination="Nbx-Ju-fMD" id="IIN-NY-PTA"/>
                                     <outlet property="photoCollectionView" destination="tKt-Dx-G3i" id="95e-ze-BxR"/>
                                 </connections>
                             </view>
@@ -386,6 +386,7 @@
                                     <constraint firstItem="NMg-Wv-BtS" firstAttribute="leading" secondItem="t0H-Ca-AMv" secondAttribute="leading" id="Q36-NX-CJe"/>
                                     <constraint firstItem="T8E-8s-elr" firstAttribute="top" secondItem="t0H-Ca-AMv" secondAttribute="top" id="WjJ-6O-FxD"/>
                                     <constraint firstAttribute="trailing" secondItem="T8E-8s-elr" secondAttribute="trailing" id="WqQ-Od-jzD"/>
+                                    <constraint firstAttribute="height" constant="44" id="YJL-RM-cgC"/>
                                     <constraint firstAttribute="bottom" secondItem="T8E-8s-elr" secondAttribute="bottom" id="lj4-bg-Rh9"/>
                                     <constraint firstAttribute="trailing" secondItem="NMg-Wv-BtS" secondAttribute="trailing" id="yx3-Ds-xcg"/>
                                 </constraints>

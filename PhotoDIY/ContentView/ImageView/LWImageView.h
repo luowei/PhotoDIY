@@ -10,4 +10,10 @@
 
 @interface LWImageView : UIImageView
 
+- (void)rotateRight;
+
+- (void)rotateLeft;
+
+- (void)flipHorizonal;
+
 @end

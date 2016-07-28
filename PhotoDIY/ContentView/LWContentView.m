@@ -13,6 +13,9 @@
 #import "MBProgressHUD.h"
 #import "LWImageCropView.h"
 #import "LWFilterImageView.h"
+#import "LWDataManager.h"
+#import "LWImageView.h"
+#import "LWDrawView.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 
 @implementation LWContentView
@@ -21,27 +24,13 @@
     [super awakeFromNib];
 
     self.backgroundColor = [UIColor blackColor];
-    self.gpuImageView.backgroundColor = [UIColor blackColor];
-    self.gpuImageView.contentMode = UIViewContentModeScaleAspectFill;
+    self.currentMode = ImageMode;
 }
 
 - (void)rotationToInterfaceOrientation:(UIInterfaceOrientation)orientation {
     [super rotationToInterfaceOrientation:orientation];
 
     [self hiddenHandBoard];
-    [self reloadGPUImagePicture];
-}
-
-- (void)reloadGPUImagePicture{
-    if (!self.currentImage) {
-        return;
-    }
-    self.gpuImageView.contentMode = UIViewContentModeScaleAspectFill;
-
-    self.sourcePicture = [[GPUImagePicture alloc] initWithImage:self.currentImage smoothlyScaleOutput:YES];
-    [self.sourcePicture forceProcessingAtSize:self.currentImage.size];
-    [self.sourcePicture addTarget:self.gpuImageView];
-    [self.sourcePicture processImage];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -50,101 +39,11 @@
     [self hiddenHandBoard];
 }
 
-//隐藏HandBoard
-- (void)hiddenHandBoard {
-    if (!self.filterCollectionView.hidden) {
-        self.filterCollectionView.hidden = !self.filterCollectionView.hidden;
-    }
-    if (!self.photoCollectionView.hidden) {
-        self.photoCollectionView.hidden = !self.photoCollectionView.hidden;
-    }
-    NSComparisonResult result = [[UIDevice currentDevice].systemVersion compare:@"8.0"];
-    if(result == NSOrderedSame || result == NSOrderedDescending){
-        [self removeConstraint:self.gpuImgPaddingFiltersCollectionV];
-        [self removeConstraint:self.gpuImgPaddingPhotosCollectionV];
-        [self addConstraint:self.gpuImgPaddingBottomZero];
-        [self setNeedsUpdateConstraints];
-    }
-}
-
-
-//加载默认图片
+//初次启动,加载默认图片
 - (void)loadDefaultImage {
     UIImage *inputImage = [UIImage imageNamed:@"Lambeau.jpg"];
     [self loadPhoto:inputImage];
-    //[self renderWithFilter:[GPUImageLookupFilter new]];
 }
-
-//加载照片选择器
-- (void)showPhotos {
-    //隐藏cropView
-    if (!self.cropView.hidden) {
-        self.cropView.hidden = !self.cropView.hidden;
-    }
-    self.gpuImageView.hidden = NO;
-
-    if (!self.filterCollectionView.hidden) {
-        self.filterCollectionView.hidden = !self.filterCollectionView.hidden;
-    }
-
-    self.photoCollectionView.hidden = !self.photoCollectionView.hidden;
-    if (!self.photoCollectionView.hidden) {
-        NSComparisonResult result = [[UIDevice currentDevice].systemVersion compare:@"8.0"];
-        if(result == NSOrderedSame || result == NSOrderedDescending){
-            [self removeConstraint:self.gpuImgPaddingBottomZero];
-            [self removeConstraint:self.gpuImgPaddingFiltersCollectionV];
-            [self addConstraint:self.gpuImgPaddingPhotosCollectionV];
-            [self setNeedsUpdateConstraints];
-        }
-
-        [self.photoCollectionView reloadPhotos];
-
-    } else {
-        NSComparisonResult result = [[UIDevice currentDevice].systemVersion compare:@"8.0"];
-        if(result == NSOrderedSame || result == NSOrderedDescending){
-            [self removeConstraint:self.gpuImgPaddingFiltersCollectionV];
-            [self removeConstraint:self.gpuImgPaddingPhotosCollectionV];
-            [self addConstraint:self.gpuImgPaddingBottomZero];
-            [self setNeedsUpdateConstraints];
-        }
-    }
-
-}
-
-//加载滤镜
-- (void)showFilters {
-    //隐藏cropView
-    if (!self.cropView.hidden) {
-        self.cropView.hidden = !self.cropView.hidden;
-    }
-    self.gpuImageView.hidden = NO;
-
-    if (!self.photoCollectionView.hidden) {
-        self.photoCollectionView.hidden = !self.photoCollectionView.hidden;
-    }
-
-    self.filterCollectionView.hidden = !self.filterCollectionView.hidden;
-    if (!self.filterCollectionView.hidden) {
-        NSComparisonResult result = [[UIDevice currentDevice].systemVersion compare:@"8.0"];
-        if(result == NSOrderedSame || result == NSOrderedDescending){
-            [self removeConstraint:self.gpuImgPaddingBottomZero];
-            [self removeConstraint:self.gpuImgPaddingPhotosCollectionV];
-            [self addConstraint:self.gpuImgPaddingFiltersCollectionV];
-            [self setNeedsUpdateConstraints];
-        }
-
-        [self.filterCollectionView reloadFilters];
-    } else {
-        NSComparisonResult result = [[UIDevice currentDevice].systemVersion compare:@"8.0"];
-        if(result == NSOrderedSame || result == NSOrderedDescending){
-            [self removeConstraint:self.gpuImgPaddingFiltersCollectionV];
-            [self removeConstraint:self.gpuImgPaddingPhotosCollectionV];
-            [self addConstraint:self.gpuImgPaddingBottomZero];
-            [self setNeedsUpdateConstraints];
-        }
-    }
-}
-
 
 #pragma mark - PDPhotoPickerProtocol 实现
 
@@ -157,118 +56,182 @@
         return;
     }
     self.originImage = image;
-    [self loadImage2GPUImagePicture:image];
+    self.currentMode = ImageMode;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self reloadImage:image];
+    });
+    
 }
 
-//load 照片到 GPUImagePicture
-- (void)loadImage2GPUImagePicture:(UIImage *)image {
-    if (!image) {
-        return;
+
+#pragma mark - 其他方法
+
+- (void)showErrorHud {
+    self.hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
+    self.hud.mode = MBProgressHUDModeText;
+    self.hud.labelText = NSLocalizedString(@"Error", nil);
+}
+
+
+//隐藏HandBoard
+- (void)hiddenHandBoard {
+    if (!self.filterCollectionView.hidden) {
+        self.filterCollectionView.hidden = !self.filterCollectionView.hidden;
+    }
+    if (!self.photoCollectionView.hidden) {
+        self.photoCollectionView.hidden = !self.photoCollectionView.hidden;
+    }
+    NSComparisonResult result = [[UIDevice currentDevice].systemVersion compare:@"8.0"];
+    if (result == NSOrderedSame || result == NSOrderedDescending) {
+        [self removeConstraint:self.paddingFiltersCollectionV];
+        [self removeConstraint:self.paddingPhotosCollectionV];
+        [self addConstraint:self.paddingBottomZero];
+        [self setNeedsUpdateConstraints];
+    }
+}
+
+//加载照片选择器
+- (void)showPhotos {
+    //处理handBoard
+    if (!self.filterCollectionView.hidden) {
+        self.filterCollectionView.hidden = !self.filterCollectionView.hidden;
     }
 
-    self.currentImage = image;
-    self.gpuImageView.contentMode = UIViewContentModeScaleAspectFill;
+    self.photoCollectionView.hidden = !self.photoCollectionView.hidden;
+    if (!self.photoCollectionView.hidden) {
+        NSComparisonResult result = [[UIDevice currentDevice].systemVersion compare:@"8.0"];
+        if (result == NSOrderedSame || result == NSOrderedDescending) {
+            [self removeConstraint:self.paddingBottomZero];
+            [self removeConstraint:self.paddingFiltersCollectionV];
+            [self addConstraint:self.paddingPhotosCollectionV];
+            [self setNeedsUpdateConstraints];
+        }
 
-    self.sourcePicture = [[GPUImagePicture alloc] initWithImage:image smoothlyScaleOutput:YES];
-    [self.sourcePicture forceProcessingAtSize:image.size];
-    [self.sourcePicture addTarget:self.gpuImageView];
-    [self.sourcePicture processImage];
+        [self.photoCollectionView reloadPhotos];
+
+    } else {
+        NSComparisonResult result = [[UIDevice currentDevice].systemVersion compare:@"8.0"];
+        if (result == NSOrderedSame || result == NSOrderedDescending) {
+            [self removeConstraint:self.paddingFiltersCollectionV];
+            [self removeConstraint:self.paddingPhotosCollectionV];
+            [self addConstraint:self.paddingBottomZero];
+            [self setNeedsUpdateConstraints];
+        }
+    }
+
+    LWDataManager *dm = [LWDataManager sharedInstance];
+    self.currentMode = ImageMode;
+    [self reloadImage:dm.currentImage];
+
 }
 
-- (void)renderWithFilter:(GPUImageOutput <GPUImageInput> *)filter {
-    self.filter = filter;
-    [self.filter forceProcessingAtSize:self.currentImage.size];
-    [self.sourcePicture removeAllTargets];
-    [self.filter removeAllTargets];
 
-    [self.sourcePicture addTarget:self.filter];
-    [self.filter addTarget:self.gpuImageView];
+//加载滤镜
+- (void)showFilters {
 
-    [self.filter useNextFrameForImageCapture];
-    [self.sourcePicture processImage];
+    //处理handBoard
+    if (!self.photoCollectionView.hidden) {
+        self.photoCollectionView.hidden = !self.photoCollectionView.hidden;
+    }
 
-    self.currentImage = [self.filter imageFromCurrentFramebuffer];
+    self.filterCollectionView.hidden = !self.filterCollectionView.hidden;
+    if (!self.filterCollectionView.hidden) {
+        NSComparisonResult result = [[UIDevice currentDevice].systemVersion compare:@"8.0"];
+        if (result == NSOrderedSame || result == NSOrderedDescending) {
+            [self removeConstraint:self.paddingBottomZero];
+            [self removeConstraint:self.paddingPhotosCollectionV];
+            [self addConstraint:self.paddingFiltersCollectionV];
+            [self setNeedsUpdateConstraints];
+        }
+
+        [self.filterCollectionView reloadFilters];
+        self.currentMode = FilterMode;
+    } else {
+        NSComparisonResult result = [[UIDevice currentDevice].systemVersion compare:@"8.0"];
+        if (result == NSOrderedSame || result == NSOrderedDescending) {
+            [self removeConstraint:self.paddingFiltersCollectionV];
+            [self removeConstraint:self.paddingPhotosCollectionV];
+            [self addConstraint:self.paddingBottomZero];
+            [self setNeedsUpdateConstraints];
+        }
+        self.currentMode = ImageMode;
+    }
+
+    LWDataManager *dm = [LWDataManager sharedInstance];
+    [self reloadImage:dm.currentImage];
 }
+
+#pragma mark -
+
+- (void)reloadImage:(UIImage *)image {
+
+    LWDataManager *dm = [LWDataManager sharedInstance];
+    dm.currentImage = image;
+
+    switch (self.currentMode) {
+        case FilterMode: {
+            self.imageView.hidden = YES;
+            self.filterView.hidden = NO;
+            self.cropView.hidden = YES;
+            self.drawView.hidden = YES;
+            [self.filterView loadImage2GPUImagePicture:image];
+            break;
+        }
+        case CropMode: {
+            self.imageView.hidden = YES;
+            self.filterView.hidden = YES;
+            self.cropView.hidden = NO;
+            self.drawView.hidden = YES;
+            [self.cropView setImage:image];
+            break;
+        }
+        case DrawMode: {
+            self.imageView.hidden = YES;
+            self.filterView.hidden = YES;
+            self.cropView.hidden = YES;
+            self.drawView.hidden = NO;
+            [self.drawView setImage:image];
+            break;
+        }
+        case ImageMode:
+        default: {
+            self.imageView.hidden = NO;
+            self.filterView.hidden = YES;
+            self.cropView.hidden = YES;
+            self.drawView.hidden = YES;
+            self.imageView.image = image;
+            break;
+        }
+    }
+}
+
 
 - (void)saveImage {
-    [self.filter forceProcessingAtSize:self.currentImage.size];
+    LWDataManager *dm = [LWDataManager sharedInstance];
+
+    [self.filterView.filter forceProcessingAtSize:dm.currentImage.size];
     self.hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
-    [self.sourcePicture processImageUpToFilter:self.filter withCompletionHandler:^(UIImage *processedImage) {
-        if (!processedImage) {
-            UIImageWriteToSavedPhotosAlbum(self.currentImage, self, nil, nil);
-        } else {
-            UIImageWriteToSavedPhotosAlbum(processedImage, self, nil, nil);
-        }
-        self.hud.mode = MBProgressHUDModeText;
-        self.hud.labelText = NSLocalizedString(@"Save Success", nil);
-    }];
+    [self.filterView.sourcePicture processImageUpToFilter:self.filterView.filter
+                                      withCompletionHandler:^(UIImage *processedImage) {
+                                          if (!processedImage) {
+                                              UIImageWriteToSavedPhotosAlbum(dm.currentImage, self, nil, nil);
+                                          } else {
+                                              UIImageWriteToSavedPhotosAlbum(processedImage, self, nil, nil);
+                                          }
+                                          self.hud.mode = MBProgressHUDModeText;
+                                          self.hud.labelText = NSLocalizedString(@"Save Success", nil);
+                                      }];
     [self.hud hide:YES afterDelay:1.0];
 }
 
-- (void)rotateWithRotateMode:(GPUImageRotationMode)rotateMode {
-    UIImage *image = self.currentImage;
-    CGFloat scale = [UIScreen mainScreen].scale;
-    switch (rotateMode) {
-        case kGPUImageRotateLeft: {
-            image = [self rotateUIImage:image orientation:UIImageOrientationLeft];
-            break;
-        }
-        case kGPUImageRotateRight: {
-            image = [self rotateUIImage:image orientation:UIImageOrientationRight];
-            break;
-        }
-        case kGPUImageFlipVertical: {
-            image = [self rotateUIImage:image orientation:UIImageOrientationDownMirrored];
-            image = [self rotateUIImage:image orientation:UIImageOrientationUp];
-            break;
-        }
-        case kGPUImageFlipHorizonal: {
-            image = [self rotateUIImage:image orientation:UIImageOrientationLeftMirrored];
-            image = [self rotateUIImage:image orientation:UIImageOrientationRight];
-            break;
-        }
-        case kGPUImageRotate180: {
-            image = [self rotateUIImage:image orientation:UIImageOrientationDown];
-            break;
-        }
-        default: {
-            break;
-        }
-    }
-    [self loadImage2GPUImagePicture:image];
-
-}
-
-- (UIImage *)rotateUIImage:(UIImage *)sourceImage orientation:(UIImageOrientation)orientation {
-    CGSize size = sourceImage.size;
-    CGFloat scale = [UIScreen mainScreen].scale;
-    UIGraphicsBeginImageContext(CGSizeMake(size.height, size.width));
-    [[UIImage imageWithCGImage:[sourceImage CGImage] scale:scale orientation:orientation]
-            drawInRect:CGRectMake(0, 0, size.height, size.width)];
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-
-    return newImage;
-}
-
-- (void)rotateRight {
-    [self rotateWithRotateMode:kGPUImageRotateRight];
-}
-
-- (void)rotateLeft {
-    [self rotateWithRotateMode:kGPUImageRotateLeft];
-}
-
-- (void)flipHorizonal {
-    [self rotateWithRotateMode:kGPUImageFlipHorizonal];
-}
 
 - (void)recovery {
-    [self loadImage2GPUImagePicture:self.originImage];
-    if(self.filterCollectionView){
+    [self reloadImage:self.originImage];
+
+    if (self.filterCollectionView) {
         NSArray *selectedItems = self.filterCollectionView.indexPathsForSelectedItems;
-        for(NSIndexPath *path in selectedItems){
-            LWFilterCollectionCell *cell = (LWFilterCollectionCell *)[self.filterCollectionView cellForItemAtIndexPath:path];
+        for (NSIndexPath *path in selectedItems) {
+            LWFilterCollectionCell *cell = (LWFilterCollectionCell *) [self.filterCollectionView cellForItemAtIndexPath:path];
             [self.filterCollectionView deselectItemAtIndexPath:path animated:NO];
             cell.selected = NO;
             cell.selectIcon.hidden = YES;
@@ -278,32 +241,25 @@
     }
 }
 
-- (void)showErrorHud {
-    self.hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
-    self.hud.mode = MBProgressHUDModeText;
-    self.hud.labelText = NSLocalizedString(@"Error", nil);
-}
 
 - (void)showOrHideCropView {
     [self hiddenHandBoard];
+    LWDataManager *dm = [LWDataManager sharedInstance];
 
-    if (!self.currentImage) {
-        [self showErrorHud];
-    } else {
-        [self.cropView setImage:self.currentImage];
-        self.cropView.hidden = !self.cropView.hidden;
-        self.gpuImageView.hidden = !self.cropView.hidden;
-    }
+    self.cropView.hidden = !self.cropView.hidden;
+    self.currentMode = self.cropView.hidden ? ImageMode : CropMode;
+    [self reloadImage:dm.currentImage];
 }
 
 - (void)cropImageOk {
-    if (self.currentImage) {
+    LWDataManager *dm = [LWDataManager sharedInstance];
+    if (dm.currentImage) {
         CGRect CropRect = self.cropView.cropAreaInImage;
         CGImageRef imageRef = CGImageCreateWithImageInRect([self.cropView.imageView.image CGImage], CropRect);
         UIImage *croppedImg = [UIImage imageWithCGImage:imageRef];
 
-        [self loadImage2GPUImagePicture:croppedImg];
-        [self showOrHideCropView];
+        self.currentMode = ImageMode;
+        [self reloadImage:croppedImg];
 
         CGImageRelease(imageRef);
     } else {
@@ -312,7 +268,9 @@
 }
 
 - (void)cancelCropImage {
-    [self showOrHideCropView];
+    LWDataManager *dm = [LWDataManager sharedInstance];
+    self.currentMode = ImageMode;
+    [self reloadImage:dm.currentImage];
 }
 
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "LWPhotoCollectionView.h"
-#import "LWFilterManager.h"
+#import "LWDataManager.h"
 #import "Categorys.h"
 #import "LWContentView.h"
 

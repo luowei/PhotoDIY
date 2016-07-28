@@ -16,7 +16,7 @@
 		EA1C04451D4904A900290495 /* LWFilterImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA1C04441D4904A900290495 /* LWFilterImageView.m */; };
 		EA6F611B1D2B566900827523 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA6F611D1D2B566900827523 /* InfoPlist.strings */; };
 		EA6F611F1D2B567100827523 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA6F61211D2B567100827523 /* Localizable.strings */; };
-		EA6F61251D2B5A4500827523 /* LWFilterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6F61241D2B5A4500827523 /* LWFilterManager.m */; };
+		EA6F61251D2B5A4500827523 /* LWDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6F61241D2B5A4500827523 /* LWDataManager.m */; };
 		EA6F612E1D2B937600827523 /* PDPhotoLibPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6F612D1D2B937600827523 /* PDPhotoLibPicker.m */; };
 		EAB292C21D2A16C4004D5EED /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB292C11D2A16C4004D5EED /* main.m */; };
 		EAB292C51D2A16C4004D5EED /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB292C41D2A16C4004D5EED /* AppDelegate.m */; };
@@ -54,8 +54,8 @@
 		EA6F611E1D2B566C00827523 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EA6F61201D2B567100827523 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		EA6F61221D2B567400827523 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		EA6F61231D2B5A4500827523 /* LWFilterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWFilterManager.h; sourceTree = "<group>"; };
-		EA6F61241D2B5A4500827523 /* LWFilterManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWFilterManager.m; sourceTree = "<group>"; };
+		EA6F61231D2B5A4500827523 /* LWDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWDataManager.h; sourceTree = "<group>"; };
+		EA6F61241D2B5A4500827523 /* LWDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWDataManager.m; sourceTree = "<group>"; };
 		EA6F612C1D2B937600827523 /* PDPhotoLibPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDPhotoLibPicker.h; sourceTree = "<group>"; };
 		EA6F612D1D2B937600827523 /* PDPhotoLibPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDPhotoLibPicker.m; sourceTree = "<group>"; };
 		EAB292BD1D2A16C4004D5EED /* PhotoDIY.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoDIY.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -173,13 +173,13 @@
 			path = PhotoTools;
 			sourceTree = "<group>";
 		};
-		BEF06D1AE73117D3C5B28302 /* ImageFilters */ = {
+		BEF06D1AE73117D3C5B28302 /* DataManager */ = {
 			isa = PBXGroup;
 			children = (
-				EA6F61231D2B5A4500827523 /* LWFilterManager.h */,
-				EA6F61241D2B5A4500827523 /* LWFilterManager.m */,
+				EA6F61231D2B5A4500827523 /* LWDataManager.h */,
+				EA6F61241D2B5A4500827523 /* LWDataManager.m */,
 			);
-			path = ImageFilters;
+			path = DataManager;
 			sourceTree = "<group>";
 		};
 		D3C4F9F4B69BA8AACD84BAC6 /* Pods */ = {
@@ -213,7 +213,7 @@
 			isa = PBXGroup;
 			children = (
 				EAE5B4611D2E7C8B00DD865D /* ContentView */,
-				BEF06D1AE73117D3C5B28302 /* ImageFilters */,
+				BEF06D1AE73117D3C5B28302 /* DataManager */,
 				BEF06A7D3A612643CDD7DF8F /* PhotoTools */,
 				EAB292C31D2A16C4004D5EED /* AppDelegate.h */,
 				EAB292C41D2A16C4004D5EED /* AppDelegate.m */,
@@ -399,7 +399,7 @@
 				EAB292C81D2A16C4004D5EED /* ViewController.m in Sources */,
 				EAB292C51D2A16C4004D5EED /* AppDelegate.m in Sources */,
 				EAE5B4691D2E7C8B00DD865D /* LWContentView.m in Sources */,
-				EA6F61251D2B5A4500827523 /* LWFilterManager.m in Sources */,
+				EA6F61251D2B5A4500827523 /* LWDataManager.m in Sources */,
 				EA6F612E1D2B937600827523 /* PDPhotoLibPicker.m in Sources */,
 				EAB292C21D2A16C4004D5EED /* main.m in Sources */,
 				BEF069FB0617CA4B5E9BA8B6 /* LWImageView.m in Sources */,
