@@ -18,14 +18,16 @@
                         <rect key="frame" x="0.0" y="44" width="320" height="436"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hc7-a9-rQJ" customClass="PDDrawView">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hc7-a9-rQJ" userLabel="Content View" customClass="LWContentView">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="392"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sQH-bp-mwK" customClass="GPUImageView">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4ij-qm-Hl0" userLabel="Image View" customClass="LWImageView">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="392"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </imageView>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sQH-bp-mwK" userLabel="Filter Image View" customClass="LWFilterImageView">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="392"/>
                                     </view>
-                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OyO-Fb-QTL" userLabel="Crop View" customClass="LWImageCropView">
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OyO-Fb-QTL" userLabel="Crop Image View" customClass="LWImageCropView">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="392"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HzR-QA-1ed" userLabel="ok">
@@ -72,6 +74,9 @@
                                             <outlet property="cropCancel" destination="Vbu-qT-KrD" id="5Pz-1T-YhP"/>
                                             <outlet property="cropOk" destination="HzR-QA-1ed" id="COA-0K-oWS"/>
                                         </connections>
+                                    </view>
+                                    <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7kQ-2N-VDE" userLabel="Draw View" customClass="LWDrawView">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="392"/>
                                     </view>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UzC-kM-k4R" userLabel="Photo TopLine">
                                         <rect key="frame" x="0.0" y="291" width="320" height="0.5"/>
@@ -292,15 +297,19 @@
                                     <constraint firstAttribute="trailing" secondItem="BNY-mx-jRu" secondAttribute="trailing" id="9Sj-Ct-pKV"/>
                                     <constraint firstAttribute="trailing" secondItem="tKt-Dx-G3i" secondAttribute="trailing" id="9dg-bj-bio"/>
                                     <constraint firstItem="UzC-kM-k4R" firstAttribute="centerX" secondItem="tKt-Dx-G3i" secondAttribute="centerX" id="AJU-Rs-aZv"/>
+                                    <constraint firstItem="4ij-qm-Hl0" firstAttribute="leading" secondItem="hc7-a9-rQJ" secondAttribute="leading" id="EMj-at-FkE"/>
                                     <constraint firstAttribute="bottom" secondItem="sQH-bp-mwK" secondAttribute="bottom" constant="120" id="Ea9-uX-egs" userLabel="PaddingBottom_120"/>
                                     <constraint firstItem="tKt-Dx-G3i" firstAttribute="leading" secondItem="hc7-a9-rQJ" secondAttribute="leading" id="Elk-65-hdM"/>
                                     <constraint firstItem="sQH-bp-mwK" firstAttribute="leading" secondItem="hc7-a9-rQJ" secondAttribute="leading" id="Fdv-Q1-X2A"/>
                                     <constraint firstItem="zwm-Fq-YWP" firstAttribute="width" secondItem="BNY-mx-jRu" secondAttribute="width" id="Ie2-Tk-T6c"/>
                                     <constraint firstAttribute="trailing" secondItem="sQH-bp-mwK" secondAttribute="trailing" id="LYq-YT-F4i"/>
+                                    <constraint firstItem="4ij-qm-Hl0" firstAttribute="top" secondItem="hc7-a9-rQJ" secondAttribute="top" id="LhH-e4-dKa"/>
                                     <constraint firstAttribute="bottom" secondItem="sQH-bp-mwK" secondAttribute="bottom" constant="100" id="Nbx-Ju-fMD" userLabel="PaddingBottom_100"/>
                                     <constraint firstAttribute="trailing" secondItem="OyO-Fb-QTL" secondAttribute="trailing" id="Ocb-eg-YgA"/>
                                     <constraint firstItem="UzC-kM-k4R" firstAttribute="width" secondItem="tKt-Dx-G3i" secondAttribute="width" id="Rng-qJ-MQ7"/>
+                                    <constraint firstAttribute="trailing" secondItem="4ij-qm-Hl0" secondAttribute="trailing" id="XiN-Ff-ND5"/>
                                     <constraint firstItem="BNY-mx-jRu" firstAttribute="top" secondItem="zwm-Fq-YWP" secondAttribute="bottom" id="Y9m-Q1-RnJ"/>
+                                    <constraint firstAttribute="bottom" secondItem="4ij-qm-Hl0" secondAttribute="bottom" id="eWH-jb-k2h"/>
                                     <constraint firstItem="tKt-Dx-G3i" firstAttribute="top" secondItem="UzC-kM-k4R" secondAttribute="bottom" id="gFk-XM-cfH"/>
                                     <constraint firstItem="OyO-Fb-QTL" firstAttribute="leading" secondItem="hc7-a9-rQJ" secondAttribute="leading" id="kYu-AR-WsZ"/>
                                     <constraint firstItem="sQH-bp-mwK" firstAttribute="top" secondItem="hc7-a9-rQJ" secondAttribute="top" id="khu-DJ-WYP"/>
@@ -318,11 +327,13 @@
                                 </variation>
                                 <connections>
                                     <outlet property="cropView" destination="OyO-Fb-QTL" id="cs7-rt-SMz"/>
+                                    <outlet property="drawView" destination="7kQ-2N-VDE" id="bU8-iN-Rbu"/>
                                     <outlet property="filterCollectionView" destination="BNY-mx-jRu" id="4Yy-Dq-fA9"/>
                                     <outlet property="gpuImageView" destination="sQH-bp-mwK" id="Qph-ij-lw2"/>
                                     <outlet property="gpuImgPaddingBottomZero" destination="wjc-XQ-7Nf" id="oEV-Pf-zHu"/>
                                     <outlet property="gpuImgPaddingFiltersCollectionV" destination="Ea9-uX-egs" id="dm9-Vl-hxY"/>
                                     <outlet property="gpuImgPaddingPhotosCollectionV" destination="Nbx-Ju-fMD" id="IIN-NY-PTA"/>
+                                    <outlet property="imageView" destination="4ij-qm-Hl0" id="vb3-M5-fB4"/>
                                     <outlet property="photoCollectionView" destination="tKt-Dx-G3i" id="95e-ze-BxR"/>
                                 </connections>
                             </view>

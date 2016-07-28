@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@class PDDrawView;
+@class LWContentView;
 @class LWToolBar;
 
 @interface ViewController : UIViewController
 
-@property (weak, nonatomic) IBOutlet PDDrawView *drawView;
+@property (weak, nonatomic) IBOutlet LWContentView *drawView;
 @property (weak, nonatomic) IBOutlet LWToolBar *toolBar;
 
 @end

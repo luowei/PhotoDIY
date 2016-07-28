@@ -1,20 +1,21 @@
 //
-//  PDDrawView.m
+//  LWContentView.m
 //  PhotoDIY
 //
 //  Created by luowei on 16/7/4.
 //  Copyright © 2016年 wodedata. All rights reserved.
 //
 
-#import "PDDrawView.h"
+#import "LWContentView.h"
 #import "Categorys.h"
 #import "LWFilterCollectionView.h"
 #import "LWPhotoCollectionView.h"
 #import "MBProgressHUD.h"
 #import "LWImageCropView.h"
+#import "LWFilterImageView.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 
-@implementation PDDrawView
+@implementation LWContentView
 
 - (void)awakeFromNib {
     [super awakeFromNib];

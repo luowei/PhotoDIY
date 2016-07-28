@@ -8,7 +8,7 @@
 
 #import "LWFilterCollectionView.h"
 #import "LWFilterManager.h"
-#import "PDDrawView.h"
+#import "LWContentView.h"
 #import "Categorys.h"
 
 @implementation LWFilterCollectionView{
@@ -74,7 +74,7 @@
     cell.selectIcon.hidden = NO;
     self.selectedIndexPath = indexPath;
 
-    PDDrawView *drawView = [self superViewWithClass:[PDDrawView class]];
+    LWContentView *drawView = [self superViewWithClass:[LWContentView class]];
     NSString *key = cell.titleLbl.text;
     GPUImageOutput<GPUImageInput> *filter = self.filterDict[key];
     [drawView renderWithFilter:filter];

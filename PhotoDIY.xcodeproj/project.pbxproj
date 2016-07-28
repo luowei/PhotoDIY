@@ -7,7 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BEF060D7ACDCB1B844B81CE2 /* LWPhotoCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF069A6E65A0CA56DFE1CF5 /* LWPhotoCollectionView.m */; };
+		BEF061A06B16E3FF98F60928 /* LWImageCropView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF060C1F89C5EFEE240BD8C /* LWImageCropView.m */; };
+		BEF0669C241E75514FBCFEB0 /* LWFilterCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF061409EB4310BAC440CE9 /* LWFilterCollectionView.m */; };
+		BEF068B151E77927FAC256F3 /* LWDrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF067546351067E593CAF2A /* LWDrawView.m */; };
+		BEF069FB0617CA4B5E9BA8B6 /* LWImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF06FF649F758528E3BB784 /* LWImageView.m */; };
 		CCD59F3ADD3AFC82051038E6 /* libPods-PhotoDIY.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FFC87A4A05A2799BD5A7991E /* libPods-PhotoDIY.a */; };
+		EA1C04451D4904A900290495 /* LWFilterImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA1C04441D4904A900290495 /* LWFilterImageView.m */; };
 		EA6F611B1D2B566900827523 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA6F611D1D2B566900827523 /* InfoPlist.strings */; };
 		EA6F611F1D2B567100827523 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA6F61211D2B567100827523 /* Localizable.strings */; };
 		EA6F61251D2B5A4500827523 /* LWFilterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6F61241D2B5A4500827523 /* LWFilterManager.m */; };
@@ -27,14 +33,23 @@
 		EAB292F11D2A66A4004D5EED /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB292F01D2A66A4004D5EED /* AVFoundation.framework */; };
 		EAB292F61D2A6ECB004D5EED /* Lambeau.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EAB292F51D2A6ECB004D5EED /* Lambeau.jpg */; };
 		EAB292F91D2A701F004D5EED /* Categorys.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB292F81D2A701F004D5EED /* Categorys.m */; };
-		EAE5B4601D2DFEAC00DD865D /* LWImageCropView.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE5B45F1D2DFEAC00DD865D /* LWImageCropView.m */; };
-		EAE5B4691D2E7C8B00DD865D /* PDDrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE5B4631D2E7C8B00DD865D /* PDDrawView.m */; };
-		EAE5B46A1D2E7C8B00DD865D /* LWFilterCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE5B4661D2E7C8B00DD865D /* LWFilterCollectionView.m */; };
-		EAE5B46B1D2E7C8B00DD865D /* LWPhotoCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE5B4681D2E7C8B00DD865D /* LWPhotoCollectionView.m */; };
+		EAE5B4691D2E7C8B00DD865D /* LWContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE5B4631D2E7C8B00DD865D /* LWContentView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		475E9ECC827629C9DEAAE6D1 /* Pods-PhotoDIY.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoDIY.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PhotoDIY/Pods-PhotoDIY.debug.xcconfig"; sourceTree = "<group>"; };
+		BEF060C1F89C5EFEE240BD8C /* LWImageCropView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWImageCropView.m; sourceTree = "<group>"; };
+		BEF061409EB4310BAC440CE9 /* LWFilterCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWFilterCollectionView.m; sourceTree = "<group>"; };
+		BEF064284A669B4E7B1D4BB7 /* LWPhotoCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWPhotoCollectionView.h; sourceTree = "<group>"; };
+		BEF067546351067E593CAF2A /* LWDrawView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWDrawView.m; sourceTree = "<group>"; };
+		BEF067A810F0BAA513676090 /* LWDrawView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWDrawView.h; sourceTree = "<group>"; };
+		BEF069A6E65A0CA56DFE1CF5 /* LWPhotoCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWPhotoCollectionView.m; sourceTree = "<group>"; };
+		BEF06B92FD0107440A3E9A90 /* LWImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWImageView.h; sourceTree = "<group>"; };
+		BEF06EF014766AC4C5D6BB77 /* LWImageCropView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWImageCropView.h; sourceTree = "<group>"; };
+		BEF06F3FD57AF5A8015F5D73 /* LWFilterCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWFilterCollectionView.h; sourceTree = "<group>"; };
+		BEF06FF649F758528E3BB784 /* LWImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWImageView.m; sourceTree = "<group>"; };
+		EA1C04431D4904A900290495 /* LWFilterImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWFilterImageView.h; sourceTree = "<group>"; };
+		EA1C04441D4904A900290495 /* LWFilterImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWFilterImageView.m; sourceTree = "<group>"; };
 		EA6F611C1D2B566900827523 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EA6F611E1D2B566C00827523 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EA6F61201D2B567100827523 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -68,14 +83,8 @@
 		EAE5B4591D2DE1A500DD865D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		EAE5B45B1D2DE1EC00DD865D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		EAE5B45D1D2DE22000DD865D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
-		EAE5B45E1D2DFEAC00DD865D /* LWImageCropView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWImageCropView.h; sourceTree = "<group>"; };
-		EAE5B45F1D2DFEAC00DD865D /* LWImageCropView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWImageCropView.m; sourceTree = "<group>"; };
-		EAE5B4621D2E7C8B00DD865D /* PDDrawView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDDrawView.h; sourceTree = "<group>"; };
-		EAE5B4631D2E7C8B00DD865D /* PDDrawView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDDrawView.m; sourceTree = "<group>"; };
-		EAE5B4651D2E7C8B00DD865D /* LWFilterCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWFilterCollectionView.h; sourceTree = "<group>"; };
-		EAE5B4661D2E7C8B00DD865D /* LWFilterCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWFilterCollectionView.m; sourceTree = "<group>"; };
-		EAE5B4671D2E7C8B00DD865D /* LWPhotoCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWPhotoCollectionView.h; sourceTree = "<group>"; };
-		EAE5B4681D2E7C8B00DD865D /* LWPhotoCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWPhotoCollectionView.m; sourceTree = "<group>"; };
+		EAE5B4621D2E7C8B00DD865D /* LWContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWContentView.h; sourceTree = "<group>"; };
+		EAE5B4631D2E7C8B00DD865D /* LWContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWContentView.m; sourceTree = "<group>"; };
 		EAE5B60D1D2E812900DD865D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		FB3752B7BE3FC2C396F9E492 /* Pods-PhotoDIY.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoDIY.release.xcconfig"; path = "Pods/Target Support Files/Pods-PhotoDIY/Pods-PhotoDIY.release.xcconfig"; sourceTree = "<group>"; };
 		FFC87A4A05A2799BD5A7991E /* libPods-PhotoDIY.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PhotoDIY.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -100,13 +109,42 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		BEF06226597A6C6198194402 /* CropView */ = {
+		BEF060DB2B99EDA91A80EC71 /* CropView */ = {
 			isa = PBXGroup;
 			children = (
-				EAE5B45E1D2DFEAC00DD865D /* LWImageCropView.h */,
-				EAE5B45F1D2DFEAC00DD865D /* LWImageCropView.m */,
+				BEF06EF014766AC4C5D6BB77 /* LWImageCropView.h */,
+				BEF060C1F89C5EFEE240BD8C /* LWImageCropView.m */,
 			);
 			path = CropView;
+			sourceTree = "<group>";
+		};
+		BEF064C6D73E1BBF53ADD562 /* ImageView */ = {
+			isa = PBXGroup;
+			children = (
+				BEF06B92FD0107440A3E9A90 /* LWImageView.h */,
+				BEF06FF649F758528E3BB784 /* LWImageView.m */,
+			);
+			path = ImageView;
+			sourceTree = "<group>";
+		};
+		BEF0657A00B9C9FED2CB6591 /* FilterView */ = {
+			isa = PBXGroup;
+			children = (
+				EA1C04431D4904A900290495 /* LWFilterImageView.h */,
+				EA1C04441D4904A900290495 /* LWFilterImageView.m */,
+			);
+			path = FilterView;
+			sourceTree = "<group>";
+		};
+		BEF0687D412B10B50B10997E /* PopBoard */ = {
+			isa = PBXGroup;
+			children = (
+				BEF06F3FD57AF5A8015F5D73 /* LWFilterCollectionView.h */,
+				BEF061409EB4310BAC440CE9 /* LWFilterCollectionView.m */,
+				BEF064284A669B4E7B1D4BB7 /* LWPhotoCollectionView.h */,
+				BEF069A6E65A0CA56DFE1CF5 /* LWPhotoCollectionView.m */,
+			);
+			path = PopBoard;
 			sourceTree = "<group>";
 		};
 		BEF06957E3080BCFA1496337 /* Resource */ = {
@@ -115,6 +153,15 @@
 				EAB292F51D2A6ECB004D5EED /* Lambeau.jpg */,
 			);
 			path = Resource;
+			sourceTree = "<group>";
+		};
+		BEF069712BA9EE6ADA481F84 /* DrawView */ = {
+			isa = PBXGroup;
+			children = (
+				BEF067A810F0BAA513676090 /* LWDrawView.h */,
+				BEF067546351067E593CAF2A /* LWDrawView.m */,
+			);
+			path = DrawView;
 			sourceTree = "<group>";
 		};
 		BEF06A7D3A612643CDD7DF8F /* PhotoTools */ = {
@@ -165,9 +212,7 @@
 		EAB292BF1D2A16C4004D5EED /* PhotoDIY */ = {
 			isa = PBXGroup;
 			children = (
-				EAE5B4611D2E7C8B00DD865D /* DrawView */,
-				EAE5B4641D2E7C8B00DD865D /* HandBoard */,
-				BEF06226597A6C6198194402 /* CropView */,
+				EAE5B4611D2E7C8B00DD865D /* ContentView */,
 				BEF06D1AE73117D3C5B28302 /* ImageFilters */,
 				BEF06A7D3A612643CDD7DF8F /* PhotoTools */,
 				EAB292C31D2A16C4004D5EED /* AppDelegate.h */,
@@ -196,24 +241,18 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		EAE5B4611D2E7C8B00DD865D /* DrawView */ = {
+		EAE5B4611D2E7C8B00DD865D /* ContentView */ = {
 			isa = PBXGroup;
 			children = (
-				EAE5B4621D2E7C8B00DD865D /* PDDrawView.h */,
-				EAE5B4631D2E7C8B00DD865D /* PDDrawView.m */,
+				EAE5B4621D2E7C8B00DD865D /* LWContentView.h */,
+				EAE5B4631D2E7C8B00DD865D /* LWContentView.m */,
+				BEF064C6D73E1BBF53ADD562 /* ImageView */,
+				BEF069712BA9EE6ADA481F84 /* DrawView */,
+				BEF060DB2B99EDA91A80EC71 /* CropView */,
+				BEF0687D412B10B50B10997E /* PopBoard */,
+				BEF0657A00B9C9FED2CB6591 /* FilterView */,
 			);
-			path = DrawView;
-			sourceTree = "<group>";
-		};
-		EAE5B4641D2E7C8B00DD865D /* HandBoard */ = {
-			isa = PBXGroup;
-			children = (
-				EAE5B4651D2E7C8B00DD865D /* LWFilterCollectionView.h */,
-				EAE5B4661D2E7C8B00DD865D /* LWFilterCollectionView.m */,
-				EAE5B4671D2E7C8B00DD865D /* LWPhotoCollectionView.h */,
-				EAE5B4681D2E7C8B00DD865D /* LWPhotoCollectionView.m */,
-			);
-			path = HandBoard;
+			path = ContentView;
 			sourceTree = "<group>";
 		};
 		F966CF9E9090B9C4FA064864 /* Frameworks */ = {
@@ -357,15 +396,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				EAB292F91D2A701F004D5EED /* Categorys.m in Sources */,
-				EAE5B4601D2DFEAC00DD865D /* LWImageCropView.m in Sources */,
-				EAE5B46B1D2E7C8B00DD865D /* LWPhotoCollectionView.m in Sources */,
 				EAB292C81D2A16C4004D5EED /* ViewController.m in Sources */,
 				EAB292C51D2A16C4004D5EED /* AppDelegate.m in Sources */,
-				EAE5B4691D2E7C8B00DD865D /* PDDrawView.m in Sources */,
+				EAE5B4691D2E7C8B00DD865D /* LWContentView.m in Sources */,
 				EA6F61251D2B5A4500827523 /* LWFilterManager.m in Sources */,
 				EA6F612E1D2B937600827523 /* PDPhotoLibPicker.m in Sources */,
-				EAE5B46A1D2E7C8B00DD865D /* LWFilterCollectionView.m in Sources */,
 				EAB292C21D2A16C4004D5EED /* main.m in Sources */,
+				BEF069FB0617CA4B5E9BA8B6 /* LWImageView.m in Sources */,
+				BEF068B151E77927FAC256F3 /* LWDrawView.m in Sources */,
+				BEF061A06B16E3FF98F60928 /* LWImageCropView.m in Sources */,
+				EA1C04451D4904A900290495 /* LWFilterImageView.m in Sources */,
+				BEF0669C241E75514FBCFEB0 /* LWFilterCollectionView.m in Sources */,
+				BEF060D7ACDCB1B844B81CE2 /* LWPhotoCollectionView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

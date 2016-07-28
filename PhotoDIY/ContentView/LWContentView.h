@@ -1,5 +1,5 @@
 //
-//  PDDrawView.h
+//  LWContentView.h
 //  PhotoDIY
 //
 //  Created by luowei on 16/7/4.
@@ -14,14 +14,19 @@
 @class LWPhotoCollectionView;
 @class MBProgressHUD;
 @class LWImageCropView;
+@class LWDrawView;
+@class LWImageView;
+@class LWFilterImageView;
 
-@interface PDDrawView : UIView<PDPhotoPickerProtocol>
+@interface LWContentView : UIView<PDPhotoPickerProtocol>
 
-@property(nonatomic,weak) IBOutlet GPUImageView *gpuImageView;
+@property(nonatomic,weak) IBOutlet LWImageView *imageView;
+@property(nonatomic,weak) IBOutlet LWFilterImageView *gpuImageView;
+@property(nonatomic,weak) IBOutlet LWImageCropView *cropView;
+@property(nonatomic,weak) IBOutlet LWDrawView *drawView;
+
 @property(nonatomic,weak) IBOutlet LWFilterCollectionView *filterCollectionView;
 @property(nonatomic,weak) IBOutlet LWPhotoCollectionView *photoCollectionView;
-
-@property(nonatomic,weak) IBOutlet LWImageCropView *cropView;
 
 
 @property(nonatomic,weak) IBOutlet NSLayoutConstraint *gpuImgPaddingBottomZero;

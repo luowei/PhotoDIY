@@ -9,7 +9,7 @@
 #import "LWPhotoCollectionView.h"
 #import "LWFilterManager.h"
 #import "Categorys.h"
-#import "PDDrawView.h"
+#import "LWContentView.h"
 
 @implementation LWPhotoCollectionView {
     NSIndexPath *_selectedIndexPath;
@@ -104,7 +104,7 @@
     cell.selectIcon.hidden = NO;
     _selectedIndexPath = indexPath;
 
-    PDDrawView *drawView = [self superViewWithClass:[PDDrawView class]];
+    LWContentView *drawView = [self superViewWithClass:[LWContentView class]];
     PDPhotoLibPicker *photoPicker = [[PDPhotoLibPicker alloc] initWithDelegate:drawView];
     [photoPicker pictureWithURL:cell.url];
 }

@@ -9,7 +9,7 @@
 #import "LWImageCropView.h"
 #import "FXBlurView.h"
 #import "Categorys.h"
-#import "PDDrawView.h"
+#import "LWContentView.h"
 
 static CGFloat const DEFAULT_MASK_ALPHA = 0.75;
 static bool const square = NO;
@@ -742,12 +742,12 @@ CGRect SquareCGRectAtCenter(CGFloat centerX, CGFloat centerY, CGFloat size) {
 
 
 - (IBAction)cropOkAction:(UIButton *)sender {
-    PDDrawView *drawView = [self superViewWithClass:[PDDrawView class]];
+    LWContentView *drawView = [self superViewWithClass:[LWContentView class]];
     [drawView cropImageOk];
 }
 
 - (IBAction)cropCancelAction:(UIButton *)sender {
-    PDDrawView *drawView = [self superViewWithClass:[PDDrawView class]];
+    LWContentView *drawView = [self superViewWithClass:[LWContentView class]];
     [drawView cancelCropImage];
 }
 
