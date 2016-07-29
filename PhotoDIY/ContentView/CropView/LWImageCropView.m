@@ -359,7 +359,7 @@ CGRect SquareCGRectAtCenter(CGFloat centerX, CGFloat centerY, CGFloat size) {
 
 - (void)setCropAreaForViews:(CGRect)cropArea {
     self.cropAreaView.frame = cropArea;
-    // Create offset to make frame within imageView
+    // Create offset to make frame within zoomView
     cropArea.origin.y = cropArea.origin.y - imageFrame.origin.y;
     cropArea.origin.x = cropArea.origin.x - imageFrame.origin.x;
     [self.shadeView setCropArea:cropArea];
@@ -694,7 +694,7 @@ CGRect SquareCGRectAtCenter(CGFloat centerX, CGFloat centerY, CGFloat size) {
     }
     self.imageView.frame = imageFrame;
 
-    // blurredimageview is on top of shadeview so shadeview needs the same frame as imageView.
+    // blurredimageview is on top of shadeview so shadeview needs the same frame as zoomView.
     self.shadeView.frame = imageFrame;
     self.shadeView.blurredImageView.frame = blurFrame;
 

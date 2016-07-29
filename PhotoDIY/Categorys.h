@@ -13,15 +13,12 @@
 @end
 
 
-@interface UIView (FindUIViewController)
+@interface UIView(Recursive)
 
 -(id)superViewWithClass:(Class)clazz;
 
-@end
-
-
-@interface UIView (Rotation)
-
 - (void)rotationToInterfaceOrientation:(UIInterfaceOrientation)orientation;
+
+-(void)didLayoutSubviews;
 
 @end

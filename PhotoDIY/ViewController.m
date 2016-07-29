@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import "LWContentView.h"
 #import "Categorys.h"
-#import "LWImageView.h"
+#import "LWImageZoomView.h"
 
 @interface ViewController ()
 
@@ -36,6 +36,12 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    [self.view didLayoutSubviews];
+}
+
+
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
 
@@ -60,15 +66,15 @@
 }
 
 - (IBAction)rotateRight:(id)sender {
-    [self.drawView.imageView rotateRight];
+    [self.drawView.zoomView rotateRight];
 }
 
 - (IBAction)rotateLeft:(id)sender {
-    [self.drawView.imageView rotateLeft];
+    [self.drawView.zoomView rotateLeft];
 }
 
 - (IBAction)flipHorizonal:(id)sender {
-    [self.drawView.imageView flipHorizonal];
+    [self.drawView.zoomView flipHorizonal];
 }
 
 - (IBAction)share:(id)sender {

@@ -1,5 +1,5 @@
 //
-//  LWImageView.m
+//  LWImageZoomView.m
 //  PhotoDIY
 //
 //  Created by luowei on 16/7/27.
@@ -7,18 +7,75 @@
 //
 
 #import <GPUImage/GPUImage.h>
-#import "LWImageView.h"
+#import "LWImageZoomView.h"
 #import "LWDataManager.h"
 #import "LWContentView.h"
 #import "Categorys.h"
 
-@implementation LWImageView
+@implementation LWImageZoomView
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.contentMode = UIViewContentModeScaleAspectFit;
+
+    self.minimumZoomScale = 0.5;
+    self.maximumZoomScale = 2.0;
+    self.delegate = self;
+
+    self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [self addSubview:self.imageView];
+    self.contentSize = self.imageView.frame.size;
 }
 
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)aScrollView {
+    return self.imageView;
+}
+
+- (void)scrollViewDidZoom:(UIScrollView *)scrollView{
+    [self updateConstraintsForSize:self.bounds.size];
+}
+
+- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(CGFloat)scale {
+}
+
+-(void)updateConstraintsForSize:(CGSize)size{
+    CGFloat yOffset = MAX(0, (size.height - self.imageView.frame.size.height) / 2);
+    CGFloat xOffset = MAX(0, (size.width - self.imageView.frame.size.width) / 2);
+
+    self.topConstraint.constant = yOffset;
+    self.bottomConstraint.constant = yOffset;
+    self.leadingConstraint.constant = xOffset;
+    self.trainingConstraint.constant = xOffset;
+
+    [self layoutIfNeeded];
+}
+
+-(void)updateMinZoomScaleForSize:(CGSize)size{
+    CGFloat widthScale = size.width / self.imageView.bounds.size.width;
+    CGFloat heightScale = size.height / self.imageView.bounds.size.height;
+    CGFloat minScale = MIN(widthScale, heightScale);
+
+    self.minimumZoomScale = minScale;
+    self.zoomScale = minScale;
+}
+
+- (void)didLayoutSubviews {
+    [super didLayoutSubviews];
+    [self updateMinZoomScaleForSize:self.bounds.size];
+}
+
+//- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
+//shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
+////    if (gestureRecognizer==_panRecognizer && otherGestureRecognizer==_swipeRecognizer)
+////        return YES;
+////    if (gestureRecognizer==_swipeRecognizer && otherGestureRecognizer==_panRecognizer)
+////        return YES;
+////    return NO;
+//    return YES;
+//}
+
+- (void)setImage:(UIImage *)image {
+    self.imageView.image = image;
+}
 
 - (void)rotateWithRotateMode:(GPUImageRotationMode)rotateMode {
     LWDataManager *dm = [LWDataManager sharedInstance];
@@ -80,5 +137,6 @@
 - (void)flipHorizonal {
     [self rotateWithRotateMode:kGPUImageFlipHorizonal];
 }
+
 
 @end

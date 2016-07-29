@@ -21,9 +21,27 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hc7-a9-rQJ" userLabel="Content View" customClass="LWContentView">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="392"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4ij-qm-Hl0" userLabel="Image View" customClass="LWImageView">
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r2h-iU-VsJ" userLabel="Zoom Image View" customClass="LWImageZoomView">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="392"/>
-                                    </imageView>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Lambeau.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="4ij-qm-Hl0" userLabel="Image View">
+                                                <rect key="frame" x="0.0" y="0.0" width="1242" height="1656"/>
+                                            </imageView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="4ij-qm-Hl0" secondAttribute="trailing" id="Bx4-UO-Drg"/>
+                                            <constraint firstAttribute="bottom" secondItem="4ij-qm-Hl0" secondAttribute="bottom" id="F4D-Ol-pPQ"/>
+                                            <constraint firstItem="4ij-qm-Hl0" firstAttribute="leading" secondItem="r2h-iU-VsJ" secondAttribute="leading" id="dYK-oQ-Bxp"/>
+                                            <constraint firstItem="4ij-qm-Hl0" firstAttribute="top" secondItem="r2h-iU-VsJ" secondAttribute="top" id="omF-Jh-vem"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="bottomConstraint" destination="F4D-Ol-pPQ" id="WKx-Fo-r2R"/>
+                                            <outlet property="imageView" destination="4ij-qm-Hl0" id="ALC-fM-v5E"/>
+                                            <outlet property="leadingConstraint" destination="dYK-oQ-Bxp" id="1aI-X5-Z4n"/>
+                                            <outlet property="topConstraint" destination="omF-Jh-vem" id="WC5-fe-Tdl"/>
+                                            <outlet property="trainingConstraint" destination="Bx4-UO-Drg" id="1Rz-4V-t7N"/>
+                                        </connections>
+                                    </scrollView>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sQH-bp-mwK" userLabel="Filter Image View" customClass="LWFilterImageView">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="392"/>
                                     </view>
@@ -61,6 +79,9 @@
                                                     <action selector="cropCancelAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NSe-6y-wTc"/>
                                                 </connections>
                                             </button>
+                                            <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7kQ-2N-VDE" userLabel="Draw View" customClass="LWDrawView">
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="392"/>
+                                            </view>
                                         </subviews>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="HzR-QA-1ed" secondAttribute="bottom" constant="15" id="Fmv-d8-IyO"/>
@@ -75,11 +96,8 @@
                                             <outlet property="cropOk" destination="HzR-QA-1ed" id="COA-0K-oWS"/>
                                         </connections>
                                     </view>
-                                    <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7kQ-2N-VDE" userLabel="Draw View" customClass="LWDrawView">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="392"/>
-                                    </view>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UzC-kM-k4R" userLabel="Photo TopLine">
-                                        <rect key="frame" x="0.0" y="291" width="320" height="0.5"/>
+                                        <rect key="frame" x="0.0" y="291" width="320" height="1"/>
                                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="0.5" id="Avq-Mk-diM"/>
@@ -208,7 +226,7 @@
                                         </connections>
                                     </collectionView>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zwm-Fq-YWP" userLabel="Filter TopLine">
-                                        <rect key="frame" x="0.0" y="271" width="320" height="0.5"/>
+                                        <rect key="frame" x="0.0" y="271" width="320" height="1"/>
                                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="0.5" id="uAm-3K-cYb"/>
@@ -292,24 +310,27 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="r2h-iU-VsJ" secondAttribute="trailing" id="0IT-GW-uAm"/>
                                     <constraint firstItem="BNY-mx-jRu" firstAttribute="leading" secondItem="hc7-a9-rQJ" secondAttribute="leading" id="0jx-fD-15i"/>
                                     <constraint firstAttribute="bottom" secondItem="tKt-Dx-G3i" secondAttribute="bottom" id="8Oz-O4-YiT"/>
                                     <constraint firstAttribute="trailing" secondItem="BNY-mx-jRu" secondAttribute="trailing" id="9Sj-Ct-pKV"/>
                                     <constraint firstAttribute="trailing" secondItem="tKt-Dx-G3i" secondAttribute="trailing" id="9dg-bj-bio"/>
                                     <constraint firstItem="UzC-kM-k4R" firstAttribute="centerX" secondItem="tKt-Dx-G3i" secondAttribute="centerX" id="AJU-Rs-aZv"/>
-                                    <constraint firstItem="4ij-qm-Hl0" firstAttribute="leading" secondItem="hc7-a9-rQJ" secondAttribute="leading" id="EMj-at-FkE"/>
+                                    <constraint firstItem="r2h-iU-VsJ" firstAttribute="leading" secondItem="hc7-a9-rQJ" secondAttribute="leading" id="AzG-JU-WDN"/>
                                     <constraint firstAttribute="bottom" secondItem="sQH-bp-mwK" secondAttribute="bottom" constant="120" id="Ea9-uX-egs" userLabel="PaddingBottom_120"/>
                                     <constraint firstItem="tKt-Dx-G3i" firstAttribute="leading" secondItem="hc7-a9-rQJ" secondAttribute="leading" id="Elk-65-hdM"/>
+                                    <constraint firstAttribute="bottom" secondItem="r2h-iU-VsJ" secondAttribute="bottom" id="F8i-LO-zoB"/>
                                     <constraint firstItem="sQH-bp-mwK" firstAttribute="leading" secondItem="hc7-a9-rQJ" secondAttribute="leading" id="Fdv-Q1-X2A"/>
+                                    <constraint firstItem="r2h-iU-VsJ" firstAttribute="top" secondItem="hc7-a9-rQJ" secondAttribute="top" id="FwP-5d-9m2"/>
                                     <constraint firstItem="zwm-Fq-YWP" firstAttribute="width" secondItem="BNY-mx-jRu" secondAttribute="width" id="Ie2-Tk-T6c"/>
                                     <constraint firstAttribute="trailing" secondItem="sQH-bp-mwK" secondAttribute="trailing" id="LYq-YT-F4i"/>
-                                    <constraint firstItem="4ij-qm-Hl0" firstAttribute="top" secondItem="hc7-a9-rQJ" secondAttribute="top" id="LhH-e4-dKa"/>
+                                    <constraint firstItem="r2h-iU-VsJ" firstAttribute="leading" secondItem="hc7-a9-rQJ" secondAttribute="leading" id="Li5-po-gyd"/>
+                                    <constraint firstAttribute="trailing" secondItem="r2h-iU-VsJ" secondAttribute="trailing" id="M01-4f-78d"/>
                                     <constraint firstAttribute="bottom" secondItem="sQH-bp-mwK" secondAttribute="bottom" constant="100" id="Nbx-Ju-fMD" userLabel="PaddingBottom_100"/>
                                     <constraint firstAttribute="trailing" secondItem="OyO-Fb-QTL" secondAttribute="trailing" id="Ocb-eg-YgA"/>
                                     <constraint firstItem="UzC-kM-k4R" firstAttribute="width" secondItem="tKt-Dx-G3i" secondAttribute="width" id="Rng-qJ-MQ7"/>
-                                    <constraint firstAttribute="trailing" secondItem="4ij-qm-Hl0" secondAttribute="trailing" id="XiN-Ff-ND5"/>
                                     <constraint firstItem="BNY-mx-jRu" firstAttribute="top" secondItem="zwm-Fq-YWP" secondAttribute="bottom" id="Y9m-Q1-RnJ"/>
-                                    <constraint firstAttribute="bottom" secondItem="4ij-qm-Hl0" secondAttribute="bottom" id="eWH-jb-k2h"/>
+                                    <constraint firstAttribute="bottom" secondItem="r2h-iU-VsJ" secondAttribute="bottom" id="ZxI-IB-xOK"/>
                                     <constraint firstItem="tKt-Dx-G3i" firstAttribute="top" secondItem="UzC-kM-k4R" secondAttribute="bottom" id="gFk-XM-cfH"/>
                                     <constraint firstItem="OyO-Fb-QTL" firstAttribute="leading" secondItem="hc7-a9-rQJ" secondAttribute="leading" id="kYu-AR-WsZ"/>
                                     <constraint firstItem="sQH-bp-mwK" firstAttribute="top" secondItem="hc7-a9-rQJ" secondAttribute="top" id="khu-DJ-WYP"/>
@@ -317,6 +338,7 @@
                                     <constraint firstAttribute="bottom" secondItem="BNY-mx-jRu" secondAttribute="bottom" id="rRf-na-egL"/>
                                     <constraint firstItem="OyO-Fb-QTL" firstAttribute="top" secondItem="hc7-a9-rQJ" secondAttribute="top" id="tIX-EG-n16"/>
                                     <constraint firstItem="zwm-Fq-YWP" firstAttribute="centerX" secondItem="BNY-mx-jRu" secondAttribute="centerX" id="tYK-rP-oyq"/>
+                                    <constraint firstItem="r2h-iU-VsJ" firstAttribute="top" secondItem="hc7-a9-rQJ" secondAttribute="top" id="uve-Zv-BLD"/>
                                     <constraint firstAttribute="bottom" secondItem="sQH-bp-mwK" secondAttribute="bottom" id="wjc-XQ-7Nf" userLabel="PaddingBottom_0"/>
                                 </constraints>
                                 <variation key="default">
@@ -329,12 +351,12 @@
                                     <outlet property="cropView" destination="OyO-Fb-QTL" id="cs7-rt-SMz"/>
                                     <outlet property="drawView" destination="7kQ-2N-VDE" id="bU8-iN-Rbu"/>
                                     <outlet property="filterCollectionView" destination="BNY-mx-jRu" id="4Yy-Dq-fA9"/>
+                                    <outlet property="filterVPaddingFiltersBar" destination="Ea9-uX-egs" id="dm9-Vl-hxY"/>
+                                    <outlet property="filterVPaddingPhotosBar" destination="Nbx-Ju-fMD" id="IIN-NY-PTA"/>
+                                    <outlet property="filterVPaddingZero" destination="wjc-XQ-7Nf" id="oEV-Pf-zHu"/>
                                     <outlet property="filterView" destination="sQH-bp-mwK" id="Qph-ij-lw2"/>
-                                    <outlet property="imageView" destination="4ij-qm-Hl0" id="vb3-M5-fB4"/>
-                                    <outlet property="paddingBottomZero" destination="wjc-XQ-7Nf" id="oEV-Pf-zHu"/>
-                                    <outlet property="paddingFiltersCollectionV" destination="Ea9-uX-egs" id="dm9-Vl-hxY"/>
-                                    <outlet property="paddingPhotosCollectionV" destination="Nbx-Ju-fMD" id="IIN-NY-PTA"/>
                                     <outlet property="photoCollectionView" destination="tKt-Dx-G3i" id="95e-ze-BxR"/>
+                                    <outlet property="zoomView" destination="r2h-iU-VsJ" id="JcZ-sX-LtA"/>
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t0H-Ca-AMv" userLabel="Tool Bar" customClass="LWToolBar">
@@ -372,7 +394,7 @@
                                         <color key="backgroundColor" red="0.086274509803921567" green="0.086274509803921567" blue="0.086274509803921567" alpha="1" colorSpace="calibratedRGB"/>
                                     </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NMg-Wv-BtS" userLabel="topLine">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="0.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
                                         <color key="backgroundColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="0.5" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="0.5" id="TXE-5i-v6Z"/>
@@ -444,6 +466,36 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <navigationItem title="照片编辑" id="785-T8-Mps">
+                    <leftBarButtonItems>
+                        <barButtonItem image="redoButton" width="30" id="PLf-gF-TXR" userLabel="rotateRight">
+                            <inset key="imageInsets" minX="-15" minY="0.0" maxX="15" maxY="0.0"/>
+                            <connections>
+                                <action selector="rotateRight:" destination="BYZ-38-t0r" id="Py1-g3-ezf"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem image="undoButton" width="30" id="5Ji-zx-tJY" userLabel="rotateLeft">
+                            <inset key="imageInsets" minX="-80" minY="0.0" maxX="30" maxY="0.0"/>
+                            <connections>
+                                <action selector="rotateLeft:" destination="BYZ-38-t0r" id="ZZN-Lv-8iY"/>
+                            </connections>
+                        </barButtonItem>
+                    </leftBarButtonItems>
+                    <rightBarButtonItems>
+                        <barButtonItem image="shareBtn" width="30" id="8mk-VQ-73P" userLabel="share">
+                            <inset key="imageInsets" minX="-20" minY="0.0" maxX="10" maxY="0.0"/>
+                            <connections>
+                                <action selector="share:" destination="BYZ-38-t0r" id="xl0-vo-qf6"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem image="flip" id="m8J-kG-au0" userLabel="flip">
+                            <inset key="imageInsets" minX="15" minY="0.0" maxX="-20" maxY="0.0"/>
+                            <connections>
+                                <action selector="flipHorizonal:" destination="BYZ-38-t0r" id="TYw-yw-uCv"/>
+                            </connections>
+                        </barButtonItem>
+                    </rightBarButtonItems>
+                </navigationItem>
             </objects>
             <point key="canvasLocation" x="1057" y="316"/>
         </scene>
@@ -473,6 +525,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Lambeau.jpg" width="1242" height="1656"/>
         <image name="albumButton" width="40" height="40"/>
         <image name="btnCancel" width="40" height="40"/>
         <image name="btnOK" width="40" height="40"/>

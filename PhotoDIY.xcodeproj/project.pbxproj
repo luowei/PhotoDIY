@@ -11,9 +11,10 @@
 		BEF061A06B16E3FF98F60928 /* LWImageCropView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF060C1F89C5EFEE240BD8C /* LWImageCropView.m */; };
 		BEF0669C241E75514FBCFEB0 /* LWFilterCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF061409EB4310BAC440CE9 /* LWFilterCollectionView.m */; };
 		BEF068B151E77927FAC256F3 /* LWDrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF067546351067E593CAF2A /* LWDrawView.m */; };
-		BEF069FB0617CA4B5E9BA8B6 /* LWImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF06FF649F758528E3BB784 /* LWImageView.m */; };
+		BEF069FB0617CA4B5E9BA8B6 /* LWImageZoomView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF06FF649F758528E3BB784 /* LWImageZoomView.m */; };
 		CCD59F3ADD3AFC82051038E6 /* libPods-PhotoDIY.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FFC87A4A05A2799BD5A7991E /* libPods-PhotoDIY.a */; };
 		EA1C04451D4904A900290495 /* LWFilterImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA1C04441D4904A900290495 /* LWFilterImageView.m */; };
+		EA1C04721D4B218100290495 /* Lambeau.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EA1C04711D4B218100290495 /* Lambeau.jpg */; };
 		EA6F611B1D2B566900827523 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA6F611D1D2B566900827523 /* InfoPlist.strings */; };
 		EA6F611F1D2B567100827523 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA6F61211D2B567100827523 /* Localizable.strings */; };
 		EA6F61251D2B5A4500827523 /* LWDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6F61241D2B5A4500827523 /* LWDataManager.m */; };
@@ -31,7 +32,6 @@
 		EAB292ED1D2A668B004D5EED /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB292EC1D2A668B004D5EED /* CoreGraphics.framework */; };
 		EAB292EF1D2A6697004D5EED /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB292EE1D2A6697004D5EED /* AssetsLibrary.framework */; };
 		EAB292F11D2A66A4004D5EED /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB292F01D2A66A4004D5EED /* AVFoundation.framework */; };
-		EAB292F61D2A6ECB004D5EED /* Lambeau.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EAB292F51D2A6ECB004D5EED /* Lambeau.jpg */; };
 		EAB292F91D2A701F004D5EED /* Categorys.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB292F81D2A701F004D5EED /* Categorys.m */; };
 		EAE5B4691D2E7C8B00DD865D /* LWContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE5B4631D2E7C8B00DD865D /* LWContentView.m */; };
 /* End PBXBuildFile section */
@@ -44,12 +44,13 @@
 		BEF067546351067E593CAF2A /* LWDrawView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWDrawView.m; sourceTree = "<group>"; };
 		BEF067A810F0BAA513676090 /* LWDrawView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWDrawView.h; sourceTree = "<group>"; };
 		BEF069A6E65A0CA56DFE1CF5 /* LWPhotoCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWPhotoCollectionView.m; sourceTree = "<group>"; };
-		BEF06B92FD0107440A3E9A90 /* LWImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWImageView.h; sourceTree = "<group>"; };
+		BEF06B92FD0107440A3E9A90 /* LWImageZoomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWImageZoomView.h; sourceTree = "<group>"; };
 		BEF06EF014766AC4C5D6BB77 /* LWImageCropView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWImageCropView.h; sourceTree = "<group>"; };
 		BEF06F3FD57AF5A8015F5D73 /* LWFilterCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWFilterCollectionView.h; sourceTree = "<group>"; };
-		BEF06FF649F758528E3BB784 /* LWImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWImageView.m; sourceTree = "<group>"; };
+		BEF06FF649F758528E3BB784 /* LWImageZoomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWImageZoomView.m; sourceTree = "<group>"; };
 		EA1C04431D4904A900290495 /* LWFilterImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWFilterImageView.h; sourceTree = "<group>"; };
 		EA1C04441D4904A900290495 /* LWFilterImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWFilterImageView.m; sourceTree = "<group>"; };
+		EA1C04711D4B218100290495 /* Lambeau.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Lambeau.jpg; sourceTree = "<group>"; };
 		EA6F611C1D2B566900827523 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EA6F611E1D2B566C00827523 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EA6F61201D2B567100827523 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -75,7 +76,6 @@
 		EAB292EC1D2A668B004D5EED /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		EAB292EE1D2A6697004D5EED /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		EAB292F01D2A66A4004D5EED /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		EAB292F51D2A6ECB004D5EED /* Lambeau.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Lambeau.jpg; sourceTree = "<group>"; };
 		EAB292F71D2A701F004D5EED /* Categorys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Categorys.h; sourceTree = "<group>"; };
 		EAB292F81D2A701F004D5EED /* Categorys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Categorys.m; sourceTree = "<group>"; };
 		EAE5B4571D2DE1A500DD865D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
@@ -121,8 +121,8 @@
 		BEF064C6D73E1BBF53ADD562 /* ImageView */ = {
 			isa = PBXGroup;
 			children = (
-				BEF06B92FD0107440A3E9A90 /* LWImageView.h */,
-				BEF06FF649F758528E3BB784 /* LWImageView.m */,
+				BEF06B92FD0107440A3E9A90 /* LWImageZoomView.h */,
+				BEF06FF649F758528E3BB784 /* LWImageZoomView.m */,
 			);
 			path = ImageView;
 			sourceTree = "<group>";
@@ -150,7 +150,7 @@
 		BEF06957E3080BCFA1496337 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				EAB292F51D2A6ECB004D5EED /* Lambeau.jpg */,
+				EA1C04711D4B218100290495 /* Lambeau.jpg */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -333,8 +333,8 @@
 			files = (
 				EAB292D01D2A16C4004D5EED /* LaunchScreen.storyboard in Resources */,
 				EA6F611F1D2B567100827523 /* Localizable.strings in Resources */,
-				EAB292F61D2A6ECB004D5EED /* Lambeau.jpg in Resources */,
 				EAB292CD1D2A16C4004D5EED /* Assets.xcassets in Resources */,
+				EA1C04721D4B218100290495 /* Lambeau.jpg in Resources */,
 				EAB292CB1D2A16C4004D5EED /* Main.storyboard in Resources */,
 				EA6F611B1D2B566900827523 /* InfoPlist.strings in Resources */,
 			);
@@ -402,7 +402,7 @@
 				EA6F61251D2B5A4500827523 /* LWDataManager.m in Sources */,
 				EA6F612E1D2B937600827523 /* PDPhotoLibPicker.m in Sources */,
 				EAB292C21D2A16C4004D5EED /* main.m in Sources */,
-				BEF069FB0617CA4B5E9BA8B6 /* LWImageView.m in Sources */,
+				BEF069FB0617CA4B5E9BA8B6 /* LWImageZoomView.m in Sources */,
 				BEF068B151E77927FAC256F3 /* LWDrawView.m in Sources */,
 				BEF061A06B16E3FF98F60928 /* LWImageCropView.m in Sources */,
 				EA1C04451D4904A900290495 /* LWFilterImageView.m in Sources */,

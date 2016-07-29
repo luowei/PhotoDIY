@@ -14,7 +14,7 @@
 #import "LWImageCropView.h"
 #import "LWFilterImageView.h"
 #import "LWDataManager.h"
-#import "LWImageView.h"
+#import "LWImageZoomView.h"
 #import "LWDrawView.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 
@@ -83,9 +83,9 @@
     }
     NSComparisonResult result = [[UIDevice currentDevice].systemVersion compare:@"8.0"];
     if (result == NSOrderedSame || result == NSOrderedDescending) {
-        [self removeConstraint:self.paddingFiltersCollectionV];
-        [self removeConstraint:self.paddingPhotosCollectionV];
-        [self addConstraint:self.paddingBottomZero];
+        [self removeConstraint:self.filterVPaddingFiltersBar];
+        [self removeConstraint:self.filterVPaddingPhotosBar];
+        [self addConstraint:self.filterVPaddingZero];
         [self setNeedsUpdateConstraints];
     }
 }
@@ -101,9 +101,9 @@
     if (!self.photoCollectionView.hidden) {
         NSComparisonResult result = [[UIDevice currentDevice].systemVersion compare:@"8.0"];
         if (result == NSOrderedSame || result == NSOrderedDescending) {
-            [self removeConstraint:self.paddingBottomZero];
-            [self removeConstraint:self.paddingFiltersCollectionV];
-            [self addConstraint:self.paddingPhotosCollectionV];
+            [self removeConstraint:self.filterVPaddingZero];
+            [self removeConstraint:self.filterVPaddingFiltersBar];
+            [self addConstraint:self.filterVPaddingPhotosBar];
             [self setNeedsUpdateConstraints];
         }
 
@@ -112,9 +112,9 @@
     } else {
         NSComparisonResult result = [[UIDevice currentDevice].systemVersion compare:@"8.0"];
         if (result == NSOrderedSame || result == NSOrderedDescending) {
-            [self removeConstraint:self.paddingFiltersCollectionV];
-            [self removeConstraint:self.paddingPhotosCollectionV];
-            [self addConstraint:self.paddingBottomZero];
+            [self removeConstraint:self.filterVPaddingFiltersBar];
+            [self removeConstraint:self.filterVPaddingPhotosBar];
+            [self addConstraint:self.filterVPaddingZero];
             [self setNeedsUpdateConstraints];
         }
     }
@@ -138,9 +138,9 @@
     if (!self.filterCollectionView.hidden) {
         NSComparisonResult result = [[UIDevice currentDevice].systemVersion compare:@"8.0"];
         if (result == NSOrderedSame || result == NSOrderedDescending) {
-            [self removeConstraint:self.paddingBottomZero];
-            [self removeConstraint:self.paddingPhotosCollectionV];
-            [self addConstraint:self.paddingFiltersCollectionV];
+            [self removeConstraint:self.filterVPaddingZero];
+            [self removeConstraint:self.filterVPaddingPhotosBar];
+            [self addConstraint:self.filterVPaddingFiltersBar];
             [self setNeedsUpdateConstraints];
         }
 
@@ -149,9 +149,9 @@
     } else {
         NSComparisonResult result = [[UIDevice currentDevice].systemVersion compare:@"8.0"];
         if (result == NSOrderedSame || result == NSOrderedDescending) {
-            [self removeConstraint:self.paddingFiltersCollectionV];
-            [self removeConstraint:self.paddingPhotosCollectionV];
-            [self addConstraint:self.paddingBottomZero];
+            [self removeConstraint:self.filterVPaddingFiltersBar];
+            [self removeConstraint:self.filterVPaddingPhotosBar];
+            [self addConstraint:self.filterVPaddingZero];
             [self setNeedsUpdateConstraints];
         }
         self.currentMode = ImageMode;
@@ -170,7 +170,7 @@
 
     switch (self.currentMode) {
         case FilterMode: {
-            self.imageView.hidden = YES;
+            self.zoomView.hidden = YES;
             self.filterView.hidden = NO;
             self.cropView.hidden = YES;
             self.drawView.hidden = YES;
@@ -178,7 +178,7 @@
             break;
         }
         case CropMode: {
-            self.imageView.hidden = YES;
+            self.zoomView.hidden = YES;
             self.filterView.hidden = YES;
             self.cropView.hidden = NO;
             self.drawView.hidden = YES;
@@ -186,7 +186,7 @@
             break;
         }
         case DrawMode: {
-            self.imageView.hidden = YES;
+            self.zoomView.hidden = YES;
             self.filterView.hidden = YES;
             self.cropView.hidden = YES;
             self.drawView.hidden = NO;
@@ -195,11 +195,11 @@
         }
         case ImageMode:
         default: {
-            self.imageView.hidden = NO;
+            self.zoomView.hidden = NO;
             self.filterView.hidden = YES;
             self.cropView.hidden = YES;
             self.drawView.hidden = YES;
-            self.imageView.image = image;
+            self.zoomView.image = image;
             break;
         }
     }

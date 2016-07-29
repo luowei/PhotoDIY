@@ -16,12 +16,12 @@
 @class MBProgressHUD;
 @class LWImageCropView;
 @class LWDrawView;
-@class LWImageView;
+@class LWImageZoomView;
 @class LWFilterImageView;
 
 @interface LWContentView : UIView<PDPhotoPickerProtocol>
 
-@property(nonatomic,weak) IBOutlet LWImageView *imageView;
+@property(nonatomic,weak) IBOutlet LWImageZoomView *zoomView;
 @property(nonatomic,weak) IBOutlet LWFilterImageView *filterView;
 @property(nonatomic,weak) IBOutlet LWImageCropView *cropView;
 @property(nonatomic,weak) IBOutlet LWDrawView *drawView;
@@ -30,9 +30,13 @@
 @property(nonatomic,weak) IBOutlet LWPhotoCollectionView *photoCollectionView;
 
 
-@property(nonatomic,weak) IBOutlet NSLayoutConstraint *paddingBottomZero;
-@property(nonatomic,weak) IBOutlet NSLayoutConstraint *paddingPhotosCollectionV;
-@property(nonatomic,weak) IBOutlet NSLayoutConstraint *paddingFiltersCollectionV;
+@property(nonatomic,weak) IBOutlet NSLayoutConstraint *imageVPaddingZero;
+@property(nonatomic,weak) IBOutlet NSLayoutConstraint *imageVPaddingPhotosBar;
+@property(nonatomic,weak) IBOutlet NSLayoutConstraint *imageVPaddingFiltersBar;
+
+@property(nonatomic,weak) IBOutlet NSLayoutConstraint *filterVPaddingZero;
+@property(nonatomic,weak) IBOutlet NSLayoutConstraint *filterVPaddingPhotosBar;
+@property(nonatomic,weak) IBOutlet NSLayoutConstraint *filterVPaddingFiltersBar;
 
 
 @property(nonatomic, strong) MBProgressHUD *hud;
@@ -53,6 +57,8 @@
 -(void)showFilters;
 
 - (void)saveImage;
+
+- (void)recovery;
 
 - (void)showOrHideCropView;
 
