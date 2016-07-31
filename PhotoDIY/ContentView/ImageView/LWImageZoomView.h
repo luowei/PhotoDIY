@@ -10,6 +10,8 @@
 
 @interface LWImageZoomView : UIScrollView<UIScrollViewDelegate>
 
+@property(nonatomic) NSInteger currentIndex;
+
 @property(nonatomic,weak) IBOutlet UIImageView *imageView;
 
 @property(nonatomic, weak) IBOutlet NSLayoutConstraint *topConstraint;

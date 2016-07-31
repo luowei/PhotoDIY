@@ -18,6 +18,8 @@
 
 - (void)loadPhoto:(UIImage *)image;
 
+- (void)allURLPicked:(NSArray *)imageURLs;
+
 
 @end
 

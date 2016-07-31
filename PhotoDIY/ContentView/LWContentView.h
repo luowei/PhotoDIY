@@ -45,6 +45,8 @@
 
 @property(nonatomic) enum DIYMode currentMode;
 
+@property(nonatomic, strong) NSArray *imageURLs;
+
 //加载默认图片
 - (void)loadDefaultImage;
 

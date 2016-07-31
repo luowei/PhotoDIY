@@ -78,6 +78,10 @@
                     if ([weakSelf.delegate respondsToSelector:@selector(allPhotosCollected:)]) {
                         [weakSelf.delegate allPhotosCollected:weakSelf.photoDict];
                     }
+
+                    if([weakSelf.delegate respondsToSelector:@selector(allURLPicked:)]){
+                        [weakSelf.delegate allURLPicked:weakSelf.photoURLs];
+                    }
                 });
             }
         }
@@ -108,6 +112,9 @@
             dispatch_async(dispatch_get_main_queue(), ^() {
                 if ([weakSelf.delegate respondsToSelector:@selector(allPhotosCollected:)]) {
                     [weakSelf.delegate allPhotosCollected:weakSelf.photoDict];
+                }
+                if([weakSelf.delegate respondsToSelector:@selector(allURLPicked:)]){
+                    [weakSelf.delegate allURLPicked:weakSelf.photoURLs];
                 }
             });
         }

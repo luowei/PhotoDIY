@@ -63,6 +63,10 @@
     
 }
 
+- (void)allURLPicked:(NSArray *)imageURLs{
+    self.imageURLs = imageURLs;
+}
+
 
 #pragma mark - 其他方法
 
@@ -200,6 +204,7 @@
             self.cropView.hidden = YES;
             self.drawView.hidden = YES;
             self.zoomView.image = image;
+            [self setNeedsUpdateConstraints];
             break;
         }
     }
