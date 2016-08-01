@@ -55,7 +55,8 @@
     if (!image) {
         return;
     }
-    self.originImage = image;
+    LWDataManager *dm = [LWDataManager sharedInstance];
+    dm.originImage = image;
     self.currentMode = ImageMode;
     dispatch_async(dispatch_get_main_queue(), ^{
         [self reloadImage:image];
@@ -231,7 +232,8 @@
 
 
 - (void)recovery {
-    [self reloadImage:self.originImage];
+    LWDataManager *dm = [LWDataManager sharedInstance];
+    [self reloadImage:dm.originImage];
 
     if (self.filterCollectionView) {
         NSArray *selectedItems = self.filterCollectionView.indexPathsForSelectedItems;

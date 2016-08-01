@@ -45,7 +45,7 @@
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sQH-bp-mwK" userLabel="Filter Image View" customClass="LWFilterImageView">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="392"/>
                                         <subviews>
-                                            <slider hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="P8S-W1-pug">
+                                            <slider hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" continuous="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P8S-W1-pug">
                                                 <rect key="frame" x="23" y="337" width="274" height="31"/>
                                                 <connections>
                                                     <action selector="slideUpdate:" destination="sQH-bp-mwK" eventType="valueChanged" id="oEh-uC-Iix"/>

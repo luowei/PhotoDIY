@@ -71,6 +71,8 @@ typedef NS_ENUM(NSInteger,FilterType){
 
 @property(nonatomic, strong) UIImage *currentImage;
 
+@property(nonatomic, strong) UIImage *originImage;
+
 + (LWDataManager *)sharedInstance;
 
 -(NSDictionary *)filters;

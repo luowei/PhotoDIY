@@ -56,6 +56,10 @@
 
 - (void)renderWithFilter:(GPUImageOutput <GPUImageInput> *)filter {
     LWDataManager *dm = [LWDataManager sharedInstance];
+    dm.currentImage = dm.originImage;
+
+    //重新加载初始图片再渲染
+    self.sourcePicture = [[GPUImagePicture alloc] initWithImage:dm.currentImage smoothlyScaleOutput:YES];
 
     self.filter = filter;
     [self.filter forceProcessingAtSize:dm.currentImage.size];
@@ -78,8 +82,8 @@
 - (void)renderWithFilterKey:(NSString *)key {
     self.filterType = [self fileTypeWithKey:key];
     NSDictionary *filters = [[LWDataManager sharedInstance] filters];
-    self.currentFilter = filters[key];
-    [self renderWithFilter:self.currentFilter];
+    self.filter = filters[key];
+    [self renderWithFilter:self.filter];
     [self setupSlider];
 }
 
@@ -150,30 +154,30 @@
 - (IBAction)slideUpdate:(UISlider *)slider {
     switch (self.filterType) {
         case Contrast: {
-            [(GPUImageContrastFilter *) _currentFilter setContrast:self.slider.value];
+            [(GPUImageContrastFilter *) self.filter setContrast:self.slider.value];
             break;
         }
         case Levels: {
             float value = [self.slider value];
-            [(GPUImageLevelsFilter *) _currentFilter setRedMin:value gamma:1.0 max:1.0 minOut:0.0 maxOut:1.0];
-            [(GPUImageLevelsFilter *) _currentFilter setGreenMin:value gamma:1.0 max:1.0 minOut:0.0 maxOut:1.0];
-            [(GPUImageLevelsFilter *) _currentFilter setBlueMin:value gamma:1.0 max:1.0 minOut:0.0 maxOut:1.0];
+            [(GPUImageLevelsFilter *) self.filter setRedMin:value gamma:1.0 max:1.0 minOut:0.0 maxOut:1.0];
+            [(GPUImageLevelsFilter *) self.filter setGreenMin:value gamma:1.0 max:1.0 minOut:0.0 maxOut:1.0];
+            [(GPUImageLevelsFilter *) self.filter setBlueMin:value gamma:1.0 max:1.0 minOut:0.0 maxOut:1.0];
             break;
         }
         case RGB: {
-            [(GPUImageRGBFilter *) _currentFilter setGreen:[self.slider value]];
+            [(GPUImageRGBFilter *) self.filter setGreen:[self.slider value]];
             break;
         }
         case HUE: {
-            [(GPUImageHueFilter *) _currentFilter setHue:self.slider.value];
+            [(GPUImageHueFilter *) self.filter setHue:self.slider.value];
             break;
         }
         case WhiteBalance: {
-            [(GPUImageWhiteBalanceFilter *) _currentFilter setTemperature:[self.slider value]];
+            [(GPUImageWhiteBalanceFilter *) self.filter setTemperature:[self.slider value]];
             break;
         }
         case Sharpen: {
-            [(GPUImageSharpenFilter *) _currentFilter setSharpness:[self.slider value]];
+            [(GPUImageSharpenFilter *) self.filter setSharpness:[self.slider value]];
             break;
         }
         case Gamma: {
@@ -182,18 +186,18 @@
             [self.slider setMaximumValue:3.0];
             [self.slider setValue:1.5];
 
-            [(GPUImageGammaFilter *) _currentFilter setGamma:[self.slider value]];
+            [(GPUImageGammaFilter *) self.filter setGamma:[self.slider value]];
             break;
         }
         case ToneCurve: {
-            [(GPUImageToneCurveFilter *) _currentFilter setBlueControlPoints:@[
+            [(GPUImageToneCurveFilter *) self.filter setBlueControlPoints:@[
                     [NSValue valueWithCGPoint:CGPointMake(0.0, 0.0)],
                     [NSValue valueWithCGPoint:CGPointMake(0.5, self.slider.value)],
                     [NSValue valueWithCGPoint:CGPointMake(1.0, 0.75)]]];
             break;
         }
         case SepiaTone: {
-            [(GPUImageSepiaFilter *) _currentFilter setIntensity:[self.slider value]];
+            [(GPUImageSepiaFilter *) self.filter setIntensity:[self.slider value]];
             break;
         }
         case ColorInvert: {
@@ -205,45 +209,59 @@
             break;
         }
         case SobelEdge: {
-            [(GPUImageSobelEdgeDetectionFilter *) _currentFilter setEdgeStrength:[self.slider value]];
+            [(GPUImageSobelEdgeDetectionFilter *) self.filter setEdgeStrength:[self.slider value]];
             break;
         }
         case Sketch: {
-            [(GPUImageSketchFilter *) _currentFilter setEdgeStrength:[self.slider value]];
+            [(GPUImageSketchFilter *) self.filter setEdgeStrength:[self.slider value]];
             break;
         }
         case Emboss: {
-            [(GPUImageEmbossFilter *) _currentFilter setIntensity:[self.slider value]];
+            [(GPUImageEmbossFilter *) self.filter setIntensity:[self.slider value]];
             break;
         }
         case Vignette: {
-            [(GPUImageVignetteFilter *) _currentFilter setVignetteEnd:[self.slider value]];
+            [(GPUImageVignetteFilter *) self.filter setVignetteEnd:[self.slider value]];
             break;
         }
         case GaussianBlur: {
-            [(GPUImageGaussianBlurFilter *) _currentFilter setBlurRadiusInPixels:[self.slider value]];
+            [(GPUImageGaussianBlurFilter *) self.filter setBlurRadiusInPixels:[self.slider value]];
             break;
         }
         case GaussianSelectiveBlur: {
-            [(GPUImageGaussianSelectiveBlurFilter *) _currentFilter setExcludeCircleRadius:[self.slider value]];
+            [(GPUImageGaussianSelectiveBlurFilter *) self.filter setExcludeCircleRadius:[self.slider value]];
             break;
         }
         case BoxBlur: {
-            [(GPUImageBoxBlurFilter *) _currentFilter setBlurRadiusInPixels:[self.slider value]];
+            [(GPUImageBoxBlurFilter *) self.filter setBlurRadiusInPixels:[self.slider value]];
             break;
         }
         case MotionBlur: {
-            [(GPUImageMotionBlurFilter *) _currentFilter setBlurAngle:[self.slider value]];
+            [(GPUImageMotionBlurFilter *) self.filter setBlurAngle:[self.slider value]];
             break;
         }
         case ZoomBlur: {
-            [(GPUImageZoomBlurFilter *) _currentFilter setBlurSize:[self.slider value]];
+            [(GPUImageZoomBlurFilter *) self.filter setBlurSize:[self.slider value]];
             break;
         }
         default:
             break;
     }
-    [self renderWithFilter:self.currentFilter];
+//    LWDataManager *dm = [LWDataManager sharedInstance];
+//
+//    [self.filter forceProcessingAtSize:dm.currentImage.size];
+//    [self.sourcePicture removeAllTargets];
+//    [self.filter removeAllTargets];
+//
+//    [self.sourcePicture addTarget:self.filter];
+//    [self.filter addTarget:self];
+//
+//    [self.filter useNextFrameForImageCapture];
+//    [self.sourcePicture processImage];
+//
+//    NSLog(@"================= valueChanged");
+
+    [self renderWithFilter:self.filter];
 }
 
 - (void)setupSlider {

@@ -41,8 +41,6 @@
 
 @property(nonatomic, strong) MBProgressHUD *hud;
 
-@property(nonatomic, strong) UIImage *originImage;
-
 @property(nonatomic) enum DIYMode currentMode;
 
 @property(nonatomic, strong) NSArray *imageURLs;

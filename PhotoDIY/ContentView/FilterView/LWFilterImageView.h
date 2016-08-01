@@ -18,7 +18,6 @@
 @property(nonatomic,strong) GPUImagePicture *sourcePicture;
 
 @property(nonatomic) enum FilterType filterType;
-@property(nonatomic, strong) GPUImageOutput <GPUImageInput> *currentFilter;
 
 - (void)reloadGPUImagePicture;
 
