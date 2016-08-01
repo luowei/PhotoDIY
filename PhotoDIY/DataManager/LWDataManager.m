@@ -34,7 +34,7 @@
     GPUImageOutput *hue = [GPUImageHueFilter new];
 
     GPUImageOutput *whiteBalance = [GPUImageWhiteBalanceFilter new];
-    [(GPUImageWhiteBalanceFilter *)whiteBalance setTemperature:250.0];
+    [(GPUImageWhiteBalanceFilter *)whiteBalance setTemperature:2500.0];
 
     GPUImageOutput *sharpen = [GPUImageSharpenFilter new];
     [(GPUImageSharpenFilter *)sharpen setSharpness:4.0];
@@ -43,7 +43,10 @@
     [(GPUImageGammaFilter *)gamma setGamma:1.5];
 
     GPUImageOutput *toneCurve = [GPUImageToneCurveFilter new];
-    [(GPUImageToneCurveFilter *) toneCurve setBlueControlPoints:@[[NSValue valueWithCGPoint:CGPointMake(0.0, 0.0)], [NSValue valueWithCGPoint:CGPointMake(0.5, 0.75)], [NSValue valueWithCGPoint:CGPointMake(1.0, 0.75)]]];
+    [(GPUImageToneCurveFilter *) toneCurve setBlueControlPoints:@[
+            [NSValue valueWithCGPoint:CGPointMake(0.0, 0.0)],
+            [NSValue valueWithCGPoint:CGPointMake(0.5, 0.75)],
+            [NSValue valueWithCGPoint:CGPointMake(1.0, 0.75)]]];
 
     GPUImageOutput *sepiaTone = [GPUImageSepiaFilter new];
 

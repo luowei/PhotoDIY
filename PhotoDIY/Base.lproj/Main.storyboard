@@ -44,6 +44,22 @@
                                     </scrollView>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sQH-bp-mwK" userLabel="Filter Image View" customClass="LWFilterImageView">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="392"/>
+                                        <subviews>
+                                            <slider hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="P8S-W1-pug">
+                                                <rect key="frame" x="23" y="337" width="274" height="31"/>
+                                                <connections>
+                                                    <action selector="slideUpdate:" destination="sQH-bp-mwK" eventType="valueChanged" id="oEh-uC-Iix"/>
+                                                </connections>
+                                            </slider>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="P8S-W1-pug" secondAttribute="trailing" constant="25" id="4mm-vI-rCy"/>
+                                            <constraint firstItem="P8S-W1-pug" firstAttribute="leading" secondItem="sQH-bp-mwK" secondAttribute="leading" constant="25" id="K73-fF-4Ty"/>
+                                            <constraint firstAttribute="bottom" secondItem="P8S-W1-pug" secondAttribute="bottom" constant="25" id="Q1P-uw-8ki"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="slider" destination="P8S-W1-pug" id="iOc-9J-4Fc"/>
+                                        </connections>
                                     </view>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OyO-Fb-QTL" userLabel="Crop Image View" customClass="LWImageCropView">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="392"/>

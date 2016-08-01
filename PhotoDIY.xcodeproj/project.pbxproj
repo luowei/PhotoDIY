@@ -51,6 +51,7 @@
 		EA1C04431D4904A900290495 /* LWFilterImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWFilterImageView.h; sourceTree = "<group>"; };
 		EA1C04441D4904A900290495 /* LWFilterImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWFilterImageView.m; sourceTree = "<group>"; };
 		EA1C04711D4B218100290495 /* Lambeau.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Lambeau.jpg; sourceTree = "<group>"; };
+		EA1C04731D4E3BDC00290495 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		EA6F611C1D2B566900827523 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EA6F611E1D2B566C00827523 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EA6F61201D2B567100827523 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -194,6 +195,7 @@
 		EAB292B41D2A16C4004D5EED = {
 			isa = PBXGroup;
 			children = (
+				EA1C04731D4E3BDC00290495 /* README.md */,
 				EAB292BF1D2A16C4004D5EED /* PhotoDIY */,
 				EAB292BE1D2A16C4004D5EED /* Products */,
 				D3C4F9F4B69BA8AACD84BAC6 /* Pods */,

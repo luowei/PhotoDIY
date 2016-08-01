@@ -77,9 +77,7 @@
 
     LWContentView *drawView = [self superViewWithClass:[LWContentView class]];
     NSString *key = cell.titleLbl.text;
-    GPUImageOutput<GPUImageInput> *filter = self.filterDict[key];
-    [drawView.filterView renderWithFilter:filter];
-
+    [drawView.filterView renderWithFilterKey:key];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath{

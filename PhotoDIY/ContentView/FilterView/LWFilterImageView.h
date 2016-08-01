@@ -8,11 +8,17 @@
 
 #import <UIKit/UIKit.h>
 #import <GPUImage/GPUImage.h>
+#import "LWDataManager.h"
 
 @interface LWFilterImageView : GPUImageView
 
+@property(nonatomic,weak) IBOutlet UISlider *slider;
+
 @property(nonatomic,strong) GPUImageOutput<GPUImageInput> *filter;
 @property(nonatomic,strong) GPUImagePicture *sourcePicture;
+
+@property(nonatomic) enum FilterType filterType;
+@property(nonatomic, strong) GPUImageOutput <GPUImageInput> *currentFilter;
 
 - (void)reloadGPUImagePicture;
 
@@ -20,5 +26,7 @@
 - (void)loadImage2GPUImagePicture:(UIImage *)image;
 
 - (void)renderWithFilter:(GPUImageOutput<GPUImageInput> *)output;
+
+- (void)renderWithFilterKey:(NSString *)key;
 
 @end
