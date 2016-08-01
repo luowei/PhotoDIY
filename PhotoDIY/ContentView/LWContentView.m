@@ -80,8 +80,8 @@
 
 //隐藏HandBoard
 - (void)hiddenHandBoard {
-    if (!self.filterCollectionView.hidden) {
-        self.filterCollectionView.hidden = !self.filterCollectionView.hidden;
+    if (!self.filterBar.hidden) {
+        self.filterBar.hidden = !self.filterBar.hidden;
     }
     if (!self.photosBar.hidden) {
         self.photosBar.hidden = !self.photosBar.hidden;
@@ -98,8 +98,8 @@
 //加载照片选择器
 - (void)showPhotos {
     //处理handBoard
-    if (!self.filterCollectionView.hidden) {
-        self.filterCollectionView.hidden = !self.filterCollectionView.hidden;
+    if (!self.filterBar.hidden) {
+        self.filterBar.hidden = !self.filterBar.hidden;
     }
 
     self.photosBar.hidden = !self.photosBar.hidden;
@@ -139,8 +139,8 @@
         self.photosBar.hidden = !self.photosBar.hidden;
     }
 
-    self.filterCollectionView.hidden = !self.filterCollectionView.hidden;
-    if (!self.filterCollectionView.hidden) {
+    self.filterBar.hidden = !self.filterBar.hidden;
+    if (!self.filterBar.hidden) {
         NSComparisonResult result = [[UIDevice currentDevice].systemVersion compare:@"8.0"];
         if (result == NSOrderedSame || result == NSOrderedDescending) {
             [self removeConstraint:self.filterVPaddingZero];
@@ -235,7 +235,7 @@
     LWDataManager *dm = [LWDataManager sharedInstance];
     [self reloadImage:dm.originImage];
 
-    if (self.filterCollectionView) {
+    if (self.filterBar) {
         NSArray *selectedItems = self.filterCollectionView.indexPathsForSelectedItems;
         for (NSIndexPath *path in selectedItems) {
             LWFilterCollectionCell *cell = (LWFilterCollectionCell *) [self.filterCollectionView cellForItemAtIndexPath:path];
@@ -301,6 +301,17 @@
     [self.leftRotateBtn setImage:[leftRotateImg imageWithOverlayColor:[UIColor colorWithRed:0.07 green:0.42 blue:0.84 alpha:1]] forState:UIControlStateHighlighted];
     [self.rightRotateBtn setImage:[rightRotateImg imageWithOverlayColor:[UIColor whiteColor]] forState:UIControlStateNormal];
     [self.rightRotateBtn setImage:[rightRotateImg imageWithOverlayColor:[UIColor colorWithRed:0.07 green:0.42 blue:0.84 alpha:1]] forState:UIControlStateHighlighted];
+
+}
+
+
+@end
+
+
+@implementation LWFilterBar
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
 
 }
 

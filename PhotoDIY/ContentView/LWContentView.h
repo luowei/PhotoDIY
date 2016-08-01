@@ -19,6 +19,7 @@
 @class LWImageZoomView;
 @class LWFilterImageView;
 @class LWPhotosBar;
+@class LWFilterBar;
 
 @interface LWContentView : UIView<PDPhotoPickerProtocol>
 
@@ -27,6 +28,7 @@
 @property(nonatomic,weak) IBOutlet LWImageCropView *cropView;
 @property(nonatomic,weak) IBOutlet LWDrawView *drawView;
 
+@property(nonatomic,weak) IBOutlet LWFilterBar *filterBar;
 @property(nonatomic,weak) IBOutlet LWFilterCollectionView *filterCollectionView;
 
 @property(nonatomic,weak) IBOutlet LWPhotosBar *photosBar;
@@ -77,5 +79,9 @@
 @property(nonatomic,weak) IBOutlet UIButton *recovationBtn;
 @property(nonatomic,weak) IBOutlet UIButton *leftRotateBtn;
 @property(nonatomic,weak) IBOutlet UIButton *rightRotateBtn;
+
+@end
+
+@interface LWFilterBar:UIView
 
 @end
