@@ -67,6 +67,8 @@
     [(GPUImageBoxBlurFilter *)boxBlur setBlurRadiusInPixels:20];
 
     GPUImageOutput *motionBlur = [GPUImageMotionBlurFilter new];
+    [(GPUImageMotionBlurFilter *)motionBlur setBlurAngle:90];
+
     GPUImageOutput *zoomBlur = [GPUImageZoomBlurFilter new];
 
     return @{NSLocalizedString(@"contrast",nil):contrast,NSLocalizedString(@"levels",nil):levels,

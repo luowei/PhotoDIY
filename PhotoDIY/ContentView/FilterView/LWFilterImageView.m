@@ -86,64 +86,65 @@
 }
 
 - (enum FilterType)fileTypeWithKey:(NSString *)key {
-    if([@"Contrast" isEqualToString:key] || [@"对比度调节" isEqualToString:key]){
+
+    if([NSLocalizedString(@"contrast", nil) isEqualToString:key]){
         return Contrast;
     }
-    if([@"Levels" isEqualToString:key] || [@"色阶调节" isEqualToString:key]){
+    if([NSLocalizedString(@"levels", nil) isEqualToString:key]){
         return Levels;
     }
-    if([@"RGB" isEqualToString:key] || [@"RGB调节" isEqualToString:key]){
+    if([NSLocalizedString(@"rgb", nil) isEqualToString:key]){
         return RGB;
     }
-    if([@"HUE" isEqualToString:key] || [@"HUE调节" isEqualToString:key]){
+    if([NSLocalizedString(@"hue", nil) isEqualToString:key]){
         return HUE;
     }
-    if([@"WhiteBalance" isEqualToString:key] || [@"白平衡" isEqualToString:key]){
+    if([NSLocalizedString(@"whiteBalance", nil) isEqualToString:key]){
         return WhiteBalance;
     }
-    if([@"Sharpen" isEqualToString:key] || [@"锐化" isEqualToString:key]){
+    if([NSLocalizedString(@"sharpen", nil) isEqualToString:key]){
         return Sharpen;
     }
-    if([@"Gamma" isEqualToString:key] || [@"Gamma" isEqualToString:key]){
+    if([NSLocalizedString(@"gamma", nil) isEqualToString:key]){
         return Gamma;
     }
-    if([@"ToneCurve" isEqualToString:key] || [@"色调美化" isEqualToString:key]){
+    if([NSLocalizedString(@"toneCurve", nil) isEqualToString:key]){
         return ToneCurve;
     }
-    if([@"SepiaTone" isEqualToString:key] || [@"褐色调" isEqualToString:key]){
+    if([NSLocalizedString(@"sepiaTone", nil) isEqualToString:key]){
         return SepiaTone;
     }
-    if([@"ColorInvert" isEqualToString:key] || [@"反转" isEqualToString:key]){
+    if([NSLocalizedString(@"colorInvert", nil) isEqualToString:key]){
         return ColorInvert;
     }
-    if([@"GrayScale" isEqualToString:key] || [@"灰度" isEqualToString:key]){
+    if([NSLocalizedString(@"grayScale", nil) isEqualToString:key]){
         return GrayScale;
     }
-    if([@"SobelEdge" isEqualToString:key] || [@"边缘突显" isEqualToString:key]){
+    if([NSLocalizedString(@"sobelEdge", nil) isEqualToString:key]){
         return SobelEdge;
     }
-    if([@"Sketch" isEqualToString:key] || [@"素描" isEqualToString:key]){
+    if([NSLocalizedString(@"sketch", nil) isEqualToString:key]){
         return Sketch;
     }
-    if([@"Emboss" isEqualToString:key] || [@"浮雕" isEqualToString:key]){
+    if([NSLocalizedString(@"emboss", nil) isEqualToString:key]){
         return Emboss;
     }
-    if([@"Vignette" isEqualToString:key] || [@"晕映" isEqualToString:key]){
+    if([NSLocalizedString(@"vignette", nil) isEqualToString:key]){
         return Vignette;
     }
-    if([@"GaussianBlur" isEqualToString:key] || [@"高斯模糊" isEqualToString:key]){
+    if([NSLocalizedString(@"gaussianBlur", nil) isEqualToString:key]){
         return GaussianBlur;
     }
-    if([@"HoleBlur" isEqualToString:key] || [@"虚化背影" isEqualToString:key]){
+    if([NSLocalizedString(@"gaussianSelectiveBlur", nil) isEqualToString:key]){
         return GaussianSelectiveBlur;
     }
-    if([@"BoxBlur" isEqualToString:key] || [@"盒状模糊" isEqualToString:key]){
+    if([NSLocalizedString(@"boxBlur", nil) isEqualToString:key]){
         return BoxBlur;
     }
-    if([@"MotionBlur" isEqualToString:key] || [@"运动模糊" isEqualToString:key]){
+    if([NSLocalizedString(@"motionBlur", nil) isEqualToString:key]){
         return MotionBlur;
     }
-    if([@"Zoom" isEqualToString:key] || [@"变焦模糊" isEqualToString:key]){
+    if([NSLocalizedString(@"zoomBlur", nil) isEqualToString:key]){
         return ZoomBlur;
     }
     return Default;
@@ -343,8 +344,8 @@
         case SobelEdge: {
             slider.hidden = NO;
             [slider setMinimumValue:0.0];
-            [slider setMaximumValue:1.0];
-            [slider setValue:0.25];
+            [slider setMaximumValue:3.0];
+            [slider setValue:1.0];
             break;
         }
         case Sketch: {
@@ -393,7 +394,7 @@
             slider.hidden = NO;
             [slider setMinimumValue:0.0];
             [slider setMaximumValue:180.0f];
-            [slider setValue:0.0];
+            [slider setValue:90];
             break;
         }
         case ZoomBlur: {

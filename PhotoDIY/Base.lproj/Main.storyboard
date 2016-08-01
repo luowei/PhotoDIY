@@ -3,7 +3,6 @@
     <dependencies>
         <deployment version="2304" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
         <!--照片编辑-->
@@ -535,10 +534,16 @@
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="照片编辑" id="N0f-SJ-Bit">
-                        <barButtonItem key="rightBarButtonItem" image="shareBtn" width="30" id="J9T-ek-bTa" userLabel="share">
-                            <inset key="imageInsets" minX="-20" minY="0.0" maxX="10" maxY="0.0"/>
+                        <barButtonItem key="leftBarButtonItem" image="shareBtn" id="Ihh-qc-m2G" userLabel="share">
+                            <inset key="imageInsets" minX="-15" minY="0.0" maxX="0.0" maxY="0.0"/>
                             <connections>
-                                <action selector="share:" destination="BYZ-38-t0r" id="vsz-Eu-pet"/>
+                                <action selector="share:" destination="BYZ-38-t0r" id="p1h-D6-RVa"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="saveButton" id="J9T-ek-bTa" userLabel="save">
+                            <inset key="imageInsets" minX="-10" minY="0.0" maxX="10" maxY="0.0"/>
+                            <connections>
+                                <action selector="saveAction:" destination="BYZ-38-t0r" id="JC9-Ja-0Ia"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -551,27 +556,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <navigationItem title="照片编辑" id="785-T8-Mps">
-                    <leftBarButtonItems>
-                        <barButtonItem image="redoButton" width="30" id="PLf-gF-TXR" userLabel="rotateRight">
-                            <inset key="imageInsets" minX="-15" minY="0.0" maxX="15" maxY="0.0"/>
-                        </barButtonItem>
-                        <barButtonItem image="undoButton" width="30" id="5Ji-zx-tJY" userLabel="rotateLeft">
-                            <inset key="imageInsets" minX="-80" minY="0.0" maxX="30" maxY="0.0"/>
-                        </barButtonItem>
-                    </leftBarButtonItems>
-                    <rightBarButtonItems>
-                        <barButtonItem image="shareBtn" width="30" id="8mk-VQ-73P" userLabel="share">
-                            <inset key="imageInsets" minX="-20" minY="0.0" maxX="10" maxY="0.0"/>
-                            <connections>
-                                <action selector="share:" destination="BYZ-38-t0r" id="xl0-vo-qf6"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem image="flip" id="m8J-kG-au0" userLabel="flip">
-                            <inset key="imageInsets" minX="15" minY="0.0" maxX="-20" maxY="0.0"/>
-                        </barButtonItem>
-                    </rightBarButtonItems>
-                </navigationItem>
             </objects>
             <point key="canvasLocation" x="1057" y="316"/>
         </scene>
@@ -613,6 +597,7 @@
         <image name="placeHolder" width="80" height="100"/>
         <image name="redoButton" width="40" height="40"/>
         <image name="revocation" width="40" height="40"/>
+        <image name="saveButton" width="40" height="40"/>
         <image name="shareBtn" width="44" height="44"/>
         <image name="undoButton" width="40" height="40"/>
     </resources>

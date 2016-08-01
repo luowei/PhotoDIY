@@ -20,7 +20,7 @@
 "sepiaTone" 			 = "褐色调";
 "colorInvert" 			 = "反转";
 "grayScale" 			 = "灰度";
-"sobelEdge" 			 = "边缘突显";
+"sobelEdge" 			 = "边缘勾勒";
 "sketch" 				 = "素描";
 "emboss" 				 = "浮雕";
 "vignette" 				 = "晕映";

@@ -224,10 +224,13 @@
                                           } else {
                                               UIImageWriteToSavedPhotosAlbum(processedImage, self, nil, nil);
                                           }
-                                          self.hud.mode = MBProgressHUDModeText;
-                                          self.hud.labelText = NSLocalizedString(@"Save Success", nil);
+                                          dispatch_async(dispatch_get_main_queue(), ^{
+                                              self.hud.mode = MBProgressHUDModeText;
+                                              self.hud.labelText = NSLocalizedString(@"Save Success", nil);
+                                              [self.hud hide:YES afterDelay:0];
+                                          });
                                       }];
-    [self.hud hide:YES afterDelay:1.0];
+    //[self.hud hide:YES afterDelay:3.0];
 }
 
 
