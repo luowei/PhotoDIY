@@ -22,3 +22,9 @@
 -(void)didLayoutSubviews;
 
 @end
+
+@interface UIImage(ext)
+
+- (UIImage *)imageWithOverlayColor:(UIColor *)color;
+
+@end

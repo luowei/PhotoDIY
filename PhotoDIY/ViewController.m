@@ -65,6 +65,10 @@
     [self.drawView saveImage];
 }
 
+- (IBAction)recovery:(id)sender{
+    [self.drawView recovery];
+}
+
 - (IBAction)rotateRight:(id)sender {
     [self.drawView.zoomView rotateRight];
 }

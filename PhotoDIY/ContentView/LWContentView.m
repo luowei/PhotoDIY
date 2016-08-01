@@ -83,8 +83,8 @@
     if (!self.filterCollectionView.hidden) {
         self.filterCollectionView.hidden = !self.filterCollectionView.hidden;
     }
-    if (!self.photoCollectionView.hidden) {
-        self.photoCollectionView.hidden = !self.photoCollectionView.hidden;
+    if (!self.photosBar.hidden) {
+        self.photosBar.hidden = !self.photosBar.hidden;
     }
     NSComparisonResult result = [[UIDevice currentDevice].systemVersion compare:@"8.0"];
     if (result == NSOrderedSame || result == NSOrderedDescending) {
@@ -102,8 +102,8 @@
         self.filterCollectionView.hidden = !self.filterCollectionView.hidden;
     }
 
-    self.photoCollectionView.hidden = !self.photoCollectionView.hidden;
-    if (!self.photoCollectionView.hidden) {
+    self.photosBar.hidden = !self.photosBar.hidden;
+    if (!self.photosBar.hidden) {
         NSComparisonResult result = [[UIDevice currentDevice].systemVersion compare:@"8.0"];
         if (result == NSOrderedSame || result == NSOrderedDescending) {
             [self removeConstraint:self.filterVPaddingZero];
@@ -135,8 +135,8 @@
 - (void)showFilters {
 
     //处理handBoard
-    if (!self.photoCollectionView.hidden) {
-        self.photoCollectionView.hidden = !self.photoCollectionView.hidden;
+    if (!self.photosBar.hidden) {
+        self.photosBar.hidden = !self.photosBar.hidden;
     }
 
     self.filterCollectionView.hidden = !self.filterCollectionView.hidden;
@@ -279,5 +279,30 @@
     self.currentMode = ImageMode;
     [self reloadImage:dm.currentImage];
 }
+
+@end
+
+
+@implementation LWPhotosBar
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+
+    UIImage *flipImg = [UIImage imageNamed:@"flip"];
+    UIImage *recovationImg = [UIImage imageNamed:@"revocation"];
+    UIImage *leftRotateImg = [UIImage imageNamed:@"undoButton"];
+    UIImage *rightRotateImg = [UIImage imageNamed:@"redoButton"];
+
+    [self.flipBtn setImage:[flipImg imageWithOverlayColor:[UIColor whiteColor]] forState:UIControlStateNormal];
+    [self.flipBtn setImage:[flipImg imageWithOverlayColor:[UIColor colorWithRed:0.07 green:0.42 blue:0.84 alpha:1]] forState:UIControlStateHighlighted];
+    [self.recovationBtn setImage:[recovationImg imageWithOverlayColor:[UIColor whiteColor]] forState:UIControlStateNormal];
+    [self.recovationBtn setImage:[recovationImg imageWithOverlayColor:[UIColor colorWithRed:0.07 green:0.42 blue:0.84 alpha:1]] forState:UIControlStateHighlighted];
+    [self.leftRotateBtn setImage:[leftRotateImg imageWithOverlayColor:[UIColor whiteColor]] forState:UIControlStateNormal];
+    [self.leftRotateBtn setImage:[leftRotateImg imageWithOverlayColor:[UIColor colorWithRed:0.07 green:0.42 blue:0.84 alpha:1]] forState:UIControlStateHighlighted];
+    [self.rightRotateBtn setImage:[rightRotateImg imageWithOverlayColor:[UIColor whiteColor]] forState:UIControlStateNormal];
+    [self.rightRotateBtn setImage:[rightRotateImg imageWithOverlayColor:[UIColor colorWithRed:0.07 green:0.42 blue:0.84 alpha:1]] forState:UIControlStateHighlighted];
+
+}
+
 
 @end
