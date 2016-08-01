@@ -12,8 +12,6 @@
 
 @interface LWFilterImageView : GPUImageView
 
-@property(nonatomic,weak) IBOutlet UISlider *slider;
-
 @property(nonatomic,strong) GPUImageOutput<GPUImageInput> *filter;
 @property(nonatomic,strong) GPUImagePicture *sourcePicture;
 

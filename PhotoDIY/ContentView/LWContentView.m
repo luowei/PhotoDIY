@@ -313,6 +313,8 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
 
+    [self.slider setThumbImage:[UIImage imageNamed:@"slider_circel"] forState:UIControlStateNormal];
+    [self.slider setThumbImage:[UIImage imageNamed:@"slider_circel_highlight"] forState:UIControlStateHighlighted];
 }
 
 

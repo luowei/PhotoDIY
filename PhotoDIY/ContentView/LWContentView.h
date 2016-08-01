@@ -84,4 +84,6 @@
 
 @interface LWFilterBar:UIView
 
+@property(nonatomic,weak) IBOutlet UISlider *slider;
+
 @end

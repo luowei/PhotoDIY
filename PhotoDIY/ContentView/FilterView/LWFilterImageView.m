@@ -19,8 +19,6 @@
     self.contentMode = UIViewContentModeScaleAspectFill;
 
     self.filterType = Default;
-    [self.slider setThumbImage:[UIImage imageNamed:@"slider_circel"] forState:UIControlStateNormal];
-    [self.slider setThumbImage:[UIImage imageNamed:@"slider_circel_highlight"] forState:UIControlStateHighlighted];
 }
 
 - (void)rotationToInterfaceOrientation:(UIInterfaceOrientation)orientation {
@@ -152,96 +150,99 @@
 }
 
 - (IBAction)slideUpdate:(UISlider *)slider {
+//    LWContentView *contentView = [self superViewWithClass:[LWContentView class]];
+//    UISlider *slider = contentView.filterBar.slider;
+
     switch (self.filterType) {
         case Contrast: {
-            [(GPUImageContrastFilter *) self.filter setContrast:self.slider.value];
+            [(GPUImageContrastFilter *) self.filter setContrast:slider.value];
             break;
         }
         case Levels: {
-            float value = [self.slider value];
+            float value = [slider value];
             [(GPUImageLevelsFilter *) self.filter setRedMin:value gamma:1.0 max:1.0 minOut:0.0 maxOut:1.0];
             [(GPUImageLevelsFilter *) self.filter setGreenMin:value gamma:1.0 max:1.0 minOut:0.0 maxOut:1.0];
             [(GPUImageLevelsFilter *) self.filter setBlueMin:value gamma:1.0 max:1.0 minOut:0.0 maxOut:1.0];
             break;
         }
         case RGB: {
-            [(GPUImageRGBFilter *) self.filter setGreen:[self.slider value]];
+            [(GPUImageRGBFilter *) self.filter setGreen:[slider value]];
             break;
         }
         case HUE: {
-            [(GPUImageHueFilter *) self.filter setHue:self.slider.value];
+            [(GPUImageHueFilter *) self.filter setHue:slider.value];
             break;
         }
         case WhiteBalance: {
-            [(GPUImageWhiteBalanceFilter *) self.filter setTemperature:[self.slider value]];
+            [(GPUImageWhiteBalanceFilter *) self.filter setTemperature:[slider value]];
             break;
         }
         case Sharpen: {
-            [(GPUImageSharpenFilter *) self.filter setSharpness:[self.slider value]];
+            [(GPUImageSharpenFilter *) self.filter setSharpness:[slider value]];
             break;
         }
         case Gamma: {
-            self.slider.hidden = NO;
-            [self.slider setMinimumValue:0.0];
-            [self.slider setMaximumValue:3.0];
-            [self.slider setValue:1.5];
+            slider.hidden = NO;
+            [slider setMinimumValue:0.0];
+            [slider setMaximumValue:3.0];
+            [slider setValue:1.5];
 
-            [(GPUImageGammaFilter *) self.filter setGamma:[self.slider value]];
+            [(GPUImageGammaFilter *) self.filter setGamma:[slider value]];
             break;
         }
         case ToneCurve: {
             [(GPUImageToneCurveFilter *) self.filter setBlueControlPoints:@[
                     [NSValue valueWithCGPoint:CGPointMake(0.0, 0.0)],
-                    [NSValue valueWithCGPoint:CGPointMake(0.5, self.slider.value)],
+                    [NSValue valueWithCGPoint:CGPointMake(0.5, slider.value)],
                     [NSValue valueWithCGPoint:CGPointMake(1.0, 0.75)]]];
             break;
         }
         case SepiaTone: {
-            [(GPUImageSepiaFilter *) self.filter setIntensity:[self.slider value]];
+            [(GPUImageSepiaFilter *) self.filter setIntensity:[slider value]];
             break;
         }
         case ColorInvert: {
-            self.slider.hidden = YES;
+            slider.hidden = YES;
             break;
         }
         case GrayScale: {
-            self.slider.hidden = YES;
+            slider.hidden = YES;
             break;
         }
         case SobelEdge: {
-            [(GPUImageSobelEdgeDetectionFilter *) self.filter setEdgeStrength:[self.slider value]];
+            [(GPUImageSobelEdgeDetectionFilter *) self.filter setEdgeStrength:[slider value]];
             break;
         }
         case Sketch: {
-            [(GPUImageSketchFilter *) self.filter setEdgeStrength:[self.slider value]];
+            [(GPUImageSketchFilter *) self.filter setEdgeStrength:[slider value]];
             break;
         }
         case Emboss: {
-            [(GPUImageEmbossFilter *) self.filter setIntensity:[self.slider value]];
+            [(GPUImageEmbossFilter *) self.filter setIntensity:[slider value]];
             break;
         }
         case Vignette: {
-            [(GPUImageVignetteFilter *) self.filter setVignetteEnd:[self.slider value]];
+            [(GPUImageVignetteFilter *) self.filter setVignetteEnd:[slider value]];
             break;
         }
         case GaussianBlur: {
-            [(GPUImageGaussianBlurFilter *) self.filter setBlurRadiusInPixels:[self.slider value]];
+            [(GPUImageGaussianBlurFilter *) self.filter setBlurRadiusInPixels:[slider value]];
             break;
         }
         case GaussianSelectiveBlur: {
-            [(GPUImageGaussianSelectiveBlurFilter *) self.filter setExcludeCircleRadius:[self.slider value]];
+            [(GPUImageGaussianSelectiveBlurFilter *) self.filter setExcludeCircleRadius:[slider value]];
             break;
         }
         case BoxBlur: {
-            [(GPUImageBoxBlurFilter *) self.filter setBlurRadiusInPixels:[self.slider value]];
+            [(GPUImageBoxBlurFilter *) self.filter setBlurRadiusInPixels:[slider value]];
             break;
         }
         case MotionBlur: {
-            [(GPUImageMotionBlurFilter *) self.filter setBlurAngle:[self.slider value]];
+            [(GPUImageMotionBlurFilter *) self.filter setBlurAngle:[slider value]];
             break;
         }
         case ZoomBlur: {
-            [(GPUImageZoomBlurFilter *) self.filter setBlurSize:[self.slider value]];
+            [(GPUImageZoomBlurFilter *) self.filter setBlurSize:[slider value]];
             break;
         }
         default:
@@ -265,142 +266,145 @@
 }
 
 - (void)setupSlider {
+    LWContentView *contentView = [self superViewWithClass:[LWContentView class]];
+    UISlider *slider = contentView.filterBar.slider;
+
     switch (self.filterType) {
         case Contrast: {
-            self.slider.hidden = NO;
-            [self.slider setMinimumValue:0.0];
-            [self.slider setMaximumValue:4.0];
-            [self.slider setValue:2.0];
+            slider.hidden = NO;
+            [slider setMinimumValue:0.0];
+            [slider setMaximumValue:4.0];
+            [slider setValue:2.0];
             break;
         }
         case Levels: {
-            self.slider.hidden = NO;
-            [self.slider setMinimumValue:0.0];
-            [self.slider setMaximumValue:1.0];
-            [self.slider setValue:0.2];
+            slider.hidden = NO;
+            [slider setMinimumValue:0.0];
+            [slider setMaximumValue:1.0];
+            [slider setValue:0.2];
             break;
         }
         case RGB: {
-            self.slider.hidden = NO;
-            [self.slider setMinimumValue:0.0];
-            [self.slider setMaximumValue:2.0];
-            [self.slider setValue:1.25];
+            slider.hidden = NO;
+            [slider setMinimumValue:0.0];
+            [slider setMaximumValue:2.0];
+            [slider setValue:1.25];
             break;
         }
         case HUE: {
-            self.slider.hidden = NO;
-            [self.slider setMinimumValue:0.0];
-            [self.slider setMaximumValue:360.0];
-            [self.slider setValue:90.0];
+            slider.hidden = NO;
+            [slider setMinimumValue:0.0];
+            [slider setMaximumValue:360.0];
+            [slider setValue:90.0];
             break;
         }
         case WhiteBalance: {
-            self.slider.hidden = NO;
-            [self.slider setMinimumValue:2500.0];
-            [self.slider setMaximumValue:7500.0];
-            [self.slider setValue:5000.0];
+            slider.hidden = NO;
+            [slider setMinimumValue:2500.0];
+            [slider setMaximumValue:7500.0];
+            [slider setValue:5000.0];
             break;
         }
         case Sharpen: {
-            self.slider.hidden = NO;
-            [self.slider setMinimumValue:-1.0];
-            [self.slider setMaximumValue:4.0];
-            [self.slider setValue:4.0];
+            slider.hidden = NO;
+            [slider setMinimumValue:-1.0];
+            [slider setMaximumValue:4.0];
+            [slider setValue:4.0];
             break;
         }
         case Gamma: {
-            self.slider.hidden = NO;
-            [self.slider setMinimumValue:0.0];
-            [self.slider setMaximumValue:3.0];
-            [self.slider setValue:1.5];
+            slider.hidden = NO;
+            [slider setMinimumValue:0.0];
+            [slider setMaximumValue:3.0];
+            [slider setValue:1.5];
             break;
         }
         case ToneCurve: {
-            self.slider.hidden = NO;
-            [self.slider setMinimumValue:0.0];
-            [self.slider setMaximumValue:1.0];
-            [self.slider setValue:0.75];
+            slider.hidden = NO;
+            [slider setMinimumValue:0.0];
+            [slider setMaximumValue:1.0];
+            [slider setValue:0.75];
         }
         case SepiaTone: {
-            self.slider.hidden = NO;
-            [self.slider setValue:1.0];
-            [self.slider setMinimumValue:0.0];
-            [self.slider setMaximumValue:1.0];
+            slider.hidden = NO;
+            [slider setValue:1.0];
+            [slider setMinimumValue:0.0];
+            [slider setMaximumValue:1.0];
             break;
         }
         case ColorInvert: {
-            self.slider.hidden = YES;
+            slider.hidden = YES;
             break;
         }
         case GrayScale: {
-            self.slider.hidden = YES;
+            slider.hidden = YES;
             break;
         }
         case SobelEdge: {
-            self.slider.hidden = NO;
-            [self.slider setMinimumValue:0.0];
-            [self.slider setMaximumValue:1.0];
-            [self.slider setValue:0.25];
+            slider.hidden = NO;
+            [slider setMinimumValue:0.0];
+            [slider setMaximumValue:1.0];
+            [slider setValue:0.25];
             break;
         }
         case Sketch: {
-            self.slider.hidden = NO;
-            [self.slider setMinimumValue:0.0];
-            [self.slider setMaximumValue:1.0];
-            [self.slider setValue:0.25];
+            slider.hidden = NO;
+            [slider setMinimumValue:0.0];
+            [slider setMaximumValue:1.0];
+            [slider setValue:0.25];
             break;
         }
         case Emboss: {
-            self.slider.hidden = NO;
-            [self.slider setMinimumValue:0.0];
-            [self.slider setMaximumValue:5.0];
-            [self.slider setValue:1.0];
+            slider.hidden = NO;
+            [slider setMinimumValue:0.0];
+            [slider setMaximumValue:5.0];
+            [slider setValue:1.0];
             break;
         }
         case Vignette: {
-            self.slider.hidden = NO;
-            [self.slider setMinimumValue:0.5];
-            [self.slider setMaximumValue:0.9];
-            [self.slider setValue:0.75];
+            slider.hidden = NO;
+            [slider setMinimumValue:0.5];
+            [slider setMaximumValue:0.9];
+            [slider setValue:0.75];
             break;
         }
         case GaussianBlur: {
-            self.slider.hidden = NO;
-            [self.slider setMinimumValue:0.0];
-            [self.slider setMaximumValue:24.0];
-            [self.slider setValue:10.0];
+            slider.hidden = NO;
+            [slider setMinimumValue:0.0];
+            [slider setMaximumValue:24.0];
+            [slider setValue:10.0];
             break;
         }
         case GaussianSelectiveBlur: {
-            self.slider.hidden = NO;
-            [self.slider setMinimumValue:0.0];
-            [self.slider setMaximumValue:.75f];
-            [self.slider setValue:40.0 / 320.0];
+            slider.hidden = NO;
+            [slider setMinimumValue:0.0];
+            [slider setMaximumValue:.75f];
+            [slider setValue:40.0 / 320.0];
             break;
         }
         case BoxBlur: {
-            self.slider.hidden = NO;
-            [self.slider setMinimumValue:0.0];
-            [self.slider setMaximumValue:30.0];
-            [self.slider setValue:20.0];
+            slider.hidden = NO;
+            [slider setMinimumValue:0.0];
+            [slider setMaximumValue:30.0];
+            [slider setValue:20.0];
             break;
         }
         case MotionBlur: {
-            self.slider.hidden = NO;
-            [self.slider setMinimumValue:0.0];
-            [self.slider setMaximumValue:180.0f];
-            [self.slider setValue:0.0];
+            slider.hidden = NO;
+            [slider setMinimumValue:0.0];
+            [slider setMaximumValue:180.0f];
+            [slider setValue:0.0];
             break;
         }
         case ZoomBlur: {
-            self.slider.hidden = NO;
-            [self.slider setMinimumValue:0.0];
-            [self.slider setMaximumValue:2.5f];
-            [self.slider setValue:1.0];
+            slider.hidden = NO;
+            [slider setMinimumValue:0.0];
+            [slider setMaximumValue:2.5f];
+            [slider setValue:1.0];
             break;
         }
         default:
-            self.slider.hidden = YES;
+            slider.hidden = YES;
             break;
 
     }
