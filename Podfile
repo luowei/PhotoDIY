@@ -6,6 +6,7 @@ pod 'GPUImage', '~> 0.1.7'
 pod 'MBProgressHUD'
 pod 'FXBlurView', '~> 1.6.4'
 pod 'FDStackView', "1.0"
+pod 'SDWebImage', '~> 3.8.1'
 
 end
 

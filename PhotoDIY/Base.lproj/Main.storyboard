@@ -95,6 +95,10 @@
                                             <outlet property="cropOk" destination="HzR-QA-1ed" id="COA-0K-oWS"/>
                                         </connections>
                                     </view>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="euM-5w-niK" userLabel="Draw View" customClass="LWDrawView">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="392"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7lC-69-oBc" userLabel="Photos Bar" customClass="LWPhotosBar">
                                         <rect key="frame" x="0.0" y="248" width="320" height="144"/>
                                         <subviews>
@@ -417,22 +421,36 @@
                                             <outlet property="slider" destination="P8S-W1-pug" id="d6Y-A7-kq2"/>
                                         </connections>
                                     </view>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O5f-Jf-Ls1" userLabel="Draw Bar">
+                                        <rect key="frame" x="0.0" y="242" width="320" height="150"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="150" id="9Vl-8G-fFH"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="r2h-iU-VsJ" secondAttribute="trailing" id="0IT-GW-uAm"/>
+                                    <constraint firstAttribute="trailing" secondItem="O5f-Jf-Ls1" secondAttribute="trailing" id="4c4-sE-h0B"/>
+                                    <constraint firstAttribute="bottom" secondItem="O5f-Jf-Ls1" secondAttribute="bottom" id="6pR-PG-31Z"/>
                                     <constraint firstAttribute="bottom" secondItem="E5d-y9-Muj" secondAttribute="bottom" id="7kW-yE-kSR"/>
+                                    <constraint firstAttribute="bottom" secondItem="euM-5w-niK" secondAttribute="bottom" id="994-k7-xTd"/>
                                     <constraint firstItem="r2h-iU-VsJ" firstAttribute="leading" secondItem="hc7-a9-rQJ" secondAttribute="leading" id="AzG-JU-WDN"/>
+                                    <constraint firstAttribute="trailing" secondItem="euM-5w-niK" secondAttribute="trailing" id="EHG-ZW-RAG"/>
                                     <constraint firstAttribute="bottom" secondItem="sQH-bp-mwK" secondAttribute="bottom" constant="120" id="Ea9-uX-egs" userLabel="PaddingBottom_120"/>
                                     <constraint firstAttribute="bottom" secondItem="r2h-iU-VsJ" secondAttribute="bottom" id="F8i-LO-zoB"/>
                                     <constraint firstItem="sQH-bp-mwK" firstAttribute="leading" secondItem="hc7-a9-rQJ" secondAttribute="leading" id="Fdv-Q1-X2A"/>
                                     <constraint firstItem="r2h-iU-VsJ" firstAttribute="top" secondItem="hc7-a9-rQJ" secondAttribute="top" id="FwP-5d-9m2"/>
+                                    <constraint firstItem="euM-5w-niK" firstAttribute="top" secondItem="hc7-a9-rQJ" secondAttribute="top" id="GxP-Hg-HrG"/>
                                     <constraint firstAttribute="trailing" secondItem="sQH-bp-mwK" secondAttribute="trailing" id="LYq-YT-F4i"/>
                                     <constraint firstAttribute="bottom" secondItem="sQH-bp-mwK" secondAttribute="bottom" constant="100" id="Nbx-Ju-fMD" userLabel="PaddingBottom_100"/>
                                     <constraint firstAttribute="trailing" secondItem="OyO-Fb-QTL" secondAttribute="trailing" id="Ocb-eg-YgA"/>
                                     <constraint firstAttribute="trailing" secondItem="E5d-y9-Muj" secondAttribute="trailing" id="RQb-Mx-xe4"/>
                                     <constraint firstAttribute="trailing" secondItem="7lC-69-oBc" secondAttribute="trailing" id="Tze-yb-wRO"/>
+                                    <constraint firstItem="O5f-Jf-Ls1" firstAttribute="leading" secondItem="hc7-a9-rQJ" secondAttribute="leading" id="Zj2-lh-xgz"/>
                                     <constraint firstAttribute="bottom" secondItem="7lC-69-oBc" secondAttribute="bottom" id="dWH-l2-YfQ"/>
+                                    <constraint firstItem="euM-5w-niK" firstAttribute="leading" secondItem="hc7-a9-rQJ" secondAttribute="leading" id="h4q-aU-2iU"/>
                                     <constraint firstItem="OyO-Fb-QTL" firstAttribute="leading" secondItem="hc7-a9-rQJ" secondAttribute="leading" id="kYu-AR-WsZ"/>
                                     <constraint firstItem="sQH-bp-mwK" firstAttribute="top" secondItem="hc7-a9-rQJ" secondAttribute="top" id="khu-DJ-WYP"/>
                                     <constraint firstItem="7lC-69-oBc" firstAttribute="leading" secondItem="hc7-a9-rQJ" secondAttribute="leading" id="oHK-Bp-dTE"/>

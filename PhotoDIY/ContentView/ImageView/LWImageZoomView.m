@@ -125,11 +125,12 @@
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [super touchesBegan:touches withEvent:event];
     //传递到下一响应者
     LWContentView *contentView = [self superViewWithClass:[LWContentView class]];
     if(!contentView.photosBar.hidden){
         [self.nextResponder touchesBegan:touches withEvent:event];
+    }else{
+        [super touchesBegan:touches withEvent:event];
     }
 }
 

@@ -7,6 +7,7 @@
 //
 
 #import "PDPhotoLibPicker.h"
+#import "Categorys.h"
 #import <ImageIO/ImageIO.h>
 
 
@@ -49,6 +50,10 @@
     return newImage;
 }
 
+
+#pragma mark - 获取照片
+
+//获得所有照片按指定大小
 - (void)getAllPicturesWithItemSize:(CGSize)itemSize {
     self.itemSize = itemSize;
     NSMutableArray *assetGroups = [[NSMutableArray alloc] init];
@@ -159,6 +164,93 @@
 
 }
 
+
+#pragma mark - Load Photos URL
+//获得所有照片URL
+- (void)getAllPicturesURL {
+    NSMutableArray *assetGroups = [[NSMutableArray alloc] init];
+
+    typedef enum {
+        completed = 0,
+        running = 1
+    } ThreadState;
+
+    //NSConditionLock *condition = [[NSConditionLock alloc] initWithCondition:running];
+
+    __weak typeof(self) weakSelf = self;
+
+    __block int count = 0;
+    [self.library enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+        if (group != nil) {
+            [assetGroups addObject:group];
+            count = count + (int) (group.numberOfAssets);
+        } else {
+            NSLog(@"========groups count:%lu", (unsigned long) assetGroups.count);
+
+            //如果数量发生变化
+            if (count != self.assetsCount) {
+                [self loadAllAssetGroupURL];
+            } else {
+                dispatch_async(dispatch_get_main_queue(), ^() {
+                    if([weakSelf.delegate respondsToSelector:@selector(allURLPicked:)]){
+                        [weakSelf.delegate allURLPicked:weakSelf.photoURLs];
+                    }
+                });
+            }
+        }
+
+    }                         failureBlock:^(NSError *error) {
+        NSLog(@"getAllPictures There is an error");
+        dispatch_async(dispatch_get_main_queue(), ^() {
+            if ([weakSelf.delegate respondsToSelector:@selector(collectPhotoFailed)]) {
+                [weakSelf.delegate collectPhotoFailed];
+            }
+        });
+    }];
+
+}
+
+//加载所有AssetGroup
+- (void)loadAllAssetGroupURL {
+    NSMutableArray *assetGroups = [[NSMutableArray alloc] init];
+
+    __weak typeof(self) weakSelf = self;
+    [self.library enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+        if (group != nil) {
+            [weakSelf enumerateAssetGroupURL:group];
+            [assetGroups addObject:group];
+            self.assetsCount = self.assetsCount + (int) (group.numberOfAssets);
+        } else {
+            NSLog(@"========groups count:%lu", (unsigned long) assetGroups.count);
+            dispatch_async(dispatch_get_main_queue(), ^() {
+                if([weakSelf.delegate respondsToSelector:@selector(allURLPicked:)]){
+                    [weakSelf.photoURLs reverse];
+                    [weakSelf.delegate allURLPicked:weakSelf.photoURLs];
+                }
+            });
+        }
+
+    }                         failureBlock:^(NSError *error) {
+        NSLog(@"loadAllAssetGroup There is an error");
+    }];
+}
+
+//遍历出所有的URL
+- (void)enumerateAssetGroupURL:(ALAssetsGroup *)group {
+    __weak typeof(self) weakSelf = self;
+    [group enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *inStop) {
+        if (result == nil || ![[result valueForProperty:ALAssetPropertyType] isEqualToString:ALAssetTypePhoto]) {
+            return;
+        }
+        NSURL *url = (NSURL *) [[result defaultRepresentation] url];
+        [weakSelf.photoURLs addObject:url];
+    }];
+
+}
+
+
+#pragma mark - 根据URL获得照片
+
 - (void)pictureWithURL:(NSURL *)url {
     if (!url) {
         return;
@@ -218,4 +310,33 @@
     dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
 }
 
+
+- (void)pictureWithURL:(NSURL *)url size:(CGSize)size imageBlock:(void (^)(UIImage *))block {
+    if (!url) {
+        return;
+    }
+    __weak typeof(self) weakSelf = self;
+
+    //使用信号量解决 assetForURL 同步问题
+    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_async(queue, ^{
+        [self.library assetForURL:url resultBlock:^(ALAsset *asset) {
+//            CGImageRef cgImage = [[asset defaultRepresentation] fullResolutionImage];
+            CGImageRef cgImage = [[asset defaultRepresentation] fullScreenImage];
+            if (cgImage) {
+                UIImage *image = [PDPhotoLibPicker imageWithImage:[UIImage imageWithCGImage:cgImage]
+                                                     scaledToSize:size];
+
+                //在主线程执行block的调用
+                block(image);
+            }
+            dispatch_semaphore_signal(sema);
+        }            failureBlock:^(NSError *error) {
+            NSLog(@"operation was not successfull!");
+            dispatch_semaphore_signal(sema);
+        }];
+    });
+    dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+}
 @end

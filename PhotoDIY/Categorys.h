@@ -28,3 +28,16 @@
 - (UIImage *)imageWithOverlayColor:(UIColor *)color;
 
 @end
+
+@interface NSArray (Reverse)
+
+- (NSArray *)reversedArray;
+
+@end
+
+@interface NSMutableArray (Reverse)
+
+- (void)reverse;
+
+@end
+

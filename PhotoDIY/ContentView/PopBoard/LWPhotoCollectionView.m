@@ -10,6 +10,7 @@
 #import "LWDataManager.h"
 #import "Categorys.h"
 #import "LWContentView.h"
+#import "SDImageCache.h"
 
 @implementation LWPhotoCollectionView {
     NSIndexPath *_selectedIndexPath;
@@ -43,7 +44,8 @@
         self.photoPicker = [[PDPhotoLibPicker alloc] initWithDelegate:self];
     }
     self.photoPicker.delegate = self;
-    [self.photoPicker getAllPicturesWithItemSize:itemSize];
+//    [self.photoPicker getAllPicturesWithItemSize:itemSize];
+    [self.photoPicker getAllPicturesURL];
 
 }
 
@@ -58,9 +60,9 @@
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    if (self.photoPicker && self.photoPicker.photoDict && self.photoPicker.photoDict.count > 0) {
-        NSLog(@"==========%lu", (unsigned long) self.photoPicker.photoDict.count);
-        return self.photoPicker.photoDict.count;
+    if (self.photoPicker && self.photoPicker.photoURLs && self.photoPicker.photoURLs.count > 0) {
+        NSLog(@"==========%lu", (unsigned long) self.photoPicker.photoURLs.count);
+        return self.photoPicker.photoURLs.count;
     } else {
         return 0;
     }
@@ -68,14 +70,30 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     LWPhotoCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"LWPhotoCollectionCell" forIndexPath:indexPath];
-    if (self.photoPicker && self.photoPicker.photoDict && self.photoPicker.photoDict.count > 0) {
-        NSString *urlString = self.photoPicker.photoDict.allKeys[indexPath.item];
-        NSURL *url = [NSURL URLWithString:urlString];
+    if (self.photoPicker && self.photoPicker.photoURLs && self.photoPicker.photoURLs.count > 0) {
+//        NSString *urlString = self.photoPicker.photoURLs[indexPath.item];
+//        NSURL *url = [NSURL URLWithString:urlString];
 
+        NSURL *url = self.photoPicker.photoURLs[indexPath.item];
         cell.url = url;
-        UIImage *image = self.photoPicker.photoDict[urlString];
-        cell.imageView.image = image;
-        cell.imageView.highlightedImage = image;
+
+        //从缓存目录找,没有才去相册加载
+        SDImageCache *imageCache = [SDImageCache sharedImageCache];
+        if([imageCache diskImageExistsWithKey:url.absoluteString]){
+            UIImage *image = [imageCache imageFromDiskCacheForKey:url.absoluteString];
+            cell.imageView.image = image;
+            cell.imageView.highlightedImage = image;
+        }else{
+            CGFloat scale = [UIScreen mainScreen].scale;
+            CGSize itemSize = CGSizeMake(80 * scale, 100 * scale);
+            [self.photoPicker pictureWithURL:url size:itemSize imageBlock:^(UIImage *image){
+                dispatch_async(dispatch_get_main_queue(), ^() {
+                    cell.imageView.image = image;
+                    cell.imageView.highlightedImage = image;
+                    [[SDImageCache sharedImageCache] storeImage:image forKey:url.absoluteString toDisk:YES];
+                });
+            }];
+        }
     }
 
     return cell;
@@ -128,7 +146,9 @@
     [self.loadingIndicator stopAnimating];
 }
 
-- (void)allPhotoURLsCollected:(NSArray *)urls {
+- (void)allURLPicked:(NSArray *)urls {
+    [self reloadData];
+    [self.loadingIndicator stopAnimating];
 }
 
 - (void)loadPhoto:(UIImage *)image {
