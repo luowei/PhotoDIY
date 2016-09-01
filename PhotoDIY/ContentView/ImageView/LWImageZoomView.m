@@ -121,8 +121,17 @@
 
 - (void)setImage:(UIImage *)image {
     self.imageView.image = image;
+    self.zoomScale = 1.0;
 }
 
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [super touchesBegan:touches withEvent:event];
+    //传递到下一响应者
+    LWContentView *contentView = [self superViewWithClass:[LWContentView class]];
+    if(!contentView.photosBar.hidden){
+        [self.nextResponder touchesBegan:touches withEvent:event];
+    }
+}
 
 #pragma mark - 图片操作相关方法
 

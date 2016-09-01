@@ -306,6 +306,7 @@
 				TargetAttributes = {
 					EAB292BC1D2A16C4004D5EED = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = G3A2KYKYBU;
 					};
 				};
 			};
@@ -548,6 +549,7 @@
 			baseConfigurationReference = 475E9ECC827629C9DEAAE6D1 /* Pods-PhotoDIY.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = PhotoDIY/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -561,6 +563,7 @@
 			baseConfigurationReference = FB3752B7BE3FC2C396F9E492 /* Pods-PhotoDIY.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = PhotoDIY/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
