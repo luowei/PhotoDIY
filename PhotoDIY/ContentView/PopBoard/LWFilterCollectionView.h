@@ -15,6 +15,7 @@
 @property(nonatomic,strong) IBOutlet NSLayoutConstraint *photoCollectionHeight;
 
 @property(nonatomic, strong) NSDictionary *filterDict;
+@property(nonatomic, strong) NSDictionary *filterImageNameDict;
 
 
 @property(nonatomic, strong) NSIndexPath *selectedIndexPath;

@@ -77,5 +77,7 @@ typedef NS_ENUM(NSInteger,FilterType){
 
 -(NSDictionary *)filters;
 
+-(NSDictionary *)filterImageName;
+
 
 @end

@@ -350,7 +350,7 @@
                                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeHolder" highlightedImage="placeHolder" translatesAutoresizingMaskIntoConstraints="NO" id="7KM-Uz-48n" userLabel="PlaceHolder">
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="虚化背影" translatesAutoresizingMaskIntoConstraints="NO" id="7KM-Uz-48n" userLabel="PlaceHolder">
                                                                     <rect key="frame" x="0.0" y="2" width="80" height="98"/>
                                                                     <userDefinedRuntimeAttributes>
                                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -614,5 +614,6 @@
         <image name="saveButton" width="40" height="40"/>
         <image name="shareBtn" width="44" height="44"/>
         <image name="undoButton" width="40" height="40"/>
+        <image name="虚化背影" width="80" height="100"/>
     </resources>
 </document>

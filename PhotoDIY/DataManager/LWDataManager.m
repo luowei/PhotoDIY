@@ -83,6 +83,19 @@
             NSLocalizedString(@"motionBlur",nil):motionBlur,NSLocalizedString(@"zoomBlur",nil):zoomBlur};
 }
 
+-(NSDictionary *)filterImageName{
+    return @{NSLocalizedString(@"contrast",nil):@"对比度调节",NSLocalizedString(@"levels",nil):@"色阶调节",
+            NSLocalizedString(@"rgb",nil):@"RGB调节",NSLocalizedString(@"hue",nil):@"HUE调节",
+            NSLocalizedString(@"whiteBalance",nil):@"白平衡",NSLocalizedString(@"sharpen",nil):@"锐化",
+            NSLocalizedString(@"gamma",nil):@"Gamma",NSLocalizedString(@"toneCurve",nil):@"色调美化",
+            NSLocalizedString(@"sepiaTone",nil):@"褐色调",NSLocalizedString(@"colorInvert",nil):@"反转",
+            NSLocalizedString(@"grayScale",nil):@"灰度",NSLocalizedString(@"sobelEdge",nil):@"边缘勾勒",
+            NSLocalizedString(@"sketch",nil):@"素描",NSLocalizedString(@"emboss",nil):@"浮雕",
+            NSLocalizedString(@"vignette",nil):@"晕映",NSLocalizedString(@"gaussianBlur",nil):@"高斯模糊",
+            NSLocalizedString(@"gaussianSelectiveBlur",nil):@"虚化背影",NSLocalizedString(@"boxBlur",nil):@"盒状模糊",
+            NSLocalizedString(@"motionBlur",nil):@"运动模糊",NSLocalizedString(@"zoomBlur",nil):@"变焦模糊"};
+}
+
 
 
 @end

@@ -183,11 +183,6 @@
             break;
         }
         case Gamma: {
-            slider.hidden = NO;
-            [slider setMinimumValue:0.0];
-            [slider setMaximumValue:3.0];
-            [slider setValue:1.5];
-
             [(GPUImageGammaFilter *) self.filter setGamma:[slider value]];
             break;
         }
