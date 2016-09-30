@@ -8,7 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
+@class LWScratchView;
+@class LWScrawlView;
+
 @interface LWDrawView : UIView
 
+@property(nonatomic,weak) IBOutlet UIImageView *mosaicImageView;
+@property(nonatomic,weak) IBOutlet LWScratchView *scratchView;
+@property(nonatomic,weak) IBOutlet LWScrawlView *scrawlView;
+
+@property(nonatomic,weak) IBOutlet UIButton *deleteBtn;
+
+
+
 - (void)setImage:(UIImage *)image;
+
 @end

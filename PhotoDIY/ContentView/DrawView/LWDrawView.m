@@ -7,6 +7,8 @@
 //
 
 #import "LWDrawView.h"
+#import "LWScratchView.h"
+#import "LWScrawlView.h"
 
 @implementation LWDrawView
 

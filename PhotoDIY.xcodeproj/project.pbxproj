@@ -19,6 +19,8 @@
 		EA6F611F1D2B567100827523 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA6F61211D2B567100827523 /* Localizable.strings */; };
 		EA6F61251D2B5A4500827523 /* LWDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6F61241D2B5A4500827523 /* LWDataManager.m */; };
 		EA6F612E1D2B937600827523 /* PDPhotoLibPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6F612D1D2B937600827523 /* PDPhotoLibPicker.m */; };
+		EAB0BBFE1D9E36F300AD3B3D /* LWScratchView.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB0BBFD1D9E36F300AD3B3D /* LWScratchView.m */; };
+		EAB0BC011D9E375800AD3B3D /* LWScrawlView.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB0BC001D9E375800AD3B3D /* LWScrawlView.m */; };
 		EAB292C21D2A16C4004D5EED /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB292C11D2A16C4004D5EED /* main.m */; };
 		EAB292C51D2A16C4004D5EED /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB292C41D2A16C4004D5EED /* AppDelegate.m */; };
 		EAB292C81D2A16C4004D5EED /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB292C71D2A16C4004D5EED /* ViewController.m */; };
@@ -60,6 +62,10 @@
 		EA6F61241D2B5A4500827523 /* LWDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWDataManager.m; sourceTree = "<group>"; };
 		EA6F612C1D2B937600827523 /* PDPhotoLibPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDPhotoLibPicker.h; sourceTree = "<group>"; };
 		EA6F612D1D2B937600827523 /* PDPhotoLibPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDPhotoLibPicker.m; sourceTree = "<group>"; };
+		EAB0BBFC1D9E36F300AD3B3D /* LWScratchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWScratchView.h; sourceTree = "<group>"; };
+		EAB0BBFD1D9E36F300AD3B3D /* LWScratchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWScratchView.m; sourceTree = "<group>"; };
+		EAB0BBFF1D9E375800AD3B3D /* LWScrawlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWScrawlView.h; sourceTree = "<group>"; };
+		EAB0BC001D9E375800AD3B3D /* LWScrawlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWScrawlView.m; sourceTree = "<group>"; };
 		EAB292BD1D2A16C4004D5EED /* PhotoDIY.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoDIY.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAB292C11D2A16C4004D5EED /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		EAB292C31D2A16C4004D5EED /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -161,6 +167,10 @@
 			children = (
 				BEF067A810F0BAA513676090 /* LWDrawView.h */,
 				BEF067546351067E593CAF2A /* LWDrawView.m */,
+				EAB0BBFC1D9E36F300AD3B3D /* LWScratchView.h */,
+				EAB0BBFD1D9E36F300AD3B3D /* LWScratchView.m */,
+				EAB0BBFF1D9E375800AD3B3D /* LWScrawlView.h */,
+				EAB0BC001D9E375800AD3B3D /* LWScrawlView.m */,
 			);
 			path = DrawView;
 			sourceTree = "<group>";
@@ -402,10 +412,12 @@
 				EAB292C81D2A16C4004D5EED /* ViewController.m in Sources */,
 				EAB292C51D2A16C4004D5EED /* AppDelegate.m in Sources */,
 				EAE5B4691D2E7C8B00DD865D /* LWContentView.m in Sources */,
+				EAB0BC011D9E375800AD3B3D /* LWScrawlView.m in Sources */,
 				EA6F61251D2B5A4500827523 /* LWDataManager.m in Sources */,
 				EA6F612E1D2B937600827523 /* PDPhotoLibPicker.m in Sources */,
 				EAB292C21D2A16C4004D5EED /* main.m in Sources */,
 				BEF069FB0617CA4B5E9BA8B6 /* LWImageZoomView.m in Sources */,
+				EAB0BBFE1D9E36F300AD3B3D /* LWScratchView.m in Sources */,
 				BEF068B151E77927FAC256F3 /* LWDrawView.m in Sources */,
 				BEF061A06B16E3FF98F60928 /* LWImageCropView.m in Sources */,
 				EA1C04451D4904A900290495 /* LWFilterImageView.m in Sources */,

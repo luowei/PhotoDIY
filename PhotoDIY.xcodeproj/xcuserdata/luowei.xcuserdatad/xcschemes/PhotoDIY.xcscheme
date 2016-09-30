@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "EAB292BC1D2A16C4004D5EED"
-               BuildableName = "PhotoDIY.app"
+               BuildableName = "PhotoDIY"
                BlueprintName = "PhotoDIY"
                ReferencedContainer = "container:PhotoDIY.xcodeproj">
             </BuildableReference>
@@ -56,7 +56,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "EAB292BC1D2A16C4004D5EED"
-            BuildableName = "PhotoDIY.app"
+            BuildableName = "PhotoDIY"
             BlueprintName = "PhotoDIY"
             ReferencedContainer = "container:PhotoDIY.xcodeproj">
          </BuildableReference>
