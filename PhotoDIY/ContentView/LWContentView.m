@@ -166,6 +166,25 @@
     [self reloadImage:dm.currentImage];
 }
 
+
+//显示涂鸦视图
+- (void)showDrawView {
+    //处理handBoard(隐藏)
+    if (!self.photosBar.hidden) {
+        self.photosBar.hidden = !self.photosBar.hidden;
+    }
+    //处理handBoard(隐藏)
+    if (!self.filterBar.hidden) {
+        self.filterBar.hidden = !self.filterBar.hidden;
+    }
+
+    self.currentMode = DrawMode;
+
+    LWDataManager *dm = [LWDataManager sharedInstance];
+    [self reloadImage:dm.currentImage];
+
+}
+
 #pragma mark -
 
 - (void)reloadImage:(UIImage *)image {
@@ -282,6 +301,8 @@
     self.currentMode = ImageMode;
     [self reloadImage:dm.currentImage];
 }
+
+
 
 @end
 

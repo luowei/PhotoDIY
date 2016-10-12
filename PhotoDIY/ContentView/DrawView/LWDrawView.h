@@ -10,6 +10,7 @@
 
 @class LWScratchView;
 @class LWScrawlView;
+@class LWDrawBar;
 
 @interface LWDrawView : UIView
 
@@ -17,6 +18,7 @@
 @property(nonatomic,weak) IBOutlet LWScratchView *scratchView;
 @property(nonatomic,weak) IBOutlet LWScrawlView *scrawlView;
 
+@property(nonatomic,weak) IBOutlet LWDrawBar *drawBar;
 @property(nonatomic,weak) IBOutlet UIButton *deleteBtn;
 
 

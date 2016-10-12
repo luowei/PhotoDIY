@@ -35,10 +35,6 @@
 @property(nonatomic,weak) IBOutlet LWPhotoCollectionView *photoCollectionView;
 
 
-@property(nonatomic,weak) IBOutlet NSLayoutConstraint *imageVPaddingZero;
-@property(nonatomic,weak) IBOutlet NSLayoutConstraint *imageVPaddingPhotosBar;
-@property(nonatomic,weak) IBOutlet NSLayoutConstraint *imageVPaddingFiltersBar;
-
 @property(nonatomic,weak) IBOutlet NSLayoutConstraint *filterVPaddingZero;
 @property(nonatomic,weak) IBOutlet NSLayoutConstraint *filterVPaddingPhotosBar;
 @property(nonatomic,weak) IBOutlet NSLayoutConstraint *filterVPaddingFiltersBar;
@@ -70,6 +66,8 @@
 - (void)cropImageOk;
 
 - (void)cancelCropImage;
+
+- (void)showDrawView;
 @end
 
 

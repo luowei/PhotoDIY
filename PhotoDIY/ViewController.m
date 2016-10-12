@@ -27,7 +27,7 @@
     [super viewDidAppear:animated];
 
     //绘图板添加默认图片
-    [self.drawView loadDefaultImage];
+    [self.contentView loadDefaultImage];
 }
 
 
@@ -50,46 +50,52 @@
 
 
 - (IBAction)selPhotoAction:(id)sender {
-    [self.drawView showPhotos];
+    [self.contentView showPhotos];
 }
 
 - (IBAction)filterAction:(id)sender {
-    [self.drawView showFilters];
+    [self.contentView showFilters];
 }
 
 - (IBAction)cropAction:(id)sender {
-    [self.drawView showOrHideCropView];
+    [self.contentView showOrHideCropView];
 }
 
+- (IBAction)drawAction:(id)sender {
+    [self.contentView showDrawView];
+}
+
+
+
 - (IBAction)saveAction:(id)sender {
-    [self.drawView saveImage];
+    [self.contentView saveImage];
 }
 
 - (IBAction)recovery:(id)sender{
-    [self.drawView recovery];
+    [self.contentView recovery];
 }
 
 - (IBAction)rotateRight:(id)sender {
-    [self.drawView.zoomView rotateRight];
+    [self.contentView.zoomView rotateRight];
 }
 
 - (IBAction)rotateLeft:(id)sender {
-    [self.drawView.zoomView rotateLeft];
+    [self.contentView.zoomView rotateLeft];
 }
 
 - (IBAction)flipHorizonal:(id)sender {
-    [self.drawView.zoomView flipHorizonal];
+    [self.contentView.zoomView flipHorizonal];
 }
 
 - (IBAction)share:(id)sender {
 }
 
 - (IBAction)cropOkAction:(id)sender {
-    [self.drawView cropImageOk];
+    [self.contentView cropImageOk];
 }
 
 - (IBAction)cropCancelAction:(id)sender {
-    [self.drawView cancelCropImage];
+    [self.contentView cancelCropImage];
 }
 
 

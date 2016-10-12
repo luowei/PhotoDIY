@@ -8,13 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		BEF060D7ACDCB1B844B81CE2 /* LWPhotoCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF069A6E65A0CA56DFE1CF5 /* LWPhotoCollectionView.m */; };
+		BEF060E183D21725E473BD15 /* LWInkLine.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF06905873199322FA1CA21 /* LWInkLine.m */; };
 		BEF061A06B16E3FF98F60928 /* LWImageCropView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF060C1F89C5EFEE240BD8C /* LWImageCropView.m */; };
+		BEF0624BCD56F84DFAF74650 /* LWConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF06A5C730D446EDABB0F6F /* LWConfigManager.m */; };
+		BEF063818F90927D3FC30574 /* LWDrawBar.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF060835D4A9C55E94FD61B /* LWDrawBar.m */; };
 		BEF0669C241E75514FBCFEB0 /* LWFilterCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF061409EB4310BAC440CE9 /* LWFilterCollectionView.m */; };
 		BEF068B151E77927FAC256F3 /* LWDrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF067546351067E593CAF2A /* LWDrawView.m */; };
 		BEF069FB0617CA4B5E9BA8B6 /* LWImageZoomView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF06FF649F758528E3BB784 /* LWImageZoomView.m */; };
 		CCD59F3ADD3AFC82051038E6 /* libPods-PhotoDIY.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FFC87A4A05A2799BD5A7991E /* libPods-PhotoDIY.a */; };
 		EA1C04451D4904A900290495 /* LWFilterImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA1C04441D4904A900290495 /* LWFilterImageView.m */; };
 		EA1C04721D4B218100290495 /* Lambeau.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EA1C04711D4B218100290495 /* Lambeau.jpg */; };
+		EA27A9BA1DAB338300B1264C /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA27A9B91DAB338300B1264C /* StoreKit.framework */; };
+		EA27A9BE1DAB932F00B1264C /* StoreObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = EA27A9BD1DAB932F00B1264C /* StoreObserver.m */; };
+		EA27A9C11DAB952F00B1264C /* StoreManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EA27A9C01DAB952F00B1264C /* StoreManager.m */; };
 		EA6F611B1D2B566900827523 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA6F611D1D2B566900827523 /* InfoPlist.strings */; };
 		EA6F611F1D2B567100827523 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA6F61211D2B567100827523 /* Localizable.strings */; };
 		EA6F61251D2B5A4500827523 /* LWDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6F61241D2B5A4500827523 /* LWDataManager.m */; };
@@ -40,12 +46,18 @@
 
 /* Begin PBXFileReference section */
 		475E9ECC827629C9DEAAE6D1 /* Pods-PhotoDIY.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoDIY.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PhotoDIY/Pods-PhotoDIY.debug.xcconfig"; sourceTree = "<group>"; };
+		BEF060475016942D9D22A16F /* LWInkLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWInkLine.h; sourceTree = "<group>"; };
+		BEF060835D4A9C55E94FD61B /* LWDrawBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWDrawBar.m; sourceTree = "<group>"; };
 		BEF060C1F89C5EFEE240BD8C /* LWImageCropView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWImageCropView.m; sourceTree = "<group>"; };
 		BEF061409EB4310BAC440CE9 /* LWFilterCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWFilterCollectionView.m; sourceTree = "<group>"; };
+		BEF0622CE7D97AC10AC3C918 /* LWDrawBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWDrawBar.h; sourceTree = "<group>"; };
 		BEF064284A669B4E7B1D4BB7 /* LWPhotoCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWPhotoCollectionView.h; sourceTree = "<group>"; };
 		BEF067546351067E593CAF2A /* LWDrawView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWDrawView.m; sourceTree = "<group>"; };
 		BEF067A810F0BAA513676090 /* LWDrawView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWDrawView.h; sourceTree = "<group>"; };
+		BEF0683358E6C420DD0E7C48 /* LWConfigManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWConfigManager.h; sourceTree = "<group>"; };
+		BEF06905873199322FA1CA21 /* LWInkLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWInkLine.m; sourceTree = "<group>"; };
 		BEF069A6E65A0CA56DFE1CF5 /* LWPhotoCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWPhotoCollectionView.m; sourceTree = "<group>"; };
+		BEF06A5C730D446EDABB0F6F /* LWConfigManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWConfigManager.m; sourceTree = "<group>"; };
 		BEF06B92FD0107440A3E9A90 /* LWImageZoomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWImageZoomView.h; sourceTree = "<group>"; };
 		BEF06EF014766AC4C5D6BB77 /* LWImageCropView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWImageCropView.h; sourceTree = "<group>"; };
 		BEF06F3FD57AF5A8015F5D73 /* LWFilterCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWFilterCollectionView.h; sourceTree = "<group>"; };
@@ -54,6 +66,11 @@
 		EA1C04441D4904A900290495 /* LWFilterImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWFilterImageView.m; sourceTree = "<group>"; };
 		EA1C04711D4B218100290495 /* Lambeau.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Lambeau.jpg; sourceTree = "<group>"; };
 		EA1C04731D4E3BDC00290495 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		EA27A9B91DAB338300B1264C /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		EA27A9BC1DAB932F00B1264C /* StoreObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreObserver.h; sourceTree = "<group>"; };
+		EA27A9BD1DAB932F00B1264C /* StoreObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreObserver.m; sourceTree = "<group>"; };
+		EA27A9BF1DAB952F00B1264C /* StoreManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreManager.h; sourceTree = "<group>"; };
+		EA27A9C01DAB952F00B1264C /* StoreManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreManager.m; sourceTree = "<group>"; };
 		EA6F611C1D2B566900827523 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EA6F611E1D2B566C00827523 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EA6F61201D2B567100827523 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -102,6 +119,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA27A9BA1DAB338300B1264C /* StoreKit.framework in Frameworks */,
 				EAB292F11D2A66A4004D5EED /* AVFoundation.framework in Frameworks */,
 				EAB292EF1D2A6697004D5EED /* AssetsLibrary.framework in Frameworks */,
 				EAB292ED1D2A668B004D5EED /* CoreGraphics.framework in Frameworks */,
@@ -125,6 +143,17 @@
 			path = CropView;
 			sourceTree = "<group>";
 		};
+		BEF0647B44847F476B9B7F3B /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				BEF060475016942D9D22A16F /* LWInkLine.h */,
+				BEF06905873199322FA1CA21 /* LWInkLine.m */,
+				BEF06A5C730D446EDABB0F6F /* LWConfigManager.m */,
+				BEF0683358E6C420DD0E7C48 /* LWConfigManager.h */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
 		BEF064C6D73E1BBF53ADD562 /* ImageView */ = {
 			isa = PBXGroup;
 			children = (
@@ -141,6 +170,17 @@
 				EA1C04441D4904A900290495 /* LWFilterImageView.m */,
 			);
 			path = FilterView;
+			sourceTree = "<group>";
+		};
+		BEF066A93C354A3204A6DE12 /* InAppPurchase */ = {
+			isa = PBXGroup;
+			children = (
+				EA27A9BF1DAB952F00B1264C /* StoreManager.h */,
+				EA27A9C01DAB952F00B1264C /* StoreManager.m */,
+				EA27A9BC1DAB932F00B1264C /* StoreObserver.h */,
+				EA27A9BD1DAB932F00B1264C /* StoreObserver.m */,
+			);
+			path = InAppPurchase;
 			sourceTree = "<group>";
 		};
 		BEF0687D412B10B50B10997E /* PopBoard */ = {
@@ -171,6 +211,9 @@
 				EAB0BBFD1D9E36F300AD3B3D /* LWScratchView.m */,
 				EAB0BBFF1D9E375800AD3B3D /* LWScrawlView.h */,
 				EAB0BC001D9E375800AD3B3D /* LWScrawlView.m */,
+				BEF0647B44847F476B9B7F3B /* Tools */,
+				BEF060835D4A9C55E94FD61B /* LWDrawBar.m */,
+				BEF0622CE7D97AC10AC3C918 /* LWDrawBar.h */,
 			);
 			path = DrawView;
 			sourceTree = "<group>";
@@ -227,6 +270,7 @@
 				EAE5B4611D2E7C8B00DD865D /* ContentView */,
 				BEF06D1AE73117D3C5B28302 /* DataManager */,
 				BEF06A7D3A612643CDD7DF8F /* PhotoTools */,
+				BEF066A93C354A3204A6DE12 /* InAppPurchase */,
 				EAB292C31D2A16C4004D5EED /* AppDelegate.h */,
 				EAB292C41D2A16C4004D5EED /* AppDelegate.m */,
 				EAB292C61D2A16C4004D5EED /* ViewController.h */,
@@ -270,6 +314,7 @@
 		F966CF9E9090B9C4FA064864 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EA27A9B91DAB338300B1264C /* StoreKit.framework */,
 				EAB292F01D2A66A4004D5EED /* AVFoundation.framework */,
 				EAB292EE1D2A6697004D5EED /* AssetsLibrary.framework */,
 				EAB292EC1D2A668B004D5EED /* CoreGraphics.framework */,
@@ -317,6 +362,11 @@
 					EAB292BC1D2A16C4004D5EED = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = G3A2KYKYBU;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -409,8 +459,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				EAB292F91D2A701F004D5EED /* Categorys.m in Sources */,
+				EA27A9C11DAB952F00B1264C /* StoreManager.m in Sources */,
 				EAB292C81D2A16C4004D5EED /* ViewController.m in Sources */,
 				EAB292C51D2A16C4004D5EED /* AppDelegate.m in Sources */,
+				EA27A9BE1DAB932F00B1264C /* StoreObserver.m in Sources */,
 				EAE5B4691D2E7C8B00DD865D /* LWContentView.m in Sources */,
 				EAB0BC011D9E375800AD3B3D /* LWScrawlView.m in Sources */,
 				EA6F61251D2B5A4500827523 /* LWDataManager.m in Sources */,
@@ -423,6 +475,9 @@
 				EA1C04451D4904A900290495 /* LWFilterImageView.m in Sources */,
 				BEF0669C241E75514FBCFEB0 /* LWFilterCollectionView.m in Sources */,
 				BEF060D7ACDCB1B844B81CE2 /* LWPhotoCollectionView.m in Sources */,
+				BEF060E183D21725E473BD15 /* LWInkLine.m in Sources */,
+				BEF0624BCD56F84DFAF74650 /* LWConfigManager.m in Sources */,
+				BEF063818F90927D3FC30574 /* LWDrawBar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

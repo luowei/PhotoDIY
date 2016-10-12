@@ -70,7 +70,7 @@
                                                     <action selector="cropCancelAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NSe-6y-wTc"/>
                                                 </connections>
                                             </button>
-                                            <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7kQ-2N-VDE" userLabel="Draw View" customClass="LWDrawView">
+                                            <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7kQ-2N-VDE" userLabel="Crop View">
                                                 <frame key="frameInset" width="320" height="392"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </view>
@@ -90,10 +90,11 @@
                                     </view>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="euM-5w-niK" userLabel="Draw View" customClass="LWDrawView">
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="coG-Pc-dqh" userLabel="Mosaic ImageView"/>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="coG-Pc-dqh" userLabel="Mosaic ImageView">
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            </imageView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dfJ-Xb-rco" userLabel="Scratch View" customClass="LWScratchView">
                                                 <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6Mv-FA-Jcc"/>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4kf-gH-kqu" userLabel="Mosaic View">
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="40" id="10a-ZC-WqT"/>
@@ -105,19 +106,16 @@
                                                     </button>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstAttribute="trailing" secondItem="6Mv-FA-Jcc" secondAttribute="trailing" id="53a-UE-i9a"/>
-                                                    <constraint firstAttribute="bottom" secondItem="6Mv-FA-Jcc" secondAttribute="bottom" id="Ak3-nL-db4"/>
                                                     <constraint firstAttribute="trailing" secondItem="4kf-gH-kqu" secondAttribute="trailing" constant="10" id="TN5-hd-SiS"/>
-                                                    <constraint firstItem="6Mv-FA-Jcc" firstAttribute="leading" secondItem="dfJ-Xb-rco" secondAttribute="leading" id="Xj5-lH-B3L"/>
-                                                    <constraint firstItem="6Mv-FA-Jcc" firstAttribute="top" secondItem="dfJ-Xb-rco" secondAttribute="top" id="kKc-0o-SXS"/>
                                                     <constraint firstItem="4kf-gH-kqu" firstAttribute="top" secondItem="dfJ-Xb-rco" secondAttribute="top" constant="60" id="rKh-qX-KJK"/>
                                                 </constraints>
                                                 <connections>
-                                                    <outlet property="imageView" destination="6Mv-FA-Jcc" id="JZQ-rV-RXz"/>
                                                     <outlet property="mosaicBtn" destination="4kf-gH-kqu" id="A70-fT-uxD"/>
                                                 </connections>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xZQ-UW-W72" userLabel="Scrawl View" customClass="LWScrawlView"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xZQ-UW-W72" userLabel="Scrawl View" customClass="LWScrawlView">
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YtB-Nc-H9u" userLabel="Draw clear Btn">
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="40" id="BVV-FV-iIQ"/>
@@ -127,8 +125,12 @@
                                                 <state key="selected" image="draw_clear_press"/>
                                                 <state key="highlighted" image="draw_clear_press"/>
                                             </button>
+                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O5f-Jf-Ls1" userLabel="Draw Bar" customClass="LWDrawBar">
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="150" id="9Vl-8G-fFH"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
-                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstItem="coG-Pc-dqh" firstAttribute="leading" secondItem="euM-5w-niK" secondAttribute="leading" id="17Y-CU-hDi"/>
                                             <constraint firstAttribute="bottom" secondItem="dfJ-Xb-rco" secondAttribute="bottom" id="6Cr-hp-YCO"/>
@@ -137,18 +139,22 @@
                                             <constraint firstAttribute="trailing" secondItem="YtB-Nc-H9u" secondAttribute="trailing" constant="10" id="Gsj-By-1f9"/>
                                             <constraint firstItem="coG-Pc-dqh" firstAttribute="top" secondItem="euM-5w-niK" secondAttribute="top" id="R20-IP-d53"/>
                                             <constraint firstItem="YtB-Nc-H9u" firstAttribute="top" secondItem="euM-5w-niK" secondAttribute="top" constant="10" id="RQD-N1-Yyw"/>
+                                            <constraint firstAttribute="trailing" secondItem="O5f-Jf-Ls1" secondAttribute="trailing" id="Ye4-vV-qAU"/>
                                             <constraint firstItem="xZQ-UW-W72" firstAttribute="leading" secondItem="euM-5w-niK" secondAttribute="leading" id="a8E-Cz-0CE"/>
+                                            <constraint firstItem="O5f-Jf-Ls1" firstAttribute="leading" secondItem="euM-5w-niK" secondAttribute="leading" id="aQH-lD-kRt"/>
                                             <constraint firstItem="dfJ-Xb-rco" firstAttribute="leading" secondItem="euM-5w-niK" secondAttribute="leading" id="iBL-iG-Yrj"/>
                                             <constraint firstAttribute="bottom" secondItem="coG-Pc-dqh" secondAttribute="bottom" id="jkv-mB-2BH"/>
                                             <constraint firstItem="dfJ-Xb-rco" firstAttribute="top" secondItem="euM-5w-niK" secondAttribute="top" id="ntb-5j-rdI"/>
                                             <constraint firstItem="xZQ-UW-W72" firstAttribute="top" secondItem="euM-5w-niK" secondAttribute="top" id="rrf-sl-SZB"/>
                                             <constraint firstAttribute="trailing" secondItem="coG-Pc-dqh" secondAttribute="trailing" id="sfI-se-Ri6"/>
+                                            <constraint firstAttribute="bottom" secondItem="O5f-Jf-Ls1" secondAttribute="bottom" id="t67-qk-6UH"/>
                                             <constraint firstAttribute="trailing" secondItem="dfJ-Xb-rco" secondAttribute="trailing" id="tKw-5f-VEv"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="deleteBtn" destination="YtB-Nc-H9u" id="fxC-cM-VSg"/>
+                                            <outlet property="drawBar" destination="O5f-Jf-Ls1" id="GGM-m3-1BC"/>
                                             <outlet property="mosaicImageView" destination="coG-Pc-dqh" id="gyX-br-Chw"/>
-                                            <outlet property="scratchView" destination="dfJ-Xb-rco" id="aCg-YV-jqS"/>
+                                            <outlet property="scratchView" destination="dfJ-Xb-rco" id="Stn-HJ-AUS"/>
                                             <outlet property="scrawlView" destination="xZQ-UW-W72" id="Ocz-LV-OzV"/>
                                         </connections>
                                     </view>
@@ -356,7 +362,6 @@
                                                 </connections>
                                             </slider>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="BNY-mx-jRu" customClass="LWFilterCollectionView">
-                                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="120" id="Y0A-Rv-1eH" userLabel="FilterCollection Height"/>
                                                 </constraints>
@@ -379,7 +384,7 @@
                                                                         <constraint firstAttribute="height" constant="18" id="Qdu-c0-Of0"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <color key="textColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="虚化背影" translatesAutoresizingMaskIntoConstraints="NO" id="7KM-Uz-48n" userLabel="PlaceHolder">
@@ -449,18 +454,10 @@
                                             <outlet property="slider" destination="P8S-W1-pug" id="d6Y-A7-kq2"/>
                                         </connections>
                                     </view>
-                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O5f-Jf-Ls1" userLabel="Draw Bar">
-                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="150" id="9Vl-8G-fFH"/>
-                                        </constraints>
-                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="r2h-iU-VsJ" secondAttribute="trailing" id="0IT-GW-uAm"/>
-                                    <constraint firstAttribute="trailing" secondItem="O5f-Jf-Ls1" secondAttribute="trailing" id="4c4-sE-h0B"/>
-                                    <constraint firstAttribute="bottom" secondItem="O5f-Jf-Ls1" secondAttribute="bottom" id="6pR-PG-31Z"/>
                                     <constraint firstAttribute="bottom" secondItem="E5d-y9-Muj" secondAttribute="bottom" id="7kW-yE-kSR"/>
                                     <constraint firstAttribute="bottom" secondItem="euM-5w-niK" secondAttribute="bottom" id="994-k7-xTd"/>
                                     <constraint firstItem="r2h-iU-VsJ" firstAttribute="leading" secondItem="hc7-a9-rQJ" secondAttribute="leading" id="AzG-JU-WDN"/>
@@ -475,7 +472,6 @@
                                     <constraint firstAttribute="trailing" secondItem="OyO-Fb-QTL" secondAttribute="trailing" id="Ocb-eg-YgA"/>
                                     <constraint firstAttribute="trailing" secondItem="E5d-y9-Muj" secondAttribute="trailing" id="RQb-Mx-xe4"/>
                                     <constraint firstAttribute="trailing" secondItem="7lC-69-oBc" secondAttribute="trailing" id="Tze-yb-wRO"/>
-                                    <constraint firstItem="O5f-Jf-Ls1" firstAttribute="leading" secondItem="hc7-a9-rQJ" secondAttribute="leading" id="Zj2-lh-xgz"/>
                                     <constraint firstAttribute="bottom" secondItem="7lC-69-oBc" secondAttribute="bottom" id="dWH-l2-YfQ"/>
                                     <constraint firstItem="euM-5w-niK" firstAttribute="leading" secondItem="hc7-a9-rQJ" secondAttribute="leading" id="h4q-aU-2iU"/>
                                     <constraint firstItem="OyO-Fb-QTL" firstAttribute="leading" secondItem="hc7-a9-rQJ" secondAttribute="leading" id="kYu-AR-WsZ"/>
@@ -494,7 +490,7 @@
                                 </variation>
                                 <connections>
                                     <outlet property="cropView" destination="OyO-Fb-QTL" id="cs7-rt-SMz"/>
-                                    <outlet property="drawView" destination="7kQ-2N-VDE" id="bU8-iN-Rbu"/>
+                                    <outlet property="drawView" destination="euM-5w-niK" id="nJc-cM-83N"/>
                                     <outlet property="filterBar" destination="E5d-y9-Muj" id="UNc-iS-RXM"/>
                                     <outlet property="filterCollectionView" destination="BNY-mx-jRu" id="4Yy-Dq-fA9"/>
                                     <outlet property="filterVPaddingFiltersBar" destination="Ea9-uX-egs" id="dm9-Vl-hxY"/>
@@ -530,6 +526,9 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ezf-AL-fHW" userLabel="Draw">
                                                 <state key="normal" image="doodleButton"/>
+                                                <connections>
+                                                    <action selector="drawAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gT8-4Q-raJ"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" red="0.086274509803921567" green="0.086274509803921567" blue="0.086274509803921567" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -585,7 +584,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="480"/>
                     <connections>
-                        <outlet property="drawView" destination="hc7-a9-rQJ" id="XoY-do-SX8"/>
+                        <outlet property="contentView" destination="hc7-a9-rQJ" id="XoY-do-SX8"/>
                         <outlet property="toolBar" destination="t0H-Ca-AMv" id="wbv-HK-Wxu"/>
                     </connections>
                 </viewController>

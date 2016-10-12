@@ -13,7 +13,7 @@
 
 @interface ViewController : UIViewController
 
-@property (weak, nonatomic) IBOutlet LWContentView *drawView;
+@property (weak, nonatomic) IBOutlet LWContentView *contentView;
 @property (weak, nonatomic) IBOutlet LWToolBar *toolBar;
 
 @end
