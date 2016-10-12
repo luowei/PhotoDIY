@@ -8,6 +8,7 @@
 
 #import "LWDrawView.h"
 #import "LWScratchView.h"
+#import "LWScrawlView.h"
 
 #define kBitsPerComponent (8)
 #define kBitsPerPixel (32)
@@ -16,13 +17,25 @@
 @implementation LWDrawView
 
 
+//开启关闭马赛克按钮
+- (IBAction)openOrCloseMosaic:(UIButton *)mosaicButton{
+    if (mosaicButton.selected) { //close
+        mosaicButton.selected = NO;
+        self.scrawlView.hidden = YES;
+
+    }else{ //open
+        mosaicButton.selected = YES;
+        self.scrawlView.hidden = NO;
+    }
+}
+
 - (void)setImage:(UIImage *)image {
 
     CGFloat wRatio = image.size.width/[UIScreen mainScreen].bounds.size.width ;
 
     //设置马赛克图片
     self.mosaicImageView.contentMode = UIViewContentModeScaleAspectFit;
-    UIImage *renderImg = [LWDrawView transToMosaicImage:image blockLevel:image.size.width/ 20];
+    UIImage *renderImg = [LWDrawView transToMosaicImage:image blockLevel:image.size.width/ 50];
     self.mosaicImageView.image = renderImg;
 
     //把底图绘制到scratchView上
@@ -31,9 +44,10 @@
     tempImageView.image = image;
     [self.scratchView setSizeBrush:50.0];   //涂抹大小
     [self.scratchView setHideView:tempImageView];
-    //改变层级关系
-    [self.mosaicImageView bringSubviewToFront:self];
+    //改变层级关系,并隐藏画笔视图
+    [self bringSubviewToFront:self.scratchView];
     self.scratchView.mosaicBtn.hidden = NO;
+    self.scrawlView.hidden = YES;
     [self.scratchView setNeedsDisplay];
 
 }

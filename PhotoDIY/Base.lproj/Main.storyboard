@@ -103,6 +103,9 @@
                                                         <state key="normal" image="macaic"/>
                                                         <state key="selected" image="macaic_selected"/>
                                                         <state key="highlighted" image="macaic_selected"/>
+                                                        <connections>
+                                                            <action selector="openOrCloseMosaic:" destination="euM-5w-niK" eventType="touchUpInside" id="8pQ-6b-d7O"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>

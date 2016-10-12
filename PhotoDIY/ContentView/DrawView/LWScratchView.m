@@ -36,8 +36,8 @@
 
 - (void)setHideView:(UIView *)hideView {
     CGColorSpaceRef colorspace = CGColorSpaceCreateDeviceGray();
-    long bitmapByteCount;
-    long bitmapBytesPerRow;
+//    long bitmapByteCount;
+//    long bitmapBytesPerRow;
 
     float scale = [UIScreen mainScreen].scale;
 
@@ -47,18 +47,18 @@
     hideImage = UIGraphicsGetImageFromCurrentImageContext().CGImage;
     UIGraphicsEndImageContext();
 
-    size_t imageWidth = CGImageGetWidth(hideImage)/scale;
-    size_t imageHeight = CGImageGetHeight(hideImage)/scale;
+    size_t imageWidth = CGImageGetWidth(hideImage);
+    size_t imageHeight = CGImageGetHeight(hideImage);
 
-    bitmapBytesPerRow = (imageWidth * 4);
-    bitmapByteCount = (bitmapBytesPerRow * imageHeight);
+//    bitmapBytesPerRow = (imageWidth * 4);
+//    bitmapByteCount = (bitmapBytesPerRow * imageHeight);
 
     CFMutableDataRef pixels = CFDataCreateMutable(NULL, imageWidth * imageHeight);
     contextMask = CGBitmapContextCreate(CFDataGetMutableBytePtr(pixels), imageWidth, imageHeight, 8, imageWidth, colorspace, kCGImageAlphaNone);
     CGDataProviderRef dataProvider = CGDataProviderCreateWithCFData(pixels);
 
     CGContextSetFillColorWithColor(contextMask, [UIColor blackColor].CGColor);
-    CGContextFillRect(contextMask, self.frame);
+    CGContextFillRect(contextMask, CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width*scale, self.frame.size.height*scale));
 
     CGContextSetStrokeColorWithColor(contextMask, [UIColor whiteColor].CGColor);
     CGContextSetLineWidth(contextMask, _sizeBrush);

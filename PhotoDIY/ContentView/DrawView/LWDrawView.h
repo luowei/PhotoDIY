@@ -22,6 +22,7 @@
 @property(nonatomic,weak) IBOutlet UIButton *deleteBtn;
 
 
+- (IBAction)openOrCloseMosaic:(UIButton *)mosaicButton;
 
 - (void)setImage:(UIImage *)image;
 
