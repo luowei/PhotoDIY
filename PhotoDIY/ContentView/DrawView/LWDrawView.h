@@ -19,6 +19,7 @@
 @property(nonatomic,weak) IBOutlet LWScrawlView *scrawlView;
 
 @property(nonatomic,weak) IBOutlet LWDrawBar *drawBar;
+@property(nonatomic,weak) IBOutlet UIButton *mosaicBtn;
 @property(nonatomic,weak) IBOutlet UIButton *deleteBtn;
 
 

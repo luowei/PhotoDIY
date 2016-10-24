@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="UFw-lB-Auc">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="UFw-lB-Auc">
     <dependencies>
         <deployment version="2304" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
@@ -93,32 +93,22 @@
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="coG-Pc-dqh" userLabel="Mosaic ImageView">
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             </imageView>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dfJ-Xb-rco" userLabel="Scratch View" customClass="LWScratchView">
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4kf-gH-kqu" userLabel="Mosaic View">
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="40" id="10a-ZC-WqT"/>
-                                                            <constraint firstAttribute="width" constant="40" id="Zqw-8a-3ub"/>
-                                                        </constraints>
-                                                        <state key="normal" image="macaic"/>
-                                                        <state key="selected" image="macaic_selected"/>
-                                                        <state key="highlighted" image="macaic_selected"/>
-                                                        <connections>
-                                                            <action selector="openOrCloseMosaic:" destination="euM-5w-niK" eventType="touchUpInside" id="8pQ-6b-d7O"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <constraints>
-                                                    <constraint firstAttribute="trailing" secondItem="4kf-gH-kqu" secondAttribute="trailing" constant="10" id="TN5-hd-SiS"/>
-                                                    <constraint firstItem="4kf-gH-kqu" firstAttribute="top" secondItem="dfJ-Xb-rco" secondAttribute="top" constant="60" id="rKh-qX-KJK"/>
-                                                </constraints>
-                                                <connections>
-                                                    <outlet property="mosaicBtn" destination="4kf-gH-kqu" id="A70-fT-uxD"/>
-                                                </connections>
-                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dfJ-Xb-rco" userLabel="Scratch View" customClass="LWScratchView"/>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xZQ-UW-W72" userLabel="Scrawl View" customClass="LWScrawlView">
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4kf-gH-kqu" userLabel="Mosaic View">
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="10a-ZC-WqT"/>
+                                                    <constraint firstAttribute="width" constant="40" id="Zqw-8a-3ub"/>
+                                                </constraints>
+                                                <state key="normal" image="macaic"/>
+                                                <state key="selected" image="macaic_selected"/>
+                                                <state key="highlighted" image="macaic_selected"/>
+                                                <connections>
+                                                    <action selector="openOrCloseMosaic:" destination="euM-5w-niK" eventType="touchUpInside" id="8pQ-6b-d7O"/>
+                                                </connections>
+                                            </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YtB-Nc-H9u" userLabel="Draw clear Btn">
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="40" id="BVV-FV-iIQ"/>
@@ -130,7 +120,7 @@
                                             </button>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O5f-Jf-Ls1" userLabel="Draw Bar" customClass="LWDrawBar">
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="150" id="9Vl-8G-fFH"/>
+                                                    <constraint firstAttribute="height" constant="120" id="9Vl-8G-fFH"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
@@ -142,6 +132,7 @@
                                             <constraint firstAttribute="trailing" secondItem="YtB-Nc-H9u" secondAttribute="trailing" constant="10" id="Gsj-By-1f9"/>
                                             <constraint firstItem="coG-Pc-dqh" firstAttribute="top" secondItem="euM-5w-niK" secondAttribute="top" id="R20-IP-d53"/>
                                             <constraint firstItem="YtB-Nc-H9u" firstAttribute="top" secondItem="euM-5w-niK" secondAttribute="top" constant="10" id="RQD-N1-Yyw"/>
+                                            <constraint firstAttribute="trailing" secondItem="4kf-gH-kqu" secondAttribute="trailing" constant="10" id="Te4-hz-gcy"/>
                                             <constraint firstAttribute="trailing" secondItem="O5f-Jf-Ls1" secondAttribute="trailing" id="Ye4-vV-qAU"/>
                                             <constraint firstItem="xZQ-UW-W72" firstAttribute="leading" secondItem="euM-5w-niK" secondAttribute="leading" id="a8E-Cz-0CE"/>
                                             <constraint firstItem="O5f-Jf-Ls1" firstAttribute="leading" secondItem="euM-5w-niK" secondAttribute="leading" id="aQH-lD-kRt"/>
@@ -152,10 +143,12 @@
                                             <constraint firstAttribute="trailing" secondItem="coG-Pc-dqh" secondAttribute="trailing" id="sfI-se-Ri6"/>
                                             <constraint firstAttribute="bottom" secondItem="O5f-Jf-Ls1" secondAttribute="bottom" id="t67-qk-6UH"/>
                                             <constraint firstAttribute="trailing" secondItem="dfJ-Xb-rco" secondAttribute="trailing" id="tKw-5f-VEv"/>
+                                            <constraint firstItem="4kf-gH-kqu" firstAttribute="top" secondItem="euM-5w-niK" secondAttribute="top" constant="60" id="y6X-xy-kfr"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="deleteBtn" destination="YtB-Nc-H9u" id="fxC-cM-VSg"/>
                                             <outlet property="drawBar" destination="O5f-Jf-Ls1" id="GGM-m3-1BC"/>
+                                            <outlet property="mosaicBtn" destination="4kf-gH-kqu" id="IqJ-ET-F04"/>
                                             <outlet property="mosaicImageView" destination="coG-Pc-dqh" id="gyX-br-Chw"/>
                                             <outlet property="scratchView" destination="dfJ-Xb-rco" id="Stn-HJ-AUS"/>
                                             <outlet property="scrawlView" destination="xZQ-UW-W72" id="Ocz-LV-OzV"/>

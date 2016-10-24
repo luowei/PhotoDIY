@@ -9,6 +9,7 @@
 #import "LWDrawView.h"
 #import "LWScratchView.h"
 #import "LWScrawlView.h"
+#import "LWDrawBar.h"
 
 #define kBitsPerComponent (8)
 #define kBitsPerPixel (32)
@@ -19,13 +20,28 @@
 
 //开启关闭马赛克按钮
 - (IBAction)openOrCloseMosaic:(UIButton *)mosaicButton{
-    if (mosaicButton.selected) { //close
-        mosaicButton.selected = NO;
+    if (!mosaicButton.selected) { //close
+        //改变层级关系,并隐藏画笔视图
         self.scrawlView.hidden = YES;
+        self.deleteBtn.hidden = YES;
+        self.drawBar.hidden = YES;
+        [self bringSubviewToFront:self.scratchView];
+        [self bringSubviewToFront:self.drawBar];
+        [self bringSubviewToFront:self.mosaicBtn];
+        self.mosaicBtn.selected = YES;
+        [self.scratchView setNeedsDisplay];
 
     }else{ //open
-        mosaicButton.selected = YES;
+        //改变层级关系,并隐藏画笔视图
         self.scrawlView.hidden = NO;
+        self.deleteBtn.hidden = NO;
+        self.drawBar.hidden = NO;
+        [self bringSubviewToFront:self.scrawlView];
+        [self bringSubviewToFront:self.deleteBtn];
+        [self bringSubviewToFront:self.drawBar];
+        [self bringSubviewToFront:self.mosaicBtn];
+        self.mosaicBtn.selected = NO;
+        [self.scrawlView setNeedsDisplay];
     }
 }
 
@@ -44,12 +60,17 @@
     tempImageView.image = image;
     [self.scratchView setSizeBrush:50.0];   //涂抹大小
     [self.scratchView setHideView:tempImageView];
-    //改变层级关系,并隐藏画笔视图
-    [self bringSubviewToFront:self.scratchView];
-    self.scratchView.mosaicBtn.hidden = NO;
-    self.scrawlView.hidden = YES;
-    [self.scratchView setNeedsDisplay];
 
+    //改变层级关系,并隐藏画笔视图
+    self.scrawlView.hidden = NO;
+    self.deleteBtn.hidden = NO;
+    self.drawBar.hidden = NO;
+    [self bringSubviewToFront:self.scrawlView];
+    [self bringSubviewToFront:self.deleteBtn];
+    [self bringSubviewToFront:self.drawBar];
+    [self bringSubviewToFront:self.mosaicBtn];
+    self.mosaicBtn.selected = NO;
+    [self.scratchView setNeedsDisplay]; //刷新显示
 }
 
 

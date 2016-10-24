@@ -20,8 +20,6 @@
 
 @property (nonatomic, assign) float sizeBrush;
 
-@property(nonatomic,weak) IBOutlet UIButton *mosaicBtn;
-
 
 - (void)setHideView:(UIView *)hideView;
 
