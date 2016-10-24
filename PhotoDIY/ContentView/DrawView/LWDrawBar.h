@@ -43,10 +43,20 @@
 
 @end
 
+#pragma mark - LWDrawToolsView
+
 @interface LWDrawToolsView : UICollectionView<UICollectionViewDelegate,UICollectionViewDataSource>
 
 @end
 
+@interface LWToolsCell:UICollectionViewCell
+
+@property(nonatomic,weak) IBOutlet UIButton *btn;
+
+@end
+
+
+#pragma mark - LWColorSelectorView
 
 @interface LWColorSelectorView : UICollectionView<UICollectionViewDelegate,UICollectionViewDataSource>
 
