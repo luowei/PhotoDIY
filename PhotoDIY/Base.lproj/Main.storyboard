@@ -119,9 +119,69 @@
                                                 <state key="highlighted" image="draw_clear_press"/>
                                             </button>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O5f-Jf-Ls1" userLabel="Draw Bar" customClass="LWDrawBar">
+                                                <subviews>
+                                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="UZg-fF-AAi" customClass="LWDrawToolsView">
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="1" maxY="0.0"/>
+                                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="GZm-Ef-8jH">
+                                                            <size key="itemSize" width="40" height="60"/>
+                                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                        </collectionViewFlowLayout>
+                                                        <cells>
+                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ToolCell" id="4Tq-no-JTt">
+                                                                <rect key="frame" x="0.0" y="0.0" width="40" height="60"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="40" height="60"/>
+                                                                    <autoresizingMask key="autoresizingMask"/>
+                                                                </view>
+                                                            </collectionViewCell>
+                                                        </cells>
+                                                    </collectionView>
+                                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="8AZ-z5-p6g" customClass="LWColorSelectorView">
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="qjv-Wd-cAE">
+                                                            <size key="itemSize" width="30" height="30"/>
+                                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                        </collectionViewFlowLayout>
+                                                        <cells>
+                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ColorCell" id="SJo-UV-kOe" customClass="LWColorCell">
+                                                                <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                                                    <autoresizingMask key="autoresizingMask"/>
+                                                                    <subviews>
+                                                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4EN-IM-1qR">
+                                                                            <frame key="frameInset" minX="-105" minY="-49" width="240" height="128"/>
+                                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        </view>
+                                                                    </subviews>
+                                                                </view>
+                                                            </collectionViewCell>
+                                                        </cells>
+                                                    </collectionView>
+                                                </subviews>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="120" id="9Vl-8G-fFH"/>
+                                                    <constraint firstItem="8AZ-z5-p6g" firstAttribute="leading" secondItem="O5f-Jf-Ls1" secondAttribute="leading" id="2Zu-77-2CT"/>
+                                                    <constraint firstItem="8AZ-z5-p6g" firstAttribute="top" secondItem="O5f-Jf-Ls1" secondAttribute="top" id="71h-CL-YQZ"/>
+                                                    <constraint firstAttribute="height" constant="60" id="9Vl-8G-fFH"/>
+                                                    <constraint firstAttribute="trailing" secondItem="UZg-fF-AAi" secondAttribute="trailing" id="J6A-0B-b4P"/>
+                                                    <constraint firstItem="UZg-fF-AAi" firstAttribute="leading" secondItem="O5f-Jf-Ls1" secondAttribute="leading" id="KM3-xN-xod"/>
+                                                    <constraint firstAttribute="bottom" secondItem="8AZ-z5-p6g" secondAttribute="bottom" id="Kum-kC-etU"/>
+                                                    <constraint firstItem="UZg-fF-AAi" firstAttribute="top" secondItem="O5f-Jf-Ls1" secondAttribute="top" id="Miv-p8-Qk0"/>
+                                                    <constraint firstAttribute="trailing" secondItem="8AZ-z5-p6g" secondAttribute="trailing" id="OTA-Y5-svw"/>
+                                                    <constraint firstAttribute="bottom" secondItem="UZg-fF-AAi" secondAttribute="bottom" id="ZZ4-DE-Tmw"/>
                                                 </constraints>
+                                                <connections>
+                                                    <outlet property="colorSelectorView" destination="8AZ-z5-p6g" id="rVc-dO-GCF"/>
+                                                    <outlet property="drawToolsView" destination="UZg-fF-AAi" id="XLa-6U-Zd9"/>
+                                                </connections>
                                             </view>
                                         </subviews>
                                         <constraints>
