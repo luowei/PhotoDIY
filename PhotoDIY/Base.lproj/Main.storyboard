@@ -163,6 +163,9 @@
                                                                         </view>
                                                                     </subviews>
                                                                 </view>
+                                                                <connections>
+                                                                    <outlet property="colorView" destination="4EN-IM-1qR" id="8be-lJ-G36"/>
+                                                                </connections>
                                                             </collectionViewCell>
                                                         </cells>
                                                     </collectionView>
