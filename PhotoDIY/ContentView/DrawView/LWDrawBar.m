@@ -28,7 +28,9 @@
 
 //画板工具的选择
 @implementation LWDrawToolsView {
-
+    NSIndexPath *_sec1SelectedIndexPath;
+    NSIndexPath *_sec2SelectedIndexPath;
+    NSIndexPath *_sec3SelectedIndexPath;
 }
 
 - (void)awakeFromNib {
@@ -37,88 +39,137 @@
     self.dataSource = self;
 }
 
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 3;
+}
+
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 15;
+    switch (section) {
+        case 0:
+            return 7;
+        case 1:
+            return 3;
+        case 2:
+            return 5;
+        default:
+            return 1;
+    }
 }
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     LWToolsCell *cell = (LWToolsCell *) [collectionView dequeueReusableCellWithReuseIdentifier:@"ToolCell" forIndexPath:indexPath];
-    switch (indexPath.item) {
-        case 0: {    //黑笔
-            [cell.btn setImage:[UIImage imageNamed:@"pen"] forState:UIControlStateNormal];
-            [cell.btn setImage:[UIImage imageNamed:@"pen_selected"] forState:UIControlStateHighlighted];
+    switch (indexPath.section) {
+        case 0:
+            switch (indexPath.item) {
+                case 0: {    //黑笔
+                    [cell.btn setImage:[UIImage imageNamed:@"pen"] forState:UIControlStateNormal];
+                    [cell.btn setImage:[UIImage imageNamed:@"pen_selected"] forState:UIControlStateHighlighted ];
+                    [self sec1Collection:collectionView selIndexPath:indexPath cell:cell];
+                    break;
+                }
+                case 1: {    //红笔
+                    [cell.btn setImage:[[UIImage imageNamed:@"pen"] imageWithTintColor:[UIColor redColor]] forState:UIControlStateNormal];
+                    [cell.btn setImage:[[UIImage imageNamed:@"pen_selected"] imageWithTintColor:[UIColor redColor] blendMode:kCGBlendModeDestinationAtop] forState:UIControlStateHighlighted ];
+                    [self sec1Collection:collectionView selIndexPath:indexPath cell:cell];
+                    break;
+                }
+                case 2: {    //绿笔
+                    [cell.btn setImage:[[UIImage imageNamed:@"pen"] imageWithTintColor:[UIColor greenColor]] forState:UIControlStateNormal];
+                    [cell.btn setImage:[[UIImage imageNamed:@"pen_selected"] imageWithTintColor:[UIColor greenColor] blendMode:kCGBlendModeDestinationAtop] forState:UIControlStateHighlighted ];
+                    [self sec1Collection:collectionView selIndexPath:indexPath cell:cell];
+                    break;
+                }
+                case 3: {    //蓝笔
+                    [cell.btn setImage:[[UIImage imageNamed:@"pen"] imageWithTintColor:[UIColor blueColor]] forState:UIControlStateNormal];
+                    [cell.btn setImage:[[UIImage imageNamed:@"pen_selected"] imageWithTintColor:[UIColor blueColor] blendMode:kCGBlendModeDestinationAtop] forState:UIControlStateHighlighted ];
+                    [self sec1Collection:collectionView selIndexPath:indexPath cell:cell];
+                    break;
+                }
+                case 4: {    //彩笔
+                    [cell.btn setImage:[UIImage imageNamed:@"penColor"] forState:UIControlStateNormal];
+                    [cell.btn setImage:[UIImage imageNamed:@"penColor_selected"] forState:UIControlStateHighlighted ];
+                    [self sec1Collection:collectionView selIndexPath:indexPath cell:cell];
+                    break;
+                }
+                case 5: {    //纹底笔
+                    [cell.btn setImage:[UIImage imageNamed:@"penTile"] forState:UIControlStateNormal];
+                    [cell.btn setImage:[UIImage imageNamed:@"penTile_selected"] forState:UIControlStateHighlighted ];
+                    [self sec1Collection:collectionView selIndexPath:indexPath cell:cell];
+                    break;
+                }
+                case 6: {    //橡皮
+                    [cell.btn setImage:[UIImage imageNamed:@"eraser"] forState:UIControlStateNormal];
+                    [cell.btn setImage:[UIImage imageNamed:@"eraser_selected"] forState:UIControlStateHighlighted ];
+                    [self sec1Collection:collectionView selIndexPath:indexPath cell:cell];
+                    break;
+                }
+                default:
+                    break;
+            }
             break;
-        }
-        case 1: {    //红笔
-            [cell.btn setImage:[[UIImage imageNamed:@"pen"] imageWithTintColor:[UIColor redColor]] forState:UIControlStateNormal];
-            [cell.btn setImage:[[UIImage imageNamed:@"pen_selected"] imageWithTintColor:[UIColor redColor] blendMode:kCGBlendModeDestinationAtop] forState:UIControlStateHighlighted];
+        case 1:
+            switch (indexPath.item) {
+                case 0: {    //小画笔
+                    [cell.btn setImage:[UIImage imageNamed:@"dotSmall"] forState:UIControlStateNormal];
+                    [cell.btn setImage:[UIImage imageNamed:@"dotSmall_selected"] forState:UIControlStateHighlighted ];
+                    [self sec2Collection:collectionView selIndexPath:indexPath cell:cell];
+                    break;
+                }
+                case 1: {    //中画笔
+                    [cell.btn setImage:[UIImage imageNamed:@"dotMiddle"] forState:UIControlStateNormal];
+                    [cell.btn setImage:[UIImage imageNamed:@"dotMiddle_selected"] forState:UIControlStateHighlighted ];
+                    [self sec2Collection:collectionView selIndexPath:indexPath cell:cell];
+                    break;
+                }
+                case 2: {    //大画笔
+                    [cell.btn setImage:[UIImage imageNamed:@"dotLarge"] forState:UIControlStateNormal];
+                    [cell.btn setImage:[UIImage imageNamed:@"dotLarge_selected"] forState:UIControlStateHighlighted ];
+                    [self sec2Collection:collectionView selIndexPath:indexPath cell:cell];
+                    break;
+                }
+                default:
+                    break;
+            }
             break;
-        }
-        case 2: {    //绿笔
-            [cell.btn setImage:[[UIImage imageNamed:@"pen"] imageWithTintColor:[UIColor greenColor]] forState:UIControlStateNormal];
-            [cell.btn setImage:[[UIImage imageNamed:@"pen_selected"] imageWithTintColor:[UIColor greenColor] blendMode:kCGBlendModeDestinationAtop] forState:UIControlStateHighlighted];
+        case 2:
+            switch (indexPath.item) {
+                case 0: {   //直线
+                    [cell.btn setImage:[UIImage imageNamed:@"line"] forState:UIControlStateNormal];
+                    [cell.btn setImage:[UIImage imageNamed:@"line_selected"] forState:UIControlStateHighlighted ];
+                    [self sec3Collection:collectionView selIndexPath:indexPath cell:cell];
+                    break;
+                }
+                case 1: {   //箭头
+                    [cell.btn setImage:[UIImage imageNamed:@"lineArrow"] forState:UIControlStateNormal];
+                    [cell.btn setImage:[UIImage imageNamed:@"lineArrow_selected"] forState:UIControlStateHighlighted ];
+                    [self sec3Collection:collectionView selIndexPath:indexPath cell:cell];
+                    break;
+                }
+                case 2: {   //矩形
+                    [cell.btn setImage:[UIImage imageNamed:@"rect"] forState:UIControlStateNormal];
+                    [cell.btn setImage:[UIImage imageNamed:@"rect_selected"] forState:UIControlStateHighlighted ];
+                    [self sec3Collection:collectionView selIndexPath:indexPath cell:cell];
+                    break;
+                }
+                case 3: {   //圆圈
+                    [cell.btn setImage:[UIImage imageNamed:@"oval"] forState:UIControlStateNormal];
+                    [cell.btn setImage:[UIImage imageNamed:@"oval_selected"] forState:UIControlStateHighlighted ];
+                    [self sec3Collection:collectionView selIndexPath:indexPath cell:cell];
+                    break;
+                }
+                case 4: {   //文字
+                    [cell.btn setImage:[UIImage imageNamed:@"text"] forState:UIControlStateNormal];
+                    [cell.btn setImage:[UIImage imageNamed:@"text_selected"] forState:UIControlStateHighlighted ];
+                    [self sec3Collection:collectionView selIndexPath:indexPath cell:cell];
+                    break;
+                }
+
+                default:
+                    break;
+            }
             break;
-        }
-        case 3: {    //蓝笔
-            [cell.btn setImage:[[UIImage imageNamed:@"pen"] imageWithTintColor:[UIColor blueColor]] forState:UIControlStateNormal];
-            [cell.btn setImage:[[UIImage imageNamed:@"pen_selected"] imageWithTintColor:[UIColor blueColor] blendMode:kCGBlendModeDestinationAtop] forState:UIControlStateHighlighted];
-            break;
-        }
-        case 4: {    //彩笔
-            [cell.btn setImage:[UIImage imageNamed:@"penColor"] forState:UIControlStateNormal];
-            [cell.btn setImage:[UIImage imageNamed:@"penColor_selected"] forState:UIControlStateHighlighted];
-            break;
-        }
-        case 5: {    //纹底笔
-            [cell.btn setImage:[UIImage imageNamed:@"penTile"] forState:UIControlStateNormal];
-            [cell.btn setImage:[UIImage imageNamed:@"penTile_selected"] forState:UIControlStateHighlighted];
-            break;
-        }
-        case 6: {    //橡皮
-            [cell.btn setImage:[UIImage imageNamed:@"eraser"] forState:UIControlStateNormal];
-            [cell.btn setImage:[UIImage imageNamed:@"eraser_selected"] forState:UIControlStateHighlighted];
-            break;
-        }
-        case 7: {    //小画笔
-            [cell.btn setImage:[UIImage imageNamed:@"dotSmall"] forState:UIControlStateNormal];
-            [cell.btn setImage:[UIImage imageNamed:@"dotSmall_selected"] forState:UIControlStateHighlighted];
-            break;
-        }
-        case 8: {    //中画笔
-            [cell.btn setImage:[UIImage imageNamed:@"dotMiddle"] forState:UIControlStateNormal];
-            [cell.btn setImage:[UIImage imageNamed:@"dotMiddle_selected"] forState:UIControlStateHighlighted];
-            break;
-        }
-        case 9: {    //大画笔
-            [cell.btn setImage:[UIImage imageNamed:@"dotLarge"] forState:UIControlStateNormal];
-            [cell.btn setImage:[UIImage imageNamed:@"dotLarge_selected"] forState:UIControlStateHighlighted];
-            break;
-        }
-        case 10: {   //直线
-            [cell.btn setImage:[UIImage imageNamed:@"line"] forState:UIControlStateNormal];
-            [cell.btn setImage:[UIImage imageNamed:@"line_selected"] forState:UIControlStateHighlighted];
-            break;
-        }
-        case 11: {   //箭头
-            [cell.btn setImage:[UIImage imageNamed:@"lineArrow"] forState:UIControlStateNormal];
-            [cell.btn setImage:[UIImage imageNamed:@"lineArrow_selected"] forState:UIControlStateHighlighted];
-            break;
-        }
-        case 12: {   //矩形
-            [cell.btn setImage:[UIImage imageNamed:@"rect"] forState:UIControlStateNormal];
-            [cell.btn setImage:[UIImage imageNamed:@"rect_selected"] forState:UIControlStateHighlighted];
-            break;
-        }
-        case 13: {   //圆圈
-            [cell.btn setImage:[UIImage imageNamed:@"oval"] forState:UIControlStateNormal];
-            [cell.btn setImage:[UIImage imageNamed:@"oval_selected"] forState:UIControlStateHighlighted];
-            break;
-        }
-        case 14: {   //文字
-            [cell.btn setImage:[UIImage imageNamed:@"text"] forState:UIControlStateNormal];
-            [cell.btn setImage:[UIImage imageNamed:@"text_selected"] forState:UIControlStateHighlighted];
-            break;
-        }
+
         default:
             break;
     }
@@ -126,79 +177,171 @@
     return cell;
 }
 
+- (void)sec1Collection:(UICollectionView *)collectionView selIndexPath:(NSIndexPath *)indexPath cell:(LWToolsCell *)cell {
+    if ((_sec1SelectedIndexPath != nil && _sec1SelectedIndexPath.item == indexPath.item) || (_sec1SelectedIndexPath == nil && indexPath.item == 0)) {
+        [collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+        cell.highlighted = YES;
+    } else {
+        [collectionView deselectItemAtIndexPath:indexPath animated:NO];
+        cell.highlighted = NO;
+    }
+}
+- (void)sec2Collection:(UICollectionView *)collectionView selIndexPath:(NSIndexPath *)indexPath cell:(LWToolsCell *)cell {
+    if ((_sec2SelectedIndexPath != nil && _sec2SelectedIndexPath.item == indexPath.item) || (_sec2SelectedIndexPath == nil && indexPath.item == 0)) {
+        [collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+        cell.highlighted = YES;
+    } else {
+        [collectionView deselectItemAtIndexPath:indexPath animated:NO];
+        cell.highlighted = NO;
+    }
+}
+- (void)sec3Collection:(UICollectionView *)collectionView selIndexPath:(NSIndexPath *)indexPath cell:(LWToolsCell *)cell {
+    if (_sec3SelectedIndexPath != nil && _sec3SelectedIndexPath.item == indexPath.item) {
+        [collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+        cell.highlighted = YES;
+    } else {
+        [collectionView deselectItemAtIndexPath:indexPath animated:NO];
+        cell.highlighted = NO;
+    }
+}
+
+
 #pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     LWToolsCell *cell = (LWToolsCell *) [collectionView dequeueReusableCellWithReuseIdentifier:@"ToolCell" forIndexPath:indexPath];
 
     LWDrawView *drawView = [self superViewWithClass:[LWDrawView class]];
-    
 
-    switch (indexPath.item) {
-        case 0: {    //黑笔
-            drawView.scrawlView.freeInkColorIndex = 5;
+    switch (indexPath.section) {
+        case 0:
+            switch (indexPath.item) {
+                case 0: {    //黑笔
+                    drawView.scrawlView.freeInkColorIndex = 5;
+                    drawView.drawBar.colorTipView.backgroundColor = [UIColor colorWithHexString:Color_Items[5]];
+                    [self sec1collectionView:collectionView selectIndexPath:indexPath cell:cell];
+                    break;
+                }
+                case 1: {    //红笔
+                    drawView.scrawlView.freeInkColorIndex = 18;
+                    drawView.drawBar.colorTipView.backgroundColor = [UIColor colorWithHexString:Color_Items[18]];
+                    [self sec1collectionView:collectionView selectIndexPath:indexPath cell:cell];
+                    break;
+                }
+                case 2: {    //绿笔
+                    drawView.scrawlView.freeInkColorIndex = 88;
+                    drawView.drawBar.colorTipView.backgroundColor = [UIColor colorWithHexString:Color_Items[88]];
+                    [self sec1collectionView:collectionView selectIndexPath:indexPath cell:cell];
+                    break;
+                }
+                case 3: {    //蓝笔
+                    drawView.scrawlView.freeInkColorIndex = 158;
+                    drawView.drawBar.colorTipView.backgroundColor = [UIColor colorWithHexString:Color_Items[158]];
+                    [self sec1collectionView:collectionView selectIndexPath:indexPath cell:cell];
+                    break;
+                }
+                case 4: {    //彩笔
+                    LWDrawBar *drawBar = [self superViewWithClass:[LWDrawBar class]];
+                    drawBar.colorSelectorView.hidden = NO;
+                    [self sec1collectionView:collectionView selectIndexPath:indexPath cell:cell];
+                    break;
+                }
+                case 5: {    //纹底笔
+                    drawView.scrawlView.isTile = YES;
+                    [self sec1collectionView:collectionView selectIndexPath:indexPath cell:cell];
+                    break;
+                }
+                case 6: {    //橡皮
+                    drawView.scrawlView.isEraseMode = YES;
+                    [self sec1collectionView:collectionView selectIndexPath:indexPath cell:cell];
+                    break;
+                }
+                default:
+                    break;
+            }
             break;
-        }
-        case 1: {    //红笔
-            drawView.scrawlView.freeInkColorIndex = 18;
+        case 1:
+            switch (indexPath.item) {
+                case 0: {    //小画笔
+                    drawView.scrawlView.freeInkLinewidth = 3.0;
+                    [self sec2collectionView:collectionView selecteIndexPath:indexPath cell:cell];
+                    break;
+                }
+                case 1: {    //中画笔
+                    drawView.scrawlView.freeInkLinewidth = 6.0;
+                    [self sec2collectionView:collectionView selecteIndexPath:indexPath cell:cell];
+                    break;
+                }
+                case 2: {    //大画笔
+                    drawView.scrawlView.freeInkLinewidth = 12.0;
+                    [self sec2collectionView:collectionView selecteIndexPath:indexPath cell:cell];
+                    break;
+                }
+                default:
+                    break;
+            }
             break;
-        }
-        case 2: {    //绿笔
-            drawView.scrawlView.freeInkColorIndex = 88;
+        case 2:
+            switch (indexPath.item) {
+                case 0: {   //直线
+                    drawView.scrawlView.isLine = YES;
+                    [self sec3collectionView:collectionView selectIndexPath:indexPath cell:cell];
+                    break;
+                }
+                case 1: {   //箭头
+                    drawView.scrawlView.isLineArrow = YES;
+                    [self sec3collectionView:collectionView selectIndexPath:indexPath cell:cell];
+                    break;
+                }
+                case 2: {   //矩形
+                    drawView.scrawlView.isRect = YES;
+                    [self sec3collectionView:collectionView selectIndexPath:indexPath cell:cell];
+                    break;
+                }
+                case 3: {   //圆圈
+                    drawView.scrawlView.isOval = YES;
+                    [self sec3collectionView:collectionView selectIndexPath:indexPath cell:cell];
+                    break;
+                }
+                case 4: {   //文字
+                    drawView.scrawlView.isText = YES;
+                    [self sec3collectionView:collectionView selectIndexPath:indexPath cell:cell];
+                    break;
+                }
+                default:
+                    break;
+            }
             break;
-        }
-        case 3: {    //蓝笔
-            drawView.scrawlView.freeInkColorIndex = 168;
-            break;
-        }
-        case 4: {    //彩笔
-            LWDrawBar *drawBar = [self superViewWithClass:[LWDrawBar class]];
-            drawBar.colorSelectorView.hidden = NO;
-            break;
-        }
-        case 5: {    //纹底笔
-            drawView.scrawlView.isTile = YES;
-            break;
-        }
-        case 6: {    //橡皮
-            drawView.scrawlView.isEraseMode = YES;
-            break;
-        }
-        case 7: {    //小画笔
-            drawView.scrawlView.freeInkLinewidth = 3.0;
-            break;
-        }
-        case 8: {    //中画笔
-            drawView.scrawlView.freeInkLinewidth = 6.0;
-            break;
-        }
-        case 9: {    //大画笔
-            drawView.scrawlView.freeInkLinewidth = 12.0;
-            break;
-        }
-        case 10: {   //直线
-            drawView.scrawlView.isLine = YES;
-            break;
-        }
-        case 11: {   //箭头
-            drawView.scrawlView.isLineArrow = YES;
-            break;
-        }
-        case 12: {   //矩形
-            drawView.scrawlView.isRect = YES;
-            break;
-        }
-        case 13: {   //圆圈
-            drawView.scrawlView.isOval = YES;
-            break;
-        }
-        case 14: {   //文字
-            drawView.scrawlView.isText = YES;
-            break;
-        }
+
         default:
             break;
     }
+
+}
+
+- (void)sec3collectionView:(UICollectionView *)collectionView selectIndexPath:(NSIndexPath *)indexPath cell:(LWToolsCell *)cell {
+    [collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+    cell.highlighted = YES;
+    _sec3SelectedIndexPath = indexPath;
+    [collectionView reloadSections:[NSIndexSet indexSetWithIndex:(NSUInteger) indexPath.section]];
+}
+- (void)sec2collectionView:(UICollectionView *)collectionView selecteIndexPath:(NSIndexPath *)indexPath cell:(LWToolsCell *)cell {
+    [collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+    cell.highlighted = YES;
+    _sec2SelectedIndexPath = indexPath;
+    [collectionView reloadSections:[NSIndexSet indexSetWithIndex:(NSUInteger) indexPath.section]];
+}
+- (void)sec1collectionView:(UICollectionView *)collectionView selectIndexPath:(NSIndexPath *)indexPath cell:(LWToolsCell *)cell {
+    [collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+    cell.highlighted = YES;
+    _sec1SelectedIndexPath = indexPath;
+    [collectionView reloadSections:[NSIndexSet indexSetWithIndex:(NSUInteger) indexPath.section]];
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
+    LWToolsCell *cell = (LWToolsCell *) [collectionView dequeueReusableCellWithReuseIdentifier:@"ToolCell" forIndexPath:indexPath];
+    [collectionView deselectItemAtIndexPath:indexPath animated:NO];
+    cell.highlighted = NO;
 }
 
 
@@ -208,11 +351,25 @@
 
 @implementation LWToolsCell
 
--(IBAction)btnAction:(UIButton *)btn{
+- (IBAction)btnAction:(UIButton *)btn {
     LWDrawToolsView *toolsView = [self superViewWithClass:[LWDrawToolsView class]];
     NSIndexPath *indPath = [toolsView indexPathForCell:self];
     [toolsView.delegate collectionView:toolsView didSelectItemAtIndexPath:indPath];
 }
+
+- (void)setSelected:(BOOL)selected {
+    [super setSelected:selected];
+//    UIImage *highlightedImg = [self.btn imageForState:UIControlStateHighlighted];
+//    UIImage *normalImg = [self.btn imageForState:UIControlStateNormal];
+//    [self.btn setImage:highlightedImg forState:UIControlStateNormal];
+//    [self.btn setImage:normalImg forState:UIControlStateHighlighted];
+}
+
+- (void)setHighlighted:(BOOL)highlighted {
+    [super setHighlighted:highlighted];
+    self.btn.highlighted = highlighted;
+}
+
 
 @end
 
@@ -241,10 +398,12 @@
 }
 
 
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    LWColorCell *cell = (LWColorCell *) [collectionView dequeueReusableCellWithReuseIdentifier:@"ColorCell" forIndexPath:indexPath];
-    LWDrawView *drawView = [self superViewWithClass:[LWDrawView class] ];
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+//    LWColorCell *cell = (LWColorCell *) [collectionView dequeueReusableCellWithReuseIdentifier:@"ColorCell" forIndexPath:indexPath];
+
+    LWDrawView *drawView = [self superViewWithClass:[LWDrawView class]];
     drawView.scrawlView.freeInkColorIndex = indexPath.item;
+    drawView.drawBar.colorTipView.backgroundColor = [UIColor colorWithHexString:Color_Items[(NSUInteger) indexPath.item]];
     self.hidden = YES;
 }
 
@@ -252,7 +411,9 @@
 
 #pragma mark - LWColorCell
 
-@implementation LWColorCell
+@implementation LWColorCell {
+    UIColor *_oldColor;
+}
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -263,17 +424,13 @@
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [super touchesBegan:touches withEvent:event];
-    UIColor *color = self.colorView.backgroundColor;
-    const CGFloat* components = CGColorGetComponents(color.CGColor);
-    CGFloat alpha = CGColorGetAlpha(color.CGColor);
-    self.colorView.backgroundColor = [UIColor colorWithRed:components[0] green:components[0] blue:components[0] alpha:alpha/2];
+    _oldColor = self.colorView.backgroundColor;
+    self.colorView.backgroundColor = [UIColor colorWithHexString:@"#A1A1A1"];
 }
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [super touchesEnded:touches withEvent:event];
-    UIColor *color = self.colorView.backgroundColor;
-    const CGFloat* components = CGColorGetComponents(color.CGColor);
-    self.colorView.backgroundColor = [UIColor colorWithRed:components[0] green:components[0] blue:components[0] alpha:1.0];
+    self.colorView.backgroundColor = _oldColor;
 }
 
 

@@ -120,7 +120,7 @@
                                             </button>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O5f-Jf-Ls1" userLabel="Draw Bar" customClass="LWDrawBar">
                                                 <subviews>
-                                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="UZg-fF-AAi" customClass="LWDrawToolsView">
+                                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="UZg-fF-AAi" customClass="LWDrawToolsView">
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="1" maxY="0.0"/>
                                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="GZm-Ef-8jH">
@@ -157,6 +157,12 @@
                                                             </collectionViewCell>
                                                         </cells>
                                                     </collectionView>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nuu-0M-xbY">
+                                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="10" id="psD-7y-FaW"/>
+                                                        </constraints>
+                                                    </view>
                                                     <collectionView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="8AZ-z5-p6g" customClass="LWColorSelectorView">
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="qjv-Wd-cAE">
@@ -192,6 +198,7 @@
                                                     </collectionView>
                                                 </subviews>
                                                 <constraints>
+                                                    <constraint firstItem="nuu-0M-xbY" firstAttribute="top" secondItem="O5f-Jf-Ls1" secondAttribute="top" id="25W-JU-R2K"/>
                                                     <constraint firstItem="8AZ-z5-p6g" firstAttribute="leading" secondItem="O5f-Jf-Ls1" secondAttribute="leading" id="2Zu-77-2CT"/>
                                                     <constraint firstItem="8AZ-z5-p6g" firstAttribute="top" secondItem="O5f-Jf-Ls1" secondAttribute="top" id="71h-CL-YQZ"/>
                                                     <constraint firstAttribute="height" constant="80" id="9Vl-8G-fFH"/>
@@ -201,9 +208,12 @@
                                                     <constraint firstItem="UZg-fF-AAi" firstAttribute="top" secondItem="O5f-Jf-Ls1" secondAttribute="top" id="Miv-p8-Qk0"/>
                                                     <constraint firstAttribute="trailing" secondItem="8AZ-z5-p6g" secondAttribute="trailing" id="OTA-Y5-svw"/>
                                                     <constraint firstAttribute="bottom" secondItem="UZg-fF-AAi" secondAttribute="bottom" id="ZZ4-DE-Tmw"/>
+                                                    <constraint firstAttribute="trailing" secondItem="nuu-0M-xbY" secondAttribute="trailing" id="cmr-ZW-WcE"/>
+                                                    <constraint firstItem="nuu-0M-xbY" firstAttribute="leading" secondItem="O5f-Jf-Ls1" secondAttribute="leading" id="n2k-VI-N6s"/>
                                                 </constraints>
                                                 <connections>
                                                     <outlet property="colorSelectorView" destination="8AZ-z5-p6g" id="rVc-dO-GCF"/>
+                                                    <outlet property="colorTipView" destination="nuu-0M-xbY" id="K41-nn-vlq"/>
                                                     <outlet property="drawToolsView" destination="UZg-fF-AAi" id="XLa-6U-Zd9"/>
                                                 </connections>
                                             </view>

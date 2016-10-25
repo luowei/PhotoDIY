@@ -36,6 +36,8 @@
 
 @interface LWDrawBar : UIView
 
+@property(nonatomic,weak) IBOutlet UIView *colorTipView;
+
 @property(nonatomic,weak) IBOutlet LWDrawToolsView *drawToolsView;
 @property(nonatomic,weak) IBOutlet LWColorSelectorView *colorSelectorView;
 
