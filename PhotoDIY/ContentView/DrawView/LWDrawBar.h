@@ -11,7 +11,14 @@
 @class LWColorSelectorView;
 
 
-#define Color_Items @[@"#FFFFFF",@"#CCCCC",@"#999999",@"#666666",@"#333333",@"#000000",@"#FFCCCC",@"#CC999",  \
+@interface UIColor(HexString)
+
++ (CGFloat) colorComponentFrom: (NSString *) string start: (NSUInteger) start length: (NSUInteger) length;
+
+@end
+
+
+#define Color_Items @[@"#FFFFFF",@"#CCCCCC",@"#999999",@"#666666",@"#333333",@"#000000",@"#FFCCCC",@"#CC9999",  \
 @"#996666",@"#663333",@"#330000",@"#FF9999",@"#CC6666",@"#CC3333",@"#993333",@"#660000",@"#FF6666",@"#FF3333",\
 @"#FF0000",@"#CC0000",@"#990000",@"#FF9966",@"#FF6633",@"#FF3300",@"#CC3300",@"#993300",@"#FFCC99",@"#CC9966",\
 @"#CC6633",@"#996633",@"#663300",@"#FF9933",@"#FF6600",@"#FF9900",@"#CC6600",@"#CC9933",@"#FFCC66",@"#FFCC33",\
