@@ -212,8 +212,8 @@
 				EAB0BBFF1D9E375800AD3B3D /* LWScrawlView.h */,
 				EAB0BC001D9E375800AD3B3D /* LWScrawlView.m */,
 				BEF0647B44847F476B9B7F3B /* Tools */,
-				BEF060835D4A9C55E94FD61B /* LWDrawBar.m */,
 				BEF0622CE7D97AC10AC3C918 /* LWDrawBar.h */,
+				BEF060835D4A9C55E94FD61B /* LWDrawBar.m */,
 			);
 			path = DrawView;
 			sourceTree = "<group>";

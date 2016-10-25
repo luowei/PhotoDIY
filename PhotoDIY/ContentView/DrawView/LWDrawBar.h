@@ -17,6 +17,19 @@
 
 @end
 
+@interface UIImage(Color)
+
+/**
+ * 给指定的图片染色
+ */
+- (UIImage *)imageWithOverlayColor:(UIColor *)color;
+
+- (UIImage *) imageWithTintColor:(UIColor *)tintColor;
+- (UIImage *) imageWithGradientTintColor:(UIColor *)tintColor;
+- (UIImage *) imageWithTintColor:(UIColor *)tintColor blendMode:(CGBlendMode)blendMode;
+
+@end
+
 
 #define Color_Items @[@"#FFFFFF",@"#CCCCCC",@"#999999",@"#666666",@"#333333",@"#000000",@"#FFCCCC",@"#CC9999",  \
 @"#996666",@"#663333",@"#330000",@"#FF9999",@"#CC6666",@"#CC3333",@"#993333",@"#660000",@"#FF6666",@"#FF3333",\
