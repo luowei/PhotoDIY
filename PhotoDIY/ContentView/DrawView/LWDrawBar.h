@@ -7,31 +7,7 @@
 #import <UIKit/UIKit.h>
 #import "FDStackView.h"
 
-@class LWDrawToolsView;
-@class LWColorSelectorView;
-
-
-@interface UIColor(HexString)
-
-+ (CGFloat) colorComponentFrom: (NSString *) string start: (NSUInteger) start length: (NSUInteger) length;
-
-@end
-
-@interface UIImage(Color)
-
-/**
- * 给指定的图片染色
- */
-- (UIImage *)imageWithOverlayColor:(UIColor *)color;
-
-- (UIImage *) imageWithTintColor:(UIColor *)tintColor;
-- (UIImage *) imageWithGradientTintColor:(UIColor *)tintColor;
-- (UIImage *) imageWithTintColor:(UIColor *)tintColor blendMode:(CGBlendMode)blendMode;
-
-@end
-
-
-#define Color_Items @[@"#FFFFFF",@"#CCCCCC",@"#999999",@"#666666",@"#333333",@"#000000",@"#FFCCCC",@"#CC9999",  \
+#define Color_Items (@[@"#FFFFFF",@"#CCCCCC",@"#999999",@"#666666",@"#333333",@"#000000",@"#FFCCCC",@"#CC9999",  \
 @"#996666",@"#663333",@"#330000",@"#FF9999",@"#CC6666",@"#CC3333",@"#993333",@"#660000",@"#FF6666",@"#FF3333",\
 @"#FF0000",@"#CC0000",@"#990000",@"#FF9966",@"#FF6633",@"#FF3300",@"#CC3300",@"#993300",@"#FFCC99",@"#CC9966",\
 @"#CC6633",@"#996633",@"#663300",@"#FF9933",@"#FF6600",@"#FF9900",@"#CC6600",@"#CC9933",@"#FFCC66",@"#FFCC33",\
@@ -52,7 +28,10 @@
 @"#CC00FF",@"#9900CC",@"#660099",@"#FFCCFF",@"#CC99CC",@"#996699",@"#663366",@"#330033",@"#FF99FF",@"#CC66CC",\
 @"#CC33CC",@"#993399",@"#660066",@"#FF66FF",@"#FF33FF",@"#FF00FF",@"#CC00CC",@"#990099",@"#FF66CC",@"#FF33CC",\
 @"#FF00CC",@"#CC0099",@"#990066",@"#FF99CC",@"#CC6699",@"#CC3399",@"#993366",@"#660033",@"#FF3399",@"#FF0099",\
-@"#FF0066",@"#CC0066",@"#CC3366",@"#FF6699",@"#FF3366",@"#FF0033",@"#CC0033",@"#990033"]
+@"#FF0066",@"#CC0066",@"#CC3366",@"#FF6699",@"#FF3366",@"#FF0033",@"#CC0033",@"#990033"])
+
+@class LWDrawToolsView;
+@class LWColorSelectorView;
 
 
 @interface LWDrawBar : UIView
@@ -85,5 +64,7 @@
 @interface LWColorCell:UICollectionViewCell
 
 @property(nonatomic,weak) IBOutlet UIView *colorView;
+
+@property(nonatomic,assign) NSInteger colorIndex;
 
 @end

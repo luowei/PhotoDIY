@@ -8,10 +8,10 @@
 
 #import "LWScrawlView.h"
 #import "LWInkLine.h"
-#import "LWConfigManager.h"
+#import "MyExtensions.h"
+#import "LWDrawBar.h"
 
 @implementation LWScrawlView {
-    BOOL _isEraseMode;  // 打开橡皮擦
     CGSize pageSize;
     NSMutableArray *curves;
     UIPanGestureRecognizer *_rec;
@@ -40,9 +40,11 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
 
 }
 
-- (void)eraseModeOn:(BOOL)is {
-    _isEraseMode = is;
 
+//重置画板
+- (IBAction)resetDrawing {
+    [curves removeAllObjects];
+    [self setNeedsDisplay];
 }
 
 
@@ -53,10 +55,6 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
 
 }
 
-- (void)resetDrawing {
-    [curves removeAllObjects];
-    [self setNeedsDisplay];
-}
 
 - (void)onDrag:(UIPanGestureRecognizer *)rec {
     CGSize scale = fitPageToScreen(pageSize, self.bounds.size);
@@ -66,15 +64,15 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
 
     if (rec.state == UIGestureRecognizerStateBegan) {
         LWInkLine *il = [[LWInkLine alloc] init];
-        il.lineArr = [[NSMutableArray alloc] init];
-        il.colorIndex = [[LWConfigManager sharedInstance] getInkColorIndex];
-        il.lineWidth = [[LWConfigManager sharedInstance] getFreeInkLineWidth];
+        il.pointArr = [[NSMutableArray alloc] init];
+        il.colorIndex = _freeInkColorIndex;
+        il.lineWidth = _freeInkLinewidth;
         [curves addObject:il];
     }
     LWInkLine *il = [curves lastObject];
     il.isEraseMode = _isEraseMode;
 
-    [il.lineArr addObject:[NSValue valueWithCGPoint:p]];
+    [il.pointArr addObject:[NSValue valueWithCGPoint:p]];
     [self setNeedsDisplay];
 }
 
@@ -84,12 +82,11 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
     CGContextScaleCTM(cref, scale.width, scale.height);
 
     for (LWInkLine *il in curves) {
+        //设置颜色与线宽
+        [[UIColor colorWithHexString:Color_Items[(NSUInteger) il.colorIndex]] set];
+        CGContextSetLineWidth(cref, il.lineWidth);
 
-        CGFloat lineWidth = il.lineWidth;
-        [[[LWConfigManager sharedInstance] getFreeInkColorWithIndex:il.colorIndex] set];
-        CGContextSetLineWidth(cref, lineWidth);
-
-        NSArray *curve = il.lineArr;
+        NSArray *curve = il.pointArr;
         if (curve.count >= 2) {
             CGPoint pt = [curve[0] CGPointValue];
             CGContextBeginPath(cref);

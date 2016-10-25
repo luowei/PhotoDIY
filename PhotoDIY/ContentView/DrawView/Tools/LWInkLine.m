@@ -14,7 +14,7 @@
 {
     self = [super init];
     if (self) {
-        _lineArr = [NSMutableArray array];
+        _pointArr = [NSMutableArray array];
     }
     return self;
 }

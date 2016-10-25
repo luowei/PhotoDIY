@@ -139,6 +139,9 @@
                                                                     <subviews>
                                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mBH-nX-hz0">
                                                                             <state key="normal" image="empty"/>
+                                                                            <connections>
+                                                                                <action selector="btnAction:" destination="4Tq-no-JTt" eventType="touchUpInside" id="6Nm-qP-TEk"/>
+                                                                            </connections>
                                                                         </button>
                                                                     </subviews>
                                                                 </view>
@@ -304,7 +307,7 @@
                                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 </collectionViewFlowLayout>
                                                 <view key="backgroundView" contentMode="scaleToFill" id="EHO-OT-vp8" userLabel="PlaceHolder View">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <subviews>
                                                         <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HDe-ow-a7K" userLabel="Msg View">

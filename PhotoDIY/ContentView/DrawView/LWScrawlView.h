@@ -10,10 +10,23 @@
 
 @interface LWScrawlView : UIView
 
-//是否启用橡皮擦模式
-- (void) eraseModeOn:(BOOL)is;
+//是否橡皮擦模式
+@property (nonatomic, assign) BOOL isEraseMode;
+@property (nonatomic, assign) BOOL isLine;
+@property (nonatomic, assign) BOOL isLineArrow;
+@property (nonatomic, assign) BOOL isRect;
+@property (nonatomic, assign) BOOL isOval;
+@property (nonatomic, assign) BOOL isText;
+@property(nonatomic, assign) BOOL isTile;
+
+//自由画笔颜色
+@property(nonatomic, assign) NSInteger freeInkColorIndex;
+//自由画笔线宽
+@property(nonatomic, assign) CGFloat freeInkLinewidth;
+
+
 
 //画板重置
--(void) resetDrawing;
+-(IBAction) resetDrawing;
 
 @end

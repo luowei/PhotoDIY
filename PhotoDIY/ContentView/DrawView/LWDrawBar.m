@@ -4,111 +4,10 @@
 //
 
 #import "LWDrawBar.h"
-
-
-@implementation UIColor (HexString)
-
-+ (UIColor *)colorWithHexString:(NSString *)hexString {
-    NSString *colorString = [[hexString stringByReplacingOccurrencesOfString:@"#" withString:@""] uppercaseString];
-    CGFloat alpha, red, blue, green;
-    switch ([colorString length]) {
-        case 3: // #RGB
-            alpha = 1.0f;
-            red = [self colorComponentFrom:colorString start:0 length:1];
-            green = [self colorComponentFrom:colorString start:1 length:1];
-            blue = [self colorComponentFrom:colorString start:2 length:1];
-            break;
-        case 4: // #ARGB
-            alpha = [self colorComponentFrom:colorString start:0 length:1];
-            red = [self colorComponentFrom:colorString start:1 length:1];
-            green = [self colorComponentFrom:colorString start:2 length:1];
-            blue = [self colorComponentFrom:colorString start:3 length:1];
-            break;
-        case 6: // #RRGGBB
-            alpha = 1.0f;
-            red = [self colorComponentFrom:colorString start:0 length:2];
-            green = [self colorComponentFrom:colorString start:2 length:2];
-            blue = [self colorComponentFrom:colorString start:4 length:2];
-            break;
-        case 8: // #AARRGGBB
-            alpha = [self colorComponentFrom:colorString start:0 length:2];
-            red = [self colorComponentFrom:colorString start:2 length:2];
-            green = [self colorComponentFrom:colorString start:4 length:2];
-            blue = [self colorComponentFrom:colorString start:6 length:2];
-            break;
-        default:
-            [NSException raise:@"Invalid color value" format:@"Color value %@ is invalid.  It should be a hex value of the form #RBG, #ARGB, #RRGGBB, or #AARRGGBB", hexString];
-            break;
-    }
-    return [UIColor colorWithRed:red green:green blue:blue alpha:alpha];
-}
-
-+ (CGFloat)colorComponentFrom:(NSString *)string start:(NSUInteger)start length:(NSUInteger)length {
-    NSString *substring = [string substringWithRange:NSMakeRange(start, length)];
-    NSString *fullHex = length == 2 ? substring : [NSString stringWithFormat:@"%@%@", substring, substring];
-    unsigned hexComponent;
-    [[NSScanner scannerWithString:fullHex] scanHexInt:&hexComponent];
-    return (CGFloat) (hexComponent / 255.0);
-}
-
-@end
-
-
-@implementation UIImage (Color)
-
-//给指定的图片染色
-- (UIImage *)imageWithOverlayColor:(UIColor *)color {
-    CGRect rect = CGRectMake(0.0f, 0.0f, self.size.width, self.size.height);
-
-    //    if (UIGraphicsBeginImageContextWithOptions) {
-    CGFloat imageScale = 1.0f;
-    if ([self respondsToSelector:@selector(scale)])  // The scale property is new with iOS4.
-        imageScale = self.scale;
-    UIGraphicsBeginImageContextWithOptions(self.size, NO, imageScale);
-    //    }
-    //    else {
-    //        UIGraphicsBeginImageContext(self.size);
-    //    }
-
-    [self drawInRect:rect];
-
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetBlendMode(context, kCGBlendModeSourceIn);
-
-    CGContextSetFillColorWithColor(context, color.CGColor);
-    CGContextFillRect(context, rect);
-
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-
-    return image;
-}
-
-- (UIImage *)imageWithTintColor:(UIColor *)tintColor {
-    return [self imageWithTintColor:tintColor blendMode:kCGBlendModeDestinationIn];
-}
-
-- (UIImage *)imageWithGradientTintColor:(UIColor *)tintColor {
-    return [self imageWithTintColor:tintColor blendMode:kCGBlendModeOverlay];
-}
-
-- (UIImage *)imageWithTintColor:(UIColor *)tintColor blendMode:(CGBlendMode)blendMode {
-    //We want to keep alpha, set opaque to NO; Use 0.0f for scale to use the scale factor of the device’s main screen.
-    UIGraphicsBeginImageContextWithOptions(self.size, NO, 0.0f);
-    [tintColor setFill];
-    CGRect bounds = CGRectMake(0, 0, self.size.width, self.size.height);
-    UIRectFill(bounds);
-
-    //Draw the tinted image in context
-    [self drawInRect:bounds blendMode:blendMode alpha:1.0f];
-
-    UIImage *tintedImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-
-    return tintedImage;
-}
-
-@end
+#import "MyExtensions.h"
+#import "Categorys.h"
+#import "LWDrawView.h"
+#import "LWScrawlView.h"
 
 
 #pragma mark - LWDrawBar
@@ -227,12 +126,93 @@
     return cell;
 }
 
+#pragma mark - UICollectionViewDelegate
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    LWToolsCell *cell = (LWToolsCell *) [collectionView dequeueReusableCellWithReuseIdentifier:@"ToolCell" forIndexPath:indexPath];
+
+    LWDrawView *drawView = [self superViewWithClass:[LWDrawView class]];
+    
+
+    switch (indexPath.item) {
+        case 0: {    //黑笔
+            drawView.scrawlView.freeInkColorIndex = 5;
+            break;
+        }
+        case 1: {    //红笔
+            drawView.scrawlView.freeInkColorIndex = 18;
+            break;
+        }
+        case 2: {    //绿笔
+            drawView.scrawlView.freeInkColorIndex = 88;
+            break;
+        }
+        case 3: {    //蓝笔
+            drawView.scrawlView.freeInkColorIndex = 168;
+            break;
+        }
+        case 4: {    //彩笔
+            LWDrawBar *drawBar = [self superViewWithClass:[LWDrawBar class]];
+            drawBar.colorSelectorView.hidden = NO;
+            break;
+        }
+        case 5: {    //纹底笔
+            drawView.scrawlView.isTile = YES;
+            break;
+        }
+        case 6: {    //橡皮
+            drawView.scrawlView.isEraseMode = YES;
+            break;
+        }
+        case 7: {    //小画笔
+            drawView.scrawlView.freeInkLinewidth = 3.0;
+            break;
+        }
+        case 8: {    //中画笔
+            drawView.scrawlView.freeInkLinewidth = 6.0;
+            break;
+        }
+        case 9: {    //大画笔
+            drawView.scrawlView.freeInkLinewidth = 12.0;
+            break;
+        }
+        case 10: {   //直线
+            drawView.scrawlView.isLine = YES;
+            break;
+        }
+        case 11: {   //箭头
+            drawView.scrawlView.isLineArrow = YES;
+            break;
+        }
+        case 12: {   //矩形
+            drawView.scrawlView.isRect = YES;
+            break;
+        }
+        case 13: {   //圆圈
+            drawView.scrawlView.isOval = YES;
+            break;
+        }
+        case 14: {   //文字
+            drawView.scrawlView.isText = YES;
+            break;
+        }
+        default:
+            break;
+    }
+}
+
 
 @end
 
 #pragma mark - LWToolsCell
 
 @implementation LWToolsCell
+
+-(IBAction)btnAction:(UIButton *)btn{
+    LWDrawToolsView *toolsView = [self superViewWithClass:[LWDrawToolsView class]];
+    NSIndexPath *indPath = [toolsView indexPathForCell:self];
+    [toolsView.delegate collectionView:toolsView didSelectItemAtIndexPath:indPath];
+}
 
 @end
 
@@ -251,15 +231,22 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return (Color_Items).count;
+    return Color_Items.count;
 }
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     LWColorCell *cell = (LWColorCell *) [collectionView dequeueReusableCellWithReuseIdentifier:@"ColorCell" forIndexPath:indexPath];
-    cell.colorView.backgroundColor = [UIColor colorWithHexString:(Color_Items)[(NSUInteger) indexPath.item]];
+    cell.colorView.backgroundColor = [UIColor colorWithHexString:Color_Items[(NSUInteger) indexPath.item]];
     return cell;
 }
 
+
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    LWColorCell *cell = (LWColorCell *) [collectionView dequeueReusableCellWithReuseIdentifier:@"ColorCell" forIndexPath:indexPath];
+    LWDrawView *drawView = [self superViewWithClass:[LWDrawView class] ];
+    drawView.scrawlView.freeInkColorIndex = indexPath.item;
+    self.hidden = YES;
+}
 
 @end
 
@@ -272,6 +259,21 @@
 
     self.colorView.layer.borderWidth = 2.0;
     self.colorView.layer.borderColor = [UIColor colorWithHexString:@"#A1A1A1"].CGColor;
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [super touchesBegan:touches withEvent:event];
+    UIColor *color = self.colorView.backgroundColor;
+    const CGFloat* components = CGColorGetComponents(color.CGColor);
+    CGFloat alpha = CGColorGetAlpha(color.CGColor);
+    self.colorView.backgroundColor = [UIColor colorWithRed:components[0] green:components[0] blue:components[0] alpha:alpha/2];
+}
+
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [super touchesEnded:touches withEvent:event];
+    UIColor *color = self.colorView.backgroundColor;
+    const CGFloat* components = CGColorGetComponents(color.CGColor);
+    self.colorView.backgroundColor = [UIColor colorWithRed:components[0] green:components[0] blue:components[0] alpha:1.0];
 }
 
 
