@@ -12,7 +12,6 @@
 #import "LWDrawBar.h"
 
 @implementation LWScrawlView {
-    CGSize pageSize;
     NSMutableArray *curves;
     UIPanGestureRecognizer *_rec;
 }
@@ -37,6 +36,9 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
 
     _rec = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onDrag:)];
     [self addGestureRecognizer:_rec];
+    
+    _freeInkLinewidth = 3.0;
+    _freeInkColorIndex = 5;
 
 }
 
@@ -57,7 +59,7 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
 
 
 - (void)onDrag:(UIPanGestureRecognizer *)rec {
-    CGSize scale = fitPageToScreen(pageSize, self.bounds.size);
+    CGSize scale = fitPageToScreen([UIScreen mainScreen].bounds.size, self.bounds.size);
     CGPoint p = [rec locationInView:self];
     p.x /= scale.width;
     p.y /= scale.height;
@@ -77,13 +79,14 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
 }
 
 - (void)drawRect:(CGRect)rect {
-    CGSize scale = fitPageToScreen(pageSize, self.bounds.size);
+    CGSize scale = fitPageToScreen([UIScreen mainScreen].bounds.size, self.bounds.size);
     CGContextRef cref = UIGraphicsGetCurrentContext();
     CGContextScaleCTM(cref, scale.width, scale.height);
 
     for (LWInkLine *il in curves) {
         //设置颜色与线宽
-        [[UIColor colorWithHexString:Color_Items[(NSUInteger) il.colorIndex]] set];
+        UIColor *color = [UIColor colorWithHexString:Color_Items[(NSUInteger) il.colorIndex]];
+        [color set];
         CGContextSetLineWidth(cref, il.lineWidth);
 
         NSArray *curve = il.pointArr;
@@ -102,7 +105,7 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
             } else {
                 CGContextSetBlendMode(cref, kCGBlendModeNormal);
             }
-            //CGContextSetStrokeColorWithColor(cref, [[[FGConfigManager sharedInstance] getFreeInkColorWithIndex:il.colorIndex] CGColor]);
+            //CGContextSetStrokeColorWithColor(cref, color.CGColor);
             for (int i = 1; i < curve.count; i++) {
                 pt = [curve[i] CGPointValue];
                 CGContextAddQuadCurveToPoint(cref, lpt.x, lpt.y, (pt.x + lpt.x) / 2, (pt.y + lpt.y) / 2);
