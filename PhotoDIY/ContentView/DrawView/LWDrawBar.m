@@ -24,7 +24,7 @@
 
 @end
 
-#pragma mark - LWDrawToolsView
+#pragma mark - LWDrawToolsView （工具条）
 
 //画板工具的选择
 @implementation LWDrawToolsView {
@@ -49,7 +49,7 @@
         case 0:
             return 7;
         case 1:
-            return 1;
+            return 2;
         case 2:
             return 3;
         case 3:
@@ -111,8 +111,18 @@
             }
             break;
         case 1:{
-            [cell.btn setImage:[UIImage imageNamed:@"revoke"] forState:UIControlStateNormal];
-            [cell.btn setImage:[UIImage imageNamed:@"revoke_selected"] forState:UIControlStateHighlighted ];
+            switch (indexPath.item) {
+                case 0: {
+                    [cell.btn setImage:[UIImage imageNamed:@"revoke"] forState:UIControlStateNormal];
+                    [cell.btn setImage:[UIImage imageNamed:@"revoke_selected"] forState:UIControlStateHighlighted ];
+                    break;
+                }
+                case 1:{
+                    cell = (LWToolsCell *) [collectionView dequeueReusableCellWithReuseIdentifier:@"ToolSliderCell" forIndexPath:indexPath];
+                }
+                default:
+                    break;
+            }
             break;
         }
         case 2:
@@ -213,7 +223,15 @@
 }
 
 
-#pragma mark - UICollectionViewDelegate
+#pragma mark - UICollectionViewDelegateFlowLayout
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section == 1 && indexPath.item == 1){
+        return CGSizeMake(200, 80);
+    }else{
+        return CGSizeMake(40, 80);
+    }
+}
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     LWToolsCell *cell = (LWToolsCell *) [collectionView dequeueReusableCellWithReuseIdentifier:@"ToolCell" forIndexPath:indexPath];
@@ -253,14 +271,14 @@
                 }
                 case 4: {    //彩笔
                     drawView.scrawlView.drawType = Hand;
-                    LWDrawBar *drawBar = [self superViewWithClass:[LWDrawBar class]];
-                    drawBar.colorSelectorView.hidden = NO;
+                    drawView.drawBar.colorSelectorView.hidden = NO;
                     [self sec1collectionView:collectionView selectIndexPath:indexPath cell:cell];
                     break;
                 }
                 case 5: {    //纹底笔
                     drawView.scrawlView.drawType = Tile;
                     [self sec1collectionView:collectionView selectIndexPath:indexPath cell:cell];
+                    drawView.drawBar.tileSelectorView.hidden = NO;
                     break;
                 }
                 case 6: {    //橡皮
@@ -273,8 +291,18 @@
             }
             break;
         case 1:{
-            [drawView.scrawlView.curves removeLastObject];
-            [drawView.scrawlView setNeedsDisplay];
+            switch (indexPath.item) {
+                case 0: {
+                    [drawView.scrawlView.curves removeLastObject];
+                    [drawView.scrawlView setNeedsDisplay];
+                    break;
+                }
+                case 1:{
+
+                }
+                default:
+                    break;
+            }
             break;
         }
         case 2:
@@ -364,9 +392,14 @@
 
 @end
 
-#pragma mark - LWToolsCell
+#pragma mark - LWToolsCell（工具条的Cell）
 
 @implementation LWToolsCell
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    self.slider.value = 3.0/60;
+}
 
 - (IBAction)btnAction:(UIButton *)btn {
     LWDrawToolsView *toolsView = [self superViewWithClass:[LWDrawToolsView class]];
@@ -387,11 +420,15 @@
     self.btn.highlighted = highlighted;
 }
 
+-(IBAction)slideMove:(UISlider *)slider{
+    LWDrawView *drawView = [self superViewWithClass:[LWDrawView class]];
+    drawView.scrawlView.freeInkLinewidth = 60 * slider.value;
+}
 
 @end
 
 
-#pragma mark - LWColorSelectorView
+#pragma mark - LWColorSelectorView （颜色选择面板）
 
 //画笔颜色选择
 @implementation LWColorSelectorView {
@@ -426,7 +463,7 @@
 
 @end
 
-#pragma mark - LWColorCell
+#pragma mark - LWColorCell （颜色选择面板的Cell）
 
 @implementation LWColorCell {
     UIColor *_oldColor;
@@ -435,7 +472,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
 
-    self.colorView.layer.borderWidth = 2.0;
+    self.colorView.layer.borderWidth = 1.0;
     self.colorView.layer.borderColor = [UIColor colorWithHexString:@"#A1A1A1"].CGColor;
 }
 
@@ -450,5 +487,51 @@
     self.colorView.backgroundColor = _oldColor;
 }
 
+
+@end
+
+
+#pragma mark - LWTileImagesView (底纹图片选择面板)
+
+@implementation LWTileImagesView{
+
+}
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    self.delegate = self;
+    self.dataSource = self;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return Emoji_Items.count;
+}
+
+- (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    LWTileCell *cell = (LWTileCell *) [collectionView dequeueReusableCellWithReuseIdentifier:@"TileCell" forIndexPath:indexPath];
+    cell.imageView.image = [((NSString *) Emoji_Items[(NSUInteger) indexPath.item]) image:CGSizeMake(40 * 2,40 * 2)];
+    return cell;
+}
+
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    LWTileCell *cell = (LWTileCell *) [collectionView dequeueReusableCellWithReuseIdentifier:@"TileCell" forIndexPath:indexPath];
+    LWDrawView *drawView = [self superViewWithClass:[LWDrawView class]];
+    drawView.scrawlView.tileImageIndex = indexPath.item;
+    drawView.drawBar.colorTipView.backgroundColor = [UIColor colorWithHexString:Color_Items[(NSUInteger) indexPath.item]];
+    self.hidden = YES;
+}
+
+@end
+
+
+@implementation LWTileCell
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+
+    self.imageView.layer.borderWidth = 1.0;
+    self.imageView.layer.borderColor = [UIColor colorWithHexString:@"#A1A1A1"].CGColor;
+}
 
 @end

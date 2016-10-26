@@ -29,3 +29,9 @@
 
 @end
 
+@interface NSString(UIImage)
+
+-(UIImage *)image:(CGSize)size;
+
+@end
+

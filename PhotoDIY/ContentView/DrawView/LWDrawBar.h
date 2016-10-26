@@ -30,6 +30,8 @@
 @"#FF00CC",@"#CC0099",@"#990066",@"#FF99CC",@"#CC6699",@"#CC3399",@"#993366",@"#660033",@"#FF3399",@"#FF0099",\
 @"#FF0066",@"#CC0066",@"#CC3366",@"#FF6699",@"#FF3366",@"#FF0033",@"#CC0033",@"#990033"])
 
+#define Emoji_Items (@[@"❤", @"💛", @"💙", @"💜", @"💔", @"❣", @"💕", @"💞", @"💓", @"💗", @"💖", @"💘", @"💝", @"⌚", @"📱", @"📲", @"💻", @"📹", @"🎥", @"📽", @"🎞", @"📞", @"☎", @"🚕", @"🚙", @"🚌", @"🚎", @"🏎", @"🚄", @"✈", @"🏕", @"⛺", @"🏞", @"🏘", @"🏰", @"🏯", @"🏟", @"🗽", @"🏠", @"🏡", @"🏚", @"🏢", @"💒", @"🏛", @"⛪", @"🕌", @"🕍", @"🕋", @"⚽", @"🏀", @"🏈", @"⚾", @"🎾", @"🏐", @"🏉", @"🎱", @"⛳", @"🏌", @"🏓", @"🏸", @"🏒", @"🏑", @"🏏", @"🎿", @"🍏", @"🍎", @"🍐", @"🍊", @"🍋", @"🍌", @"🍉", @"🍇", @"🍓", @"🍈", @"🍒", @"🍑", @"🍍", @"🍅", @"🍆", @"🌶", @"🌽", @"🍠", @"🍺", @"🍻", @"🍷", @"🍸", @"🍹", @"🍾", @"🍶", @"🍵", @"☕", @"☕", @"🍦", @"🍰", @"🎂", @"🍮", @"🐶", @"🐱", @"🐭", @"🐹", @"🐰", @"🐻", @"🐼", @"🐨", @"🐯", @"🦁", @"🐮", @"🐷", @"🐽", @"🐸", @"🐙", @"🐵", @"🐒", @"🐔", @"🐧", @"🐺", @"🐗", @"🐴", @"🦄", @"🐝", @"🐛", @"🐌", @"🐞", @"🐜", @"🕷", @"🦂", @"🦀", @"🐍", @"🐢", @"🕊", @"🐕", @"🐩", @"🐈", @"🐇", @"🐿", @"🐾", @"🐉", @"🐲", @"🌵", @"🎄", @"🌲", @"🌳", @"🌴", @"🌱", @"🌿", @"🍀", @"🎍", @"🎋", @"🍃", @"🍂", @"🍁", @"🌾", @"🌺", @"🌻", @"🌹", @"🌷", @"🌼", @"🌸", @"💐", @"🍄", @"🌰", @"🎃", @"🐚", @" ",@"😀", @"😬", @"😁", @"😂", @"😃", @"😄", @"😅", @"😆", @"😇", @"😉", @"😊", @"🙂", @"🙃", @"☺", @"😋", @"😌", @"😍", @"😘", @"😗", @"😙", @"😚", @"😜", @"😝", @"😛", @"🤑", @"🤓", @"😎", @"🤗", @"😏", @"😶", @"😐", @"😑", @"😒", @"🙄", @"🤔", @"😳", @"😞", @"😟", @"😠", @"😡", @"😔", @"😕", @"🙁", @"☹", @"😣", @"😖", @"😫", @"😩", @"😤", @"😮", @"😱", @"😨", @"😰", @"😯", @"😦", @"😧", @"😢", @"😥", @"😪", @"😓", @"😭", @"😵", @"😲", @"🤐", @"😷", @"🤒", @"🤕", @"😴", @"🙌", @"👏", @"👋", @"👍", @"👊", @"✊", @"✌", @"👌", @"✋", @"💪", @"🙏", @"☝", @"👆", @"👇", @"👈", @"👉", @"🖕", @"🤘", @"🖖", @"✍", @"💅", @"👄", @"👅", @"👂", @"👃", @"👁", @"👀"])
+
 @class LWDrawToolsView;
 @class LWColorSelectorView;
 
@@ -37,22 +39,23 @@
 @interface LWDrawBar : UIView
 
 @property(nonatomic,weak) IBOutlet UIView *colorTipView;
+@property(nonatomic,weak) IBOutlet UIView *tileSelectorView;
 
 @property(nonatomic,weak) IBOutlet LWDrawToolsView *drawToolsView;
 @property(nonatomic,weak) IBOutlet LWColorSelectorView *colorSelectorView;
-
 
 @end
 
 #pragma mark - LWDrawToolsView
 
-@interface LWDrawToolsView : UICollectionView<UICollectionViewDelegate,UICollectionViewDataSource>
+@interface LWDrawToolsView : UICollectionView<UICollectionViewDelegateFlowLayout,UICollectionViewDataSource>
 
 @end
 
 @interface LWToolsCell:UICollectionViewCell
 
 @property(nonatomic,weak) IBOutlet UIButton *btn;
+@property(nonatomic,weak) IBOutlet UISlider *slider;
 
 @end
 
@@ -68,5 +71,18 @@
 @property(nonatomic,weak) IBOutlet UIView *colorView;
 
 @property(nonatomic,assign) NSInteger colorIndex;
+
+@end
+
+
+#pragma mark - LWColorSelectorView
+
+@interface LWTileImagesView : UICollectionView<UICollectionViewDelegate,UICollectionViewDataSource>
+
+@end
+
+@interface LWTileCell:UICollectionViewCell
+
+@property(nonatomic,weak) IBOutlet UIImageView *imageView;
 
 @end

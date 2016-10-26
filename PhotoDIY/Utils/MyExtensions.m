@@ -116,3 +116,18 @@
 
 @end
 
+
+@implementation NSString(UIImage)
+
+-(UIImage *)image:(CGSize)size{
+    UIGraphicsBeginImageContextWithOptions(size,NO,0);
+    [[UIColor clearColor] set];
+    UIRectFill(CGRectMake(0,0,size.width,size.height));
+    [self drawInRect:CGRectMake(0,0,size.width,size.height) withAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:(CGFloat) floor(size.width * 0.9)]}];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return  image;
+}
+
+
+@end

@@ -6,6 +6,7 @@
 //  Copyright © 2016年 wodedata. All rights reserved.
 //  涂鸦视图
 
+#import <SDWebImage/SDImageCache.h>
 #import "LWScrawlView.h"
 #import "MyExtensions.h"
 #import "LWDrawBar.h"
@@ -39,6 +40,7 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
     _drawType = Hand;
     _freeInkLinewidth = 3.0;
     _freeInkColorIndex = 5;
+    _tileImageIndex = 10000;    //[UIImage imageNamed:@"luowei"]
 
 }
 
@@ -59,6 +61,7 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
         currentPath.pointArr = [[NSMutableArray alloc] init];
         currentPath.colorIndex = self.freeInkColorIndex;
         currentPath.lineWidth = self.freeInkLinewidth;
+        currentPath.tileImageIndex = self.tileImageIndex;
         currentPath.drawType = self.drawType;
         [_curves addObject:currentPath];
 
@@ -82,15 +85,16 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
 
     switch (rec.state) {
         case UIGestureRecognizerStateBegan: {
-                LWInkLine *currentPath = [[LWInkLine alloc] init];
-                currentPath.pointArr = [[NSMutableArray alloc] init];
-                currentPath.colorIndex = self.freeInkColorIndex;
-                currentPath.lineWidth = self.freeInkLinewidth;
-                currentPath.drawType = self.drawType;
-                [_curves addObject:currentPath];
+            LWInkLine *currentPath = [[LWInkLine alloc] init];
+            currentPath.pointArr = [[NSMutableArray alloc] init];
+            currentPath.colorIndex = self.freeInkColorIndex;
+            currentPath.lineWidth = self.freeInkLinewidth;
+            currentPath.tileImageIndex = self.tileImageIndex;
+            currentPath.drawType = self.drawType;
+            [_curves addObject:currentPath];
 
-                beganPoint = [self getConvertedPoint:rec];
-                [currentPath.pointArr addObject:[NSValue valueWithCGPoint:beganPoint]];
+            beganPoint = [self getConvertedPoint:rec];
+            [currentPath.pointArr addObject:[NSValue valueWithCGPoint:beganPoint]];
             break;
         }
         case UIGestureRecognizerStateChanged: {
@@ -123,8 +127,8 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
     return point;
 }
 
-- (CGRect)tileBrushRectForPoint:(CGPoint)point {
-    CGSize burshSize = CGSizeMake(_freeInkLinewidth * 4, _freeInkLinewidth * 4);
+- (CGRect)tileBrushRectForPoint:(CGPoint)point withPath:(LWInkLine *)path {
+    CGSize burshSize = CGSizeMake(path.lineWidth * 4, path.lineWidth * 4);
     return CGRectMake(point.x - burshSize.width / 2, point.y - burshSize.height / 2, burshSize.width, burshSize.height);
 }
 
@@ -237,8 +241,23 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
             for (int i = 0; i < curve.count; i++) {
                 //移动到第i个点
                 CGPoint point = [curve[i] CGPointValue];
-                CGRect brushRect = [self tileBrushRectForPoint:point];
-                [[UIImage imageNamed:@"luowei"] drawInRect:brushRect];
+                CGRect brushRect = [self tileBrushRectForPoint:point withPath:path];
+                __block UIImage *image = [UIImage imageNamed:@"luowei"];
+                NSString *imgName = Emoji_Items[path.tileImageIndex];
+
+                if (path.tileImageIndex < 10000) {
+                    //从缓存目录找,没有才去相册加载
+                    SDImageCache *imageCache = [SDImageCache sharedImageCache];
+                    if([imageCache diskImageExistsWithKey:[NSString stringWithFormat:@"tile_%lf_%@",path.lineWidth,imgName] ]){
+                        image = [imageCache imageFromDiskCacheForKey:[NSString stringWithFormat:@"tile_%lf_%@",path.lineWidth,imgName]];
+                    }else{
+                        dispatch_async(dispatch_get_main_queue(), ^() {
+                            image = [imgName image:CGSizeMake(path.lineWidth*2,path.lineWidth*2)];
+                            [[SDImageCache sharedImageCache] storeImage:image forKey:[NSString stringWithFormat:@"tile_%lf_%@",path.lineWidth,imgName] toDisk:YES];
+                        });
+                    }
+                }
+                [image drawInRect:brushRect];
             }
         }
 

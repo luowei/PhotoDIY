@@ -28,4 +28,5 @@ typedef NS_OPTIONS(NSUInteger, DrawType) {
 @property (nonatomic,assign) DrawType drawType;
 
 
+@property(nonatomic, assign) NSInteger tileImageIndex;
 @end

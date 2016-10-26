@@ -22,6 +22,8 @@
 //曲线集
 @property (nonatomic, strong) NSMutableArray *curves;
 
+@property(nonatomic, assign) NSInteger tileImageIndex;
+
 //画板重置
 -(IBAction) resetDrawing;
 

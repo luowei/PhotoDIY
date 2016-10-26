@@ -3,6 +3,7 @@
     <dependencies>
         <deployment version="2304" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -158,6 +159,31 @@
                                                                     <outlet property="btn" destination="mBH-nX-hz0" id="tZX-XJ-TcS"/>
                                                                 </connections>
                                                             </collectionViewCell>
+                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ToolSliderCell" id="K9K-45-nG5" customClass="LWToolsCell">
+                                                                <rect key="frame" x="40" y="0.0" width="200" height="80"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="200" height="80"/>
+                                                                    <autoresizingMask key="autoresizingMask"/>
+                                                                    <subviews>
+                                                                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.050000000000000003" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="LuQ-p3-Sbd">
+                                                                            <connections>
+                                                                                <action selector="slideMove:" destination="K9K-45-nG5" eventType="valueChanged" id="Voo-Bh-far"/>
+                                                                            </connections>
+                                                                        </slider>
+                                                                    </subviews>
+                                                                </view>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="trailingMargin" secondItem="LuQ-p3-Sbd" secondAttribute="trailing" constant="10" id="7FB-Zd-Uz6"/>
+                                                                    <constraint firstItem="LuQ-p3-Sbd" firstAttribute="centerX" secondItem="K9K-45-nG5" secondAttribute="centerX" id="7v8-eH-1EZ"/>
+                                                                    <constraint firstItem="LuQ-p3-Sbd" firstAttribute="centerY" secondItem="K9K-45-nG5" secondAttribute="centerY" id="FEN-e6-Lvz"/>
+                                                                    <constraint firstItem="LuQ-p3-Sbd" firstAttribute="leading" secondItem="K9K-45-nG5" secondAttribute="leadingMargin" constant="10" id="kGD-BW-yLa"/>
+                                                                </constraints>
+                                                                <size key="customSize" width="200" height="80"/>
+                                                                <connections>
+                                                                    <outlet property="slider" destination="LuQ-p3-Sbd" id="FhX-06-MkP"/>
+                                                                </connections>
+                                                            </collectionViewCell>
                                                         </cells>
                                                     </collectionView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nuu-0M-xbY">
@@ -199,25 +225,61 @@
                                                             </collectionViewCell>
                                                         </cells>
                                                     </collectionView>
+                                                    <collectionView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="UdI-Y3-p3M" customClass="LWTileImagesView">
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="gCw-2Q-5Rz">
+                                                            <size key="itemSize" width="80" height="80"/>
+                                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                        </collectionViewFlowLayout>
+                                                        <cells>
+                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TileCell" id="3aZ-eJ-n7r" customClass="LWTileCell">
+                                                                <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                                                                    <autoresizingMask key="autoresizingMask"/>
+                                                                    <subviews>
+                                                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yEZ-kc-wsS"/>
+                                                                    </subviews>
+                                                                </view>
+                                                                <constraints>
+                                                                    <constraint firstItem="yEZ-kc-wsS" firstAttribute="leading" secondItem="3aZ-eJ-n7r" secondAttribute="leading" id="ccf-X0-kky"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="yEZ-kc-wsS" secondAttribute="trailing" id="jH4-cf-u1q"/>
+                                                                    <constraint firstItem="yEZ-kc-wsS" firstAttribute="top" secondItem="3aZ-eJ-n7r" secondAttribute="top" id="jHy-dC-ugV"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="yEZ-kc-wsS" secondAttribute="bottom" id="rX0-yB-cQn"/>
+                                                                </constraints>
+                                                                <connections>
+                                                                    <outlet property="imageView" destination="yEZ-kc-wsS" id="nfH-Co-6jp"/>
+                                                                </connections>
+                                                            </collectionViewCell>
+                                                        </cells>
+                                                    </collectionView>
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstItem="nuu-0M-xbY" firstAttribute="top" secondItem="O5f-Jf-Ls1" secondAttribute="top" id="25W-JU-R2K"/>
                                                     <constraint firstItem="8AZ-z5-p6g" firstAttribute="leading" secondItem="O5f-Jf-Ls1" secondAttribute="leading" id="2Zu-77-2CT"/>
                                                     <constraint firstItem="8AZ-z5-p6g" firstAttribute="top" secondItem="O5f-Jf-Ls1" secondAttribute="top" id="71h-CL-YQZ"/>
+                                                    <constraint firstAttribute="bottom" secondItem="UdI-Y3-p3M" secondAttribute="bottom" id="7Wf-6m-AgK"/>
                                                     <constraint firstAttribute="height" constant="80" id="9Vl-8G-fFH"/>
                                                     <constraint firstAttribute="trailing" secondItem="UZg-fF-AAi" secondAttribute="trailing" id="J6A-0B-b4P"/>
                                                     <constraint firstItem="UZg-fF-AAi" firstAttribute="leading" secondItem="O5f-Jf-Ls1" secondAttribute="leading" id="KM3-xN-xod"/>
                                                     <constraint firstAttribute="bottom" secondItem="8AZ-z5-p6g" secondAttribute="bottom" id="Kum-kC-etU"/>
                                                     <constraint firstItem="UZg-fF-AAi" firstAttribute="top" secondItem="O5f-Jf-Ls1" secondAttribute="top" id="Miv-p8-Qk0"/>
                                                     <constraint firstAttribute="trailing" secondItem="8AZ-z5-p6g" secondAttribute="trailing" id="OTA-Y5-svw"/>
+                                                    <constraint firstAttribute="trailing" secondItem="UdI-Y3-p3M" secondAttribute="trailing" id="WaU-ko-vbf"/>
                                                     <constraint firstAttribute="bottom" secondItem="UZg-fF-AAi" secondAttribute="bottom" id="ZZ4-DE-Tmw"/>
+                                                    <constraint firstItem="UdI-Y3-p3M" firstAttribute="top" secondItem="O5f-Jf-Ls1" secondAttribute="top" id="ahi-SZ-P0f"/>
                                                     <constraint firstAttribute="trailing" secondItem="nuu-0M-xbY" secondAttribute="trailing" id="cmr-ZW-WcE"/>
                                                     <constraint firstItem="nuu-0M-xbY" firstAttribute="leading" secondItem="O5f-Jf-Ls1" secondAttribute="leading" id="n2k-VI-N6s"/>
+                                                    <constraint firstItem="UdI-Y3-p3M" firstAttribute="leading" secondItem="O5f-Jf-Ls1" secondAttribute="leading" id="nlC-NO-NuZ"/>
                                                 </constraints>
                                                 <connections>
                                                     <outlet property="colorSelectorView" destination="8AZ-z5-p6g" id="rVc-dO-GCF"/>
                                                     <outlet property="colorTipView" destination="nuu-0M-xbY" id="K41-nn-vlq"/>
                                                     <outlet property="drawToolsView" destination="UZg-fF-AAi" id="XLa-6U-Zd9"/>
+                                                    <outlet property="tileSelectorView" destination="UdI-Y3-p3M" id="LfW-4L-YSR"/>
                                                 </connections>
                                             </view>
                                         </subviews>
