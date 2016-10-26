@@ -7,19 +7,25 @@
 #import <UIKit/UIKit.h>
 
 
+//键盘类型
+typedef NS_OPTIONS(NSUInteger, DrawType) {
+    Hand = 1,
+    Erase = 1 << 1,
+    Line = 1 << 2,
+    LineArrow = 1 << 3,
+    Rectangle = 1 << 4,
+    Oval = 1 << 5,
+    Text = 1 << 6,
+    Tile = 1 << 7
+};
+
 @interface LWInkLine : NSObject
 
 @property (nonatomic, strong) NSMutableArray *pointArr;
 @property (nonatomic, assign) NSInteger colorIndex;
 @property (nonatomic, assign) CGFloat lineWidth;
 
-@property (nonatomic,assign) BOOL isEraseMode;
-@property (nonatomic,assign) BOOL isLine;
-@property (nonatomic,assign) BOOL isLineArrow;
-@property (nonatomic,assign) BOOL isRect;
-@property (nonatomic,assign) BOOL isOval;
-@property (nonatomic, assign) BOOL isText;
-@property(nonatomic, assign) BOOL isTile;
+@property (nonatomic,assign) DrawType drawType;
 
 
 @end

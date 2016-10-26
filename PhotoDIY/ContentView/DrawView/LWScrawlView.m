@@ -7,12 +7,11 @@
 //  涂鸦视图
 
 #import "LWScrawlView.h"
-#import "LWInkLine.h"
 #import "MyExtensions.h"
 #import "LWDrawBar.h"
 
 @implementation LWScrawlView {
-    NSMutableArray *curves;
+
     UIPanGestureRecognizer *_rec;
 }
 
@@ -32,20 +31,20 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
 - (void)awakeFromNib {
     [super awakeFromNib];
 
-    curves = [NSMutableArray array];
+    _curves = [NSMutableArray array];
 
     _rec = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onDrag:)];
     [self addGestureRecognizer:_rec];
-    
+
+    _drawType = Hand;
     _freeInkLinewidth = 3.0;
     _freeInkColorIndex = 5;
 
 }
 
-
 //重置画板
 - (IBAction)resetDrawing {
-    [curves removeAllObjects];
+    [_curves removeAllObjects];
     [self setNeedsDisplay];
 }
 
@@ -53,29 +52,80 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
 //点击降下colourView
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [super touchesBegan:touches withEvent:event];
-    //[[FGColourView sharedManager] goDown];
+
+    if (self.drawType == Tile) {
+        //添加一个点
+        LWInkLine *currentPath = [[LWInkLine alloc] init];
+        currentPath.pointArr = [[NSMutableArray alloc] init];
+        currentPath.colorIndex = self.freeInkColorIndex;
+        currentPath.lineWidth = self.freeInkLinewidth;
+        currentPath.drawType = self.drawType;
+        [_curves addObject:currentPath];
+
+        CGSize scale = fitPageToScreen([UIScreen mainScreen].bounds.size, self.bounds.size);
+        CGPoint point = [[touches anyObject] locationInView:self];
+        point.x /= scale.width;
+        point.y /= scale.height;
+        [currentPath.pointArr addObject:[NSValue valueWithCGPoint:point]];
+
+        [self setNeedsDisplay];
+    }
 
 }
 
 
 - (void)onDrag:(UIPanGestureRecognizer *)rec {
-    CGSize scale = fitPageToScreen([UIScreen mainScreen].bounds.size, self.bounds.size);
-    CGPoint p = [rec locationInView:self];
-    p.x /= scale.width;
-    p.y /= scale.height;
+    CGPoint beganPoint;
+    CGPoint movePoint;
+    CGPoint endPoint;
 
-    if (rec.state == UIGestureRecognizerStateBegan) {
-        LWInkLine *il = [[LWInkLine alloc] init];
-        il.pointArr = [[NSMutableArray alloc] init];
-        il.colorIndex = _freeInkColorIndex;
-        il.lineWidth = _freeInkLinewidth;
-        [curves addObject:il];
+
+    switch (rec.state) {
+        case UIGestureRecognizerStateBegan: {
+                LWInkLine *currentPath = [[LWInkLine alloc] init];
+                currentPath.pointArr = [[NSMutableArray alloc] init];
+                currentPath.colorIndex = self.freeInkColorIndex;
+                currentPath.lineWidth = self.freeInkLinewidth;
+                currentPath.drawType = self.drawType;
+                [_curves addObject:currentPath];
+
+                beganPoint = [self getConvertedPoint:rec];
+                [currentPath.pointArr addObject:[NSValue valueWithCGPoint:beganPoint]];
+            break;
+        }
+        case UIGestureRecognizerStateChanged: {
+            LWInkLine *currentPath = [_curves lastObject];
+            movePoint = [self getConvertedPoint:rec];
+            [currentPath.pointArr addObject:[NSValue valueWithCGPoint:movePoint]];
+            [self setNeedsDisplay];
+            break;
+        }
+        case UIGestureRecognizerStateEnded: {
+            LWInkLine *currentPath = [_curves lastObject];
+            currentPath.drawType = self.drawType;
+
+            endPoint = [self getConvertedPoint:rec];
+            [currentPath.pointArr addObject:[NSValue valueWithCGPoint:endPoint]];
+            [self setNeedsDisplay];
+            break;
+        }
+        default:
+            break;
     }
-    LWInkLine *il = [curves lastObject];
-    il.isEraseMode = _isEraseMode;
 
-    [il.pointArr addObject:[NSValue valueWithCGPoint:p]];
-    [self setNeedsDisplay];
+}
+
+- (CGPoint)getConvertedPoint:(UIPanGestureRecognizer *)recognizer {
+    CGSize scale = fitPageToScreen([UIScreen mainScreen].bounds.size, self.bounds.size);
+    CGPoint point = [recognizer locationInView:self];
+    point.x /= scale.width;
+    point.y /= scale.height;
+    return point;
+}
+
+- (CGRect)tileBrushRectForPoint:(CGPoint)point {
+    CGSize burshSize = CGSizeMake(_freeInkLinewidth * 4, _freeInkLinewidth * 4);
+    return CGRectMake(point.x - burshSize.width / 2, point.y - burshSize.height / 2, burshSize.width, burshSize.height);
 }
 
 - (void)drawRect:(CGRect)rect {
@@ -83,20 +133,19 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
     CGContextRef cref = UIGraphicsGetCurrentContext();
     CGContextScaleCTM(cref, scale.width, scale.height);
 
-    for (LWInkLine *il in curves) {
+    //遍历每一条路径
+    for (LWInkLine *path in _curves) {
         //设置颜色与线宽
-        UIColor *color = [UIColor colorWithHexString:Color_Items[(NSUInteger) il.colorIndex]];
+        UIColor *color = [UIColor colorWithHexString:Color_Items[(NSUInteger) path.colorIndex]];
         [color set];
-        CGContextSetLineWidth(cref, il.lineWidth);
+        CGContextSetLineWidth(cref, path.lineWidth);
 
-        NSArray *curve = il.pointArr;
+        //检查路径中的点
+        NSArray *curve = path.pointArr;
         if (curve.count >= 2) {
-            CGPoint pt = [curve[0] CGPointValue];
-            CGContextBeginPath(cref);
-            CGContextMoveToPoint(cref, pt.x, pt.y);
-            CGPoint lpt = pt;
 
-            if (il.isEraseMode) {
+            //如果是橡皮擦
+            if (path.drawType == Erase) {
                 //设置为圆头
                 CGContextSetLineCap(cref, kCGLineCapRound);
                 //设置清除颜色
@@ -105,16 +154,94 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
             } else {
                 CGContextSetBlendMode(cref, kCGBlendModeNormal);
             }
-            //CGContextSetStrokeColorWithColor(cref, color.CGColor);
-            for (int i = 1; i < curve.count; i++) {
-                pt = [curve[i] CGPointValue];
-                CGContextAddQuadCurveToPoint(cref, lpt.x, lpt.y, (pt.x + lpt.x) / 2, (pt.y + lpt.y) / 2);
-                lpt = pt;
-            }
 
-            CGContextAddLineToPoint(cref, pt.x, pt.y);
-            CGContextStrokePath(cref);
+            switch (path.drawType) {
+                case Hand:
+                case Erase: {
+                    //画笔移到第一个点的位置
+                    CGPoint pt = [curve[0] CGPointValue];
+                    CGContextBeginPath(cref);
+                    CGContextMoveToPoint(cref, pt.x, pt.y);
+
+                    CGPoint lastPt = pt;    //设置为上一个点
+                    //CGContextSetStrokeColorWithColor(cref, color.CGColor);
+                    for (int i = 1; i < curve.count; i++) {
+                        //移动到第i个点
+                        pt = [curve[i] CGPointValue];
+                        CGContextAddQuadCurveToPoint(cref, lastPt.x, lastPt.y, (pt.x + lastPt.x) / 2, (pt.y + lastPt.y) / 2);
+                        lastPt = pt;
+                    }
+                    //添加一条线连接到最后一个点
+                    CGContextAddLineToPoint(cref, pt.x, pt.y);
+                    //描边
+                    CGContextStrokePath(cref);
+                    break;
+                }
+                case Line: {
+                    //画笔移到第一个点的位置
+                    CGPoint pt = [curve.firstObject CGPointValue];
+                    CGContextBeginPath(cref);
+                    CGContextMoveToPoint(cref, pt.x, pt.y);
+                    //画一条线到第二个点
+                    CGPoint lastPt = [curve.lastObject CGPointValue];
+                    CGContextAddLineToPoint(cref, lastPt.x, lastPt.y);
+                    //描边
+                    CGContextStrokePath(cref);
+                    break;
+                }
+                case LineArrow: {
+                    //画笔移到第一个点的位置
+                    CGPoint pt = [curve.firstObject CGPointValue];
+                    CGContextBeginPath(cref);
+                    CGContextMoveToPoint(cref, pt.x, pt.y);
+                    //画一条线到第二个点
+                    CGPoint lastPt = [curve.lastObject CGPointValue];
+                    CGContextAddLineToPoint(cref, lastPt.x, lastPt.y);
+                    CGFloat uX = (lastPt.x - pt.x) / fabs(lastPt.x - pt.x);
+                    CGFloat uY = (lastPt.y - pt.y) / fabs(lastPt.y - pt.y);
+                    CGContextAddLineToPoint(cref, lastPt.x - 10 * uX, lastPt.y - 5 * uY);
+                    //描边
+                    CGContextStrokePath(cref);
+                    break;
+                }
+                case Rectangle: {
+                    //画笔移到第一个点的位置
+                    CGPoint pt = [curve.firstObject CGPointValue];
+                    CGContextBeginPath(cref);
+                    CGContextMoveToPoint(cref, pt.x, pt.y);
+                    //画矩形到第二个点
+                    CGPoint lastPt = [curve.lastObject CGPointValue];
+                    CGContextAddRect(cref, CGRectMake(MIN(pt.x, lastPt.x), MIN(pt.y, lastPt.y), (CGFloat) fabs(pt.x - lastPt.x), (CGFloat) fabs(pt.y - lastPt.y)));
+                    //描边
+                    CGContextStrokePath(cref);
+                    break;
+                }
+                case Oval: {
+                    //画笔移到第一个点的位置
+                    CGPoint pt = [curve.firstObject CGPointValue];
+                    CGContextBeginPath(cref);
+                    CGContextMoveToPoint(cref, pt.x, pt.y);
+                    //画椭圆到第二个点
+                    CGPoint lastPt = [curve.lastObject CGPointValue];
+                    CGContextAddEllipseInRect(cref, CGRectMake(MIN(pt.x, lastPt.x), MIN(pt.y, lastPt.y), (CGFloat) fabs(pt.x - lastPt.x), (CGFloat) fabs(pt.y - lastPt.y)));
+                    //描边
+                    CGContextStrokePath(cref);
+                    break;
+                }
+                default:
+                    break;
+            }
         }
+        //按点描绘底纹图
+        if (curve.count > 0 && path.drawType == Tile) {
+            for (int i = 0; i < curve.count; i++) {
+                //移动到第i个点
+                CGPoint point = [curve[i] CGPointValue];
+                CGRect brushRect = [self tileBrushRectForPoint:point];
+                [[UIImage imageNamed:@"luowei"] drawInRect:brushRect];
+            }
+        }
+
     }
 
 }

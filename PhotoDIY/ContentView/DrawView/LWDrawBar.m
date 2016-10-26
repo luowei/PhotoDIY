@@ -41,7 +41,7 @@
 
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return 3;
+    return 4;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -49,8 +49,10 @@
         case 0:
             return 7;
         case 1:
-            return 3;
+            return 1;
         case 2:
+            return 3;
+        case 3:
             return 5;
         default:
             return 1;
@@ -108,60 +110,65 @@
                     break;
             }
             break;
-        case 1:
+        case 1:{
+            [cell.btn setImage:[UIImage imageNamed:@"revoke"] forState:UIControlStateNormal];
+            [cell.btn setImage:[UIImage imageNamed:@"revoke_selected"] forState:UIControlStateHighlighted ];
+            break;
+        }
+        case 2:
             switch (indexPath.item) {
                 case 0: {    //小画笔
                     [cell.btn setImage:[UIImage imageNamed:@"dotSmall"] forState:UIControlStateNormal];
                     [cell.btn setImage:[UIImage imageNamed:@"dotSmall_selected"] forState:UIControlStateHighlighted ];
-                    [self sec2Collection:collectionView selIndexPath:indexPath cell:cell];
+                    [self sec3Collection:collectionView selIndexPath:indexPath cell:cell];
                     break;
                 }
                 case 1: {    //中画笔
                     [cell.btn setImage:[UIImage imageNamed:@"dotMiddle"] forState:UIControlStateNormal];
                     [cell.btn setImage:[UIImage imageNamed:@"dotMiddle_selected"] forState:UIControlStateHighlighted ];
-                    [self sec2Collection:collectionView selIndexPath:indexPath cell:cell];
+                    [self sec3Collection:collectionView selIndexPath:indexPath cell:cell];
                     break;
                 }
                 case 2: {    //大画笔
                     [cell.btn setImage:[UIImage imageNamed:@"dotLarge"] forState:UIControlStateNormal];
                     [cell.btn setImage:[UIImage imageNamed:@"dotLarge_selected"] forState:UIControlStateHighlighted ];
-                    [self sec2Collection:collectionView selIndexPath:indexPath cell:cell];
+                    [self sec3Collection:collectionView selIndexPath:indexPath cell:cell];
                     break;
                 }
                 default:
                     break;
             }
             break;
-        case 2:
+        case 3:
             switch (indexPath.item) {
                 case 0: {   //直线
                     [cell.btn setImage:[UIImage imageNamed:@"line"] forState:UIControlStateNormal];
                     [cell.btn setImage:[UIImage imageNamed:@"line_selected"] forState:UIControlStateHighlighted ];
-                    [self sec3Collection:collectionView selIndexPath:indexPath cell:cell];
+                    [self sec4Collection:collectionView selIndexPath:indexPath cell:cell];
                     break;
                 }
                 case 1: {   //箭头
                     [cell.btn setImage:[UIImage imageNamed:@"lineArrow"] forState:UIControlStateNormal];
                     [cell.btn setImage:[UIImage imageNamed:@"lineArrow_selected"] forState:UIControlStateHighlighted ];
-                    [self sec3Collection:collectionView selIndexPath:indexPath cell:cell];
+                    [self sec4Collection:collectionView selIndexPath:indexPath cell:cell];
                     break;
                 }
                 case 2: {   //矩形
                     [cell.btn setImage:[UIImage imageNamed:@"rect"] forState:UIControlStateNormal];
                     [cell.btn setImage:[UIImage imageNamed:@"rect_selected"] forState:UIControlStateHighlighted ];
-                    [self sec3Collection:collectionView selIndexPath:indexPath cell:cell];
+                    [self sec4Collection:collectionView selIndexPath:indexPath cell:cell];
                     break;
                 }
                 case 3: {   //圆圈
                     [cell.btn setImage:[UIImage imageNamed:@"oval"] forState:UIControlStateNormal];
                     [cell.btn setImage:[UIImage imageNamed:@"oval_selected"] forState:UIControlStateHighlighted ];
-                    [self sec3Collection:collectionView selIndexPath:indexPath cell:cell];
+                    [self sec4Collection:collectionView selIndexPath:indexPath cell:cell];
                     break;
                 }
                 case 4: {   //文字
                     [cell.btn setImage:[UIImage imageNamed:@"text"] forState:UIControlStateNormal];
                     [cell.btn setImage:[UIImage imageNamed:@"text_selected"] forState:UIControlStateHighlighted ];
-                    [self sec3Collection:collectionView selIndexPath:indexPath cell:cell];
+                    [self sec4Collection:collectionView selIndexPath:indexPath cell:cell];
                     break;
                 }
 
@@ -186,7 +193,7 @@
         cell.highlighted = NO;
     }
 }
-- (void)sec2Collection:(UICollectionView *)collectionView selIndexPath:(NSIndexPath *)indexPath cell:(LWToolsCell *)cell {
+- (void)sec3Collection:(UICollectionView *)collectionView selIndexPath:(NSIndexPath *)indexPath cell:(LWToolsCell *)cell {
     if ((_sec2SelectedIndexPath != nil && _sec2SelectedIndexPath.item == indexPath.item) || (_sec2SelectedIndexPath == nil && indexPath.item == 0)) {
         [collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
         cell.highlighted = YES;
@@ -195,7 +202,7 @@
         cell.highlighted = NO;
     }
 }
-- (void)sec3Collection:(UICollectionView *)collectionView selIndexPath:(NSIndexPath *)indexPath cell:(LWToolsCell *)cell {
+- (void)sec4Collection:(UICollectionView *)collectionView selIndexPath:(NSIndexPath *)indexPath cell:(LWToolsCell *)cell {
     if (_sec3SelectedIndexPath != nil && _sec3SelectedIndexPath.item == indexPath.item) {
         [collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
         cell.highlighted = YES;
@@ -217,42 +224,47 @@
         case 0:
             switch (indexPath.item) {
                 case 0: {    //黑笔
+                    drawView.scrawlView.drawType = Hand;
                     drawView.scrawlView.freeInkColorIndex = 5;
                     drawView.drawBar.colorTipView.backgroundColor = [UIColor colorWithHexString:Color_Items[5]];
                     [self sec1collectionView:collectionView selectIndexPath:indexPath cell:cell];
                     break;
                 }
                 case 1: {    //红笔
+                    drawView.scrawlView.drawType = Hand;
                     drawView.scrawlView.freeInkColorIndex = 18;
                     drawView.drawBar.colorTipView.backgroundColor = [UIColor colorWithHexString:Color_Items[18]];
                     [self sec1collectionView:collectionView selectIndexPath:indexPath cell:cell];
                     break;
                 }
                 case 2: {    //绿笔
+                    drawView.scrawlView.drawType = Hand;
                     drawView.scrawlView.freeInkColorIndex = 88;
                     drawView.drawBar.colorTipView.backgroundColor = [UIColor colorWithHexString:Color_Items[88]];
                     [self sec1collectionView:collectionView selectIndexPath:indexPath cell:cell];
                     break;
                 }
                 case 3: {    //蓝笔
+                    drawView.scrawlView.drawType = Hand;
                     drawView.scrawlView.freeInkColorIndex = 158;
                     drawView.drawBar.colorTipView.backgroundColor = [UIColor colorWithHexString:Color_Items[158]];
                     [self sec1collectionView:collectionView selectIndexPath:indexPath cell:cell];
                     break;
                 }
                 case 4: {    //彩笔
+                    drawView.scrawlView.drawType = Hand;
                     LWDrawBar *drawBar = [self superViewWithClass:[LWDrawBar class]];
                     drawBar.colorSelectorView.hidden = NO;
                     [self sec1collectionView:collectionView selectIndexPath:indexPath cell:cell];
                     break;
                 }
                 case 5: {    //纹底笔
-                    drawView.scrawlView.isTile = YES;
+                    drawView.scrawlView.drawType = Tile;
                     [self sec1collectionView:collectionView selectIndexPath:indexPath cell:cell];
                     break;
                 }
                 case 6: {    //橡皮
-                    drawView.scrawlView.isEraseMode = YES;
+                    drawView.scrawlView.drawType = Erase;
                     [self sec1collectionView:collectionView selectIndexPath:indexPath cell:cell];
                     break;
                 }
@@ -260,52 +272,57 @@
                     break;
             }
             break;
-        case 1:
+        case 1:{
+            [drawView.scrawlView.curves removeLastObject];
+            [drawView.scrawlView setNeedsDisplay];
+            break;
+        }
+        case 2:
             switch (indexPath.item) {
                 case 0: {    //小画笔
                     drawView.scrawlView.freeInkLinewidth = 3.0;
-                    [self sec2collectionView:collectionView selecteIndexPath:indexPath cell:cell];
+                    [self sec3collectionView:collectionView selecteIndexPath:indexPath cell:cell];
                     break;
                 }
                 case 1: {    //中画笔
                     drawView.scrawlView.freeInkLinewidth = 6.0;
-                    [self sec2collectionView:collectionView selecteIndexPath:indexPath cell:cell];
+                    [self sec3collectionView:collectionView selecteIndexPath:indexPath cell:cell];
                     break;
                 }
                 case 2: {    //大画笔
                     drawView.scrawlView.freeInkLinewidth = 12.0;
-                    [self sec2collectionView:collectionView selecteIndexPath:indexPath cell:cell];
+                    [self sec3collectionView:collectionView selecteIndexPath:indexPath cell:cell];
                     break;
                 }
                 default:
                     break;
             }
             break;
-        case 2:
+        case 3:
             switch (indexPath.item) {
                 case 0: {   //直线
-                    drawView.scrawlView.isLine = YES;
-                    [self sec3collectionView:collectionView selectIndexPath:indexPath cell:cell];
+                    drawView.scrawlView.drawType = Line;
+                    [self sec4collectionView:collectionView selectIndexPath:indexPath cell:cell];
                     break;
                 }
                 case 1: {   //箭头
-                    drawView.scrawlView.isLineArrow = YES;
-                    [self sec3collectionView:collectionView selectIndexPath:indexPath cell:cell];
+                    drawView.scrawlView.drawType = LineArrow;
+                    [self sec4collectionView:collectionView selectIndexPath:indexPath cell:cell];
                     break;
                 }
                 case 2: {   //矩形
-                    drawView.scrawlView.isRect = YES;
-                    [self sec3collectionView:collectionView selectIndexPath:indexPath cell:cell];
+                    drawView.scrawlView.drawType = Rectangle;
+                    [self sec4collectionView:collectionView selectIndexPath:indexPath cell:cell];
                     break;
                 }
                 case 3: {   //圆圈
-                    drawView.scrawlView.isOval = YES;
-                    [self sec3collectionView:collectionView selectIndexPath:indexPath cell:cell];
+                    drawView.scrawlView.drawType = Oval;
+                    [self sec4collectionView:collectionView selectIndexPath:indexPath cell:cell];
                     break;
                 }
                 case 4: {   //文字
-                    drawView.scrawlView.isText = YES;
-                    [self sec3collectionView:collectionView selectIndexPath:indexPath cell:cell];
+                    drawView.scrawlView.drawType = Text;
+                    [self sec4collectionView:collectionView selectIndexPath:indexPath cell:cell];
                     break;
                 }
                 default:
@@ -319,13 +336,13 @@
 
 }
 
-- (void)sec3collectionView:(UICollectionView *)collectionView selectIndexPath:(NSIndexPath *)indexPath cell:(LWToolsCell *)cell {
+- (void)sec4collectionView:(UICollectionView *)collectionView selectIndexPath:(NSIndexPath *)indexPath cell:(LWToolsCell *)cell {
     [collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
     cell.highlighted = YES;
     _sec3SelectedIndexPath = indexPath;
     [collectionView reloadSections:[NSIndexSet indexSetWithIndex:(NSUInteger) indexPath.section]];
 }
-- (void)sec2collectionView:(UICollectionView *)collectionView selecteIndexPath:(NSIndexPath *)indexPath cell:(LWToolsCell *)cell {
+- (void)sec3collectionView:(UICollectionView *)collectionView selecteIndexPath:(NSIndexPath *)indexPath cell:(LWToolsCell *)cell {
     [collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
     cell.highlighted = YES;
     _sec2SelectedIndexPath = indexPath;

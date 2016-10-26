@@ -117,6 +117,9 @@
                                                 <state key="normal" image="draw_clear"/>
                                                 <state key="selected" image="draw_clear_press"/>
                                                 <state key="highlighted" image="draw_clear_press"/>
+                                                <connections>
+                                                    <action selector="resetDrawing" destination="xZQ-UW-W72" eventType="touchUpInside" id="Iah-6y-fTo"/>
+                                                </connections>
                                             </button>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O5f-Jf-Ls1" userLabel="Draw Bar" customClass="LWDrawBar">
                                                 <subviews>
@@ -716,7 +719,7 @@
         <image name="doodleButton" width="40" height="40"/>
         <image name="draw_clear" width="40" height="40"/>
         <image name="draw_clear_press" width="40" height="40"/>
-        <image name="empty" width="20" height="40"/>
+        <image name="empty" width="40" height="80"/>
         <image name="filter" width="44" height="44"/>
         <image name="flip" width="40" height="40"/>
         <image name="iconSelect" width="16" height="16"/>
