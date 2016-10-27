@@ -10,6 +10,8 @@
 #import "LWScrawlView.h"
 #import "MyExtensions.h"
 #import "LWDrawBar.h"
+#import "LWDrawView.h"
+#import "Categorys.h"
 
 @implementation LWScrawlView {
 
@@ -41,6 +43,7 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
     _freeInkLinewidth = 3.0;
     _freeInkColorIndex = 5;
     _tileImageIndex = 10000;    //[UIImage imageNamed:@"luowei"]
+    _tileImageUrl = nil;
 
 }
 
@@ -55,13 +58,14 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [super touchesBegan:touches withEvent:event];
 
-    if (self.drawType == Tile) {
+    if (self.drawType == EmojiTile || self.drawType == ImageTile) {
         //添加一个点
         LWInkLine *currentPath = [[LWInkLine alloc] init];
         currentPath.pointArr = [[NSMutableArray alloc] init];
         currentPath.colorIndex = self.freeInkColorIndex;
         currentPath.lineWidth = self.freeInkLinewidth;
         currentPath.tileImageIndex = self.tileImageIndex;
+        currentPath.tileImageUrl = self.tileImageUrl;
         currentPath.drawType = self.drawType;
         [_curves addObject:currentPath];
 
@@ -90,6 +94,7 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
             currentPath.colorIndex = self.freeInkColorIndex;
             currentPath.lineWidth = self.freeInkLinewidth;
             currentPath.tileImageIndex = self.tileImageIndex;
+            currentPath.tileImageUrl = self.tileImageUrl;
             currentPath.drawType = self.drawType;
             [_curves addObject:currentPath];
 
@@ -236,28 +241,40 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
                     break;
             }
         }
+
+        LWDrawView *drawView = [self superViewWithClass:[LWDrawView class]];
         //按点描绘底纹图
-        if (curve.count > 0 && path.drawType == Tile) {
+        if (curve.count > 0 && (path.drawType == EmojiTile || path.drawType == ImageTile)) {
             for (int i = 0; i < curve.count; i++) {
                 //移动到第i个点
                 CGPoint point = [curve[i] CGPointValue];
                 CGRect brushRect = [self tileBrushRectForPoint:point withPath:path];
-                __block UIImage *image = [UIImage imageNamed:@"luowei"];
-                NSString *imgName = Emoji_Items[path.tileImageIndex];
+                __block UIImage *tileImage = [UIImage imageNamed:@"luowei"];
+                NSString *name = Emoji_Items[path.tileImageIndex];
+                if(path.drawType == ImageTile){
+                    name = path.tileImageUrl.absoluteString;
+                }
 
                 if (path.tileImageIndex < 10000) {
                     //从缓存目录找,没有才去相册加载
                     SDImageCache *imageCache = [SDImageCache sharedImageCache];
-                    if([imageCache diskImageExistsWithKey:[NSString stringWithFormat:@"tile_%lf_%@",path.lineWidth,imgName] ]){
-                        image = [imageCache imageFromDiskCacheForKey:[NSString stringWithFormat:@"tile_%lf_%@",path.lineWidth,imgName]];
+                    if([imageCache diskImageExistsWithKey:[NSString stringWithFormat:@"tile_%lf_%@",path.lineWidth,name] ]){
+                        tileImage = [imageCache imageFromDiskCacheForKey:[NSString stringWithFormat:@"tile_%lf_%@",path.lineWidth,name]];
                     }else{
+                        if(path.drawType == ImageTile){
+                            CGFloat scale = [UIScreen mainScreen].scale;
+                            [drawView.drawBar.tileSelectorView.photoPicker pictureWithURL:path.tileImageUrl size:CGSizeMake(path.lineWidth*2 * scale,path.lineWidth*2 * scale) imageBlock:^(UIImage *image){
+                                tileImage = image;
+                            }];
+                        }else{
+                            tileImage = [name image:CGSizeMake(path.lineWidth*2,path.lineWidth*2)];
+                        }
                         dispatch_async(dispatch_get_main_queue(), ^() {
-                            image = [imgName image:CGSizeMake(path.lineWidth*2,path.lineWidth*2)];
-                            [[SDImageCache sharedImageCache] storeImage:image forKey:[NSString stringWithFormat:@"tile_%lf_%@",path.lineWidth,imgName] toDisk:YES];
+                            [[SDImageCache sharedImageCache] storeImage:tileImage forKey:[NSString stringWithFormat:@"tile_%lf_%@",path.lineWidth,name] toDisk:YES];
                         });
                     }
                 }
-                [image drawInRect:brushRect];
+                [tileImage drawInRect:brushRect];
             }
         }
 

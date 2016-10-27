@@ -24,6 +24,8 @@
 
 @property(nonatomic, assign) NSInteger tileImageIndex;
 
+@property(nonatomic, strong) NSURL *tileImageUrl;
+
 //画板重置
 -(IBAction) resetDrawing;
 

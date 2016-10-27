@@ -229,13 +229,13 @@
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="gCw-2Q-5Rz">
                                                             <size key="itemSize" width="80" height="80"/>
-                                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                            <size key="headerReferenceSize" width="80" height="80"/>
                                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                         </collectionViewFlowLayout>
                                                         <cells>
                                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TileCell" id="3aZ-eJ-n7r" customClass="LWTileCell">
-                                                                <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                                                                <rect key="frame" x="80" y="0.0" width="80" height="80"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                                     <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
@@ -255,6 +255,29 @@
                                                                 </connections>
                                                             </collectionViewCell>
                                                         </cells>
+                                                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TileHeader" id="cAR-hZ-NP8" customClass="LWTileHeader">
+                                                            <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <subviews>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YnN-YQ-mF4">
+                                                                    <state key="normal" image="TileBtn"/>
+                                                                    <state key="selected" image="TileBtn_Selected"/>
+                                                                    <state key="highlighted" image="TileBtn_Selected"/>
+                                                                    <connections>
+                                                                        <action selector="tileBtnAction" destination="cAR-hZ-NP8" eventType="touchUpInside" id="FEd-1s-2vd"/>
+                                                                    </connections>
+                                                                </button>
+                                                            </subviews>
+                                                            <constraints>
+                                                                <constraint firstItem="YnN-YQ-mF4" firstAttribute="top" secondItem="cAR-hZ-NP8" secondAttribute="top" id="2sw-IT-PwV"/>
+                                                                <constraint firstAttribute="trailing" secondItem="YnN-YQ-mF4" secondAttribute="trailing" id="O2s-G7-cUe"/>
+                                                                <constraint firstItem="YnN-YQ-mF4" firstAttribute="leading" secondItem="cAR-hZ-NP8" secondAttribute="leading" id="a0w-N4-UyI"/>
+                                                                <constraint firstAttribute="bottom" secondItem="YnN-YQ-mF4" secondAttribute="bottom" id="xOx-JT-ZkZ"/>
+                                                            </constraints>
+                                                            <connections>
+                                                                <outlet property="tileBtn" destination="YnN-YQ-mF4" id="I8T-ja-KrO"/>
+                                                            </connections>
+                                                        </collectionReusableView>
                                                     </collectionView>
                                                 </subviews>
                                                 <constraints>
@@ -279,7 +302,7 @@
                                                     <outlet property="colorSelectorView" destination="8AZ-z5-p6g" id="rVc-dO-GCF"/>
                                                     <outlet property="colorTipView" destination="nuu-0M-xbY" id="K41-nn-vlq"/>
                                                     <outlet property="drawToolsView" destination="UZg-fF-AAi" id="XLa-6U-Zd9"/>
-                                                    <outlet property="tileSelectorView" destination="UdI-Y3-p3M" id="LfW-4L-YSR"/>
+                                                    <outlet property="tileSelectorView" destination="UdI-Y3-p3M" id="ftd-tX-jkk"/>
                                                 </connections>
                                             </view>
                                         </subviews>
@@ -382,7 +405,7 @@
                                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 </collectionViewFlowLayout>
                                                 <view key="backgroundView" contentMode="scaleToFill" id="EHO-OT-vp8" userLabel="PlaceHolder View">
-                                                    <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <subviews>
                                                         <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HDe-ow-a7K" userLabel="Msg View">
@@ -774,6 +797,8 @@
     </scenes>
     <resources>
         <image name="Lambeau.jpg" width="1242" height="1656"/>
+        <image name="TileBtn" width="80" height="80"/>
+        <image name="TileBtn_Selected" width="80" height="80"/>
         <image name="albumButton" width="40" height="40"/>
         <image name="btnCancel" width="40" height="40"/>
         <image name="btnOK" width="40" height="40"/>

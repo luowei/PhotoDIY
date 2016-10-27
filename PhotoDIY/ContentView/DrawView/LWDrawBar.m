@@ -8,6 +8,7 @@
 #import "Categorys.h"
 #import "LWDrawView.h"
 #import "LWScrawlView.h"
+#import "SDImageCache.h"
 
 
 #pragma mark - LWDrawBar
@@ -276,7 +277,7 @@
                     break;
                 }
                 case 5: {    //纹底笔
-                    drawView.scrawlView.drawType = Tile;
+                    drawView.scrawlView.drawType = EmojiTile;
                     [self sec1collectionView:collectionView selectIndexPath:indexPath cell:cell];
                     drawView.drawBar.tileSelectorView.hidden = NO;
                     break;
@@ -451,7 +452,6 @@
     return cell;
 }
 
-
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 //    LWColorCell *cell = (LWColorCell *) [collectionView dequeueReusableCellWithReuseIdentifier:@"ColorCell" forIndexPath:indexPath];
 
@@ -494,33 +494,93 @@
 #pragma mark - LWTileImagesView (底纹图片选择面板)
 
 @implementation LWTileImagesView{
-
 }
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.delegate = self;
     self.dataSource = self;
+    _currentDrawType = EmojiTile;
+    _itemsData = Emoji_Items;
+
+//    [self registerClass:[LWTileHeader class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"TileHeader"];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return Emoji_Items.count;
+    return _itemsData.count;
 }
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     LWTileCell *cell = (LWTileCell *) [collectionView dequeueReusableCellWithReuseIdentifier:@"TileCell" forIndexPath:indexPath];
-    cell.imageView.image = [((NSString *) Emoji_Items[(NSUInteger) indexPath.item]) image:CGSizeMake(40 * 2,40 * 2)];
+    __block UIImage *tileImage = [UIImage imageNamed:@"luowei"];
+    if(_currentDrawType == EmojiTile){
+        tileImage = [((NSString *) _itemsData[(NSUInteger) indexPath.item]) image:CGSizeMake(40 * 2,40 * 2)];
+    }else{
+        NSURL *url = (NSURL *) _itemsData[(NSUInteger) indexPath.item];
+
+        //从缓存目录找,没有才去相册加载
+        SDImageCache *imageCache = [SDImageCache sharedImageCache];
+        if([imageCache diskImageExistsWithKey:[NSString stringWithFormat:@"%@_80",url.absoluteString] ]){
+            tileImage = [imageCache imageFromDiskCacheForKey:[NSString stringWithFormat:@"%@_80",url.absoluteString] ];
+        }else{
+            [self.photoPicker pictureWithURL:url size:CGSizeMake(40 * 2,40 * 2) imageBlock:^(UIImage *image){
+                dispatch_async(dispatch_get_main_queue(), ^() {
+                    tileImage = image;
+                    cell.imageView.image = tileImage;
+                    [[SDImageCache sharedImageCache] storeImage:image forKey:[NSString stringWithFormat:@"%@_80",url.absoluteString] toDisk:YES];
+                });
+            }];
+        }
+    }
+
+    cell.imageView.image = tileImage;
     return cell;
+}
+
+
+-(UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
+    if (kind == UICollectionElementKindSectionHeader) {
+        self.tileHeader = (LWTileHeader *) [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"TileHeader" forIndexPath:indexPath];
+        return self.tileHeader;
+
+    }
+    return nil;
 }
 
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     LWTileCell *cell = (LWTileCell *) [collectionView dequeueReusableCellWithReuseIdentifier:@"TileCell" forIndexPath:indexPath];
     LWDrawView *drawView = [self superViewWithClass:[LWDrawView class]];
-    drawView.scrawlView.tileImageIndex = indexPath.item;
-    drawView.drawBar.colorTipView.backgroundColor = [UIColor colorWithHexString:Color_Items[(NSUInteger) indexPath.item]];
+    drawView.scrawlView.drawType = _currentDrawType;
+    
+    switch (_currentDrawType) {
+        case EmojiTile:{
+            drawView.scrawlView.tileImageIndex = indexPath.item;
+            break;
+        }
+        case ImageTile:{
+            NSURL *url = (NSURL *) _itemsData[(NSUInteger) indexPath.item];
+            drawView.scrawlView.tileImageUrl = url;
+            break;
+        }
+        default:
+            break;
+    }
+    
     self.hidden = YES;
 }
+
+#pragma mark - PDPhotoPickerProtocol 实现
+
+- (void)allURLPicked:(NSArray *)urls {
+    self.itemsData = urls;
+    [self reloadData];
+}
+
+-(void)collectPhotoFailed{
+    //获取相册照片失败
+}
+
 
 @end
 
@@ -532,6 +592,38 @@
 
     self.imageView.layer.borderWidth = 1.0;
     self.imageView.layer.borderColor = [UIColor colorWithHexString:@"#A1A1A1"].CGColor;
+}
+
+@end
+
+@implementation LWTileHeader
+
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+
+    self.tileBtn.layer.borderWidth = 1.0;
+    self.tileBtn.layer.borderColor = [UIColor colorWithHexString:@"#A1A1A1"].CGColor;
+}
+
+- (IBAction)tileBtnAction {
+    LWTileImagesView * tileImagesView = [self superViewWithClass:[LWTileImagesView class]];
+    if(tileImagesView.currentDrawType == EmojiTile){
+        tileImagesView.currentDrawType = ImageTile;
+        if(!tileImagesView.photoPicker){
+            tileImagesView.photoPicker = [[PDPhotoLibPicker alloc] initWithDelegate:tileImagesView];
+        }
+        tileImagesView.photoPicker.delegate = tileImagesView;
+        [tileImagesView.photoPicker getAllPicturesURL];
+        [self.tileBtn setImage:[UIImage imageNamed:@"EmojiBtn"] forState:UIControlStateNormal];
+        [self.tileBtn setImage:[UIImage imageNamed:@"EmojiBtn_Selected"] forState:UIControlStateHighlighted];
+    }else{
+        tileImagesView.itemsData = Emoji_Items;
+        tileImagesView.currentDrawType = EmojiTile;
+        [tileImagesView reloadData];
+        [self.tileBtn setImage:[UIImage imageNamed:@"TileBtn"] forState:UIControlStateNormal];
+        [self.tileBtn setImage:[UIImage imageNamed:@"TileBtn_Selected"] forState:UIControlStateHighlighted];
+    }
 }
 
 @end

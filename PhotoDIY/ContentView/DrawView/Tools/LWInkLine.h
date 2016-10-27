@@ -16,7 +16,8 @@ typedef NS_OPTIONS(NSUInteger, DrawType) {
     Rectangle = 1 << 4,
     Oval = 1 << 5,
     Text = 1 << 6,
-    Tile = 1 << 7
+    EmojiTile = 1 << 7,
+    ImageTile = 1 << 8,
 };
 
 @interface LWInkLine : NSObject
@@ -29,4 +30,5 @@ typedef NS_OPTIONS(NSUInteger, DrawType) {
 
 
 @property(nonatomic, assign) NSInteger tileImageIndex;
+@property(nonatomic, strong) NSURL *tileImageUrl;
 @end
