@@ -14,7 +14,9 @@
 #import "Categorys.h"
 
 @implementation LWScrawlView {
-
+    CGFloat keyboardHeight;
+    BOOL keyboardIsShowing;
+    CGFloat originY;
     UIPanGestureRecognizer *_rec;
 }
 
@@ -44,8 +46,81 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
     _freeInkColorIndex = 5;
     _tileImageIndex = 10000;    //[UIImage imageNamed:@"luowei"]
     _tileImageUrl = nil;
+    _fontName = @"HelveticaNeue";
 
 }
+
+- (void)didMoveToSuperview {
+    [super didMoveToSuperview];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    originY = self.superview.frame.origin.y;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+
+#pragma mark - Keyboard Show/Dismiss
+
+- (void)keyboardWillShow:(NSNotification *)note {
+    CGRect keyboardBounds;
+    NSValue *aValue = [note.userInfo objectForKey:UIKeyboardFrameBeginUserInfoKey];
+
+    [aValue getValue:&keyboardBounds];
+    keyboardHeight = keyboardBounds.size.height;
+    if (!keyboardIsShowing) {
+        keyboardIsShowing = YES;
+        CGRect frame = self.superview.frame;
+        frame.origin.y -= keyboardHeight;
+        if(frame.origin.y < -280){
+            if( keyboardHeight > self.textConstraintY.constant){
+                frame.origin.y = - self.textConstraintY.constant;
+            }else{
+                frame.origin.y = - keyboardHeight;
+            }
+        }else{
+            if( keyboardHeight > self.textConstraintY.constant){
+                frame.origin.y = - self.textConstraintY.constant;
+            }else{
+                frame.origin.y = - keyboardHeight;
+            }
+        }
+
+        [UIView beginAnimations:nil context:NULL];
+        [UIView setAnimationBeginsFromCurrentState:YES];
+        [UIView setAnimationDuration:0.3f];
+        self.superview.frame = frame;
+        [UIView commitAnimations];
+    }
+}
+
+- (void)keyboardWillHide:(NSNotification *)note {
+    CGRect keyboardBounds;
+    NSValue *aValue = [note.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey];
+    [aValue getValue:&keyboardBounds];
+
+    keyboardHeight = keyboardBounds.size.height;
+    if (keyboardIsShowing) {
+        keyboardIsShowing = NO;
+        CGRect frame = self.superview.frame;
+        frame.origin.y += keyboardHeight;
+        if(frame.origin.y > 0 ){
+            frame.origin.y = originY;
+        }
+
+        [UIView beginAnimations:nil context:NULL];
+        [UIView setAnimationBeginsFromCurrentState:YES];
+        [UIView setAnimationDuration:0.3f];
+        self.superview.frame = frame;
+        [UIView commitAnimations];
+
+    }
+}
+
+
 
 //重置画板
 - (IBAction)resetDrawing {
@@ -58,7 +133,20 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [super touchesBegan:touches withEvent:event];
 
-    if (self.drawType == EmojiTile || self.drawType == ImageTile) {
+    CGPoint point = [[touches anyObject] locationInView:self];
+    CGSize scale = fitPageToScreen([UIScreen mainScreen].bounds.size, self.bounds.size);
+    point.x /= scale.width;
+    point.y /= scale.height;
+
+    //遍历_curves，查找当前触摸点是否在文字框内
+    for(LWInkLine *path in _curves){
+        BOOL isZeroRect = path.textRect.size.height == 0;
+        if(!isZeroRect && CGRectContainsPoint(path.textRect,point)){
+
+        }
+    }
+
+    if (self.drawType == EmojiTile || self.drawType == ImageTile || self.drawType == Text) {
         //添加一个点
         LWInkLine *currentPath = [[LWInkLine alloc] init];
         currentPath.pointArr = [[NSMutableArray alloc] init];
@@ -66,13 +154,41 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
         currentPath.lineWidth = self.freeInkLinewidth;
         currentPath.tileImageIndex = self.tileImageIndex;
         currentPath.tileImageUrl = self.tileImageUrl;
+        currentPath.fontName = self.fontName;
+        currentPath.text = @"";
+        currentPath.textRect = CGRectZero;
         currentPath.drawType = self.drawType;
         [_curves addObject:currentPath];
 
-        CGSize scale = fitPageToScreen([UIScreen mainScreen].bounds.size, self.bounds.size);
-        CGPoint point = [[touches anyObject] locationInView:self];
-        point.x /= scale.width;
-        point.y /= scale.height;
+        if (self.drawType == Text) {
+            UIColor *color = [UIColor colorWithHexString:Color_Items[(NSUInteger) currentPath.colorIndex]];
+            self.textView.textColor = color;
+            self.textView.text = currentPath.text;
+            self.textView.font = [UIFont fontWithName:currentPath.fontName size:currentPath.lineWidth * 5];
+            self.textView.layer.borderWidth = 1.0;
+            self.textView.layer.cornerRadius = currentPath.lineWidth * 2;
+            self.textView.layer.borderColor = color.CGColor;
+
+            //如果是编辑状态,则变为非编辑状态
+            if(self.textView.isFirstResponder){
+                self.textView.hidden = YES;
+                [self.textView resignFirstResponder];
+
+                currentPath.text = self.textView.text;
+                currentPath.textRect = self.textView.frame;
+                currentPath.fontName = self.textView.font.fontName;
+
+            }else{
+                self.textView.hidden = NO;
+                CGSize textVSize = self.textView.bounds.size;
+                self.textConstraintX.constant = point.x - textVSize.width;
+                self.textConstraintY.constant = point.y - textVSize.height;
+
+                [self.textView becomeFirstResponder];
+            }
+
+        }
+
         [currentPath.pointArr addObject:[NSValue valueWithCGPoint:point]];
 
         [self setNeedsDisplay];
@@ -106,6 +222,14 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
             LWInkLine *currentPath = [_curves lastObject];
             movePoint = [self getConvertedPoint:rec];
             [currentPath.pointArr addObject:[NSValue valueWithCGPoint:movePoint]];
+
+            //移动文本输入框
+            if(currentPath.drawType == Text && !self.textView.hidden){
+                CGSize textVSize = self.textView.bounds.size;
+                self.textConstraintX.constant = movePoint.x - textVSize.width;
+                self.textConstraintY.constant = movePoint.y - textVSize.height;
+            }
+
             [self setNeedsDisplay];
             break;
         }
@@ -115,6 +239,14 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
 
             endPoint = [self getConvertedPoint:rec];
             [currentPath.pointArr addObject:[NSValue valueWithCGPoint:endPoint]];
+
+            //移动文本输入框
+            if(currentPath.drawType == Text && !self.textView.hidden){
+                CGSize textVSize = self.textView.bounds.size;
+                self.textConstraintX.constant = endPoint.x - textVSize.width;
+                self.textConstraintY.constant = endPoint.y - textVSize.height;
+            }
+
             [self setNeedsDisplay];
             break;
         }
@@ -125,8 +257,8 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
 }
 
 - (CGPoint)getConvertedPoint:(UIPanGestureRecognizer *)recognizer {
-    CGSize scale = fitPageToScreen([UIScreen mainScreen].bounds.size, self.bounds.size);
     CGPoint point = [recognizer locationInView:self];
+    CGSize scale = fitPageToScreen([UIScreen mainScreen].bounds.size, self.bounds.size);
     point.x /= scale.width;
     point.y /= scale.height;
     return point;
@@ -208,7 +340,7 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
                     CGContextAddLineToPoint(cref, lastPt.x, lastPt.y);
                     CGFloat uX = (lastPt.x - pt.x) / fabs(lastPt.x - pt.x);
                     CGFloat uY = (lastPt.y - pt.y) / fabs(lastPt.y - pt.y);
-                    CGContextAddLineToPoint(cref, lastPt.x - 10 * uX, lastPt.y - 5 * uY);
+                    CGContextAddLineToPoint(cref, lastPt.x - 5 * uX, lastPt.y - 5 * uY);
                     //描边
                     CGContextStrokePath(cref);
                     break;
@@ -255,7 +387,7 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
                     name = path.tileImageUrl.absoluteString;
                 }
 
-                if (path.tileImageIndex < 10000) {
+                if (path.tileImageIndex < 5000) {
                     //从缓存目录找,没有才去相册加载
                     SDImageCache *imageCache = [SDImageCache sharedImageCache];
                     if([imageCache diskImageExistsWithKey:[NSString stringWithFormat:@"tile_%lf_%@",path.lineWidth,name] ]){

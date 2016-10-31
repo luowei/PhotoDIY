@@ -26,6 +26,12 @@
 
 @property(nonatomic, strong) NSURL *tileImageUrl;
 
+@property(nonatomic, copy) NSString *fontName;
+
+@property(nonatomic, weak) IBOutlet UITextView *textView;
+@property(nonatomic, weak) IBOutlet  NSLayoutConstraint *textConstraintX;
+@property(nonatomic, weak) IBOutlet  NSLayoutConstraint *textConstraintY;
+
 //画板重置
 -(IBAction) resetDrawing;
 

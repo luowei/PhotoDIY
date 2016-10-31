@@ -271,7 +271,9 @@
                     break;
                 }
                 case 4: {    //彩笔
-                    drawView.scrawlView.drawType = Hand;
+                    if(drawView.scrawlView.drawType != Text){
+                        drawView.scrawlView.drawType = Hand;
+                    }
                     drawView.drawBar.colorSelectorView.hidden = NO;
                     [self sec1collectionView:collectionView selectIndexPath:indexPath cell:cell];
                     break;

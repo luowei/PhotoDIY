@@ -15,7 +15,8 @@
 
 @end
 
-@implementation ViewController
+@implementation ViewController{
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -49,6 +50,8 @@
 }
 
 
+#pragma mark - IBAction
+
 - (IBAction)selPhotoAction:(id)sender {
     [self.contentView showPhotos];
 }
@@ -66,12 +69,11 @@
 }
 
 
-
 - (IBAction)saveAction:(id)sender {
     [self.contentView saveImage];
 }
 
-- (IBAction)recovery:(id)sender{
+- (IBAction)recovery:(id)sender {
     [self.contentView recovery];
 }
 
@@ -102,7 +104,7 @@
 @end
 
 
-@implementation LWToolBar{
+@implementation LWToolBar {
     CALayer *_topLine;
 }
 
