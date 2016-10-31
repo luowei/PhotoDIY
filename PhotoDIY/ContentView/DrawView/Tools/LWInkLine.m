@@ -15,6 +15,7 @@
     self = [super init];
     if (self) {
         _pointArr = [NSMutableArray array];
+        _isNew = YES;
     }
     return self;
 }

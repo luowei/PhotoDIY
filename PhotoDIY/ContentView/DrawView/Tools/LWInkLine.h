@@ -34,4 +34,7 @@ typedef NS_OPTIONS(NSUInteger, DrawType) {
 @property(nonatomic, copy) NSString *text;
 @property(nonatomic, copy) NSString *fontName;
 @property(nonatomic, assign) CGRect textRect;
+@property(nonatomic) BOOL isTextEditing;
+@property(nonatomic) BOOL isNew;
+
 @end
