@@ -280,8 +280,8 @@
                 }
                 case 5: {    //纹底笔
                     drawView.scrawlView.drawType = EmojiTile;
-                    [self sec1collectionView:collectionView selectIndexPath:indexPath cell:cell];
                     drawView.drawBar.tileSelectorView.hidden = NO;
+                    [self sec1collectionView:collectionView selectIndexPath:indexPath cell:cell];
                     break;
                 }
                 case 6: {    //橡皮
@@ -353,6 +353,7 @@
                 }
                 case 4: {   //文字
                     drawView.scrawlView.drawType = Text;
+                    drawView.drawBar.fontSelectorView.hidden = NO;
                     [self sec4collectionView:collectionView selectIndexPath:indexPath cell:cell];
                     break;
                 }
@@ -629,3 +630,90 @@
 }
 
 @end
+
+
+
+#pragma mark - LWFontSelectorView
+
+@implementation LWFontSelectorView
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    self.delegate = self;
+    self.dataSource = self;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return Font_Items.count;
+}
+
+- (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    LWFontCell *cell = (LWFontCell *) [collectionView dequeueReusableCellWithReuseIdentifier:@"FontCell" forIndexPath:indexPath];
+    CGFloat scale = [UIScreen mainScreen].scale;
+    CGSize cellImgSize = CGSizeMake(160 * scale, 80 * scale);
+    NSString *fontName = Font_Items[(NSUInteger) indexPath.item];
+
+    //从缓存目录找,没有才去生成
+    UIImage *image = [UIImage imageNamed:@"luowei"];
+    SDImageCache *imageCache = [SDImageCache sharedImageCache];
+    if([imageCache diskImageExistsWithKey:[NSString stringWithFormat:@"%@_160",fontName] ]){
+        image = [imageCache imageFromDiskCacheForKey:[NSString stringWithFormat:@"%@_160",fontName] ];
+    }else{
+        image = [self getFontImageWithSize:&cellImgSize fontName:fontName];
+        [[SDImageCache sharedImageCache] storeImage:image forKey:[NSString stringWithFormat:@"%@_160",fontName] toDisk:YES];
+    }
+    cell.imageView.image = image;
+
+    return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSString *fontName = Font_Items[(NSUInteger) indexPath.item];
+
+    LWDrawView *drawView = [self superViewWithClass:[LWDrawView class]];
+    drawView.scrawlView.fontName = fontName;
+    self.hidden = YES;
+}
+
+
+//根据字体获得指定大小的图片
+- (UIImage *)getFontImageWithSize:(CGSize *)cellImgSize fontName:(NSString *)fontName {
+//根据fontText,font以及cellImgSize,确定合适的fontSize,得到合适的文本矩形区attrTextRect
+    NSString *fontText = @"Abc你好";
+    CGFloat fontSize = 64;
+    NSDictionary *attributes = nil;
+    NSAttributedString *attrText = nil;
+    CGRect attrTextRect = CGRectMake(0, 0, (*cellImgSize).width, (*cellImgSize).height);
+    do {
+        fontSize -= 4;
+        attributes = @{NSFontAttributeName : [UIFont fontWithName:fontName size:fontSize],NSForegroundColorAttributeName : [UIColor blackColor],NSBackgroundColorAttributeName : [UIColor clearColor]};
+        attrText = [[NSAttributedString alloc] initWithString:fontText attributes:attributes];
+        attrTextRect = [attrText boundingRectWithSize:CGSizeMake(attrText.size.width, CGFLOAT_MAX)
+                                              options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading context:nil];
+    } while (fontSize > 30 && (attrTextRect.size.width > (*cellImgSize).width || attrTextRect.size.height > (*cellImgSize).height));
+
+    UIImage *textImg = [UIImage imageFromString:fontText attributes:attributes size:attrTextRect.size];
+    UIImage *colorImage = [UIImage imageFromColor:[UIColor whiteColor] withRect:CGRectMake(0, 0, (*cellImgSize).width, (*cellImgSize).height)];
+
+    //合并图片
+    CGRect logoFrame = CGRectMake((colorImage.size.width - textImg.size.width) / 2, (colorImage.size.height - textImg.size.height) / 2, textImg.size.width, textImg.size.height);
+    UIImage *combinedImg = [UIImage addImageToImage:colorImage withImage2:textImg andRect:logoFrame withImageSize:*cellImgSize];
+    return combinedImg;
+}
+
+
+@end
+
+
+@implementation LWFontCell
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+
+    self.imageView.layer.borderWidth = 1.0;
+    self.imageView.layer.borderColor = [UIColor colorWithHexString:@"#A1A1A1"].CGColor;
+}
+
+@end
+
+

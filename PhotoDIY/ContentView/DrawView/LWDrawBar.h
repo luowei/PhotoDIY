@@ -34,10 +34,25 @@
 
 #define Emoji_Items (@[@"❤", @"💛", @"💙", @"💜", @"💔", @"❣", @"💕", @"💞", @"💓", @"💗", @"💖", @"💘", @"💝", @"⌚", @"📱", @"📲", @"💻", @"📹", @"🎥", @"📽", @"🎞", @"📞", @"☎", @"🚕", @"🚙", @"🚌", @"🚎", @"🏎", @"🚄", @"✈", @"🏕", @"⛺", @"🏞", @"🏘", @"🏰", @"🏯", @"🏟", @"🗽", @"🏠", @"🏡", @"🏚", @"🏢", @"💒", @"🏛", @"⛪", @"🕌", @"🕍", @"🕋", @"⚽", @"🏀", @"🏈", @"⚾", @"🎾", @"🏐", @"🏉", @"🎱", @"⛳", @"🏌", @"🏓", @"🏸", @"🏒", @"🏑", @"🏏", @"🎿", @"🍏", @"🍎", @"🍐", @"🍊", @"🍋", @"🍌", @"🍉", @"🍇", @"🍓", @"🍈", @"🍒", @"🍑", @"🍍", @"🍅", @"🍆", @"🌶", @"🌽", @"🍠", @"🍺", @"🍻", @"🍷", @"🍸", @"🍹", @"🍾", @"🍶", @"🍵", @"☕", @"☕", @"🍦", @"🍰", @"🎂", @"🍮", @"🐶", @"🐱", @"🐭", @"🐹", @"🐰", @"🐻", @"🐼", @"🐨", @"🐯", @"🦁", @"🐮", @"🐷", @"🐽", @"🐸", @"🐙", @"🐵", @"🐒", @"🐔", @"🐧", @"🐺", @"🐗", @"🐴", @"🦄", @"🐝", @"🐛", @"🐌", @"🐞", @"🐜", @"🕷", @"🦂", @"🦀", @"🐍", @"🐢", @"🕊", @"🐕", @"🐩", @"🐈", @"🐇", @"🐿", @"🐾", @"🐉", @"🐲", @"🌵", @"🎄", @"🌲", @"🌳", @"🌴", @"🌱", @"🌿", @"🍀", @"🎍", @"🎋", @"🍃", @"🍂", @"🍁", @"🌾", @"🌺", @"🌻", @"🌹", @"🌷", @"🌼", @"🌸", @"💐", @"🍄", @"🌰", @"🎃", @"🐚", @"🐎",@"😀", @"😬", @"😁", @"😂", @"😃", @"😄", @"😅", @"😆", @"😇", @"😉", @"😊", @"🙂", @"🙃", @"☺", @"😋", @"😌", @"😍", @"😘", @"😗", @"😙", @"😚", @"😜", @"😝", @"😛", @"🤑", @"🤓", @"😎", @"🤗", @"😏", @"😶", @"😐", @"😑", @"😒", @"🙄", @"🤔", @"😳", @"😞", @"😟", @"😠", @"😡", @"😔", @"😕", @"🙁", @"☹", @"😣", @"😖", @"😫", @"😩", @"😤", @"😮", @"😱", @"😨", @"😰", @"😯", @"😦", @"😧", @"😢", @"😥", @"😪", @"😓", @"😭", @"😵", @"😲", @"🤐", @"😷", @"🤒", @"🤕", @"😴", @"🙌", @"👏", @"👋", @"👍", @"👊", @"✊", @"✌", @"👌", @"✋", @"💪", @"🙏", @"☝", @"👆", @"👇", @"👈", @"👉", @"🖕", @"🤘", @"🖖", @"✍", @"💅", @"👄", @"👅", @"👂", @"👃", @"👁", @"👀"])
 
+
+#define Font_Items @[@"HelveticaNeue",@"Helvetica",@"Helvetica-Bold",@"HelveticaNeue-CondensedBold",@"Helvetica-Light",\
+    @"HelveticaNeue-Thin",@"HelveticaNeue-UltraLight",@"HelveticaNeue-UltraLightItalic",@"HelveticaNeue-ThinItalic",\
+    @"MarkerFelt-Thin",@"MarkerFelt-Wide",@"Noteworthy-Light",@"Menlo-Regular",@"SavoyeLetPlain",\
+    @"SnellRoundhand-Bold",@"SnellRoundhand",@"Zapfino",@"Papyrus",@"Papyrus-Condensed",@"AvenirNextCondensed-UltraLight",\
+    @"Baskerville-Italic",@"BodoniOrnamentsITCTT",@"BradleyHandITCTT-Bold",@"ChalkboardSE-Light",@"Chalkduster",@"Courier",\
+    @"Cochin-Italic",@"Cochin-BoldItalic",@"DINCondensed-Bold",@"Damascus",@"STHeitiSC-Light",@"STHeitiSC-Medium",\
+    @"STHeitiTC-Light",@"STHeitiTC-Medium",@"HoeflerText-Italic",@"PingFang HK",@"PingFangHK-Ultralight",@"PingFangHK-Light",\
+    @"PingFangHK-Thin",@"PingFangHK-Regular",@"PingFangSC-Ultralight",@"PingFangSC-Light",@"PingFangSC-Thin",\
+    @"PingFangSC-Regular",@"PingFangSC-Medium",@"PingFang TC",@"PingFangTC-Ultralight",@"PingFangTC-Light",@"PingFangTC-Thin",\
+    @"PingFangTC-Regular",@"PingFangTC-Medium",@"PingFangTC-Semibold",@"TamilSangamMN",\
+    @"TrebuchetMS",@"Verdana",@"Verdana-BoldItalic",@"TrebuchetMS",@"GeezaPro"]
+
+
 @class LWDrawToolsView;
 @class LWColorSelectorView;
 @class LWTileHeader;
 @class LWTileImagesView;
+@class LWFontSelectorView;
 
 
 @interface LWDrawBar : UIView
@@ -47,6 +62,7 @@
 
 @property(nonatomic,weak) IBOutlet LWDrawToolsView *drawToolsView;
 @property(nonatomic,weak) IBOutlet LWColorSelectorView *colorSelectorView;
+@property(nonatomic,weak) IBOutlet LWFontSelectorView *fontSelectorView;
 
 @end
 
@@ -79,7 +95,7 @@
 @end
 
 
-#pragma mark - LWColorSelectorView
+#pragma mark - LWTileImagesView
 
 @interface LWTileImagesView : UICollectionView<UICollectionViewDelegate,UICollectionViewDataSource,PDPhotoPickerProtocol>
 
@@ -103,5 +119,20 @@
 @interface LWTileHeader : UICollectionReusableView
 
 @property(nonatomic,weak) IBOutlet UIButton *tileBtn;
+
+@end
+
+
+#pragma mark - LWFontSelectorView
+
+@interface LWFontSelectorView : UICollectionView<UICollectionViewDelegate,UICollectionViewDataSource>
+
+@end
+
+@interface LWFontCell:UICollectionViewCell
+
+@property(nonatomic,weak) IBOutlet UIImageView *imageView;
+
+@property(nonatomic,assign) NSString *fontName;
 
 @end

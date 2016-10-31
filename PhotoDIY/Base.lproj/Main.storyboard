@@ -97,7 +97,11 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dfJ-Xb-rco" userLabel="Scratch View" customClass="LWScratchView"/>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xZQ-UW-W72" userLabel="Scrawl View" customClass="LWScrawlView">
                                                 <subviews>
-                                                    <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mIy-SX-4Nq">
+                                                    <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="30" placeholderIntrinsicHeight="20" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mIy-SX-4Nq">
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="20" id="3Nx-Uo-cG0"/>
+                                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" priority="750" constant="30" id="XCa-eY-Gb9"/>
+                                                        </constraints>
                                                         <attributedString key="attributedText"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                     </textView>
@@ -294,18 +298,53 @@
                                                             </connections>
                                                         </collectionReusableView>
                                                     </collectionView>
+                                                    <collectionView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="MYX-ER-Vpp" customClass="LWFontSelectorView">
+                                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="WFh-DS-vB9">
+                                                            <size key="itemSize" width="160" height="80"/>
+                                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                        </collectionViewFlowLayout>
+                                                        <cells>
+                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FontCell" id="rdI-fl-Yod" customClass="LWFontCell">
+                                                                <rect key="frame" x="0.0" y="0.0" width="160" height="80"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="160" height="80"/>
+                                                                    <autoresizingMask key="autoresizingMask"/>
+                                                                    <subviews>
+                                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TUl-9Y-DcM"/>
+                                                                    </subviews>
+                                                                </view>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="trailing" secondItem="TUl-9Y-DcM" secondAttribute="trailing" id="V7C-Ga-8a8"/>
+                                                                    <constraint firstItem="TUl-9Y-DcM" firstAttribute="leading" secondItem="rdI-fl-Yod" secondAttribute="leading" id="V7p-s2-KAj"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="TUl-9Y-DcM" secondAttribute="bottom" id="cM8-Ti-IZE"/>
+                                                                    <constraint firstItem="TUl-9Y-DcM" firstAttribute="top" secondItem="rdI-fl-Yod" secondAttribute="top" id="g74-ez-A9c"/>
+                                                                </constraints>
+                                                                <connections>
+                                                                    <outlet property="imageView" destination="TUl-9Y-DcM" id="FoV-Be-DPZ"/>
+                                                                </connections>
+                                                            </collectionViewCell>
+                                                        </cells>
+                                                    </collectionView>
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstItem="nuu-0M-xbY" firstAttribute="top" secondItem="O5f-Jf-Ls1" secondAttribute="top" id="25W-JU-R2K"/>
                                                     <constraint firstItem="8AZ-z5-p6g" firstAttribute="leading" secondItem="O5f-Jf-Ls1" secondAttribute="leading" id="2Zu-77-2CT"/>
+                                                    <constraint firstAttribute="bottom" secondItem="MYX-ER-Vpp" secondAttribute="bottom" id="6qk-fd-GOT"/>
                                                     <constraint firstItem="8AZ-z5-p6g" firstAttribute="top" secondItem="O5f-Jf-Ls1" secondAttribute="top" id="71h-CL-YQZ"/>
                                                     <constraint firstAttribute="bottom" secondItem="UdI-Y3-p3M" secondAttribute="bottom" id="7Wf-6m-AgK"/>
                                                     <constraint firstAttribute="height" constant="80" id="9Vl-8G-fFH"/>
+                                                    <constraint firstAttribute="trailing" secondItem="MYX-ER-Vpp" secondAttribute="trailing" id="9f0-aF-aFP"/>
+                                                    <constraint firstItem="MYX-ER-Vpp" firstAttribute="leading" secondItem="O5f-Jf-Ls1" secondAttribute="leading" id="DMc-Su-Fl8"/>
                                                     <constraint firstAttribute="trailing" secondItem="UZg-fF-AAi" secondAttribute="trailing" id="J6A-0B-b4P"/>
                                                     <constraint firstItem="UZg-fF-AAi" firstAttribute="leading" secondItem="O5f-Jf-Ls1" secondAttribute="leading" id="KM3-xN-xod"/>
                                                     <constraint firstAttribute="bottom" secondItem="8AZ-z5-p6g" secondAttribute="bottom" id="Kum-kC-etU"/>
                                                     <constraint firstItem="UZg-fF-AAi" firstAttribute="top" secondItem="O5f-Jf-Ls1" secondAttribute="top" id="Miv-p8-Qk0"/>
                                                     <constraint firstAttribute="trailing" secondItem="8AZ-z5-p6g" secondAttribute="trailing" id="OTA-Y5-svw"/>
+                                                    <constraint firstItem="MYX-ER-Vpp" firstAttribute="top" secondItem="O5f-Jf-Ls1" secondAttribute="top" id="OkK-ti-pLH"/>
                                                     <constraint firstAttribute="trailing" secondItem="UdI-Y3-p3M" secondAttribute="trailing" id="WaU-ko-vbf"/>
                                                     <constraint firstAttribute="bottom" secondItem="UZg-fF-AAi" secondAttribute="bottom" id="ZZ4-DE-Tmw"/>
                                                     <constraint firstItem="UdI-Y3-p3M" firstAttribute="top" secondItem="O5f-Jf-Ls1" secondAttribute="top" id="ahi-SZ-P0f"/>
@@ -317,6 +356,7 @@
                                                     <outlet property="colorSelectorView" destination="8AZ-z5-p6g" id="rVc-dO-GCF"/>
                                                     <outlet property="colorTipView" destination="nuu-0M-xbY" id="K41-nn-vlq"/>
                                                     <outlet property="drawToolsView" destination="UZg-fF-AAi" id="XLa-6U-Zd9"/>
+                                                    <outlet property="fontSelectorView" destination="MYX-ER-Vpp" id="LUi-ta-RB3"/>
                                                     <outlet property="tileSelectorView" destination="UdI-Y3-p3M" id="ftd-tX-jkk"/>
                                                 </connections>
                                             </view>

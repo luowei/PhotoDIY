@@ -187,7 +187,7 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
             self.textView.text = _currentPath.text;
             self.textView.font = [UIFont fontWithName:_currentPath.fontName size:_currentPath.lineWidth * 5];
             self.textView.layer.borderWidth = 1.0;
-            self.textView.layer.cornerRadius = _currentPath.lineWidth * 2;
+            self.textView.layer.cornerRadius = _currentPath.lineWidth;
             self.textView.layer.borderColor = color.CGColor;
 
             //显示textView,并设置它的位置
@@ -435,7 +435,7 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
             CGRect textRect = path.textRect;
             if ((textContent != nil || textContent != @"") && textRect.size.height != 0 && !path.isTextEditing) {
                 NSMutableParagraphStyle *textStyle = [NSMutableParagraphStyle new];
-                textStyle.alignment = NSTextAlignmentCenter;
+                textStyle.alignment = NSTextAlignmentNatural;
 
                 NSDictionary *textFontAttributes = @{NSFontAttributeName: [UIFont fontWithName:path.fontName size:path.lineWidth * 5], NSForegroundColorAttributeName: color, NSParagraphStyleAttributeName: textStyle};
 
