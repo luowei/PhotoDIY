@@ -655,13 +655,15 @@
 
     //从缓存目录找,没有才去生成
     UIImage *image = [UIImage imageNamed:@"luowei"];
-    SDImageCache *imageCache = [SDImageCache sharedImageCache];
-    if([imageCache diskImageExistsWithKey:[NSString stringWithFormat:@"%@_160",fontName] ]){
-        image = [imageCache imageFromDiskCacheForKey:[NSString stringWithFormat:@"%@_160",fontName] ];
-    }else{
-        image = [self getFontImageWithSize:&cellImgSize fontName:fontName];
-        [[SDImageCache sharedImageCache] storeImage:image forKey:[NSString stringWithFormat:@"%@_160",fontName] toDisk:YES];
-    }
+//    SDImageCache *imageCache = [SDImageCache sharedImageCache];
+//    if([imageCache diskImageExistsWithKey:[NSString stringWithFormat:@"%@_160",fontName] ]){
+//        image = [imageCache imageFromDiskCacheForKey:[NSString stringWithFormat:@"%@_160",fontName] ];
+//    }else{
+//        image = [self getFontImageWithSize:&cellImgSize fontName:fontName];
+//        [[SDImageCache sharedImageCache] storeImage:image forKey:[NSString stringWithFormat:@"%@_160",fontName] toDisk:YES];
+//    }
+
+    image = [self getFontImageWithSize:cellImgSize fontName:fontName withIndexPath:indexPath];
     cell.imageView.image = image;
 
     return cell;
@@ -677,27 +679,30 @@
 
 
 //根据字体获得指定大小的图片
-- (UIImage *)getFontImageWithSize:(CGSize *)cellImgSize fontName:(NSString *)fontName {
+- (UIImage *)getFontImageWithSize:(CGSize)cellImgSize fontName:(NSString *)fontName withIndexPath:(NSIndexPath *)indexPath {
 //根据fontText,font以及cellImgSize,确定合适的fontSize,得到合适的文本矩形区attrTextRect
-    NSString *fontText = @"Abc你好";
+    NSString *fontText = @"你好世界";
+    if(indexPath.item > 19){
+        fontText = @"你好Abc";
+    }
     CGFloat fontSize = 64;
     NSDictionary *attributes = nil;
     NSAttributedString *attrText = nil;
-    CGRect attrTextRect = CGRectMake(0, 0, (*cellImgSize).width, (*cellImgSize).height);
+    CGRect attrTextRect = CGRectMake(0, 0, cellImgSize.width, cellImgSize.height);
     do {
         fontSize -= 4;
         attributes = @{NSFontAttributeName : [UIFont fontWithName:fontName size:fontSize],NSForegroundColorAttributeName : [UIColor blackColor],NSBackgroundColorAttributeName : [UIColor clearColor]};
         attrText = [[NSAttributedString alloc] initWithString:fontText attributes:attributes];
         attrTextRect = [attrText boundingRectWithSize:CGSizeMake(attrText.size.width, CGFLOAT_MAX)
                                               options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading context:nil];
-    } while (fontSize > 30 && (attrTextRect.size.width > (*cellImgSize).width || attrTextRect.size.height > (*cellImgSize).height));
+    } while (fontSize > 30 && (attrTextRect.size.width > cellImgSize.width || attrTextRect.size.height > cellImgSize.height));
 
     UIImage *textImg = [UIImage imageFromString:fontText attributes:attributes size:attrTextRect.size];
-    UIImage *colorImage = [UIImage imageFromColor:[UIColor whiteColor] withRect:CGRectMake(0, 0, (*cellImgSize).width, (*cellImgSize).height)];
+    UIImage *colorImage = [UIImage imageFromColor:[UIColor whiteColor] withRect:CGRectMake(0, 0, cellImgSize.width, cellImgSize.height)];
 
     //合并图片
     CGRect logoFrame = CGRectMake((colorImage.size.width - textImg.size.width) / 2, (colorImage.size.height - textImg.size.height) / 2, textImg.size.width, textImg.size.height);
-    UIImage *combinedImg = [UIImage addImageToImage:colorImage withImage2:textImg andRect:logoFrame withImageSize:*cellImgSize];
+    UIImage *combinedImg = [UIImage addImageToImage:colorImage withImage2:textImg andRect:logoFrame withImageSize:cellImgSize];
     return combinedImg;
 }
 

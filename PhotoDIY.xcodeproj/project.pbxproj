@@ -21,6 +21,15 @@
 		EA27A9BA1DAB338300B1264C /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA27A9B91DAB338300B1264C /* StoreKit.framework */; };
 		EA27A9BE1DAB932F00B1264C /* StoreObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = EA27A9BD1DAB932F00B1264C /* StoreObserver.m */; };
 		EA27A9C11DAB952F00B1264C /* StoreManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EA27A9C01DAB952F00B1264C /* StoreManager.m */; };
+		EA3A63431DC8580400989C0D /* 默陌信笺手写体.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA3A633B1DC8580400989C0D /* 默陌信笺手写体.ttf */; };
+		EA3A63441DC8580400989C0D /* 华文行楷.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA3A633C1DC8580400989C0D /* 华文行楷.ttf */; };
+		EA3A63461DC8580400989C0D /* 华文隶书.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA3A633E1DC8580400989C0D /* 华文隶书.ttf */; };
+		EA3A63471DC8580400989C0D /* 华文楷体.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA3A633F1DC8580400989C0D /* 华文楷体.ttf */; };
+		EA3A63481DC8580400989C0D /* 华文琥珀.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA3A63401DC8580400989C0D /* 华文琥珀.ttf */; };
+		EA3A63491DC8580400989C0D /* 华文彩云.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA3A63411DC8580400989C0D /* 华文彩云.ttf */; };
+		EA3A634D1DC85ABC00989C0D /* 钟齐流江硬笔草体.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA3A634A1DC85ABC00989C0D /* 钟齐流江硬笔草体.ttf */; };
+		EA3A634F1DC85ABC00989C0D /* 书体坊于右任标准草书.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA3A634C1DC85ABC00989C0D /* 书体坊于右任标准草书.ttf */; };
+		EA3A63511DC86A9000989C0D /* 方正细圆简体.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA3A63501DC86A9000989C0D /* 方正细圆简体.ttf */; };
 		EA6F611B1D2B566900827523 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA6F611D1D2B566900827523 /* InfoPlist.strings */; };
 		EA6F611F1D2B567100827523 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA6F61211D2B567100827523 /* Localizable.strings */; };
 		EA6F61251D2B5A4500827523 /* LWDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6F61241D2B5A4500827523 /* LWDataManager.m */; };
@@ -71,6 +80,15 @@
 		EA27A9BD1DAB932F00B1264C /* StoreObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreObserver.m; sourceTree = "<group>"; };
 		EA27A9BF1DAB952F00B1264C /* StoreManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreManager.h; sourceTree = "<group>"; };
 		EA27A9C01DAB952F00B1264C /* StoreManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreManager.m; sourceTree = "<group>"; };
+		EA3A633B1DC8580400989C0D /* 默陌信笺手写体.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "默陌信笺手写体.ttf"; sourceTree = "<group>"; };
+		EA3A633C1DC8580400989C0D /* 华文行楷.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "华文行楷.ttf"; sourceTree = "<group>"; };
+		EA3A633E1DC8580400989C0D /* 华文隶书.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "华文隶书.ttf"; sourceTree = "<group>"; };
+		EA3A633F1DC8580400989C0D /* 华文楷体.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "华文楷体.ttf"; sourceTree = "<group>"; };
+		EA3A63401DC8580400989C0D /* 华文琥珀.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "华文琥珀.ttf"; sourceTree = "<group>"; };
+		EA3A63411DC8580400989C0D /* 华文彩云.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "华文彩云.ttf"; sourceTree = "<group>"; };
+		EA3A634A1DC85ABC00989C0D /* 钟齐流江硬笔草体.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "钟齐流江硬笔草体.ttf"; sourceTree = "<group>"; };
+		EA3A634C1DC85ABC00989C0D /* 书体坊于右任标准草书.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "书体坊于右任标准草书.ttf"; sourceTree = "<group>"; };
+		EA3A63501DC86A9000989C0D /* 方正细圆简体.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "方正细圆简体.ttf"; sourceTree = "<group>"; };
 		EA6F611C1D2B566900827523 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EA6F611E1D2B566C00827523 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EA6F61201D2B567100827523 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -243,6 +261,22 @@
 			path = DataManager;
 			sourceTree = "<group>";
 		};
+		BEF06FE007777591F4403915 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				EA3A63501DC86A9000989C0D /* 方正细圆简体.ttf */,
+				EA3A634A1DC85ABC00989C0D /* 钟齐流江硬笔草体.ttf */,
+				EA3A634C1DC85ABC00989C0D /* 书体坊于右任标准草书.ttf */,
+				EA3A633B1DC8580400989C0D /* 默陌信笺手写体.ttf */,
+				EA3A633C1DC8580400989C0D /* 华文行楷.ttf */,
+				EA3A633E1DC8580400989C0D /* 华文隶书.ttf */,
+				EA3A633F1DC8580400989C0D /* 华文楷体.ttf */,
+				EA3A63401DC8580400989C0D /* 华文琥珀.ttf */,
+				EA3A63411DC8580400989C0D /* 华文彩云.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		D3C4F9F4B69BA8AACD84BAC6 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -290,6 +324,7 @@
 				EAB292F71D2A701F004D5EED /* Categorys.h */,
 				EAB292F81D2A701F004D5EED /* Categorys.m */,
 				BEF06B5F8E3BE5417F2B1162 /* Utils */,
+				BEF06FE007777591F4403915 /* Fonts */,
 			);
 			path = PhotoDIY;
 			sourceTree = "<group>";
@@ -403,9 +438,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				EAB292D01D2A16C4004D5EED /* LaunchScreen.storyboard in Resources */,
+				EA3A63441DC8580400989C0D /* 华文行楷.ttf in Resources */,
 				EA6F611F1D2B567100827523 /* Localizable.strings in Resources */,
 				EAB292CD1D2A16C4004D5EED /* Assets.xcassets in Resources */,
 				EA1C04721D4B218100290495 /* Lambeau.jpg in Resources */,
+				EA3A63511DC86A9000989C0D /* 方正细圆简体.ttf in Resources */,
+				EA3A63471DC8580400989C0D /* 华文楷体.ttf in Resources */,
+				EA3A634F1DC85ABC00989C0D /* 书体坊于右任标准草书.ttf in Resources */,
+				EA3A634D1DC85ABC00989C0D /* 钟齐流江硬笔草体.ttf in Resources */,
+				EA3A63461DC8580400989C0D /* 华文隶书.ttf in Resources */,
+				EA3A63491DC8580400989C0D /* 华文彩云.ttf in Resources */,
+				EA3A63481DC8580400989C0D /* 华文琥珀.ttf in Resources */,
+				EA3A63431DC8580400989C0D /* 默陌信笺手写体.ttf in Resources */,
 				EAB292CB1D2A16C4004D5EED /* Main.storyboard in Resources */,
 				EA6F611B1D2B566900827523 /* InfoPlist.strings in Resources */,
 			);

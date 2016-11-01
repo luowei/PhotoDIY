@@ -35,17 +35,22 @@
 #define Emoji_Items (@[@"❤", @"💛", @"💙", @"💜", @"💔", @"❣", @"💕", @"💞", @"💓", @"💗", @"💖", @"💘", @"💝", @"⌚", @"📱", @"📲", @"💻", @"📹", @"🎥", @"📽", @"🎞", @"📞", @"☎", @"🚕", @"🚙", @"🚌", @"🚎", @"🏎", @"🚄", @"✈", @"🏕", @"⛺", @"🏞", @"🏘", @"🏰", @"🏯", @"🏟", @"🗽", @"🏠", @"🏡", @"🏚", @"🏢", @"💒", @"🏛", @"⛪", @"🕌", @"🕍", @"🕋", @"⚽", @"🏀", @"🏈", @"⚾", @"🎾", @"🏐", @"🏉", @"🎱", @"⛳", @"🏌", @"🏓", @"🏸", @"🏒", @"🏑", @"🏏", @"🎿", @"🍏", @"🍎", @"🍐", @"🍊", @"🍋", @"🍌", @"🍉", @"🍇", @"🍓", @"🍈", @"🍒", @"🍑", @"🍍", @"🍅", @"🍆", @"🌶", @"🌽", @"🍠", @"🍺", @"🍻", @"🍷", @"🍸", @"🍹", @"🍾", @"🍶", @"🍵", @"☕", @"☕", @"🍦", @"🍰", @"🎂", @"🍮", @"🐶", @"🐱", @"🐭", @"🐹", @"🐰", @"🐻", @"🐼", @"🐨", @"🐯", @"🦁", @"🐮", @"🐷", @"🐽", @"🐸", @"🐙", @"🐵", @"🐒", @"🐔", @"🐧", @"🐺", @"🐗", @"🐴", @"🦄", @"🐝", @"🐛", @"🐌", @"🐞", @"🐜", @"🕷", @"🦂", @"🦀", @"🐍", @"🐢", @"🕊", @"🐕", @"🐩", @"🐈", @"🐇", @"🐿", @"🐾", @"🐉", @"🐲", @"🌵", @"🎄", @"🌲", @"🌳", @"🌴", @"🌱", @"🌿", @"🍀", @"🎍", @"🎋", @"🍃", @"🍂", @"🍁", @"🌾", @"🌺", @"🌻", @"🌹", @"🌷", @"🌼", @"🌸", @"💐", @"🍄", @"🌰", @"🎃", @"🐚", @"🐎",@"😀", @"😬", @"😁", @"😂", @"😃", @"😄", @"😅", @"😆", @"😇", @"😉", @"😊", @"🙂", @"🙃", @"☺", @"😋", @"😌", @"😍", @"😘", @"😗", @"😙", @"😚", @"😜", @"😝", @"😛", @"🤑", @"🤓", @"😎", @"🤗", @"😏", @"😶", @"😐", @"😑", @"😒", @"🙄", @"🤔", @"😳", @"😞", @"😟", @"😠", @"😡", @"😔", @"😕", @"🙁", @"☹", @"😣", @"😖", @"😫", @"😩", @"😤", @"😮", @"😱", @"😨", @"😰", @"😯", @"😦", @"😧", @"😢", @"😥", @"😪", @"😓", @"😭", @"😵", @"😲", @"🤐", @"😷", @"🤒", @"🤕", @"😴", @"🙌", @"👏", @"👋", @"👍", @"👊", @"✊", @"✌", @"👌", @"✋", @"💪", @"🙏", @"☝", @"👆", @"👇", @"👈", @"👉", @"🖕", @"🤘", @"🖖", @"✍", @"💅", @"👄", @"👅", @"👂", @"👃", @"👁", @"👀"])
 
 
-#define Font_Items @[@"HelveticaNeue",@"Helvetica",@"Helvetica-Bold",@"HelveticaNeue-CondensedBold",@"Helvetica-Light",\
-    @"HelveticaNeue-Thin",@"HelveticaNeue-UltraLight",@"HelveticaNeue-UltraLightItalic",@"HelveticaNeue-ThinItalic",\
+#define Font_Items @[@"STHeitiSC-Medium",@"Heiti TC",@"PingFangSC-Ultralight",@"PingFangSC-Thin",@"PingFangSC-Light",\
+    @"PingFangSC-Regular",@"PingFangSC-Medium",@"PingFangTC-Light",@"PingFangTC-Regular",@"PingFangTC-Medium", \
+    @"Heiti SC",@"STXingkai",@"STKaiti",@"STHupo",@"FZY1JW--GB1-0",\
+    @"STCaiyun",@"STLiti",@"momo_xinjian",@"LiuJiang-Cao-1.0",@"SCFYYREN",\
+    \
+    @"HelveticaNeue",@"Helvetica",@"Helvetica-Bold",@"HelveticaNeue-CondensedBold",@"HelveticaNeue-Thin",\
+    @"HelveticaNeue-UltraLight",@"HelveticaNeue-UltraLightItalic",@"HelveticaNeue-ThinItalic",@"Verdana",@"Verdana-BoldItalic",\
+    \
+    @"SnellRoundhand-Bold",@"SnellRoundhand",@"ChalkboardSE-Light",@"Chalkduster",@"Cochin-Italic",\
+    @"Cochin-BoldItalic",@"Papyrus",@"Papyrus-Condensed",@"Damascus",@"HoeflerText-Italic",\
+    \
+    @"AvenirNextCondensed-UltraLight",@"Baskerville-Italic",@"BodoniOrnamentsITCTT",@"BradleyHandITCTT-Bold",@"TamilSangamMN",\
+    @"TrebuchetMS",@"TrebuchetMS",@"GeezaPro",@"Courier",@"Zapfino",\
     @"MarkerFelt-Thin",@"MarkerFelt-Wide",@"Noteworthy-Light",@"Menlo-Regular",@"SavoyeLetPlain",\
-    @"SnellRoundhand-Bold",@"SnellRoundhand",@"Zapfino",@"Papyrus",@"Papyrus-Condensed",@"AvenirNextCondensed-UltraLight",\
-    @"Baskerville-Italic",@"BodoniOrnamentsITCTT",@"BradleyHandITCTT-Bold",@"ChalkboardSE-Light",@"Chalkduster",@"Courier",\
-    @"Cochin-Italic",@"Cochin-BoldItalic",@"DINCondensed-Bold",@"Damascus",@"STHeitiSC-Light",@"STHeitiSC-Medium",\
-    @"STHeitiTC-Light",@"STHeitiTC-Medium",@"HoeflerText-Italic",@"PingFang HK",@"PingFangHK-Ultralight",@"PingFangHK-Light",\
-    @"PingFangHK-Thin",@"PingFangHK-Regular",@"PingFangSC-Ultralight",@"PingFangSC-Light",@"PingFangSC-Thin",\
-    @"PingFangSC-Regular",@"PingFangSC-Medium",@"PingFang TC",@"PingFangTC-Ultralight",@"PingFangTC-Light",@"PingFangTC-Thin",\
-    @"PingFangTC-Regular",@"PingFangTC-Medium",@"PingFangTC-Semibold",@"TamilSangamMN",\
-    @"TrebuchetMS",@"Verdana",@"Verdana-BoldItalic",@"TrebuchetMS",@"GeezaPro"]
+    @"DINCondensed-Bold"\
+    ]
 
 
 @class LWDrawToolsView;

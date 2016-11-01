@@ -30,6 +30,18 @@
 	<string></string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string></string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>华文隶书.ttf</string>
+		<string>华文彩云.ttf</string>
+		<string>华文楷体.ttf</string>
+		<string>默陌信笺手写体.ttf</string>
+		<string>华文琥珀.ttf</string>
+		<string>钟齐流江硬笔草体.ttf</string>
+		<string>书体坊于右任标准草书.ttf</string>
+		<string>华文行楷.ttf</string>
+		<string>方正细圆简体.ttf</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
