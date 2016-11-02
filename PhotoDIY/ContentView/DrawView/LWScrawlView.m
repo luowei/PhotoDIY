@@ -458,66 +458,58 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
     CGFloat p1y = p1.y;
     CGFloat p2x = p2.x;
     CGFloat p2y = p2.y;
-    CGFloat detaX = (CGFloat) fabs(p2x - p1x);
-    CGFloat detaY = (CGFloat) fabs(p2y - p1y);
-    //原点
-    CGFloat origin_x = p1.x;
-    CGFloat origin_y = p1.y;
-    //旋转角度
-    CGFloat angle = (CGFloat) atan2(p2y - p1y, p2x - p1x);
 
+    //旋转角度
+    CGFloat angle = (CGFloat) (atan2(p2y - p1y, p2x - p1x) * 180/M_PI);
 
 
     //// Variable Declarations
-    CGFloat lineP0x = p1x - origin_x;
-    CGFloat lineP0y = p1y - origin_y;
-    CGFloat lineP1x = p1x - origin_x;
-    CGFloat lineP1y = (CGFloat) (p1y - lineWidth / 10.0 - origin_y);
-    CGFloat lineP2x = p1x + 1 - origin_x;
-    CGFloat lineP2y = (CGFloat) (p1y - lineWidth / 5.0 - origin_y);
-    CGFloat lineP3x = p2x - origin_x;
-    CGFloat lineP3y = (CGFloat) (p2y - lineWidth / 2.0 - origin_y);
-    CGFloat lineP4x = p2x - origin_x;
-    CGFloat lineP4y = (CGFloat) (p2y + lineWidth / 2.0 - origin_y);
-    CGFloat lineP5x = p1x + 1 - origin_x;
-    CGFloat lineP5y = (CGFloat) (p1y + lineWidth / 5.0 - origin_y);
-    CGFloat lineP6x = p1x - origin_x;
-    CGFloat lineP6y = (CGFloat) (p1y + lineWidth / 10.0 - origin_y);
-
-    CGFloat arrowP0x = p2x - origin_x;
-    CGFloat arrowP0y = p2y - origin_y;
-    CGFloat arrowP1x = p2x - origin_x + lineWidth;
-    CGFloat arrowP1y = p2y - origin_y;
-    CGFloat arrowP2x = (CGFloat) (p2x - origin_x - lineWidth * cos(60 * M_PI / 180));
-    CGFloat arrowP2y = (CGFloat) (p2y - origin_y - lineWidth * sin(60 * M_PI / 180));
-    CGFloat arrowP3x = (CGFloat) (p2x - origin_x - lineWidth * cos(-60 * M_PI / 180));
-    CGFloat arrowP3y = (CGFloat) (p2y - origin_y - lineWidth * sin(-60 * M_PI / 180));
-
+    CGFloat arrowP0x = (CGFloat) fabs(p2x - p1x);
+    CGFloat lineP3x = (CGFloat) fabs(p2x - p1x);
+    CGFloat lineP4x = (CGFloat) fabs(p2x - p1x);
+//    CGFloat angle = p2x - p1x > 0 ? atan2(p2y - p1y, p2x - p1x) * 180/M_PI : 180 + atan2(p2y - p1y, p2x - p1x) * 180/M_PI;
+    CGFloat arrowP1x = (CGFloat) (arrowP0x + lineWidth * 3 / 2.0);
+    CGFloat arrowP2x = (CGFloat) (arrowP0x - lineWidth * 3 / 2.0 * cos(60 * M_PI/180));
+    CGFloat arrowP2y = (CGFloat) (-lineWidth * 3 / 2.0 * sin(60 * M_PI/180));
+    CGFloat arrowP3x = (CGFloat) (arrowP0x - lineWidth * 3 / 2.0 * cos(60 * M_PI/180));
+    CGFloat arrowP3y = (CGFloat) (lineWidth * 3 / 2.0 * sin(60 * M_PI/180));
+    CGFloat lineP1y = (CGFloat) (-lineWidth / 10.0);
+    CGFloat lineP2y = (CGFloat) (-lineWidth / 5.0);
+    CGFloat lineP3y = (CGFloat) (-lineWidth / 2.0);
+    CGFloat lineP4y = (CGFloat) (lineWidth / 2.0);
+    CGFloat lineP5y = (CGFloat) (lineWidth / 5.0);
+    CGFloat lineP6y = (CGFloat) (lineWidth / 10.0);
+    CGFloat arrowP0y = 0;
+    CGFloat arrowP1y = 0;
+    CGFloat lineP0x = 0;
+    CGFloat lineP0y = 0;
+    CGFloat lineP1x = 0;
+    CGFloat lineP2x = 1;
+    CGFloat lineP5x = 1;
+    CGFloat lineP6x = 0;
 
     //// line_arrow
     {
         CGContextSaveGState(context);
         CGContextTranslateCTM(context, p1x, p1y);
-        CGContextRotateCTM(context, angle);
+        CGContextRotateCTM(context, (CGFloat) (angle * M_PI / 180));
 
         CGContextSetShadowWithColor(context, shadow.shadowOffset, shadow.shadowBlurRadius, [shadow.shadowColor CGColor]);
         CGContextBeginTransparencyLayer(context, NULL);
-        
-        
+
 
         //// Line Drawing
         CGContextSaveGState(context);
-        CGContextRotateCTM(context, -angle);
 
-        UIBezierPath *linePath = [UIBezierPath bezierPath];
-        [linePath moveToPoint:CGPointMake(lineP1x, lineP1y)];
-        [linePath addLineToPoint:CGPointMake(lineP2x, lineP2y)];
-        [linePath addLineToPoint:CGPointMake(lineP3x, lineP3y)];
-        [linePath addLineToPoint:CGPointMake(lineP4x, lineP4y)];
-        [linePath addLineToPoint:CGPointMake(lineP5x, lineP5y)];
-        [linePath addLineToPoint:CGPointMake(lineP6x, lineP6y)];
-        [linePath addLineToPoint:CGPointMake(lineP0x, lineP0y)];
-        [linePath addLineToPoint:CGPointMake(lineP1x, lineP1y)];
+        UIBezierPath* linePath = [UIBezierPath bezierPath];
+        [linePath moveToPoint: CGPointMake(lineP1x, lineP1y)];
+        [linePath addLineToPoint: CGPointMake(lineP2x, lineP2y)];
+        [linePath addLineToPoint: CGPointMake(lineP3x, lineP3y)];
+        [linePath addLineToPoint: CGPointMake(lineP4x, lineP4y)];
+        [linePath addLineToPoint: CGPointMake(lineP5x, lineP5y)];
+        [linePath addLineToPoint: CGPointMake(lineP6x, lineP6y)];
+        [linePath addLineToPoint: CGPointMake(lineP0x, lineP0y)];
+        [linePath addLineToPoint: CGPointMake(lineP1x, lineP1y)];
         [linePath closePath];
         linePath.lineJoinStyle = kCGLineJoinRound;
 
@@ -528,33 +520,32 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
         [linePath stroke];
 
         CGContextRestoreGState(context);
-        
-        
+
+
         //// Arrow Drawing
         CGContextSaveGState(context);
-        //CGContextTranslateCTM(context, -0, -0);
-        CGContextRotateCTM(context, 0);
-        
-        UIBezierPath *arrowPath = [UIBezierPath bezierPath];
-        [arrowPath moveToPoint:CGPointMake(arrowP1x, arrowP1y)];
-        [arrowPath addLineToPoint:CGPointMake(arrowP2x, arrowP2y)];
-        [arrowPath addLineToPoint:CGPointMake(arrowP0x, arrowP0y)];
-        [arrowPath addLineToPoint:CGPointMake(arrowP3x, arrowP3y)];
-        [arrowPath addLineToPoint:CGPointMake(arrowP1x, arrowP1y)];
+        CGContextTranslateCTM(context, -0, -0);
+
+        UIBezierPath* arrowPath = [UIBezierPath bezierPath];
+        [arrowPath moveToPoint: CGPointMake(arrowP1x, arrowP1y)];
+        [arrowPath addLineToPoint: CGPointMake(arrowP2x, arrowP2y)];
+        [arrowPath addLineToPoint: CGPointMake(arrowP0x, arrowP0y)];
+        [arrowPath addLineToPoint: CGPointMake(arrowP3x, arrowP3y)];
+        [arrowPath addLineToPoint: CGPointMake(arrowP1x, arrowP1y)];
         [arrowPath closePath];
         arrowPath.lineJoinStyle = kCGLineJoinRound;
-        
+
         [color setFill];
         [arrowPath fill];
         [color setStroke];
         arrowPath.lineWidth = 1;
         [arrowPath stroke];
-        
+
         CGContextRestoreGState(context);
 
-        
 
         CGContextEndTransparencyLayer(context);
+
         CGContextRestoreGState(context);
     }
 }
