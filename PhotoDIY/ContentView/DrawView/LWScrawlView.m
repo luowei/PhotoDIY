@@ -145,7 +145,7 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
     }
 
     //如果是绘制文字
-    if( self.drawType == Text) {
+    if (self.drawType == Text) {
         //添加一个path
         if (_currentPath == nil && self.textView.hidden) {
             _currentPath = [[LWInkLine alloc] init];
@@ -166,12 +166,12 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
             LWInkLine *editingPath = nil;
             //遍历_curves，找出正在编辑的path
             for (LWInkLine *path in _curves) {
-                if(path.isTextEditing){
+                if (path.isTextEditing) {
                     editingPath = path;
                 }
             }
             //设置当前编辑的Path
-            if(editingPath != nil){
+            if (editingPath != nil) {
                 editingPath.isTextEditing = NO;
                 editingPath.text = self.textView.text;
                 editingPath.textRect = self.textView.frame;
@@ -194,11 +194,11 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
             self.textView.hidden = NO;
             _currentPath.isTextEditing = YES;
 
-            if(_currentPath.isNew){
+            if (_currentPath.isNew) {
                 CGSize textVSize = self.textView.bounds.size;
                 self.textConstraintX.constant = point.x - textVSize.width;
                 self.textConstraintY.constant = point.y - textVSize.height;
-            }else{
+            } else {
                 self.textConstraintX.constant = _currentPath.textRect.origin.x;
                 self.textConstraintY.constant = _currentPath.textRect.origin.y;
             }
@@ -207,8 +207,8 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
         }
         [self setNeedsDisplay];
 
-    //如果是绘制纹底
-    }else if (self.drawType == EmojiTile || self.drawType == ImageTile) {
+        //如果是绘制纹底
+    } else if (self.drawType == EmojiTile || self.drawType == ImageTile) {
         //添加一个点
         _currentPath = [[LWInkLine alloc] init];
         _currentPath.pointArr = [[NSMutableArray alloc] init];
@@ -312,7 +312,6 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
                 CGContextSetLineCap(ctx, kCGLineCapRound);
                 //设置清除颜色
                 CGContextSetBlendMode(ctx, kCGBlendModeClear);
-                CGContextSetLineWidth(ctx, 20);
             } else {
                 CGContextSetBlendMode(ctx, kCGBlendModeNormal);
             }
@@ -354,16 +353,9 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
                 case LineArrow: {
                     //画笔移到第一个点的位置
                     CGPoint pt = [curve.firstObject CGPointValue];
-                    CGContextBeginPath(ctx);
-                    CGContextMoveToPoint(ctx, pt.x, pt.y);
                     //画一条线到第二个点
                     CGPoint lastPt = [curve.lastObject CGPointValue];
-                    CGContextAddLineToPoint(ctx, lastPt.x, lastPt.y);
-                    CGFloat uX = (lastPt.x - pt.x) / fabs(lastPt.x - pt.x);
-                    CGFloat uY = (lastPt.y - pt.y) / fabs(lastPt.y - pt.y);
-                    CGContextAddLineToPoint(ctx, lastPt.x - 5 * uX, lastPt.y - 5 * uY);
-                    //描边
-                    CGContextStrokePath(ctx);
+                    [self drawLineArrowFromPoint1:pt toPoint2:lastPt withColor:color andLineWidth:path.lineWidth];
                     break;
                 }
                 case Rectangle: {
@@ -430,7 +422,7 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
                 [tileImage drawInRect:brushRect];
             }
 
-        }else if( path.drawType == Text && !path.isTextEditing){  //绘制文字
+        } else if (path.drawType == Text && !path.isTextEditing) {  //绘制文字
             NSString *textContent = path.text;
             CGRect textRect = path.textRect;
             if ((textContent != nil || textContent != @"") && textRect.size.height != 0 && !path.isTextEditing) {
@@ -449,6 +441,122 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
 
     }
 
+}
+
+
+- (void)drawLineArrowFromPoint1:(CGPoint)p1 toPoint2:(CGPoint)p2 withColor:(UIColor *)color andLineWidth:(CGFloat)lineWidth {
+    //// General Declarations
+    CGContextRef context = UIGraphicsGetCurrentContext();
+
+    //// Shadow Declarations
+    NSShadow *shadow = [[NSShadow alloc] init];
+    [shadow setShadowColor:[UIColor.blackColor colorWithAlphaComponent:0.6]];
+    [shadow setShadowOffset:CGSizeMake(1.1, 1.1)];
+    [shadow setShadowBlurRadius:2];
+
+    CGFloat p1x = p1.x;
+    CGFloat p1y = p1.y;
+    CGFloat p2x = p2.x;
+    CGFloat p2y = p2.y;
+    CGFloat detaX = (CGFloat) fabs(p2x - p1x);
+    CGFloat detaY = (CGFloat) fabs(p2y - p1y);
+    //原点
+    CGFloat origin_x = p1.x;
+    CGFloat origin_y = p1.y;
+    //旋转角度
+    CGFloat angle = (CGFloat) atan2(p2y - p1y, p2x - p1x);
+
+
+
+    //// Variable Declarations
+    CGFloat lineP0x = p1x - origin_x;
+    CGFloat lineP0y = p1y - origin_y;
+    CGFloat lineP1x = p1x - origin_x;
+    CGFloat lineP1y = (CGFloat) (p1y - lineWidth / 10.0 - origin_y);
+    CGFloat lineP2x = p1x + 1 - origin_x;
+    CGFloat lineP2y = (CGFloat) (p1y - lineWidth / 5.0 - origin_y);
+    CGFloat lineP3x = p2x - origin_x;
+    CGFloat lineP3y = (CGFloat) (p2y - lineWidth / 2.0 - origin_y);
+    CGFloat lineP4x = p2x - origin_x;
+    CGFloat lineP4y = (CGFloat) (p2y + lineWidth / 2.0 - origin_y);
+    CGFloat lineP5x = p1x + 1 - origin_x;
+    CGFloat lineP5y = (CGFloat) (p1y + lineWidth / 5.0 - origin_y);
+    CGFloat lineP6x = p1x - origin_x;
+    CGFloat lineP6y = (CGFloat) (p1y + lineWidth / 10.0 - origin_y);
+
+    CGFloat arrowP0x = p2x - origin_x;
+    CGFloat arrowP0y = p2y - origin_y;
+    CGFloat arrowP1x = p2x - origin_x + lineWidth;
+    CGFloat arrowP1y = p2y - origin_y;
+    CGFloat arrowP2x = (CGFloat) (p2x - origin_x - lineWidth * cos(60 * M_PI / 180));
+    CGFloat arrowP2y = (CGFloat) (p2y - origin_y - lineWidth * sin(60 * M_PI / 180));
+    CGFloat arrowP3x = (CGFloat) (p2x - origin_x - lineWidth * cos(-60 * M_PI / 180));
+    CGFloat arrowP3y = (CGFloat) (p2y - origin_y - lineWidth * sin(-60 * M_PI / 180));
+
+
+    //// line_arrow
+    {
+        CGContextSaveGState(context);
+        CGContextTranslateCTM(context, p1x, p1y);
+        CGContextRotateCTM(context, angle);
+
+        CGContextSetShadowWithColor(context, shadow.shadowOffset, shadow.shadowBlurRadius, [shadow.shadowColor CGColor]);
+        CGContextBeginTransparencyLayer(context, NULL);
+        
+        
+
+        //// Line Drawing
+        CGContextSaveGState(context);
+        CGContextRotateCTM(context, -angle);
+
+        UIBezierPath *linePath = [UIBezierPath bezierPath];
+        [linePath moveToPoint:CGPointMake(lineP1x, lineP1y)];
+        [linePath addLineToPoint:CGPointMake(lineP2x, lineP2y)];
+        [linePath addLineToPoint:CGPointMake(lineP3x, lineP3y)];
+        [linePath addLineToPoint:CGPointMake(lineP4x, lineP4y)];
+        [linePath addLineToPoint:CGPointMake(lineP5x, lineP5y)];
+        [linePath addLineToPoint:CGPointMake(lineP6x, lineP6y)];
+        [linePath addLineToPoint:CGPointMake(lineP0x, lineP0y)];
+        [linePath addLineToPoint:CGPointMake(lineP1x, lineP1y)];
+        [linePath closePath];
+        linePath.lineJoinStyle = kCGLineJoinRound;
+
+        [color setFill];
+        [linePath fill];
+        [color setStroke];
+        linePath.lineWidth = 1;
+        [linePath stroke];
+
+        CGContextRestoreGState(context);
+        
+        
+        //// Arrow Drawing
+        CGContextSaveGState(context);
+        //CGContextTranslateCTM(context, -0, -0);
+        CGContextRotateCTM(context, 0);
+        
+        UIBezierPath *arrowPath = [UIBezierPath bezierPath];
+        [arrowPath moveToPoint:CGPointMake(arrowP1x, arrowP1y)];
+        [arrowPath addLineToPoint:CGPointMake(arrowP2x, arrowP2y)];
+        [arrowPath addLineToPoint:CGPointMake(arrowP0x, arrowP0y)];
+        [arrowPath addLineToPoint:CGPointMake(arrowP3x, arrowP3y)];
+        [arrowPath addLineToPoint:CGPointMake(arrowP1x, arrowP1y)];
+        [arrowPath closePath];
+        arrowPath.lineJoinStyle = kCGLineJoinRound;
+        
+        [color setFill];
+        [arrowPath fill];
+        [color setStroke];
+        arrowPath.lineWidth = 1;
+        [arrowPath stroke];
+        
+        CGContextRestoreGState(context);
+
+        
+
+        CGContextEndTransparencyLayer(context);
+        CGContextRestoreGState(context);
+    }
 }
 
 
