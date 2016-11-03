@@ -458,27 +458,27 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
     CGFloat p1y = p1.y;
     CGFloat p2x = p2.x;
     CGFloat p2y = p2.y;
+    lineWidth = lineWidth > 0 ? lineWidth : 0;
 
     //旋转角度
     CGFloat angle = (CGFloat) (atan2(p2y - p1y, p2x - p1x) * 180/M_PI);
 
 
     //// Variable Declarations
-    CGFloat arrowP0x = (CGFloat) fabs(p2x - p1x);
-    CGFloat lineP3x = (CGFloat) fabs(p2x - p1x);
-    CGFloat lineP4x = (CGFloat) fabs(p2x - p1x);
-//    CGFloat angle = p2x - p1x > 0 ? atan2(p2y - p1y, p2x - p1x) * 180/M_PI : 180 + atan2(p2y - p1y, p2x - p1x) * 180/M_PI;
+    CGFloat arrowP0x = (CGFloat) fabs(sqrt((p2x - p1x) * (p2x - p1x) + (p2y - p1y) * (p2y - p1y)));
+    CGFloat lineP3x = (CGFloat) fabs(sqrt((p2x - p1x) * (p2x - p1x) + (p2y - p1y) * (p2y - p1y)));
+    CGFloat lineP4x = (CGFloat) fabs(sqrt((p2x - p1x) * (p2x - p1x) + (p2y - p1y) * (p2y - p1y)));
     CGFloat arrowP1x = (CGFloat) (arrowP0x + lineWidth * 3 / 2.0);
     CGFloat arrowP2x = (CGFloat) (arrowP0x - lineWidth * 3 / 2.0 * cos(60 * M_PI/180));
     CGFloat arrowP2y = (CGFloat) (-lineWidth * 3 / 2.0 * sin(60 * M_PI/180));
     CGFloat arrowP3x = (CGFloat) (arrowP0x - lineWidth * 3 / 2.0 * cos(60 * M_PI/180));
     CGFloat arrowP3y = (CGFloat) (lineWidth * 3 / 2.0 * sin(60 * M_PI/180));
-    CGFloat lineP1y = (CGFloat) (-lineWidth / 10.0);
-    CGFloat lineP2y = (CGFloat) (-lineWidth / 5.0);
+    CGFloat lineP1y = (CGFloat) (fabs(lineWidth / 10.0) > 1 ? -1 : -lineWidth / 10.0);
+    CGFloat lineP2y = (CGFloat) (fabs(lineWidth / 5.0) > 2 ? -2 : -lineWidth / 5.0);
     CGFloat lineP3y = (CGFloat) (-lineWidth / 2.0);
     CGFloat lineP4y = (CGFloat) (lineWidth / 2.0);
-    CGFloat lineP5y = (CGFloat) (lineWidth / 5.0);
-    CGFloat lineP6y = (CGFloat) (lineWidth / 10.0);
+    CGFloat lineP5y = (CGFloat) (fabs(lineWidth / 5.0) > 2 ? 2 : lineWidth / 5.0);
+    CGFloat lineP6y = (CGFloat) (fabs(lineWidth / 10.0) > 1 ? 1 : lineWidth / 10.0);
     CGFloat arrowP0y = 0;
     CGFloat arrowP1y = 0;
     CGFloat lineP0x = 0;
