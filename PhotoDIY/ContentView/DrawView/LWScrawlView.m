@@ -287,10 +287,6 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
 
 }
 
-- (CGRect)tileBrushRectForPoint:(CGPoint)point withPath:(LWDrafter *)path {
-    CGSize burshSize = CGSizeMake(path.lineWidth * 4, path.lineWidth * 4);
-    return CGRectMake(point.x - burshSize.width / 2, point.y - burshSize.height / 2, burshSize.width, burshSize.height);
-}
 
 - (void)drawRect:(CGRect)rect {
     CGContextRef ctx = UIGraphicsGetCurrentContext();
@@ -357,7 +353,9 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
             for (int i = 0; i < points.count; i++) {
                 //移动到第i个点
                 CGPoint point = [points[i] CGPointValue];
-                CGRect brushRect = [self tileBrushRectForPoint:point withPath:drafter];
+                CGRect brushRect = CGRectMake(point.x - drafter.burshSize.width / 2, point.y - drafter.burshSize.height / 2, drafter.burshSize.width, drafter.burshSize.height);
+
+                //获得tileImage
                 __block UIImage *tileImage = [UIImage imageNamed:@"luowei"];
                 NSString *name = Emoji_Items[(NSUInteger) drafter.tileImageIndex];
                 if (drafter.drawType == ImageTile) {
@@ -383,6 +381,8 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
                         });
                     }
                 }
+
+                //绘制tileImage
                 [tileImage drawInRect:brushRect];
             }
 
@@ -450,7 +450,7 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
 }
 
 //画文字
-- (void)drawTextWithDrafter:(LWDrafter *)drafter{
+- (void)drawTextWithDrafter:(LWDrafter *)drafter {
     //// General Declarations
     CGContextRef context = UIGraphicsGetCurrentContext();
 
@@ -490,6 +490,39 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
 
     CGContextRestoreGState(context);
 }
+
+//画图片
+- (void)drawImageWithFrame:(CGRect)imageFrame andDrafter:(LWDrafter *)drafter{
+    //// General Declarations
+    CGContextRef context = UIGraphicsGetCurrentContext();
+
+
+    //// Declarations
+    UIImage *image = [UIImage imageNamed:@"luowei"];
+
+    //// Variable Declarations
+    CGPoint center = CGPointMake((CGFloat) (imageFrame.origin.x + imageFrame.size.width / 2.0), (CGFloat) (imageFrame.origin.y + imageFrame.size.height / 2.0));
+    CGPoint offset = CGPointMake((CGFloat) (-imageFrame.size.width / 2.0), (CGFloat) (-imageFrame.size.height / 2.0));
+
+    //获得角度
+    NSString *key = [NSString stringWithFormat:@"%f,%f",center.x,center.y];
+    CGFloat angle = (CGFloat) [drafter.rotateAngleDict[key] doubleValue];
+
+    //// img Drawing
+    CGContextSaveGState(context);
+    CGContextTranslateCTM(context, center.x, center.y);
+    CGContextRotateCTM(context, (CGFloat) (-angle * M_PI / 180));
+
+    CGRect imgRect = CGRectMake(offset.x, offset.y, imageFrame.size.width, imageFrame.size.height);
+    UIBezierPath *imgPath = [UIBezierPath bezierPathWithRect:imgRect];
+    CGContextSaveGState(context);
+    [imgPath addClip];
+    [image drawInRect:imgRect];
+    CGContextRestoreGState(context);
+
+    CGContextRestoreGState(context);
+}
+
 
 //画箭头
 - (void)drawLineArrowFromPoint1:(CGPoint)p1 toPoint2:(CGPoint)p2 withDrafter:(LWDrafter *)drafter {

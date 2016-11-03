@@ -23,6 +23,7 @@ typedef NS_OPTIONS(NSUInteger, DrawType) {
 @interface LWDrafter : NSObject
 
 @property (nonatomic, strong) NSMutableArray *pointArr;
+
 @property (nonatomic, assign) NSInteger colorIndex;
 @property (nonatomic, assign) CGFloat lineWidth;
 
@@ -38,9 +39,12 @@ typedef NS_OPTIONS(NSUInteger, DrawType) {
 @property(nonatomic) BOOL isNew;
 
 @property(nonatomic) CGFloat rotateAngle;
+//EmojiTile/ImageTile
+@property (nonatomic, strong) NSMutableDictionary<NSString *,NSNumber *> *rotateAngleDict; //{"x,y":"45"}
 
 @property(nonatomic, strong) NSShadow *shadow;
 
 -(UIColor *)color;
+-(CGSize)burshSize;
 
 @end

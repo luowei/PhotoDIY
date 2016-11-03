@@ -24,11 +24,6 @@
     return self;
 }
 
-- (UIColor *)color {
-    return [UIColor colorWithHexString:Color_Items[(NSUInteger) _colorIndex]];
-}
-
-
 -(NSShadow *)shadow {
     if(!_shadow){
         UIColor *shadowColor = self.color.isLight ? [UIColor.blackColor colorWithAlphaComponent:0.6] : [UIColor.whiteColor colorWithAlphaComponent:0.6];
@@ -39,5 +34,15 @@
     }
     return _shadow;
 }
+
+
+- (UIColor *)color {
+    return [UIColor colorWithHexString:Color_Items[(NSUInteger) _colorIndex]];
+}
+
+-(CGSize)burshSize{
+    return CGSizeMake(_lineWidth * 4, _lineWidth * 4);
+}
+
 
 @end
