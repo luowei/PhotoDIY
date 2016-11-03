@@ -14,6 +14,9 @@
 + (UIColor *)colorWithHexString:(NSString *)hexString;
 + (CGFloat) colorComponentFrom: (NSString *) string start: (NSUInteger) start length: (NSUInteger) length;
 
+-(UIColor*) inverseColor;
+-(BOOL)isLight;
+
 @end
 
 @interface UIImage(Color)

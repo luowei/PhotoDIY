@@ -57,6 +57,18 @@
     return (CGFloat) (hexComponent / 255.0);
 }
 
+- (UIColor *)inverseColor {
+    CGFloat r, g, b, a;
+    [self getRed:&r green:&g blue:&b alpha:&a];
+    return [UIColor colorWithRed:(CGFloat) (1.0 - r) green:(CGFloat) (1.0 - g) blue:(CGFloat) (1.0 - b) alpha:a];
+}
+
+-(BOOL)isLight{
+    const CGFloat *components = CGColorGetComponents(self.CGColor);
+    CGFloat brightness = ((components[0] * 299) + (components[1] * 587) + (components[2] * 114)) / 1000;
+    return brightness >= 0.5;
+}
+
 @end
 
 
@@ -128,7 +140,7 @@
 @end
 
 
-@implementation UIImage(String)
+@implementation UIImage (String)
 
 //把字符串依据指定的字体属性及大小转换成图片
 + (UIImage *)imageFromString:(NSString *)string attributes:(NSDictionary *)attributes size:(CGSize)size {
@@ -226,16 +238,16 @@
 @end
 
 
-@implementation NSString(UIImage)
+@implementation NSString (UIImage)
 
--(UIImage *)image:(CGSize)size{
-    UIGraphicsBeginImageContextWithOptions(size,NO,0);
+- (UIImage *)image:(CGSize)size {
+    UIGraphicsBeginImageContextWithOptions(size, NO, 0);
     [[UIColor clearColor] set];
-    UIRectFill(CGRectMake(0,0,size.width,size.height));
-    [self drawInRect:CGRectMake(0,0,size.width,size.height) withAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:(CGFloat) floor(size.width * 0.9)]}];
+    UIRectFill(CGRectMake(0, 0, size.width, size.height));
+    [self drawInRect:CGRectMake(0, 0, size.width, size.height) withAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:(CGFloat) floor(size.width * 0.9)]}];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-    return  image;
+    return image;
 }
 
 

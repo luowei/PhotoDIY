@@ -36,3 +36,8 @@
 -(IBAction) resetDrawing;
 
 @end
+
+@interface LWScratchTextView : UITextView
+
+
+@end

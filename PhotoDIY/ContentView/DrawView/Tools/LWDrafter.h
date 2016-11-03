@@ -37,6 +37,10 @@ typedef NS_OPTIONS(NSUInteger, DrawType) {
 @property(nonatomic) BOOL isTextEditing;
 @property(nonatomic) BOOL isNew;
 
+@property(nonatomic) CGFloat rotateAngle;
+
+@property(nonatomic, strong) NSShadow *shadow;
+
 -(UIColor *)color;
 
 @end

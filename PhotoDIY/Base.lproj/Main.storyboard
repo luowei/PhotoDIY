@@ -97,7 +97,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dfJ-Xb-rco" userLabel="Scratch View" customClass="LWScratchView"/>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xZQ-UW-W72" userLabel="Scrawl View" customClass="LWScrawlView">
                                                 <subviews>
-                                                    <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="30" placeholderIntrinsicHeight="20" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mIy-SX-4Nq">
+                                                    <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="30" placeholderIntrinsicHeight="20" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mIy-SX-4Nq" customClass="LWScratchTextView">
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="20" id="3Nx-Uo-cG0"/>
                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" priority="750" constant="30" id="XCa-eY-Gb9"/>
@@ -832,7 +832,7 @@
                     <toolbarItems/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="480"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="0LN-IN-gSp">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="0LN-IN-gSp">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
