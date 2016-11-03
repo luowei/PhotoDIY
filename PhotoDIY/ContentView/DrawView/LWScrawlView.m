@@ -134,9 +134,9 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
 
     CGPoint point = [[touches anyObject] locationInView:self];
 
-    LWInkLine *_currentPath = nil;
+    LWDrafter *_currentPath = nil;
     //遍历_curves，查找当前触摸点是否在文字框内
-    for (LWInkLine *path in _curves) {
+    for (LWDrafter *path in _curves) {
         BOOL isZeroRect = path.textRect.size.height == 0;
         if (!isZeroRect && CGRectContainsPoint(path.textRect, point) && self.drawType == Text) {
             _currentPath = path;
@@ -148,7 +148,7 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
     if (self.drawType == Text) {
         //添加一个path
         if (_currentPath == nil && self.textView.hidden) {
-            _currentPath = [[LWInkLine alloc] init];
+            _currentPath = [[LWDrafter alloc] init];
             _currentPath.text = @"";
             _currentPath.textRect = CGRectZero;
             _currentPath.pointArr = [[NSMutableArray alloc] init];
@@ -163,9 +163,9 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
         //如果是显示的就是在编辑状态,则变为非编辑状态
         if (!self.textView.hidden) {
 
-            LWInkLine *editingPath = nil;
+            LWDrafter *editingPath = nil;
             //遍历_curves，找出正在编辑的path
-            for (LWInkLine *path in _curves) {
+            for (LWDrafter *path in _curves) {
                 if (path.isTextEditing) {
                     editingPath = path;
                 }
@@ -210,7 +210,7 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
         //如果是绘制纹底
     } else if (self.drawType == EmojiTile || self.drawType == ImageTile) {
         //添加一个点
-        _currentPath = [[LWInkLine alloc] init];
+        _currentPath = [[LWDrafter alloc] init];
         _currentPath.pointArr = [[NSMutableArray alloc] init];
         _currentPath.colorIndex = self.freeInkColorIndex;
         _currentPath.lineWidth = self.freeInkLinewidth;
@@ -236,7 +236,7 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
 
     switch (rec.state) {
         case UIGestureRecognizerStateBegan: {
-            LWInkLine *currentPath = [[LWInkLine alloc] init];
+            LWDrafter *currentPath = [[LWDrafter alloc] init];
             currentPath.pointArr = [[NSMutableArray alloc] init];
             currentPath.colorIndex = self.freeInkColorIndex;
             currentPath.lineWidth = self.freeInkLinewidth;
@@ -250,7 +250,7 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
             break;
         }
         case UIGestureRecognizerStateChanged: {
-            LWInkLine *currentPath = [_curves lastObject];
+            LWDrafter *currentPath = [_curves lastObject];
             movePoint = [rec locationInView:self];
             [currentPath.pointArr addObject:[NSValue valueWithCGPoint:movePoint]];
 
@@ -265,7 +265,7 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
             break;
         }
         case UIGestureRecognizerStateEnded: {
-            LWInkLine *currentPath = [_curves lastObject];
+            LWDrafter *currentPath = [_curves lastObject];
             currentPath.drawType = self.drawType;
 
             endPoint = [rec locationInView:self];
@@ -287,7 +287,7 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
 
 }
 
-- (CGRect)tileBrushRectForPoint:(CGPoint)point withPath:(LWInkLine *)path {
+- (CGRect)tileBrushRectForPoint:(CGPoint)point withPath:(LWDrafter *)path {
     CGSize burshSize = CGSizeMake(path.lineWidth * 4, path.lineWidth * 4);
     return CGRectMake(point.x - burshSize.width / 2, point.y - burshSize.height / 2, burshSize.width, burshSize.height);
 }
@@ -296,18 +296,17 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
     CGContextRef ctx = UIGraphicsGetCurrentContext();
 
     //遍历每一条路径
-    for (LWInkLine *path in _curves) {
+    for (LWDrafter *drafter in _curves) {
         //设置颜色与线宽
-        UIColor *color = [UIColor colorWithHexString:Color_Items[(NSUInteger) path.colorIndex]];
-        [color set];
-        CGContextSetLineWidth(ctx, path.lineWidth);
+        [drafter.color set];
+        CGContextSetLineWidth(ctx, drafter.lineWidth);
 
         //检查路径中的点
-        NSArray *curve = path.pointArr;
-        if (curve.count >= 2) {
+        NSArray *points = drafter.pointArr;
+        if (points.count >= 2) {
 
             //如果是橡皮擦
-            if (path.drawType == Erase) {
+            if (drafter.drawType == Erase) {
                 //设置为圆头
                 CGContextSetLineCap(ctx, kCGLineCapRound);
                 //设置清除颜色
@@ -316,70 +315,35 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
                 CGContextSetBlendMode(ctx, kCGBlendModeNormal);
             }
 
-            switch (path.drawType) {
+            switch (drafter.drawType) {
                 case Hand:
                 case Erase: {
-                    //画笔移到第一个点的位置
-                    CGPoint pt = [curve[0] CGPointValue];
-                    CGContextBeginPath(ctx);
-                    CGContextMoveToPoint(ctx, pt.x, pt.y);
-
-                    CGPoint lastPt = pt;    //设置为上一个点
-                    //CGContextSetStrokeColorWithColor(ctx, color.CGColor);
-                    for (int i = 1; i < curve.count; i++) {
-                        //移动到第i个点
-                        pt = [curve[i] CGPointValue];
-                        CGContextAddQuadCurveToPoint(ctx, lastPt.x, lastPt.y, (pt.x + lastPt.x) / 2, (pt.y + lastPt.y) / 2);
-                        lastPt = pt;
-                    }
-                    //添加一条线连接到最后一个点
-                    CGContextAddLineToPoint(ctx, pt.x, pt.y);
-                    //描边
-                    CGContextStrokePath(ctx);
+                    [self drawCurveWithPoits:points withDrawer:drafter];
                     break;
                 }
                 case Line: {
-                    //画笔移到第一个点的位置
-                    CGPoint pt = [curve.firstObject CGPointValue];
-                    CGContextBeginPath(ctx);
-                    CGContextMoveToPoint(ctx, pt.x, pt.y);
-                    //画一条线到第二个点
-                    CGPoint lastPt = [curve.lastObject CGPointValue];
-                    CGContextAddLineToPoint(ctx, lastPt.x, lastPt.y);
-                    //描边
-                    CGContextStrokePath(ctx);
+                    CGPoint pt = [points.firstObject CGPointValue];
+                    CGPoint lastPt = [points.lastObject CGPointValue];
+                    [self drawLineFromPoint1:pt toPoint2:lastPt withDrawer:drafter];
                     break;
                 }
                 case LineArrow: {
-                    //画笔移到第一个点的位置
-                    CGPoint pt = [curve.firstObject CGPointValue];
-                    //画一条线到第二个点
-                    CGPoint lastPt = [curve.lastObject CGPointValue];
-                    [self drawLineArrowFromPoint1:pt toPoint2:lastPt withColor:color andLineWidth:path.lineWidth];
+                    CGPoint pt = [points.firstObject CGPointValue];
+                    CGPoint lastPt = [points.lastObject CGPointValue];
+                    [self drawLineArrowFromPoint1:pt toPoint2:lastPt withDrawer:drafter];
                     break;
                 }
                 case Rectangle: {
-                    //画笔移到第一个点的位置
-                    CGPoint pt = [curve.firstObject CGPointValue];
-                    CGContextBeginPath(ctx);
-                    CGContextMoveToPoint(ctx, pt.x, pt.y);
-                    //画矩形到第二个点
-                    CGPoint lastPt = [curve.lastObject CGPointValue];
-                    CGContextAddRect(ctx, CGRectMake(MIN(pt.x, lastPt.x), MIN(pt.y, lastPt.y), (CGFloat) fabs(pt.x - lastPt.x), (CGFloat) fabs(pt.y - lastPt.y)));
-                    //描边
-                    CGContextStrokePath(ctx);
+                    CGPoint pt = [points.firstObject CGPointValue];
+                    CGPoint lastPt = [points.lastObject CGPointValue];
+                    [self drawRectangleFromPoint1:pt toPoint2:lastPt withDrawer:drafter];
                     break;
                 }
                 case Oval: {
-                    //画笔移到第一个点的位置
-                    CGPoint pt = [curve.firstObject CGPointValue];
-                    CGContextBeginPath(ctx);
-                    CGContextMoveToPoint(ctx, pt.x, pt.y);
-                    //画椭圆到第二个点
-                    CGPoint lastPt = [curve.lastObject CGPointValue];
-                    CGContextAddEllipseInRect(ctx, CGRectMake(MIN(pt.x, lastPt.x), MIN(pt.y, lastPt.y), (CGFloat) fabs(pt.x - lastPt.x), (CGFloat) fabs(pt.y - lastPt.y)));
-                    //描边
-                    CGContextStrokePath(ctx);
+                    CGPoint pt = [points.firstObject CGPointValue];
+                    CGPoint lastPt = [points.lastObject CGPointValue];
+                    [self drawOvalFromPoint1:pt toPoint2:lastPt withDrawer:drafter];
+
                     break;
                 }
                 default:
@@ -389,47 +353,47 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
 
         LWDrawView *drawView = [self superViewWithClass:[LWDrawView class]];
         //按点描绘底纹图
-        if (curve.count > 0 && (path.drawType == EmojiTile || path.drawType == ImageTile)) {
-            for (int i = 0; i < curve.count; i++) {
+        if (points.count > 0 && (drafter.drawType == EmojiTile || drafter.drawType == ImageTile)) {
+            for (int i = 0; i < points.count; i++) {
                 //移动到第i个点
-                CGPoint point = [curve[i] CGPointValue];
-                CGRect brushRect = [self tileBrushRectForPoint:point withPath:path];
+                CGPoint point = [points[i] CGPointValue];
+                CGRect brushRect = [self tileBrushRectForPoint:point withPath:drafter];
                 __block UIImage *tileImage = [UIImage imageNamed:@"luowei"];
-                NSString *name = Emoji_Items[path.tileImageIndex];
-                if (path.drawType == ImageTile) {
-                    name = path.tileImageUrl.absoluteString;
+                NSString *name = Emoji_Items[(NSUInteger) drafter.tileImageIndex];
+                if (drafter.drawType == ImageTile) {
+                    name = drafter.tileImageUrl.absoluteString;
                 }
 
-                if (path.tileImageIndex < 5000) {
+                if (drafter.tileImageIndex < 5000) {
                     //从缓存目录找,没有才去相册加载
                     SDImageCache *imageCache = [SDImageCache sharedImageCache];
-                    if ([imageCache diskImageExistsWithKey:[NSString stringWithFormat:@"tile_%lf_%@", path.lineWidth, name]]) {
-                        tileImage = [imageCache imageFromDiskCacheForKey:[NSString stringWithFormat:@"tile_%lf_%@", path.lineWidth, name]];
+                    if ([imageCache diskImageExistsWithKey:[NSString stringWithFormat:@"tile_%lf_%@", drafter.lineWidth, name]]) {
+                        tileImage = [imageCache imageFromDiskCacheForKey:[NSString stringWithFormat:@"tile_%lf_%@", drafter.lineWidth, name]];
                     } else {
-                        if (path.drawType == ImageTile) {
+                        if (drafter.drawType == ImageTile) {
                             CGFloat scale = [UIScreen mainScreen].scale;
-                            [drawView.drawBar.tileSelectorView.photoPicker pictureWithURL:path.tileImageUrl size:CGSizeMake(path.lineWidth * 2 * scale, path.lineWidth * 2 * scale) imageBlock:^(UIImage *image) {
+                            [drawView.drawBar.tileSelectorView.photoPicker pictureWithURL:drafter.tileImageUrl size:CGSizeMake(drafter.lineWidth * 2 * scale, drafter.lineWidth * 2 * scale) imageBlock:^(UIImage *image) {
                                 tileImage = image;
                             }];
                         } else {
-                            tileImage = [name image:CGSizeMake(path.lineWidth * 2, path.lineWidth * 2)];
+                            tileImage = [name image:CGSizeMake(drafter.lineWidth * 2, drafter.lineWidth * 2)];
                         }
                         dispatch_async(dispatch_get_main_queue(), ^() {
-                            [[SDImageCache sharedImageCache] storeImage:tileImage forKey:[NSString stringWithFormat:@"tile_%lf_%@", path.lineWidth, name] toDisk:YES];
+                            [[SDImageCache sharedImageCache] storeImage:tileImage forKey:[NSString stringWithFormat:@"tile_%lf_%@", drafter.lineWidth, name] toDisk:YES];
                         });
                     }
                 }
                 [tileImage drawInRect:brushRect];
             }
 
-        } else if (path.drawType == Text && !path.isTextEditing) {  //绘制文字
-            NSString *textContent = path.text;
-            CGRect textRect = path.textRect;
-            if ((textContent != nil || textContent != @"") && textRect.size.height != 0 && !path.isTextEditing) {
+        } else if (drafter.drawType == Text && !drafter.isTextEditing) {  //绘制文字
+            NSString *textContent = drafter.text;
+            CGRect textRect = drafter.textRect;
+            if ((textContent != nil || textContent != @"") && textRect.size.height != 0 && !drafter.isTextEditing) {
                 NSMutableParagraphStyle *textStyle = [NSMutableParagraphStyle new];
                 textStyle.alignment = NSTextAlignmentNatural;
 
-                NSDictionary *textFontAttributes = @{NSFontAttributeName: [UIFont fontWithName:path.fontName size:path.lineWidth * 5], NSForegroundColorAttributeName: color, NSParagraphStyleAttributeName: textStyle};
+                NSDictionary *textFontAttributes = @{NSFontAttributeName: [UIFont fontWithName:drafter.fontName size:drafter.lineWidth * 5], NSForegroundColorAttributeName: drafter.color, NSParagraphStyleAttributeName: textStyle};
 
                 CGFloat textTextHeight = [textContent boundingRectWithSize:CGSizeMake(textRect.size.width, INFINITY) options:NSStringDrawingUsesLineFragmentOrigin attributes:textFontAttributes context:nil].size.height;
                 CGContextSaveGState(ctx);
@@ -443,8 +407,60 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
 
 }
 
+//根据给定的点集自由绘制
+- (void)drawCurveWithPoits:(NSArray *)points withDrawer:(LWDrafter *)drafter {
+    UIBezierPath* pointsPath = [UIBezierPath bezierPath];
 
-- (void)drawLineArrowFromPoint1:(CGPoint)p1 toPoint2:(CGPoint)p2 withColor:(UIColor *)color andLineWidth:(CGFloat)lineWidth {
+    CGPoint pt = [points[0] CGPointValue];
+    [pointsPath moveToPoint: pt];
+    CGPoint lastPt = pt;
+
+    for (int i = 1; i < points.count; i++) {
+        //画一条曲线到第i个点
+        pt = [points[i] CGPointValue];
+        [pointsPath addQuadCurveToPoint:CGPointMake((pt.x + lastPt.x) / 2, (pt.y + lastPt.y) / 2) controlPoint: lastPt];
+        lastPt = pt;
+    }
+    [pointsPath addLineToPoint:pt];
+    pointsPath.lineCapStyle = kCGLineCapRound;
+    pointsPath.lineJoinStyle = kCGLineJoinRound;
+
+    [drafter.color setStroke];
+    pointsPath.lineWidth = drafter.lineWidth;
+    [pointsPath stroke];
+}
+
+//画椭圆
+- (void)drawOvalFromPoint1:(CGPoint)p1 toPoint2:(CGPoint)p2 withDrawer:(LWDrafter *)drafter {
+    CGRect frame = CGRectMake(MIN(p1.x, p2.x), MIN(p1.y, p2.y), (CGFloat) fabs(p1.x - p2.x), (CGFloat) fabs(p1.y - p2.y));
+    UIBezierPath* ovalPath = [UIBezierPath bezierPathWithOvalInRect: frame];
+    [drafter.color setStroke];
+    ovalPath.lineWidth = drafter.lineWidth;
+    [ovalPath stroke];
+}
+
+//画矩形
+- (void)drawRectangleFromPoint1:(CGPoint)p1 toPoint2:(CGPoint)p2 withDrawer:(LWDrafter *)drawer {
+    CGRect frame = CGRectMake(MIN(p1.x, p2.x), MIN(p1.y, p2.y), (CGFloat) fabs(p1.x - p2.x), (CGFloat) fabs(p1.y - p2.y));
+    UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRect: frame];
+    [drawer.color setStroke];
+    rectanglePath.lineWidth = drawer.lineWidth;
+    [rectanglePath stroke];
+}
+
+//画直线
+- (void)drawLineFromPoint1:(CGPoint)p1 toPoint2:(CGPoint)p2 withDrawer:(LWDrafter *)drafter {
+    UIBezierPath* linePath = [UIBezierPath bezierPath];
+    [linePath moveToPoint: p1];     //画笔移到第一个点的位置
+    [linePath addLineToPoint: p2];      //画一条线到第二个点
+    linePath.lineCapStyle = kCGLineCapRound;
+    [drafter.color setStroke];
+    linePath.lineWidth = drafter.lineWidth;
+    [linePath stroke];
+}
+
+//画箭头
+- (void)drawLineArrowFromPoint1:(CGPoint)p1 toPoint2:(CGPoint)p2 withDrawer:(LWDrafter *)drafter {
     //// General Declarations
     CGContextRef context = UIGraphicsGetCurrentContext();
 
@@ -458,7 +474,7 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
     CGFloat p1y = p1.y;
     CGFloat p2x = p2.x;
     CGFloat p2y = p2.y;
-    lineWidth = lineWidth > 0 ? lineWidth : 0;
+    CGFloat lineWidth = drafter.lineWidth > 0 ? drafter.lineWidth : 0;
 
     //旋转角度
     CGFloat angle = (CGFloat) (atan2(p2y - p1y, p2x - p1x) * 180/M_PI);
@@ -513,9 +529,9 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
         [linePath closePath];
         linePath.lineJoinStyle = kCGLineJoinRound;
 
-        [color setFill];
+        [drafter.color setFill];
         [linePath fill];
-        [color setStroke];
+        [drafter.color setStroke];
         linePath.lineWidth = 1;
         [linePath stroke];
 
@@ -535,9 +551,9 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
         [arrowPath closePath];
         arrowPath.lineJoinStyle = kCGLineJoinRound;
 
-        [color setFill];
+        [drafter.color setFill];
         [arrowPath fill];
-        [color setStroke];
+        [drafter.color setStroke];
         arrowPath.lineWidth = 1;
         [arrowPath stroke];
 

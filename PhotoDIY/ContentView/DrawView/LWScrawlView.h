@@ -7,7 +7,7 @@
 //  涂鸦视图
 
 #import <UIKit/UIKit.h>
-#import "LWInkLine.h"
+#import "LWDrafter.h"
 
 @interface LWScrawlView : UIView
 

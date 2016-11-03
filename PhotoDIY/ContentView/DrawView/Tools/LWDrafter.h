@@ -20,7 +20,7 @@ typedef NS_OPTIONS(NSUInteger, DrawType) {
     ImageTile = 1 << 8,
 };
 
-@interface LWInkLine : NSObject
+@interface LWDrafter : NSObject
 
 @property (nonatomic, strong) NSMutableArray *pointArr;
 @property (nonatomic, assign) NSInteger colorIndex;
@@ -36,5 +36,7 @@ typedef NS_OPTIONS(NSUInteger, DrawType) {
 @property(nonatomic, assign) CGRect textRect;
 @property(nonatomic) BOOL isTextEditing;
 @property(nonatomic) BOOL isNew;
+
+-(UIColor *)color;
 
 @end

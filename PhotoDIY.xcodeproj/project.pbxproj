@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		BEF060D7ACDCB1B844B81CE2 /* LWPhotoCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF069A6E65A0CA56DFE1CF5 /* LWPhotoCollectionView.m */; };
-		BEF060E183D21725E473BD15 /* LWInkLine.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF06905873199322FA1CA21 /* LWInkLine.m */; };
 		BEF061A06B16E3FF98F60928 /* LWImageCropView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF060C1F89C5EFEE240BD8C /* LWImageCropView.m */; };
 		BEF063818F90927D3FC30574 /* LWDrawBar.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF060835D4A9C55E94FD61B /* LWDrawBar.m */; };
 		BEF0669C241E75514FBCFEB0 /* LWFilterCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF061409EB4310BAC440CE9 /* LWFilterCollectionView.m */; };
@@ -30,6 +29,7 @@
 		EA3A634D1DC85ABC00989C0D /* 钟齐流江硬笔草体.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA3A634A1DC85ABC00989C0D /* 钟齐流江硬笔草体.ttf */; };
 		EA3A634F1DC85ABC00989C0D /* 书体坊于右任标准草书.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA3A634C1DC85ABC00989C0D /* 书体坊于右任标准草书.ttf */; };
 		EA3A63511DC86A9000989C0D /* 方正细圆简体.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA3A63501DC86A9000989C0D /* 方正细圆简体.ttf */; };
+		EA3A63531DCAE14700989C0D /* LWDrafter.m in Sources */ = {isa = PBXBuildFile; fileRef = EA3A63521DCAE14700989C0D /* LWDrafter.m */; };
 		EA6F611B1D2B566900827523 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA6F611D1D2B566900827523 /* InfoPlist.strings */; };
 		EA6F611F1D2B567100827523 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA6F61211D2B567100827523 /* Localizable.strings */; };
 		EA6F61251D2B5A4500827523 /* LWDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6F61241D2B5A4500827523 /* LWDataManager.m */; };
@@ -55,7 +55,7 @@
 
 /* Begin PBXFileReference section */
 		475E9ECC827629C9DEAAE6D1 /* Pods-PhotoDIY.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoDIY.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PhotoDIY/Pods-PhotoDIY.debug.xcconfig"; sourceTree = "<group>"; };
-		BEF060475016942D9D22A16F /* LWInkLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWInkLine.h; sourceTree = "<group>"; };
+		BEF060475016942D9D22A16F /* LWDrafter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWDrafter.h; sourceTree = "<group>"; };
 		BEF060835D4A9C55E94FD61B /* LWDrawBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWDrawBar.m; sourceTree = "<group>"; };
 		BEF060C1F89C5EFEE240BD8C /* LWImageCropView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWImageCropView.m; sourceTree = "<group>"; };
 		BEF061409EB4310BAC440CE9 /* LWFilterCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWFilterCollectionView.m; sourceTree = "<group>"; };
@@ -65,7 +65,6 @@
 		BEF067546351067E593CAF2A /* LWDrawView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWDrawView.m; sourceTree = "<group>"; };
 		BEF067A810F0BAA513676090 /* LWDrawView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWDrawView.h; sourceTree = "<group>"; };
 		BEF0688B28C6E5EBE31CA408 /* MyExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyExtensions.m; sourceTree = "<group>"; };
-		BEF06905873199322FA1CA21 /* LWInkLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWInkLine.m; sourceTree = "<group>"; };
 		BEF069A6E65A0CA56DFE1CF5 /* LWPhotoCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWPhotoCollectionView.m; sourceTree = "<group>"; };
 		BEF06B92FD0107440A3E9A90 /* LWImageZoomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWImageZoomView.h; sourceTree = "<group>"; };
 		BEF06EF014766AC4C5D6BB77 /* LWImageCropView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWImageCropView.h; sourceTree = "<group>"; };
@@ -89,6 +88,7 @@
 		EA3A634A1DC85ABC00989C0D /* 钟齐流江硬笔草体.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "钟齐流江硬笔草体.ttf"; sourceTree = "<group>"; };
 		EA3A634C1DC85ABC00989C0D /* 书体坊于右任标准草书.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "书体坊于右任标准草书.ttf"; sourceTree = "<group>"; };
 		EA3A63501DC86A9000989C0D /* 方正细圆简体.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "方正细圆简体.ttf"; sourceTree = "<group>"; };
+		EA3A63521DCAE14700989C0D /* LWDrafter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWDrafter.m; sourceTree = "<group>"; };
 		EA6F611C1D2B566900827523 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EA6F611E1D2B566C00827523 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EA6F61201D2B567100827523 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -164,8 +164,8 @@
 		BEF0647B44847F476B9B7F3B /* Tools */ = {
 			isa = PBXGroup;
 			children = (
-				BEF060475016942D9D22A16F /* LWInkLine.h */,
-				BEF06905873199322FA1CA21 /* LWInkLine.m */,
+				BEF060475016942D9D22A16F /* LWDrafter.h */,
+				EA3A63521DCAE14700989C0D /* LWDrafter.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -511,6 +511,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EAB292F91D2A701F004D5EED /* Categorys.m in Sources */,
+				EA3A63531DCAE14700989C0D /* LWDrafter.m in Sources */,
 				EA27A9C11DAB952F00B1264C /* StoreManager.m in Sources */,
 				EAB292C81D2A16C4004D5EED /* ViewController.m in Sources */,
 				EAB292C51D2A16C4004D5EED /* AppDelegate.m in Sources */,
@@ -527,7 +528,6 @@
 				EA1C04451D4904A900290495 /* LWFilterImageView.m in Sources */,
 				BEF0669C241E75514FBCFEB0 /* LWFilterCollectionView.m in Sources */,
 				BEF060D7ACDCB1B844B81CE2 /* LWPhotoCollectionView.m in Sources */,
-				BEF060E183D21725E473BD15 /* LWInkLine.m in Sources */,
 				BEF063818F90927D3FC30574 /* LWDrawBar.m in Sources */,
 				BEF06F02C08258DD29719AED /* MyExtensions.m in Sources */,
 			);
