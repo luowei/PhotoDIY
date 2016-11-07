@@ -139,7 +139,8 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
         }
     }
 
-    switch (self.drawType) {
+    DrawType type = _currentDrafter != nil ? _currentDrafter.drawType : self.drawType;
+    switch (type) {
         case Text: {
 
             switch (_drawStatus) {
@@ -163,11 +164,9 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
                     } else {  //进入编辑模式
                         self.controlView.hidden = NO;
                         _drawStatus = Editing;
-
-                        self.controlViewWidth.constant = CGRectGetWidth(_currentDrafter.rect);
-                        self.controlViewHeight.constant = CGRectGetHeight(_currentDrafter.rect);
-                        self.controlViewConstX.constant = CGRectGetMinX(_currentDrafter.rect);
-                        self.controlViewConstY.constant = CGRectGetMinY(_currentDrafter.rect);
+                        _currentDrafter.isEditing = YES;
+                        //设置controlView
+                        [self updateControlViewWithDrafter:_currentDrafter];
                     }
                     break;
                 }
@@ -178,8 +177,9 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
                         self.controlView.hidden = YES;
                         self.textView.hidden = YES;
                         _currentDrafter.isTexting = NO;
+                        _currentDrafter.isEditing = YES;
 
-                    }else{  //进入文本输入模式
+                    } else {  //进入文本输入模式
                         self.controlView.hidden = YES;
                         //设置文本框，并进入文本输入模式
                         [self setupTextViewWithPoint:point andDrafter:_currentDrafter];
@@ -191,16 +191,8 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
                 case Texting: {  //文本输入模式
                     _drawStatus = Drawing;
                     self.controlView.hidden = YES;
-                    self.textView.hidden = YES;
-                    LWDrafter *editingDrafter = [self getEditingDrafter];
-                    //把当前处于文本输入模式的drafter的isTexting设置为NO
-                    if (editingDrafter != nil) {
-                        editingDrafter.isTexting = NO;
-                        editingDrafter.text = self.textView.text;
-                        editingDrafter.rect = self.textView.frame;
-                        editingDrafter.fontName = self.textView.font.fontName;
-                        [self.textView resignFirstResponder];
-                    }
+                    //隐藏文本输入框并且退出文本输入模式
+                    [self hideTextViewAndEndTexting];
                     break;
                 }
                 default:
@@ -211,33 +203,100 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
             break;
         }
 
+        case Hand:
+        case Rectangle:
+        case Oval: {
+            //隐藏文本输入框并且退出文本输入模式
+            [self hideTextViewAndEndTexting];
+
+            BOOL isShape = _currentDrafter.drawType == Hand || _currentDrafter.drawType == Rectangle || _currentDrafter.drawType == Oval;
+            if (_currentDrafter != nil && isShape && !_currentDrafter.isEditing) {
+                _drawStatus = Editing;
+                _currentDrafter.isEditing = YES;
+                self.controlView.hidden = NO;
+                //设置controlView
+                [self updateControlViewWithDrafter:_currentDrafter];
+            } else {
+                _drawStatus = Drawing;
+                self.controlView.hidden = YES;
+                [self.nextResponder touchesBegan:touches withEvent:event];
+            }
+            break;
+        }
+
         case EmojiTile:
         case ImageTile: {    //表情/图片底纹填充
-            //添加一个点
-            _currentDrafter = [[LWDrafter alloc] init];
-            _currentDrafter.pointArr = [[NSMutableArray alloc] init];
-            _currentDrafter.colorIndex = self.freeInkColorIndex;
-            _currentDrafter.lineWidth = self.freeInkLinewidth;
-            _currentDrafter.tileImageIndex = self.tileImageIndex;
-            _currentDrafter.tileImageUrl = self.tileImageUrl;
-            _currentDrafter.drawType = self.drawType;
-            //把 _currentDrafter 添加 _curves 曲线集合中
-            [_curves addObject:_currentDrafter];
+            //隐藏文本输入框并且退出文本输入模式
+            [self hideTextViewAndEndTexting];
 
-            [_currentDrafter.pointArr addObject:[NSValue valueWithCGPoint:point]];
+            BOOL isTile = _currentDrafter.drawType == EmojiTile || _currentDrafter.drawType == ImageTile;
+            if(_currentDrafter != nil && isTile){   //不为空
 
+                if(!_currentDrafter.isEditing){ //不处于编辑状态
+                    _drawStatus = Editing;
+                    _currentDrafter.isEditing = YES;
+                    self.controlView.hidden = NO;
+                    //设置controlView
+                    [self updateControlViewWithDrafter:_currentDrafter];
+                }else{
+                    [self.nextResponder touchesBegan:touches withEvent:event];
+                }
+            }else{  //_currentDrafter为空
+                //设置为绘制模式，并隐藏输入框
+                _drawStatus = Drawing;
+                self.controlView.hidden = YES;
+
+                //添加一个点
+                _currentDrafter = [[LWDrafter alloc] init];
+                _currentDrafter.pointArr = [[NSMutableArray alloc] init];
+                _currentDrafter.colorIndex = self.freeInkColorIndex;
+                _currentDrafter.lineWidth = self.freeInkLinewidth;
+                _currentDrafter.tileImageIndex = self.tileImageIndex;
+                _currentDrafter.tileImageUrl = self.tileImageUrl;
+                _currentDrafter.drawType = self.drawType;
+                //把 _currentDrafter 添加 _curves 曲线集合中
+                [_curves addObject:_currentDrafter];
+                [_currentDrafter.pointArr addObject:[NSValue valueWithCGPoint:point]];
+
+                [self.nextResponder touchesBegan:touches withEvent:event];
+            }
             [self setNeedsDisplay];
             break;
         }
 
         default:
+            [self.nextResponder touchesBegan:touches withEvent:event];
             break;
     }
 
 }
 
+//设置controlView
+- (void)updateControlViewWithDrafter:(LWDrafter *)_currentDrafter {
+    //设置controlView
+    self.controlViewConstX.constant = CGRectGetMinX(_currentDrafter.rect);
+    self.controlViewConstY.constant = CGRectGetMinY(_currentDrafter.rect);
+    self.controlViewWidth.constant = CGRectGetWidth(_currentDrafter.rect);
+    self.controlViewHeight.constant = CGRectGetHeight(_currentDrafter.rect);
+}
 
-//设置文本框，并进行文本输入模式
+//隐藏文本输入框并且退出文本输入模式
+- (void)hideTextViewAndEndTexting {
+    self.textView.hidden = YES;
+    LWDrafter *editingDrafter = [self getTextingDrafter];
+    //把当前处于文本输入模式的drafter的isTexting设置为NO,进入绘制模式
+    if (editingDrafter != nil) {
+        editingDrafter.isTexting = NO;
+        editingDrafter.isEditing = NO;
+        editingDrafter.text = self.textView.text;
+        editingDrafter.rect = self.textView.frame;
+        editingDrafter.fontName = self.textView.font.fontName;
+        [self.textView resignFirstResponder];
+    }
+}
+
+
+//设置文本框，并进入文本输入模式
 - (void)setupTextViewWithPoint:(CGPoint)point andDrafter:(LWDrafter *)_currentDrafter {
     //设置textView的样式
     UIColor *color = [UIColor colorWithHexString:Color_Items[(NSUInteger) _currentDrafter.colorIndex]];
@@ -251,6 +310,7 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
     //进入文本输入模式,显示textView,并设置它的位置
     self.textView.hidden = NO;
     _drawStatus = Texting;
+    _currentDrafter.isEditing = NO;
     _currentDrafter.isTexting = YES;
     CGSize textVSize = self.textView.bounds.size;
     if (_currentDrafter.isNew) {
@@ -258,13 +318,25 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
         self.textVConstY.constant = point.y - textVSize.height / 2;
         [self.textView becomeFirstResponder];
     } else {
-        self.textVConstX.constant = _currentDrafter.rect.origin.x;
-        self.textVConstY.constant = _currentDrafter.rect.origin.y;
+        self.textVConstX.constant = CGRectGetMinX(_currentDrafter.rect);
+        self.textVConstY.constant = CGRectGetMinY(_currentDrafter.rect);
     }
 }
 
 //获取正处于编辑状态的drafter
 - (LWDrafter *)getEditingDrafter {
+    LWDrafter *editingDrafter = nil;
+    //遍历_curves，找出正在编辑的path
+    for (LWDrafter *draf in _curves) {
+        if (draf.isEditing) {
+            editingDrafter = draf;
+        }
+    }
+    return editingDrafter;
+}
+
+//获取正处于文本输入状态的drafter
+- (LWDrafter *)getTextingDrafter {
     LWDrafter *editingDrafter = nil;
     //遍历_curves，找出正在编辑的path
     for (LWDrafter *draf in _curves) {
@@ -274,6 +346,19 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
     }
     return editingDrafter;
 }
+
+//获取正处于编辑或文本输入状态的drafter
+- (LWDrafter *)getEditingAndTextingDrafter {
+    LWDrafter *editingDrafter = nil;
+    //遍历_curves，找出正在编辑的path
+    for (LWDrafter *draf in _curves) {
+        if (draf.isEditing || draf.isTexting) {
+            editingDrafter = draf;
+        }
+    }
+    return editingDrafter;
+}
+
 
 //手势滑动
 - (void)onDrag:(UIPanGestureRecognizer *)rec {
@@ -303,14 +388,16 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
         case UIGestureRecognizerStateChanged: {
 
             movePoint = [rec locationInView:self];
-            if (_drawStatus == Editing) { //编辑模式
+            if (_drawStatus == Editing || _drawStatus == Texting) { //编辑模式
                 //移动文本输入框
-                LWDrafter *editingDrafter = [self getEditingDrafter];
+                LWDrafter *editingDrafter = [self getEditingAndTextingDrafter];
                 if (editingDrafter.drawType == Text) {
-                    self.controlViewWidth.constant = CGRectGetWidth(editingDrafter.rect);
-                    self.controlViewHeight.constant = CGRectGetHeight(editingDrafter.rect);
-                    self.controlViewConstX.constant = CGRectGetMinX(editingDrafter.rect);
-                    self.controlViewConstY.constant = CGRectGetMinY(editingDrafter.rect);
+                    //更新controlView
+                    [self updateControlViewWithPoint:movePoint drafter:editingDrafter];
+                    //更新textView
+                    self.textVConstX.constant = movePoint.x - CGRectGetWidth(editingDrafter.rect) / 2;
+                    self.textVConstY.constant = movePoint.y - CGRectGetHeight(editingDrafter.rect) / 2;
+
                     [editingDrafter.pointArr addObject:[NSValue valueWithCGPoint:movePoint]];
                 }
 
@@ -324,14 +411,16 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
         }
         case UIGestureRecognizerStateEnded: {
             endPoint = [rec locationInView:self];
-            if (_drawStatus == Editing) { //编辑模式
+            if (_drawStatus == Editing || _drawStatus == Texting) { //编辑模式
                 //移动文本输入框
-                LWDrafter *editingDrafter = [self getEditingDrafter];
+                LWDrafter *editingDrafter = [self getEditingAndTextingDrafter];
                 if (editingDrafter.drawType == Text) {
-                    self.controlViewWidth.constant = CGRectGetWidth(editingDrafter.rect);
-                    self.controlViewHeight.constant = CGRectGetHeight(editingDrafter.rect);
-                    self.controlViewConstX.constant = CGRectGetMinX(editingDrafter.rect);
-                    self.controlViewConstY.constant = CGRectGetMinY(editingDrafter.rect);
+                    //更新controlView
+                    [self updateControlViewWithPoint:endPoint drafter:editingDrafter];
+                    //更新textView
+                    self.textVConstX.constant = endPoint.x - CGRectGetWidth(editingDrafter.rect) / 2;
+                    self.textVConstY.constant = endPoint.y - CGRectGetHeight(editingDrafter.rect) / 2;
+
                     [editingDrafter.pointArr addObject:[NSValue valueWithCGPoint:endPoint]];
                 }
             } else {  //绘制模式
@@ -346,6 +435,20 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
             break;
     }
 
+}
+
+//更新ControlView
+- (void)updateControlViewWithPoint:(CGPoint)movePoint drafter:(LWDrafter *)editingDrafter {
+    CGFloat x = movePoint.x - CGRectGetWidth(editingDrafter.rect) / 2;
+    CGFloat y = movePoint.y - CGRectGetHeight(editingDrafter.rect) / 2;
+    CGFloat width = CGRectGetWidth(editingDrafter.rect);
+    CGFloat height = CGRectGetHeight(editingDrafter.rect);
+    self.controlViewWidth.constant = width;
+    self.controlViewHeight.constant = height;
+    self.controlViewConstX.constant = x;
+    self.controlViewConstY.constant = y;
+
+    editingDrafter.rect = CGRectMake(x, y, width, height);
 }
 
 
@@ -440,14 +543,14 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
 }
 
 - (void)updateControlVWithTextView:(UITextView *)textView {
-    CGPoint point = CGPointMake(CGRectGetMidX(textView.frame), CGRectGetMidY(textView.frame));
-    CGSize textVSize = self.textView.bounds.size;
-    self.textVConstX.constant = point.x - textVSize.width / 2;
-    self.textVConstY.constant = point.y - textVSize.height / 2;
-    self.controlViewWidth.constant = textVSize.width + 6;
-    self.controlViewHeight.constant = textVSize.height + 6;
-    self.controlViewConstX.constant = point.x - (textVSize.width + 6) / 2;
-    self.controlViewConstY.constant = point.y - (textVSize.height + 6) / 2;
+//    CGPoint point = CGPointMake(CGRectGetMidX(textView.frame), CGRectGetMidY(textView.frame));
+//    CGSize textVSize = self.textView.bounds.size;
+//    self.textVConstX.constant = point.x - textVSize.width / 2;
+//    self.textVConstY.constant = point.y - textVSize.height / 2;
+//    self.controlViewWidth.constant = textVSize.width + 6;
+//    self.controlViewHeight.constant = textVSize.height + 6;
+//    self.controlViewConstX.constant = point.x - (textVSize.width + 6) / 2;
+//    self.controlViewConstY.constant = point.y - (textVSize.height + 6) / 2;
 }
 
 
@@ -506,6 +609,9 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
     [drafter.color setStroke];
     pointsPath.lineWidth = drafter.lineWidth;
     [pointsPath stroke];
+
+    //设置当前path的Rect
+    drafter.rect = pointsPath.bounds;
 }
 
 //画椭圆
@@ -515,15 +621,21 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
     [drafter.color setStroke];
     ovalPath.lineWidth = drafter.lineWidth;
     [ovalPath stroke];
+
+    //设置当前path的Rect
+    drafter.rect = ovalPath.bounds;
 }
 
 //画矩形
-- (void)drawRectangleFromPoint1:(CGPoint)p1 toPoint2:(CGPoint)p2 withDrafter:(LWDrafter *)drawer {
+- (void)drawRectangleFromPoint1:(CGPoint)p1 toPoint2:(CGPoint)p2 withDrafter:(LWDrafter *)drafter {
     CGRect frame = CGRectMake(MIN(p1.x, p2.x), MIN(p1.y, p2.y), (CGFloat) fabs(p1.x - p2.x), (CGFloat) fabs(p1.y - p2.y));
     UIBezierPath *rectanglePath = [UIBezierPath bezierPathWithRect:frame];
-    [drawer.color setStroke];
-    rectanglePath.lineWidth = drawer.lineWidth;
+    [drafter.color setStroke];
+    rectanglePath.lineWidth = drafter.lineWidth;
     [rectanglePath stroke];
+
+    //设置当前path的Rect
+    drafter.rect = rectanglePath.bounds;
 }
 
 //画直线
@@ -545,20 +657,20 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
     //// Declarations
     NSString *textContent = drafter.text;
     UIColor *color = drafter.color;
-    CGRect rectangle = drafter.rect;
+    CGRect rect = drafter.rect;
     CGFloat angle = drafter.rotateAngle;
     NSShadow *shadow = drafter.shadow;
 
     //// Variable Declarations
-    CGPoint center = CGPointMake(rectangle.origin.x + rectangle.size.width / 2.0, rectangle.origin.y + rectangle.size.height / 2.0);
-    CGPoint offset = CGPointMake(-rectangle.size.width / 2.0, -rectangle.size.height / 2.0);
+    CGPoint center = CGPointMake(rect.origin.x + rect.size.width / 2.0, rect.origin.y + rect.size.height / 2.0);
+    CGPoint offset = CGPointMake(-rect.size.width / 2.0, -rect.size.height / 2.0);
 
     //// Text Drawing
     CGContextSaveGState(context);
     CGContextTranslateCTM(context, center.x, center.y);
     CGContextRotateCTM(context, -angle * M_PI / 180);
 
-    CGRect textRect = CGRectMake(offset.x, offset.y, rectangle.size.width, rectangle.size.height);
+    CGRect textRect = CGRectMake(offset.x, offset.y, rect.size.width, rect.size.height);
     {
         CGContextSaveGState(context);
         CGContextSetShadowWithColor(context, shadow.shadowOffset, shadow.shadowBlurRadius, [shadow.shadowColor CGColor]);
@@ -570,13 +682,15 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
         CGFloat textTextHeight = [textContent boundingRectWithSize:CGSizeMake(textRect.size.width, INFINITY) options:NSStringDrawingUsesLineFragmentOrigin attributes:textFontAttributes context:nil].size.height;
         CGContextSaveGState(context);
         CGContextClipToRect(context, textRect);
-        [textContent drawInRect:CGRectMake(CGRectGetMinX(textRect), CGRectGetMinY(textRect) + (CGRectGetHeight(textRect) - textTextHeight) / 2, CGRectGetWidth(textRect), textTextHeight) withAttributes:textFontAttributes];
+        CGRect drawTextRect = CGRectMake(CGRectGetMinX(textRect), CGRectGetMinY(textRect) + (CGRectGetHeight(textRect) - textTextHeight) / 2, CGRectGetWidth(textRect), textTextHeight);
+        [textContent drawInRect:drawTextRect withAttributes:textFontAttributes];
         CGContextRestoreGState(context);
         CGContextRestoreGState(context);
 
     }
 
     CGContextRestoreGState(context);
+
 }
 
 //画图片
@@ -609,6 +723,9 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
     CGContextRestoreGState(context);
 
     CGContextRestoreGState(context);
+
+    //设置当前path的Rect
+    drafter.rect = imgPath.bounds;
 }
 
 

@@ -42,6 +42,7 @@ typedef NS_OPTIONS(NSUInteger, DrawStatus){
 @property(nonatomic, copy) NSString *fontName;
 @property(nonatomic, assign) CGRect rect;
 @property(nonatomic) BOOL isTexting;
+@property(nonatomic) BOOL isEditing;
 @property(nonatomic) BOOL isNew;
 
 @property(nonatomic) CGFloat rotateAngle;
