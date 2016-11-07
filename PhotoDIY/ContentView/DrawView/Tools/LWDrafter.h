@@ -7,7 +7,7 @@
 #import <UIKit/UIKit.h>
 
 
-//键盘类型
+//绘制笔类型
 typedef NS_OPTIONS(NSUInteger, DrawType) {
     Hand = 1,
     Erase = 1 << 1,
@@ -18,6 +18,11 @@ typedef NS_OPTIONS(NSUInteger, DrawType) {
     Text = 1 << 6,
     EmojiTile = 1 << 7,
     ImageTile = 1 << 8,
+};
+
+typedef NS_OPTIONS(NSUInteger, DrawStatus){
+    Drawing = 1,   //绘制中
+    Editing = 2,   //编辑中
 };
 
 @interface LWDrafter : NSObject
@@ -34,8 +39,8 @@ typedef NS_OPTIONS(NSUInteger, DrawType) {
 @property(nonatomic, strong) NSURL *tileImageUrl;
 @property(nonatomic, copy) NSString *text;
 @property(nonatomic, copy) NSString *fontName;
-@property(nonatomic, assign) CGRect textRect;
-@property(nonatomic) BOOL isTextEditing;
+@property(nonatomic, assign) CGRect rect;
+@property(nonatomic) BOOL isEditing;
 @property(nonatomic) BOOL isNew;
 
 @property(nonatomic) CGFloat rotateAngle;

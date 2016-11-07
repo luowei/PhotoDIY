@@ -18,6 +18,7 @@
     BOOL keyboardIsShowing;
     CGFloat originY;
     UIPanGestureRecognizer *_rec;
+    DrawStatus _drawStatus;
 }
 
 static inline float fz_min(float a, float b) {
@@ -47,6 +48,8 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
     _tileImageIndex = 10000;    //[UIImage imageNamed:@"luowei"]
     _tileImageUrl = nil;
     _fontName = @"HelveticaNeue";
+
+    _drawStatus = Drawing;
 
 }
 
@@ -137,94 +140,115 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
     LWDrafter *_currentDrafter = nil;
     //遍历_curves，查找当前触摸点是否在文字框内
     for (LWDrafter *path in _curves) {
-        BOOL isZeroRect = path.textRect.size.height == 0;
-        if (!isZeroRect && CGRectContainsPoint(path.textRect, point) && self.drawType == Text) {
+        BOOL isZeroRect = path.rect.size.height == 0;
+        if (!isZeroRect && CGRectContainsPoint(path.rect, point)) {
             _currentDrafter = path;
             _currentDrafter.isNew = NO;
         }
     }
 
-    //如果是绘制文字
-    if (self.drawType == Text) {
-        //添加一个path
-        if (_currentDrafter == nil && self.textView.hidden) {
+    switch (self.drawType) {
+        case Text: {
+
+            switch (_drawStatus) {
+                case Drawing: {  //绘制模式
+                    //添加一个path
+                    if (_currentDrafter == nil) {
+                        _currentDrafter = [[LWDrafter alloc] init];
+                        _currentDrafter.text = @"";
+                        _currentDrafter.rect = CGRectZero;
+                        _currentDrafter.pointArr = [[NSMutableArray alloc] init];
+                        _currentDrafter.colorIndex = self.freeInkColorIndex;
+                        _currentDrafter.lineWidth = self.freeInkLinewidth;
+                        _currentDrafter.fontName = self.fontName;
+                        _currentDrafter.drawType = self.drawType;
+                        //把 _currentDrafter 添加 _curves 曲线集合中
+                        [_curves addObject:_currentDrafter];
+                    }
+
+                    //设置textView的样式
+                    UIColor *color = [UIColor colorWithHexString:Color_Items[(NSUInteger) _currentDrafter.colorIndex]];
+                    self.textView.textColor = color;
+                    self.textView.text = _currentDrafter.text;
+                    self.textView.font = [UIFont fontWithName:_currentDrafter.fontName size:_currentDrafter.lineWidth * 5];
+                    self.textView.layer.borderWidth = 1.0;
+                    self.textView.layer.cornerRadius = _currentDrafter.lineWidth;
+                    self.textView.layer.borderColor = color.CGColor;
+
+                    //显示textView,并设置它的位置
+                    self.textView.hidden = NO;
+                    _drawStatus = Editing;
+                    _currentDrafter.isEditing = YES;
+
+                    if (_currentDrafter.isNew) {
+                        CGSize textVSize = self.textView.bounds.size;
+                        self.textConstraintX.constant = point.x - textVSize.width;
+                        self.textConstraintY.constant = point.y - textVSize.height;
+                    } else {
+                        self.textConstraintX.constant = _currentDrafter.rect.origin.x;
+                        self.textConstraintY.constant = _currentDrafter.rect.origin.y;
+                    }
+
+                    [self.textView becomeFirstResponder];
+                    break;
+                }
+                case Editing: {  //编辑模式
+                    self.textView.hidden = YES;
+                    _drawStatus = Drawing;
+
+                    LWDrafter *editingDrafter = [self getEditingDrafter];
+                    //设置当前编辑的Path
+                    if (editingDrafter != nil) {
+                        editingDrafter.isEditing = NO;
+                        editingDrafter.text = self.textView.text;
+                        editingDrafter.rect = self.textView.frame;
+                        editingDrafter.fontName = self.textView.font.fontName;
+                        [self.textView resignFirstResponder];
+                    }
+                    break;
+                }
+                default:
+                    break;
+            }
+
+            [self setNeedsDisplay];
+            break;
+        }
+
+        case EmojiTile:
+        case ImageTile: {    //表情/图片底纹填充
+            //添加一个点
             _currentDrafter = [[LWDrafter alloc] init];
-            _currentDrafter.text = @"";
-            _currentDrafter.textRect = CGRectZero;
             _currentDrafter.pointArr = [[NSMutableArray alloc] init];
             _currentDrafter.colorIndex = self.freeInkColorIndex;
             _currentDrafter.lineWidth = self.freeInkLinewidth;
-            _currentDrafter.fontName = self.fontName;
+            _currentDrafter.tileImageIndex = self.tileImageIndex;
+            _currentDrafter.tileImageUrl = self.tileImageUrl;
             _currentDrafter.drawType = self.drawType;
             //把 _currentDrafter 添加 _curves 曲线集合中
             [_curves addObject:_currentDrafter];
+
+            [_currentDrafter.pointArr addObject:[NSValue valueWithCGPoint:point]];
+
+            [self setNeedsDisplay];
+            break;
         }
 
-        //如果是显示的就是在编辑状态,则变为非编辑状态
-        if (!self.textView.hidden) {
-
-            LWDrafter *editingDrafter = nil;
-            //遍历_curves，找出正在编辑的path
-            for (LWDrafter *draf in _curves) {
-                if (draf.isTextEditing) {
-                    editingDrafter = draf;
-                }
-            }
-            //设置当前编辑的Path
-            if (editingDrafter != nil) {
-                editingDrafter.isTextEditing = NO;
-                editingDrafter.text = self.textView.text;
-                editingDrafter.textRect = self.textView.frame;
-                editingDrafter.fontName = self.textView.font.fontName;
-                [self.textView resignFirstResponder];
-                self.textView.hidden = YES;
-            }
-
-        } else {    //显示并设置为编辑状态
-            //设置textView的样式
-            UIColor *color = [UIColor colorWithHexString:Color_Items[(NSUInteger) _currentDrafter.colorIndex]];
-            self.textView.textColor = color;
-            self.textView.text = _currentDrafter.text;
-            self.textView.font = [UIFont fontWithName:_currentDrafter.fontName size:_currentDrafter.lineWidth * 5];
-            self.textView.layer.borderWidth = 1.0;
-            self.textView.layer.cornerRadius = _currentDrafter.lineWidth;
-            self.textView.layer.borderColor = color.CGColor;
-
-            //显示textView,并设置它的位置
-            self.textView.hidden = NO;
-            _currentDrafter.isTextEditing = YES;
-
-            if (_currentDrafter.isNew) {
-                CGSize textVSize = self.textView.bounds.size;
-                self.textConstraintX.constant = point.x - textVSize.width;
-                self.textConstraintY.constant = point.y - textVSize.height;
-            } else {
-                self.textConstraintX.constant = _currentDrafter.textRect.origin.x;
-                self.textConstraintY.constant = _currentDrafter.textRect.origin.y;
-            }
-
-            [self.textView becomeFirstResponder];
-        }
-        [self setNeedsDisplay];
-
-
-    } else if (self.drawType == EmojiTile || self.drawType == ImageTile) {  //如果是绘制纹底
-        //添加一个点
-        _currentDrafter = [[LWDrafter alloc] init];
-        _currentDrafter.pointArr = [[NSMutableArray alloc] init];
-        _currentDrafter.colorIndex = self.freeInkColorIndex;
-        _currentDrafter.lineWidth = self.freeInkLinewidth;
-        _currentDrafter.tileImageIndex = self.tileImageIndex;
-        _currentDrafter.tileImageUrl = self.tileImageUrl;
-        _currentDrafter.drawType = self.drawType;
-        //把 _currentDrafter 添加 _curves 曲线集合中
-        [_curves addObject:_currentDrafter];
-
-        [_currentDrafter.pointArr addObject:[NSValue valueWithCGPoint:point]];
-
-        [self setNeedsDisplay];
+        default:
+            break;
     }
 
+}
+
+- (LWDrafter *)getEditingDrafter {
+    LWDrafter *editingDrafter = nil;
+    //遍历_curves，找出正在编辑的path
+    for (LWDrafter *draf in _curves) {
+                        if (draf.isEditing) {
+                            editingDrafter = draf;
+                        }
+                    }
+    return editingDrafter;
 }
 
 
@@ -233,49 +257,61 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
     CGPoint movePoint;
     CGPoint endPoint;
 
-
     switch (rec.state) {
         case UIGestureRecognizerStateBegan: {
-            LWDrafter *currentPath = [[LWDrafter alloc] init];
-            currentPath.pointArr = [[NSMutableArray alloc] init];
-            currentPath.colorIndex = self.freeInkColorIndex;
-            currentPath.lineWidth = self.freeInkLinewidth;
-            currentPath.tileImageIndex = self.tileImageIndex;
-            currentPath.tileImageUrl = self.tileImageUrl;
-            currentPath.drawType = self.drawType;
-            [_curves addObject:currentPath];
 
-            beganPoint = [rec locationInView:self];
-            [currentPath.pointArr addObject:[NSValue valueWithCGPoint:beganPoint]];
+            if(_drawStatus == Drawing){
+                LWDrafter *currentPath = [[LWDrafter alloc] init];
+                currentPath.pointArr = [[NSMutableArray alloc] init];
+                currentPath.colorIndex = self.freeInkColorIndex;
+                currentPath.lineWidth = self.freeInkLinewidth;
+                currentPath.tileImageIndex = self.tileImageIndex;
+                currentPath.tileImageUrl = self.tileImageUrl;
+                currentPath.drawType = self.drawType;
+                [_curves addObject:currentPath];
+
+                beganPoint = [rec locationInView:self];
+                [currentPath.pointArr addObject:[NSValue valueWithCGPoint:beganPoint]];
+            }
+
             break;
         }
         case UIGestureRecognizerStateChanged: {
-            LWDrafter *currentPath = [_curves lastObject];
-            movePoint = [rec locationInView:self];
-            [currentPath.pointArr addObject:[NSValue valueWithCGPoint:movePoint]];
 
-            //移动文本输入框
-            if (currentPath.drawType == Text && !self.textView.hidden) {
-                CGSize textVSize = self.textView.bounds.size;
-                self.textConstraintX.constant = movePoint.x - textVSize.width;
-                self.textConstraintY.constant = movePoint.y - textVSize.height;
+            movePoint = [rec locationInView:self];
+            if(_drawStatus == Editing){ //编辑模式
+                //移动文本输入框
+                LWDrafter *editingDrafter = [self getEditingDrafter];
+                if (editingDrafter.drawType == Text) {
+                    CGSize textVSize = self.textView.bounds.size;
+                    self.textConstraintX.constant = movePoint.x - textVSize.width/2;
+                    self.textConstraintY.constant = movePoint.y - textVSize.height/2;
+                    [editingDrafter.pointArr addObject:[NSValue valueWithCGPoint:movePoint]];
+                }
+
+            }else{  //绘制模式
+                LWDrafter *currentPath = [_curves lastObject];
+                [currentPath.pointArr addObject:[NSValue valueWithCGPoint:movePoint]];
             }
 
             [self setNeedsDisplay];
             break;
         }
         case UIGestureRecognizerStateEnded: {
-            LWDrafter *currentPath = [_curves lastObject];
-            currentPath.drawType = self.drawType;
-
             endPoint = [rec locationInView:self];
-            [currentPath.pointArr addObject:[NSValue valueWithCGPoint:endPoint]];
+            if(_drawStatus == Editing){ //编辑模式
+                //移动文本输入框
+                LWDrafter *editingDrafter = [self getEditingDrafter];
+                if (editingDrafter.drawType == Text) {
+                    CGSize textVSize = self.textView.bounds.size;
+                    self.textConstraintX.constant = endPoint.x - textVSize.width/2;
+                    self.textConstraintY.constant = endPoint.y - textVSize.height/2;
+                    [editingDrafter.pointArr addObject:[NSValue valueWithCGPoint:endPoint]];
+                }
 
-            //移动文本输入框
-            if (currentPath.drawType == Text && !self.textView.hidden) {
-                CGSize textVSize = self.textView.bounds.size;
-                self.textConstraintX.constant = endPoint.x - textVSize.width;
-                self.textConstraintY.constant = endPoint.y - textVSize.height;
+            }else{  //绘制模式
+                LWDrafter *currentPath = [_curves lastObject];
+                [currentPath.pointArr addObject:[NSValue valueWithCGPoint:endPoint]];
             }
 
             [self setNeedsDisplay];
@@ -361,8 +397,8 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
                 [tileImage drawInRect:brushRect];
             }
 
-        } else if (drafter.drawType == Text && !drafter.isTextEditing) {  //绘制文字
-            if ((drafter.text != nil || drafter.text != @"") && drafter.textRect.size.height != 0 && !drafter.isTextEditing) {
+        } else if (drafter.drawType == Text && !drafter.isEditing) {  //绘制文字
+            if ((drafter.text != nil || drafter.text != @"") && drafter.rect.size.height != 0 && !drafter.isEditing) {
                 [self drawTextWithDrafter:drafter];
             }
         }
@@ -374,34 +410,34 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
 
 
 //根据drafter获得一张TileImage
-- (UIImage *)getTileImageWithDrafter:(LWDrafter *)drafter{
+- (UIImage *)getTileImageWithDrafter:(LWDrafter *)drafter {
     //获得tileImage
     __block UIImage *tileImage = [UIImage imageNamed:@"luowei"];
     NSString *name = Emoji_Items[(NSUInteger) drafter.tileImageIndex];
     if (drafter.drawType == ImageTile) {
-                    name = drafter.tileImageUrl.absoluteString;
-                }
+        name = drafter.tileImageUrl.absoluteString;
+    }
 
     if (drafter.tileImageIndex < 5000) {
-                    //从缓存目录找,没有才去相册加载
-                    SDImageCache *imageCache = [SDImageCache sharedImageCache];
-                    if ([imageCache diskImageExistsWithKey:[NSString stringWithFormat:@"tile_%lf_%@", drafter.lineWidth, name]]) {
-                        tileImage = [imageCache imageFromDiskCacheForKey:[NSString stringWithFormat:@"tile_%lf_%@", drafter.lineWidth, name]];
-                    } else {
-                        if (drafter.drawType == ImageTile) {
-                            CGFloat scale = [UIScreen mainScreen].scale;
-                            LWDrawView *drawView = [self superViewWithClass:[LWDrawView class]];
-                            [drawView.drawBar.tileSelectorView.photoPicker pictureWithURL:drafter.tileImageUrl size:CGSizeMake(drafter.lineWidth * 2 * scale, drafter.lineWidth * 2 * scale) imageBlock:^(UIImage *image) {
-                                tileImage = image;
-                            }];
-                        } else {
-                            tileImage = [name image:CGSizeMake(drafter.lineWidth * 2, drafter.lineWidth * 2)];
-                        }
-                        dispatch_async(dispatch_get_main_queue(), ^() {
-                            [[SDImageCache sharedImageCache] storeImage:tileImage forKey:[NSString stringWithFormat:@"tile_%lf_%@", drafter.lineWidth, name] toDisk:YES];
-                        });
-                    }
-                }
+        //从缓存目录找,没有才去相册加载
+        SDImageCache *imageCache = [SDImageCache sharedImageCache];
+        if ([imageCache diskImageExistsWithKey:[NSString stringWithFormat:@"tile_%lf_%@", drafter.lineWidth, name]]) {
+            tileImage = [imageCache imageFromDiskCacheForKey:[NSString stringWithFormat:@"tile_%lf_%@", drafter.lineWidth, name]];
+        } else {
+            if (drafter.drawType == ImageTile) {
+                CGFloat scale = [UIScreen mainScreen].scale;
+                LWDrawView *drawView = [self superViewWithClass:[LWDrawView class]];
+                [drawView.drawBar.tileSelectorView.photoPicker pictureWithURL:drafter.tileImageUrl size:CGSizeMake(drafter.lineWidth * 2 * scale, drafter.lineWidth * 2 * scale) imageBlock:^(UIImage *image) {
+                    tileImage = image;
+                }];
+            } else {
+                tileImage = [name image:CGSizeMake(drafter.lineWidth * 2, drafter.lineWidth * 2)];
+            }
+            dispatch_async(dispatch_get_main_queue(), ^() {
+                [[SDImageCache sharedImageCache] storeImage:tileImage forKey:[NSString stringWithFormat:@"tile_%lf_%@", drafter.lineWidth, name] toDisk:YES];
+            });
+        }
+    }
     return tileImage;
 }
 
@@ -465,7 +501,7 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
     //// Declarations
     NSString *textContent = drafter.text;
     UIColor *color = drafter.color;
-    CGRect rectangle = drafter.textRect;
+    CGRect rectangle = drafter.rect;
     CGFloat angle = drafter.rotateAngle;
     NSShadow *shadow = drafter.shadow;
 
@@ -500,7 +536,7 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
 }
 
 //画图片
-- (void)drawImageWithFrame:(CGRect)imageFrame andDrafter:(LWDrafter *)drafter{
+- (void)drawImageWithFrame:(CGRect)imageFrame andDrafter:(LWDrafter *)drafter {
     //// General Declarations
     CGContextRef context = UIGraphicsGetCurrentContext();
 
@@ -513,7 +549,7 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
     CGPoint offset = CGPointMake((CGFloat) (-imageFrame.size.width / 2.0), (CGFloat) (-imageFrame.size.height / 2.0));
 
     //获得角度
-    NSString *key = [NSString stringWithFormat:@"%f,%f",center.x,center.y];
+    NSString *key = [NSString stringWithFormat:@"%f,%f", center.x, center.y];
     CGFloat angle = (CGFloat) [drafter.rotateAngleDict[key] doubleValue];
 
     //// img Drawing
@@ -681,11 +717,11 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
     [super drawRect:rect];
 
     //绘制虚线框
-    UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRect: self.bounds];
+    UIBezierPath *rectanglePath = [UIBezierPath bezierPathWithRect:self.bounds];
     [[UIColor colorWithHexString:@"ff4000"] setStroke];
     rectanglePath.lineWidth = 1;
     CGFloat rectanglePattern[] = {2, 2};
-    [rectanglePath setLineDash: rectanglePattern count: 2 phase: 0];
+    [rectanglePath setLineDash:rectanglePattern count:2 phase:0];
     [rectanglePath stroke];
 }
 
