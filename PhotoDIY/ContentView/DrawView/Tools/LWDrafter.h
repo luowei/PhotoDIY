@@ -21,8 +21,9 @@ typedef NS_OPTIONS(NSUInteger, DrawType) {
 };
 
 typedef NS_OPTIONS(NSUInteger, DrawStatus){
-    Drawing = 1,   //绘制中
-    Editing = 2,   //编辑中
+    Drawing = 1,   //绘制模式
+    Editing = 2,   //编辑模式
+    Texting = 3,   //文本输入模式
 };
 
 @interface LWDrafter : NSObject
@@ -40,7 +41,7 @@ typedef NS_OPTIONS(NSUInteger, DrawStatus){
 @property(nonatomic, copy) NSString *text;
 @property(nonatomic, copy) NSString *fontName;
 @property(nonatomic, assign) CGRect rect;
-@property(nonatomic) BOOL isEditing;
+@property(nonatomic) BOOL isTexting;
 @property(nonatomic) BOOL isNew;
 
 @property(nonatomic) CGFloat rotateAngle;

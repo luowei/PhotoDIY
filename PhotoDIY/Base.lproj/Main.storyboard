@@ -139,6 +139,9 @@
                                                         </constraints>
                                                         <attributedString key="attributedText"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="xZQ-UW-W72" id="qTT-tL-ly5"/>
+                                                        </connections>
                                                     </textView>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -152,14 +155,18 @@
                                                 </constraints>
                                                 <connections>
                                                     <outlet property="control" destination="czj-X5-BJA" id="lHo-Fk-OEu"/>
-                                                    <outlet property="controlConstraintX" destination="ymN-Uu-L1I" id="9Yk-iN-Xow"/>
-                                                    <outlet property="controlConstraintY" destination="WVC-jJ-fe2" id="hNl-Ck-7xI"/>
+                                                    <outlet property="controlConstX" destination="ymN-Uu-L1I" id="9Yk-iN-Xow"/>
+                                                    <outlet property="controlConstY" destination="WVC-jJ-fe2" id="hNl-Ck-7xI"/>
                                                     <outlet property="controlView" destination="1Re-0O-MfZ" id="nRt-MK-ZHj"/>
-                                                    <outlet property="textConstraintX" destination="7fH-ps-nd9" id="QH4-yb-Vjl"/>
-                                                    <outlet property="textConstraintY" destination="np7-m5-PCN" id="ygQ-br-LxD"/>
+                                                    <outlet property="controlViewConstX" destination="tnD-25-Aey" id="rvE-cb-HwS"/>
+                                                    <outlet property="controlViewConstY" destination="mdq-fS-5te" id="LUt-Za-gE5"/>
+                                                    <outlet property="controlViewHeight" destination="BOj-cl-5Be" id="Taw-Le-GfF"/>
+                                                    <outlet property="controlViewWidth" destination="R8P-KN-PIt" id="MEM-1D-FGy"/>
+                                                    <outlet property="textVConstX" destination="7fH-ps-nd9" id="QH4-yb-Vjl"/>
+                                                    <outlet property="textVConstY" destination="np7-m5-PCN" id="ygQ-br-LxD"/>
+                                                    <outlet property="textVHeight" destination="3Nx-Uo-cG0" id="eFl-s2-ijl"/>
+                                                    <outlet property="textVWidth" destination="XCa-eY-Gb9" id="Rez-pO-n9g"/>
                                                     <outlet property="textView" destination="mIy-SX-4Nq" id="SfL-n2-tDr"/>
-                                                    <outlet property="viewConstraintX" destination="tnD-25-Aey" id="rvE-cb-HwS"/>
-                                                    <outlet property="viewConstraintY" destination="mdq-fS-5te" id="LUt-Za-gE5"/>
                                                 </connections>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4kf-gH-kqu" userLabel="Mosaic View">
@@ -879,7 +886,7 @@
                     <toolbarItems/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="480"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="0LN-IN-gSp">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="0LN-IN-gSp">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

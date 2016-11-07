@@ -12,7 +12,7 @@
 @class LWControlImgV;
 @class LWControlView;
 
-@interface LWScrawlView : UIView
+@interface LWScrawlView : UIView <UITextViewDelegate>
 
 //是否橡皮擦模式
 @property (nonatomic,assign) DrawType drawType;
@@ -32,16 +32,20 @@
 @property(nonatomic, copy) NSString *fontName;
 
 @property(nonatomic, weak) IBOutlet  UITextView *textView;
-@property(nonatomic, weak) IBOutlet  NSLayoutConstraint *textConstraintX;
-@property(nonatomic, weak) IBOutlet  NSLayoutConstraint *textConstraintY;
+@property(nonatomic, weak) IBOutlet  NSLayoutConstraint *textVConstX;
+@property(nonatomic, weak) IBOutlet  NSLayoutConstraint *textVConstY;
+@property(nonatomic, weak) IBOutlet  NSLayoutConstraint *textVWidth;
+@property(nonatomic, weak) IBOutlet  NSLayoutConstraint *textVHeight;
 
 @property(nonatomic, weak) IBOutlet  LWControlView *controlView;
-@property(nonatomic, weak) IBOutlet  NSLayoutConstraint *viewConstraintX;
-@property(nonatomic, weak) IBOutlet  NSLayoutConstraint *viewConstraintY;
+@property(nonatomic, weak) IBOutlet  NSLayoutConstraint *controlViewConstX;
+@property(nonatomic, weak) IBOutlet  NSLayoutConstraint *controlViewConstY;
+@property(nonatomic, weak) IBOutlet  NSLayoutConstraint *controlViewWidth;
+@property(nonatomic, weak) IBOutlet  NSLayoutConstraint *controlViewHeight;
 
 @property(nonatomic, weak) IBOutlet  LWControlImgV *control;
-@property(nonatomic, weak) IBOutlet  NSLayoutConstraint *controlConstraintX;
-@property(nonatomic, weak) IBOutlet  NSLayoutConstraint *controlConstraintY;
+@property(nonatomic, weak) IBOutlet  NSLayoutConstraint *controlConstX;
+@property(nonatomic, weak) IBOutlet  NSLayoutConstraint *controlConstY;
 
 //画板重置
 -(IBAction) resetDrawing;
