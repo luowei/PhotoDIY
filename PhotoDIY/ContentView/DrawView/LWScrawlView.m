@@ -207,8 +207,8 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
         }
         [self setNeedsDisplay];
 
-        //如果是绘制纹底
-    } else if (self.drawType == EmojiTile || self.drawType == ImageTile) {
+
+    } else if (self.drawType == EmojiTile || self.drawType == ImageTile) {  //如果是绘制纹底
         //添加一个点
         _currentDrafter = [[LWDrafter alloc] init];
         _currentDrafter.pointArr = [[NSMutableArray alloc] init];
@@ -355,32 +355,7 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
                 CGPoint point = [points[i] CGPointValue];
                 CGRect brushRect = CGRectMake(point.x - drafter.burshSize.width / 2, point.y - drafter.burshSize.height / 2, drafter.burshSize.width, drafter.burshSize.height);
 
-                //获得tileImage
-                __block UIImage *tileImage = [UIImage imageNamed:@"luowei"];
-                NSString *name = Emoji_Items[(NSUInteger) drafter.tileImageIndex];
-                if (drafter.drawType == ImageTile) {
-                    name = drafter.tileImageUrl.absoluteString;
-                }
-
-                if (drafter.tileImageIndex < 5000) {
-                    //从缓存目录找,没有才去相册加载
-                    SDImageCache *imageCache = [SDImageCache sharedImageCache];
-                    if ([imageCache diskImageExistsWithKey:[NSString stringWithFormat:@"tile_%lf_%@", drafter.lineWidth, name]]) {
-                        tileImage = [imageCache imageFromDiskCacheForKey:[NSString stringWithFormat:@"tile_%lf_%@", drafter.lineWidth, name]];
-                    } else {
-                        if (drafter.drawType == ImageTile) {
-                            CGFloat scale = [UIScreen mainScreen].scale;
-                            [drawView.drawBar.tileSelectorView.photoPicker pictureWithURL:drafter.tileImageUrl size:CGSizeMake(drafter.lineWidth * 2 * scale, drafter.lineWidth * 2 * scale) imageBlock:^(UIImage *image) {
-                                tileImage = image;
-                            }];
-                        } else {
-                            tileImage = [name image:CGSizeMake(drafter.lineWidth * 2, drafter.lineWidth * 2)];
-                        }
-                        dispatch_async(dispatch_get_main_queue(), ^() {
-                            [[SDImageCache sharedImageCache] storeImage:tileImage forKey:[NSString stringWithFormat:@"tile_%lf_%@", drafter.lineWidth, name] toDisk:YES];
-                        });
-                    }
-                }
+                UIImage *tileImage = [self getTileImageWithDrafter:drafter];
 
                 //绘制tileImage
                 [tileImage drawInRect:brushRect];
@@ -395,6 +370,39 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
     }
 
 
+}
+
+
+//根据drafter获得一张TileImage
+- (UIImage *)getTileImageWithDrafter:(LWDrafter *)drafter{
+    //获得tileImage
+    __block UIImage *tileImage = [UIImage imageNamed:@"luowei"];
+    NSString *name = Emoji_Items[(NSUInteger) drafter.tileImageIndex];
+    if (drafter.drawType == ImageTile) {
+                    name = drafter.tileImageUrl.absoluteString;
+                }
+
+    if (drafter.tileImageIndex < 5000) {
+                    //从缓存目录找,没有才去相册加载
+                    SDImageCache *imageCache = [SDImageCache sharedImageCache];
+                    if ([imageCache diskImageExistsWithKey:[NSString stringWithFormat:@"tile_%lf_%@", drafter.lineWidth, name]]) {
+                        tileImage = [imageCache imageFromDiskCacheForKey:[NSString stringWithFormat:@"tile_%lf_%@", drafter.lineWidth, name]];
+                    } else {
+                        if (drafter.drawType == ImageTile) {
+                            CGFloat scale = [UIScreen mainScreen].scale;
+                            LWDrawView *drawView = [self superViewWithClass:[LWDrawView class]];
+                            [drawView.drawBar.tileSelectorView.photoPicker pictureWithURL:drafter.tileImageUrl size:CGSizeMake(drafter.lineWidth * 2 * scale, drafter.lineWidth * 2 * scale) imageBlock:^(UIImage *image) {
+                                tileImage = image;
+                            }];
+                        } else {
+                            tileImage = [name image:CGSizeMake(drafter.lineWidth * 2, drafter.lineWidth * 2)];
+                        }
+                        dispatch_async(dispatch_get_main_queue(), ^() {
+                            [[SDImageCache sharedImageCache] storeImage:tileImage forKey:[NSString stringWithFormat:@"tile_%lf_%@", drafter.lineWidth, name] toDisk:YES];
+                        });
+                    }
+                }
+    return tileImage;
 }
 
 //根据给定的点集自由绘制
@@ -650,6 +658,35 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
     self.layer.shadowOffset = CGSizeMake(1.1f, 1.1f);
     self.layer.shadowOpacity = 0.6f;
     self.layer.shadowRadius = 2.0f;
+}
+
+
+@end
+
+
+#pragma mark - LWControlBtn
+
+@implementation LWControlImgV
+
+
+@end
+
+
+#pragma mark - LWControlView
+
+@implementation LWControlView
+
+
+- (void)drawRect:(CGRect)rect {
+    [super drawRect:rect];
+
+    //绘制虚线框
+    UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRect: self.bounds];
+    [[UIColor colorWithHexString:@"ff4000"] setStroke];
+    rectanglePath.lineWidth = 1;
+    CGFloat rectanglePattern[] = {2, 2};
+    [rectanglePath setLineDash: rectanglePattern count: 2 phase: 0];
+    [rectanglePath stroke];
 }
 
 

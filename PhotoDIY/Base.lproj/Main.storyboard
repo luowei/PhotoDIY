@@ -97,6 +97,41 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dfJ-Xb-rco" userLabel="Scratch View" customClass="LWScratchView"/>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xZQ-UW-W72" userLabel="Scrawl View" customClass="LWScrawlView">
                                                 <subviews>
+                                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Re-0O-MfZ" userLabel="controlView" customClass="LWControlView">
+                                                        <subviews>
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="controlBtn" translatesAutoresizingMaskIntoConstraints="NO" id="Z4t-hi-8sc" userLabel="control" customClass="LWControlImgV">
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="20" id="f3q-y1-JX6"/>
+                                                                    <constraint firstAttribute="height" constant="20" id="vnO-y9-Xh1"/>
+                                                                </constraints>
+                                                            </imageView>
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rotateBtn" translatesAutoresizingMaskIntoConstraints="NO" id="NVy-Sw-hP3" userLabel="rotate" customClass="LWControlImgV">
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="20" id="UXg-CI-gwF"/>
+                                                                    <constraint firstAttribute="height" constant="20" id="lJQ-x7-shN"/>
+                                                                </constraints>
+                                                            </imageView>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <constraints>
+                                                            <constraint firstItem="NVy-Sw-hP3" firstAttribute="top" secondItem="1Re-0O-MfZ" secondAttribute="top" constant="-10" id="5f8-Yp-Je3"/>
+                                                            <constraint firstAttribute="height" constant="100" id="BOj-cl-5Be"/>
+                                                            <constraint firstAttribute="bottom" secondItem="Z4t-hi-8sc" secondAttribute="bottom" constant="-10" id="Phf-wD-Sfg"/>
+                                                            <constraint firstAttribute="width" constant="100" id="R8P-KN-PIt"/>
+                                                            <constraint firstAttribute="trailing" secondItem="NVy-Sw-hP3" secondAttribute="trailing" constant="-10" id="aXH-Df-KDf"/>
+                                                            <constraint firstAttribute="trailing" secondItem="Z4t-hi-8sc" secondAttribute="trailing" constant="-10" id="xUK-gy-rLM"/>
+                                                        </constraints>
+                                                        <connections>
+                                                            <outlet property="control" destination="Z4t-hi-8sc" id="hkf-DU-Yod"/>
+                                                            <outlet property="rotate" destination="NVy-Sw-hP3" id="zJj-Mt-jPJ"/>
+                                                        </connections>
+                                                    </view>
+                                                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="controlBtn" translatesAutoresizingMaskIntoConstraints="NO" id="czj-X5-BJA" userLabel="control" customClass="LWControlImgV">
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="20" id="QwA-Tb-J3c"/>
+                                                            <constraint firstAttribute="height" constant="20" id="aO1-3e-3Jq"/>
+                                                        </constraints>
+                                                    </imageView>
                                                     <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="30" placeholderIntrinsicHeight="20" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mIy-SX-4Nq" customClass="LWScratchTextView">
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="20" id="3Nx-Uo-cG0"/>
@@ -109,12 +144,22 @@
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstItem="mIy-SX-4Nq" firstAttribute="leading" secondItem="xZQ-UW-W72" secondAttribute="leading" constant="131" id="7fH-ps-nd9" userLabel="TextConstrantX"/>
+                                                    <constraint firstItem="czj-X5-BJA" firstAttribute="top" secondItem="xZQ-UW-W72" secondAttribute="top" constant="150" id="WVC-jJ-fe2" userLabel="ControlImgVTop"/>
+                                                    <constraint firstItem="1Re-0O-MfZ" firstAttribute="top" secondItem="xZQ-UW-W72" secondAttribute="top" constant="20" id="mdq-fS-5te" userLabel="ControlViewTop"/>
                                                     <constraint firstItem="mIy-SX-4Nq" firstAttribute="top" secondItem="xZQ-UW-W72" secondAttribute="top" constant="180" id="np7-m5-PCN" userLabel="TextConstrantY"/>
+                                                    <constraint firstItem="1Re-0O-MfZ" firstAttribute="leading" secondItem="xZQ-UW-W72" secondAttribute="leading" constant="20" id="tnD-25-Aey" userLabel="ControlViewLeading"/>
+                                                    <constraint firstItem="czj-X5-BJA" firstAttribute="leading" secondItem="xZQ-UW-W72" secondAttribute="leading" constant="150" id="ymN-Uu-L1I" userLabel="ControlImgVLeading"/>
                                                 </constraints>
                                                 <connections>
+                                                    <outlet property="control" destination="czj-X5-BJA" id="lHo-Fk-OEu"/>
+                                                    <outlet property="controlConstraintX" destination="ymN-Uu-L1I" id="9Yk-iN-Xow"/>
+                                                    <outlet property="controlConstraintY" destination="WVC-jJ-fe2" id="hNl-Ck-7xI"/>
+                                                    <outlet property="controlView" destination="1Re-0O-MfZ" id="nRt-MK-ZHj"/>
                                                     <outlet property="textConstraintX" destination="7fH-ps-nd9" id="QH4-yb-Vjl"/>
                                                     <outlet property="textConstraintY" destination="np7-m5-PCN" id="ygQ-br-LxD"/>
                                                     <outlet property="textView" destination="mIy-SX-4Nq" id="SfL-n2-tDr"/>
+                                                    <outlet property="viewConstraintX" destination="tnD-25-Aey" id="rvE-cb-HwS"/>
+                                                    <outlet property="viewConstraintY" destination="mdq-fS-5te" id="LUt-Za-gE5"/>
                                                 </connections>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4kf-gH-kqu" userLabel="Mosaic View">
@@ -373,9 +418,11 @@
                                             <constraint firstAttribute="trailing" secondItem="O5f-Jf-Ls1" secondAttribute="trailing" id="Ye4-vV-qAU"/>
                                             <constraint firstItem="xZQ-UW-W72" firstAttribute="leading" secondItem="euM-5w-niK" secondAttribute="leading" id="a8E-Cz-0CE"/>
                                             <constraint firstItem="O5f-Jf-Ls1" firstAttribute="leading" secondItem="euM-5w-niK" secondAttribute="leading" id="aQH-lD-kRt"/>
+                                            <constraint firstItem="xZQ-UW-W72" firstAttribute="top" secondItem="euM-5w-niK" secondAttribute="top" id="dgI-nA-UZA"/>
                                             <constraint firstItem="dfJ-Xb-rco" firstAttribute="leading" secondItem="euM-5w-niK" secondAttribute="leading" id="iBL-iG-Yrj"/>
                                             <constraint firstAttribute="bottom" secondItem="coG-Pc-dqh" secondAttribute="bottom" id="jkv-mB-2BH"/>
                                             <constraint firstItem="dfJ-Xb-rco" firstAttribute="top" secondItem="euM-5w-niK" secondAttribute="top" id="ntb-5j-rdI"/>
+                                            <constraint firstItem="xZQ-UW-W72" firstAttribute="leading" secondItem="euM-5w-niK" secondAttribute="leading" id="qPO-uQ-upO"/>
                                             <constraint firstItem="xZQ-UW-W72" firstAttribute="top" secondItem="euM-5w-niK" secondAttribute="top" id="rrf-sl-SZB"/>
                                             <constraint firstAttribute="trailing" secondItem="coG-Pc-dqh" secondAttribute="trailing" id="sfI-se-Ri6"/>
                                             <constraint firstAttribute="bottom" secondItem="O5f-Jf-Ls1" secondAttribute="bottom" id="t67-qk-6UH"/>
@@ -857,6 +904,7 @@
         <image name="albumButton" width="40" height="40"/>
         <image name="btnCancel" width="40" height="40"/>
         <image name="btnOK" width="40" height="40"/>
+        <image name="controlBtn" width="20" height="20"/>
         <image name="cropButton" width="40" height="40"/>
         <image name="doodleButton" width="40" height="40"/>
         <image name="draw_clear" width="40" height="40"/>
@@ -870,6 +918,7 @@
         <image name="placeHolder" width="80" height="100"/>
         <image name="redoButton" width="40" height="40"/>
         <image name="revocation" width="40" height="40"/>
+        <image name="rotateBtn" width="20" height="20"/>
         <image name="saveButton" width="40" height="40"/>
         <image name="shareBtn" width="44" height="44"/>
         <image name="undoButton" width="40" height="40"/>
