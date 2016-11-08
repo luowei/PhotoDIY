@@ -130,12 +130,24 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
     CGPoint point = [[touches anyObject] locationInView:self];
 
     LWDrafter *_currentDrafter = nil;
-    //遍历_curves，查找当前触摸点是否在文字框内
+    //遍历_curves，查找当前触摸点是否在某个Path框内
     for (LWDrafter *path in _curves) {
         BOOL isZeroRect = path.rect.size.height == 0;
-        if (!isZeroRect && CGRectContainsPoint(path.rect, point)) {
-            _currentDrafter = path;
-            _currentDrafter.isNew = NO;
+        if (!isZeroRect) {//Path所占矩形框不为0
+
+            //编辑模式下，是否在控制范围内
+            BOOL isNotType = path.drawType != Erase && path.drawType != Line && path.drawType != LineArrow && path.drawType != Text;
+            BOOL isInside = CGRectContainsPoint(CGRectInset(path.rect,-25,-25),point);
+            if(isNotType && path.drawType != Text && _drawStatus == Editing && path.isEditing && isInside){
+                [self.nextResponder touchesBegan:touches withEvent:event];
+                return;
+            }
+
+            //触摸点在框内
+            if(CGRectContainsPoint(path.rect, point)){
+                _currentDrafter = path;
+                _currentDrafter.isNew = NO;
+            }
         }
     }
 
@@ -216,14 +228,18 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
             //隐藏文本输入框并且退出文本输入模式
             [self hideTextViewAndEndTexting];
 
-            BOOL isShape = _currentDrafter.drawType == Hand || _currentDrafter.drawType == Rectangle || _currentDrafter.drawType == Oval;
-            if (_currentDrafter != nil && isShape && !_currentDrafter.isEditing) {
-                _drawStatus = Editing;
-                _currentDrafter.isEditing = YES;
-                self.controlView.hidden = NO;
-                //设置controlView
-                [self updateControlViewWithDrafter:_currentDrafter];
-            } else {
+            if(_currentDrafter != nil){ //在边框范围内点击
+                BOOL isShape = _currentDrafter.drawType == Hand || _currentDrafter.drawType == Rectangle || _currentDrafter.drawType == Oval;
+                if (isShape && !_currentDrafter.isEditing) {
+                    _drawStatus = Editing;
+                    _currentDrafter.isEditing = YES;
+                    self.controlView.hidden = NO;
+                    //设置controlView
+                    [self updateControlViewWithDrafter:_currentDrafter];
+                }else{
+                    [self.nextResponder touchesBegan:touches withEvent:event];
+                }
+            }else { //不在边框范围内点击,退出编辑模式
                 _drawStatus = Drawing;
                 LWDrafter *editingDrafter = [self getEditingDrafter];
                 editingDrafter.isEditing = NO;
@@ -239,7 +255,7 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
             [self hideTextViewAndEndTexting];
 
             BOOL isTile = _currentDrafter.drawType == EmojiTile || _currentDrafter.drawType == ImageTile;
-            if(_currentDrafter != nil && isTile){   //不为空
+            if(_currentDrafter != nil && isTile){   //在边框范围内点击
 
                 if(!_currentDrafter.isEditing){ //不处于编辑状态
                     _drawStatus = Editing;
@@ -250,7 +266,7 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
                 }else{
                     [self.nextResponder touchesBegan:touches withEvent:event];
                 }
-            }else{  //_currentDrafter为空
+            }else{  //在边框范围外点击
                 //设置为绘制模式，并隐藏输入框
                 _drawStatus = Drawing;
                 _currentDrafter.isEditing = NO;
