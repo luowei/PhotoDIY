@@ -19,6 +19,8 @@
     CGFloat originY;
     UIPanGestureRecognizer *_rec;
     DrawStatus _drawStatus;
+    BOOL _isRotating;
+    BOOL _isControling;
 }
 
 static inline float fz_min(float a, float b) {
@@ -50,6 +52,8 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
     _fontName = @"HelveticaNeue";
 
     _drawStatus = Drawing;
+    _isRotating = NO;
+    _isControling = NO;
 
 }
 
@@ -138,7 +142,7 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
             //编辑模式下，是否在控制范围内
             BOOL isNotType = path.drawType != Erase && path.drawType != Line && path.drawType != LineArrow && path.drawType != Text;
             BOOL isInside = CGRectContainsPoint(CGRectInset(path.rect,-25,-25),point);
-            if(isNotType && path.drawType != Text && _drawStatus == Editing && path.isEditing && isInside){
+            if(isNotType && _drawStatus == Editing && path.isEditing && isInside){
                 [self.nextResponder touchesBegan:touches withEvent:event];
                 return;
             }
@@ -391,6 +395,7 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
 
     switch (rec.state) {
         case UIGestureRecognizerStateBegan: {
+            beganPoint = [rec locationInView:self];
 
             if (_drawStatus == Drawing) {
                 LWDrafter *currentPath = [[LWDrafter alloc] init];
@@ -402,8 +407,27 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
                 currentPath.drawType = self.drawType;
                 [_curves addObject:currentPath];
 
-                beganPoint = [rec locationInView:self];
                 [currentPath.pointArr addObject:[NSValue valueWithCGPoint:beganPoint]];
+
+            }else if(_drawStatus == Editing){
+                LWDrafter *editingDrafter = [self getEditingAndTextingDrafter];
+                BOOL isNotType = editingDrafter.drawType != Erase && editingDrafter.drawType != Line && editingDrafter.drawType != LineArrow && editingDrafter.drawType != Text;
+                CGRect rotateRect = [self.controlView convertRect:self.controlView.rotate.frame toView:self];
+                BOOL isRotateInside = CGRectContainsPoint(rotateRect,beganPoint);
+                CGRect controlRect = [self.controlView convertRect:self.controlView.control.frame toView:self];
+                BOOL isControlInside = CGRectContainsPoint(controlRect,beganPoint);
+                if(isNotType && editingDrafter.isEditing){
+                    if(isRotateInside){ //如果在旋钮范围内
+                        _isRotating = YES;
+                        _isControling = NO;
+                    }else if(isControlInside){  //在控制按钮范围内
+                        _isControling = YES;
+                        _isRotating = NO;
+                    }
+
+                    return;
+                }
+
             }
 
             break;
@@ -414,14 +438,31 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
             if (_drawStatus == Editing) { //编辑模式
                 //移动文本输入框
                 LWDrafter *editingDrafter = [self getEditingAndTextingDrafter];
+                BOOL isNotType = editingDrafter.drawType != Erase && editingDrafter.drawType != Line && editingDrafter.drawType != LineArrow && editingDrafter.drawType != Text;
+
                 if (editingDrafter.drawType == Text) {
                     //更新controlView
-                    [self updateControlViewWithPoint:movePoint drafter:editingDrafter];
+                    [self updateControlViewFrameWithPoint:movePoint drafter:editingDrafter];
                     //更新textView
                     self.textVConstX.constant = movePoint.x - CGRectGetWidth(editingDrafter.rect) / 2;
                     self.textVConstY.constant = movePoint.y - CGRectGetHeight(editingDrafter.rect) / 2;
 
                     [editingDrafter.pointArr addObject:[NSValue valueWithCGPoint:movePoint]];
+
+                }else if(isNotType){
+                    if(_isRotating){ //旋转控制
+                        //计算角度
+                        CGPoint center = CGPointMake(CGRectGetMidX(editingDrafter.rect), CGRectGetMidY(editingDrafter.rect));
+                        CGFloat startAngle = (CGFloat) (atan2(beganPoint.y - center.y,beganPoint.x - center.x) * 180 / M_PI);
+                        CGFloat movingAngle = (CGFloat) (atan2(movePoint.y - center.y,movePoint.x - center.x) * 180 / M_PI);
+                        CGFloat angle = movingAngle - startAngle;
+                        //旋转
+                        [self.controlView rotateAngle:angle];
+                        editingDrafter.rotateAngle = angle;
+
+                    }else if(_isControling){ //缩放控制
+
+                    }
                 }
 
             } else {  //绘制模式
@@ -437,20 +478,39 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
             if (_drawStatus == Editing) { //编辑模式
                 //移动文本输入框
                 LWDrafter *editingDrafter = [self getEditingAndTextingDrafter];
+                BOOL isNotType = editingDrafter.drawType != Erase && editingDrafter.drawType != Line && editingDrafter.drawType != LineArrow && editingDrafter.drawType != Text;
+
                 if (editingDrafter.drawType == Text) {
                     //更新controlView
-                    [self updateControlViewWithPoint:endPoint drafter:editingDrafter];
+                    [self updateControlViewFrameWithPoint:endPoint drafter:editingDrafter];
                     //更新textView
                     self.textVConstX.constant = endPoint.x - CGRectGetWidth(editingDrafter.rect) / 2;
                     self.textVConstY.constant = endPoint.y - CGRectGetHeight(editingDrafter.rect) / 2;
 
                     [editingDrafter.pointArr addObject:[NSValue valueWithCGPoint:endPoint]];
+                }else if(isNotType){
+                    if(_isRotating){ //旋转控制
+                        //计算角度
+                        CGPoint center = CGPointMake(CGRectGetMidX(editingDrafter.rect), CGRectGetMidY(editingDrafter.rect));
+                        CGFloat startAngle = (CGFloat) (atan2(beganPoint.y - center.y,beganPoint.x - center.x) * 180 / M_PI);
+                        CGFloat movingAngle = (CGFloat) (atan2(movePoint.y - center.y,movePoint.x - center.x) * 180 / M_PI);
+                        CGFloat angle = movingAngle - startAngle;
+                        //旋转
+                        [self.controlView rotateAngle:angle];
+                        editingDrafter.rotateAngle = angle;
+
+                    }else if(_isControling){ //缩放控制
+
+                    }
                 }
+                
             } else {  //绘制模式
                 LWDrafter *currentPath = [_curves lastObject];
                 [currentPath.pointArr addObject:[NSValue valueWithCGPoint:endPoint]];
             }
 
+            _isRotating = NO;
+            _isControling = NO;
             [self setNeedsDisplay];
             break;
         }
@@ -461,7 +521,7 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
 }
 
 //更新ControlView
-- (void)updateControlViewWithPoint:(CGPoint)movePoint drafter:(LWDrafter *)editingDrafter {
+- (void)updateControlViewFrameWithPoint:(CGPoint)movePoint drafter:(LWDrafter *)editingDrafter {
     CGFloat x = movePoint.x - CGRectGetWidth(editingDrafter.rect) / 2;
     CGFloat y = movePoint.y - CGRectGetHeight(editingDrafter.rect) / 2;
     CGFloat width = CGRectGetWidth(editingDrafter.rect);

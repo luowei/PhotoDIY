@@ -63,7 +63,7 @@
     return [UIColor colorWithRed:(CGFloat) (1.0 - r) green:(CGFloat) (1.0 - g) blue:(CGFloat) (1.0 - b) alpha:a];
 }
 
--(BOOL)isLight{
+- (BOOL)isLight {
     const CGFloat *components = CGColorGetComponents(self.CGColor);
     CGFloat brightness = ((components[0] * 299) + (components[1] * 587) + (components[2] * 114)) / 1000;
     return brightness >= 0.5;
@@ -250,5 +250,32 @@
     return image;
 }
 
+
+@end
+
+
+@implementation UIView (Rotate)
+
+- (void)setAnchorPoint:(CGPoint)anchorPoint {
+    CGPoint oldOrigin = self.frame.origin;
+    self.layer.anchorPoint = anchorPoint;
+    CGPoint newOrigin = self.frame.origin;
+
+    CGPoint transition;
+    transition.x = newOrigin.x - oldOrigin.x;
+    transition.y = newOrigin.y - oldOrigin.y;
+    self.center = CGPointMake(self.center.x - transition.x, self.center.y - transition.y);
+}
+
+- (void)setDefaultAnchorPoint {
+    [self setAnchorPoint:CGPointMake(0.5f, 0.5f)];
+}
+
+//旋转
+- (void)rotateAngle:(CGFloat)angle {
+    CGFloat radians = (CGFloat) (angle * M_PI / 180);
+    CGAffineTransform transform = CGAffineTransformRotate(self.transform, radians);
+    self.transform = transform;
+}
 
 @end
