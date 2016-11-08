@@ -158,6 +158,10 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
                         //把 _currentDrafter 添加 _curves 曲线集合中
                         [_curves addObject:_currentDrafter];
 
+                        _drawStatus = Texting;
+                        _currentDrafter.isEditing = NO;
+                        _currentDrafter.isTexting = YES;
+
                         //设置文本框，并进入文本输入模式
                         [self setupTextViewWithPoint:point andDrafter:_currentDrafter];
 
@@ -177,10 +181,13 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
                         self.controlView.hidden = YES;
                         self.textView.hidden = YES;
                         _currentDrafter.isTexting = NO;
-                        _currentDrafter.isEditing = YES;
+                        _currentDrafter.isEditing = NO;
 
                     } else {  //进入文本输入模式
                         self.controlView.hidden = YES;
+                        _drawStatus = Texting;
+                        _currentDrafter.isEditing = NO;
+                        _currentDrafter.isTexting = YES;
                         //设置文本框，并进入文本输入模式
                         [self setupTextViewWithPoint:point andDrafter:_currentDrafter];
 
@@ -218,6 +225,8 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
                 [self updateControlViewWithDrafter:_currentDrafter];
             } else {
                 _drawStatus = Drawing;
+                LWDrafter *editingDrafter = [self getEditingDrafter];
+                editingDrafter.isEditing = NO;
                 self.controlView.hidden = YES;
                 [self.nextResponder touchesBegan:touches withEvent:event];
             }
@@ -244,6 +253,7 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
             }else{  //_currentDrafter为空
                 //设置为绘制模式，并隐藏输入框
                 _drawStatus = Drawing;
+                _currentDrafter.isEditing = NO;
                 self.controlView.hidden = YES;
 
                 //添加一个点
@@ -309,9 +319,6 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
 
     //进入文本输入模式,显示textView,并设置它的位置
     self.textView.hidden = NO;
-    _drawStatus = Texting;
-    _currentDrafter.isEditing = NO;
-    _currentDrafter.isTexting = YES;
     CGSize textVSize = self.textView.bounds.size;
     if (_currentDrafter.isNew) {
         self.textVConstX.constant = point.x - textVSize.width / 2;
@@ -388,7 +395,7 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
         case UIGestureRecognizerStateChanged: {
 
             movePoint = [rec locationInView:self];
-            if (_drawStatus == Editing || _drawStatus == Texting) { //编辑模式
+            if (_drawStatus == Editing) { //编辑模式
                 //移动文本输入框
                 LWDrafter *editingDrafter = [self getEditingAndTextingDrafter];
                 if (editingDrafter.drawType == Text) {
@@ -411,7 +418,7 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
         }
         case UIGestureRecognizerStateEnded: {
             endPoint = [rec locationInView:self];
-            if (_drawStatus == Editing || _drawStatus == Texting) { //编辑模式
+            if (_drawStatus == Editing) { //编辑模式
                 //移动文本输入框
                 LWDrafter *editingDrafter = [self getEditingAndTextingDrafter];
                 if (editingDrafter.drawType == Text) {
