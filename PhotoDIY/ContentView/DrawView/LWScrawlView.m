@@ -308,6 +308,7 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
     self.controlViewConstY.constant = CGRectGetMinY(_currentDrafter.rect);
     self.controlViewWidth.constant = CGRectGetWidth(_currentDrafter.rect);
     self.controlViewHeight.constant = CGRectGetHeight(_currentDrafter.rect);
+    [self.controlView setTransform:CGAffineTransformMakeRotation(_currentDrafter.rotateAngle * M_PI / 180)];
 }
 
 //隐藏文本输入框并且退出文本输入模式
@@ -694,62 +695,46 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
     [pointsPath stroke];
 
 
-    //设置当前path的Rect
-    drafter.rect = pointsPath.bounds;
+    //当drafter还没有值时，就设置path的Rect
+    if(drafter.rotateAngle == 0){
+        drafter.rect = pointsPath.bounds;
+    }
 }
 
 //画椭圆
 - (void)drawOvalFromPoint1:(CGPoint)p1 toPoint2:(CGPoint)p2 withDrafter:(LWDrafter *)drafter {
     CGRect frame = CGRectMake(MIN(p1.x, p2.x), MIN(p1.y, p2.y), (CGFloat) fabs(p1.x - p2.x), (CGFloat) fabs(p1.y - p2.y));
-    //// General Declarations
-    CGContextRef context = UIGraphicsGetCurrentContext();
+    UIBezierPath *ovalPath = [UIBezierPath bezierPathWithOvalInRect:frame];
 
-    //// Variable Declarations
-    CGPoint center = CGPointMake((CGFloat) (frame.origin.x + frame.size.width / 2.0), (CGFloat) (frame.origin.y + frame.size.height / 2.0));
-    CGRect translateFrame = CGRectMake((CGFloat) (-frame.size.width / 2.0), (CGFloat) (-frame.size.height / 2.0),frame.size.width,frame.size.height);
+    //旋转UIBezierPath
+    [ovalPath rotateDegree:drafter.rotateAngle];
 
-    //// Rectangle Drawing
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, center.x, center.y);
-    CGContextRotateCTM(context, (CGFloat) (drafter.rotateAngle * M_PI / 180));
-
-
-    UIBezierPath *ovalPath = [UIBezierPath bezierPathWithOvalInRect:translateFrame];
     [drafter.color setStroke];
     ovalPath.lineWidth = drafter.lineWidth;
     [ovalPath stroke];
 
-    CGContextRestoreGState(context);
-
     //设置当前path的Rect
-    drafter.rect = frame;
+    if(drafter.rotateAngle == 0){
+        drafter.rect = ovalPath.bounds;
+    }
 }
 
 //画矩形
 - (void)drawRectangleFromPoint1:(CGPoint)p1 toPoint2:(CGPoint)p2 withDrafter:(LWDrafter *)drafter {
     CGRect frame = CGRectMake(MIN(p1.x, p2.x), MIN(p1.y, p2.y), (CGFloat) fabs(p1.x - p2.x), (CGFloat) fabs(p1.y - p2.y));
-    //// General Declarations
-    CGContextRef context = UIGraphicsGetCurrentContext();
+    UIBezierPath *rectanglePath = [UIBezierPath bezierPathWithRect:frame];
 
+    //旋转UIBezierPath
+    [rectanglePath rotateDegree:drafter.rotateAngle];
 
-    //// Variable Declarations
-    CGPoint center = CGPointMake((CGFloat) (frame.origin.x + frame.size.width / 2.0), (CGFloat) (frame.origin.y + frame.size.height / 2.0));
-    CGRect translateFrame = CGRectMake((CGFloat) (-frame.size.width / 2.0), (CGFloat) (-frame.size.height / 2.0),frame.size.width,frame.size.height);
-
-    //// Rectangle Drawing
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, center.x, center.y);
-    CGContextRotateCTM(context, (CGFloat) (drafter.rotateAngle * M_PI / 180));
-
-    UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRect: translateFrame];
     [drafter.color setStroke];
     rectanglePath.lineWidth = drafter.lineWidth;
     [rectanglePath stroke];
 
-    CGContextRestoreGState(context);
-
     //设置当前path的Rect
-    drafter.rect = frame;
+    if(drafter.rotateAngle == 0){
+        drafter.rect = rectanglePath.bounds;
+    }
 }
 
 //画直线
