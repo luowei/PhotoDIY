@@ -20,6 +20,7 @@
         _isNew = YES;
         _colorIndex = 0;
         _rotateAngle = 0;
+        _rect = CGRectZero;
     }
     return self;
 }

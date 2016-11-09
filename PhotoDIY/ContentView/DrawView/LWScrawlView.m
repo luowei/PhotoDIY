@@ -453,12 +453,10 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
                     if(_isRotating){ //旋转控制
                         //计算角度
                         CGPoint center = CGPointMake(CGRectGetMidX(editingDrafter.rect), CGRectGetMidY(editingDrafter.rect));
-                        CGFloat startAngle = (CGFloat) (atan2(beganPoint.y - center.y,beganPoint.x - center.x) * 180 / M_PI);
-                        CGFloat movingAngle = (CGFloat) (atan2(movePoint.y - center.y,movePoint.x - center.x) * 180 / M_PI);
-                        CGFloat angle = movingAngle - startAngle;
+                        CGFloat movingAngle = (CGFloat) atan2(movePoint.y - center.y,movePoint.x - center.x);
                         //旋转
-                        [self.controlView rotateAngle:angle];
-                        editingDrafter.rotateAngle = angle;
+                        [self.controlView setTransform:CGAffineTransformMakeRotation(movingAngle)];
+                        editingDrafter.rotateAngle = (CGFloat) (movingAngle * 180 / M_PI);
 
                     }else if(_isControling){ //缩放控制
 
@@ -492,12 +490,10 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
                     if(_isRotating){ //旋转控制
                         //计算角度
                         CGPoint center = CGPointMake(CGRectGetMidX(editingDrafter.rect), CGRectGetMidY(editingDrafter.rect));
-                        CGFloat startAngle = (CGFloat) (atan2(beganPoint.y - center.y,beganPoint.x - center.x) * 180 / M_PI);
-                        CGFloat movingAngle = (CGFloat) (atan2(movePoint.y - center.y,movePoint.x - center.x) * 180 / M_PI);
-                        CGFloat angle = movingAngle - startAngle;
+                        CGFloat endAngle = (CGFloat) atan2(endPoint.y - center.y,endPoint.x - center.x);
                         //旋转
-                        [self.controlView rotateAngle:angle];
-                        editingDrafter.rotateAngle = angle;
+                        [self.controlView setTransform:CGAffineTransformMakeRotation(endAngle)];
+                        editingDrafter.rotateAngle = (CGFloat) (endAngle * 180 / M_PI);
 
                     }else if(_isControling){ //缩放控制
 
@@ -673,6 +669,7 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
 
 //根据给定的点集自由绘制
 - (void)drawCurveWithPoits:(NSArray *)points withDrawer:(LWDrafter *)drafter {
+
     UIBezierPath *pointsPath = [UIBezierPath bezierPath];
 
     CGPoint pt = [points[0] CGPointValue];
@@ -689,9 +686,13 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
     pointsPath.lineCapStyle = kCGLineCapRound;
     pointsPath.lineJoinStyle = kCGLineJoinRound;
 
+    //旋转UIBezierPath
+    [pointsPath rotateDegree:drafter.rotateAngle];
+    
     [drafter.color setStroke];
     pointsPath.lineWidth = drafter.lineWidth;
     [pointsPath stroke];
+
 
     //设置当前path的Rect
     drafter.rect = pointsPath.bounds;
@@ -700,25 +701,55 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
 //画椭圆
 - (void)drawOvalFromPoint1:(CGPoint)p1 toPoint2:(CGPoint)p2 withDrafter:(LWDrafter *)drafter {
     CGRect frame = CGRectMake(MIN(p1.x, p2.x), MIN(p1.y, p2.y), (CGFloat) fabs(p1.x - p2.x), (CGFloat) fabs(p1.y - p2.y));
-    UIBezierPath *ovalPath = [UIBezierPath bezierPathWithOvalInRect:frame];
+    //// General Declarations
+    CGContextRef context = UIGraphicsGetCurrentContext();
+
+    //// Variable Declarations
+    CGPoint center = CGPointMake((CGFloat) (frame.origin.x + frame.size.width / 2.0), (CGFloat) (frame.origin.y + frame.size.height / 2.0));
+    CGRect translateFrame = CGRectMake((CGFloat) (-frame.size.width / 2.0), (CGFloat) (-frame.size.height / 2.0),frame.size.width,frame.size.height);
+
+    //// Rectangle Drawing
+    CGContextSaveGState(context);
+    CGContextTranslateCTM(context, center.x, center.y);
+    CGContextRotateCTM(context, (CGFloat) (drafter.rotateAngle * M_PI / 180));
+
+
+    UIBezierPath *ovalPath = [UIBezierPath bezierPathWithOvalInRect:translateFrame];
     [drafter.color setStroke];
     ovalPath.lineWidth = drafter.lineWidth;
     [ovalPath stroke];
 
+    CGContextRestoreGState(context);
+
     //设置当前path的Rect
-    drafter.rect = ovalPath.bounds;
+    drafter.rect = frame;
 }
 
 //画矩形
 - (void)drawRectangleFromPoint1:(CGPoint)p1 toPoint2:(CGPoint)p2 withDrafter:(LWDrafter *)drafter {
     CGRect frame = CGRectMake(MIN(p1.x, p2.x), MIN(p1.y, p2.y), (CGFloat) fabs(p1.x - p2.x), (CGFloat) fabs(p1.y - p2.y));
-    UIBezierPath *rectanglePath = [UIBezierPath bezierPathWithRect:frame];
+    //// General Declarations
+    CGContextRef context = UIGraphicsGetCurrentContext();
+
+
+    //// Variable Declarations
+    CGPoint center = CGPointMake((CGFloat) (frame.origin.x + frame.size.width / 2.0), (CGFloat) (frame.origin.y + frame.size.height / 2.0));
+    CGRect translateFrame = CGRectMake((CGFloat) (-frame.size.width / 2.0), (CGFloat) (-frame.size.height / 2.0),frame.size.width,frame.size.height);
+
+    //// Rectangle Drawing
+    CGContextSaveGState(context);
+    CGContextTranslateCTM(context, center.x, center.y);
+    CGContextRotateCTM(context, (CGFloat) (drafter.rotateAngle * M_PI / 180));
+
+    UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRect: translateFrame];
     [drafter.color setStroke];
     rectanglePath.lineWidth = drafter.lineWidth;
     [rectanglePath stroke];
 
+    CGContextRestoreGState(context);
+
     //设置当前path的Rect
-    drafter.rect = rectanglePath.bounds;
+    drafter.rect = frame;
 }
 
 //画直线
@@ -808,7 +839,7 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
     CGContextRestoreGState(context);
 
     //设置当前path的Rect
-    drafter.rect = imgPath.bounds;
+    drafter.rect = imageFrame;
 }
 
 

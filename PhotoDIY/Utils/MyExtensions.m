@@ -279,3 +279,20 @@
 }
 
 @end
+
+
+@implementation UIBezierPath(Rotate)
+
+- (void)rotateDegree:(CGFloat)degree{
+    CGRect bounds = CGPathGetBoundingBox(self.CGPath);
+    CGPoint center = CGPointMake(CGRectGetMidX(bounds), CGRectGetMidY(bounds));
+
+    CGFloat radians = (CGFloat) (degree / 180.0f * M_PI);
+    CGAffineTransform transform = CGAffineTransformIdentity;
+    transform = CGAffineTransformTranslate(transform, center.x, center.y);
+    transform = CGAffineTransformRotate(transform, radians);
+    transform = CGAffineTransformTranslate(transform, -center.x, -center.y);
+    [self applyTransform:transform];
+}
+
+@end

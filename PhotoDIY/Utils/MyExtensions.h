@@ -88,3 +88,9 @@
 
 @end
 
+@interface UIBezierPath(Rotate)
+
+- (void)rotateDegree:(CGFloat)degree;
+
+@end
+
