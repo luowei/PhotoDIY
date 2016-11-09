@@ -141,8 +141,8 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
 
             //编辑模式下，是否在控制范围内
             BOOL isNotType = path.drawType != Erase && path.drawType != Line && path.drawType != LineArrow && path.drawType != Text;
-            BOOL isInside = CGRectContainsPoint(CGRectInset(path.rect,-25,-25),point);
-            if(isNotType && _drawStatus == Editing && path.isEditing && isInside){
+            BOOL isInControl = CGRectContainsPoint(CGRectInset(path.rect,-25,-25),point);
+            if(isNotType && _drawStatus == Editing && path.isEditing && isInControl){
                 [self.nextResponder touchesBegan:touches withEvent:event];
                 return;
             }
@@ -413,11 +413,20 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
             }else if(_drawStatus == Editing){
                 LWDrafter *editingDrafter = [self getEditingAndTextingDrafter];
                 BOOL isNotType = editingDrafter.drawType != Erase && editingDrafter.drawType != Line && editingDrafter.drawType != LineArrow && editingDrafter.drawType != Text;
-                CGRect rotateRect = [self.controlView convertRect:self.controlView.rotate.frame toView:self];
-                BOOL isRotateInside = CGRectContainsPoint(rotateRect,beganPoint);
-                CGRect controlRect = [self.controlView convertRect:self.controlView.control.frame toView:self];
-                BOOL isControlInside = CGRectContainsPoint(controlRect,beganPoint);
+
+                CGPoint convertedPoint = [rec locationInView:self.controlView];
+
                 if(isNotType && editingDrafter.isEditing){
+                    //判断触摸点是否在旋转按钮范围内
+                    CGRect rotateRect = [self.controlView convertRect:self.controlView.rotate.frame toView:self.controlView];
+                    CGFloat rDeta = rotateRect.size.width/2 - MIN(self.controlView.frame.size.width/4,self.controlView.frame.size.height/4);
+                    BOOL isRotateInside = CGRectContainsPoint(CGRectInset(rotateRect,rDeta,rDeta),convertedPoint);
+
+                    //判断触摸点是否在缩放按钮范围内
+                    CGRect controlRect = [self.controlView convertRect:self.controlView.control.frame toView:self.controlView];
+                    CGFloat cDeta = controlRect.size.width/2 - MIN(self.controlView.frame.size.width/4,self.controlView.frame.size.height/4);
+                    BOOL isControlInside = CGRectContainsPoint(CGRectInset(controlRect,cDeta,cDeta),convertedPoint);
+
                     if(isRotateInside){ //如果在旋钮范围内
                         _isRotating = YES;
                         _isControling = NO;
