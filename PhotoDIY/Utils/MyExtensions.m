@@ -4,6 +4,7 @@
 //
 
 #import "MyExtensions.h"
+#import "BezierUtils.h"
 
 
 @implementation MyExtensions {
@@ -283,6 +284,7 @@
 
 @implementation UIBezierPath(Rotate)
 
+//旋转UIBzierPath
 - (void)rotateDegree:(CGFloat)degree{
     CGRect bounds = CGPathGetBoundingBox(self.CGPath);
     CGPoint center = CGPointMake(CGRectGetMidX(bounds), CGRectGetMidY(bounds));
@@ -293,6 +295,24 @@
     transform = CGAffineTransformRotate(transform, radians);
     transform = CGAffineTransformTranslate(transform, -center.x, -center.y);
     [self applyTransform:transform];
+}
+
+//缩放UIBezierPath，宽度缩放比scaleW，高度缩放比scaleH
+-(void)scaleWidth:(CGFloat)scaleW scaleHeight:(CGFloat)scaleH{
+    CGRect bounds = CGPathGetBoundingBox(self.CGPath);
+    CGPoint origin = CGPointMake(CGRectGetMinX(bounds),CGRectGetMinY(bounds));
+    CGPoint center = CGPointMake(CGRectGetMidX(bounds), CGRectGetMidY(bounds));
+
+//    CGAffineTransform transform = CGAffineTransformMakeScale(scaleW, scaleH);
+    CGAffineTransform t = CGAffineTransformIdentity;
+    t = CGAffineTransformTranslate(t, center.x, center.y);
+    //t = CGAffineTransformConcat(transform, t);
+    t = CGAffineTransformScale(t,scaleW,scaleH);
+    t = CGAffineTransformTranslate(t, -center.x, -center.y);
+    [self applyTransform:t];
+
+    //以origin为参照点进行拉伸
+    MovePathToPoint(self,origin);
 }
 
 @end

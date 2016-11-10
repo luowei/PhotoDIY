@@ -50,6 +50,9 @@
 		EAB292EF1D2A6697004D5EED /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB292EE1D2A6697004D5EED /* AssetsLibrary.framework */; };
 		EAB292F11D2A66A4004D5EED /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB292F01D2A66A4004D5EED /* AVFoundation.framework */; };
 		EAB292F91D2A701F004D5EED /* Categorys.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB292F81D2A701F004D5EED /* Categorys.m */; };
+		EAD987AA1DD39B6A00B78AAE /* BaseGeometry.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD987A51DD39B6A00B78AAE /* BaseGeometry.m */; };
+		EAD987AB1DD39B6A00B78AAE /* BezierUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD987A71DD39B6A00B78AAE /* BezierUtils.m */; };
+		EAD987AC1DD39B6A00B78AAE /* Drawing-Block.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD987A91DD39B6A00B78AAE /* Drawing-Block.m */; };
 		EAE5B4691D2E7C8B00DD865D /* LWContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE5B4631D2E7C8B00DD865D /* LWContentView.m */; };
 /* End PBXBuildFile section */
 
@@ -120,6 +123,12 @@
 		EAB292F01D2A66A4004D5EED /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		EAB292F71D2A701F004D5EED /* Categorys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Categorys.h; sourceTree = "<group>"; };
 		EAB292F81D2A701F004D5EED /* Categorys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Categorys.m; sourceTree = "<group>"; };
+		EAD987A41DD39B6A00B78AAE /* BaseGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseGeometry.h; sourceTree = "<group>"; };
+		EAD987A51DD39B6A00B78AAE /* BaseGeometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseGeometry.m; sourceTree = "<group>"; };
+		EAD987A61DD39B6A00B78AAE /* BezierUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BezierUtils.h; sourceTree = "<group>"; };
+		EAD987A71DD39B6A00B78AAE /* BezierUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BezierUtils.m; sourceTree = "<group>"; };
+		EAD987A81DD39B6A00B78AAE /* Drawing-Block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Drawing-Block.h"; sourceTree = "<group>"; };
+		EAD987A91DD39B6A00B78AAE /* Drawing-Block.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Drawing-Block.m"; sourceTree = "<group>"; };
 		EAE5B4571D2DE1A500DD865D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		EAE5B4581D2DE1A500DD865D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		EAE5B4591D2DE1A500DD865D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -164,6 +173,7 @@
 		BEF0647B44847F476B9B7F3B /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				EAD987A31DD39B4E00B78AAE /* Bezier */,
 				BEF060475016942D9D22A16F /* LWDrafter.h */,
 				EA3A63521DCAE14700989C0D /* LWDrafter.m */,
 			);
@@ -340,6 +350,19 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		EAD987A31DD39B4E00B78AAE /* Bezier */ = {
+			isa = PBXGroup;
+			children = (
+				EAD987A41DD39B6A00B78AAE /* BaseGeometry.h */,
+				EAD987A51DD39B6A00B78AAE /* BaseGeometry.m */,
+				EAD987A61DD39B6A00B78AAE /* BezierUtils.h */,
+				EAD987A71DD39B6A00B78AAE /* BezierUtils.m */,
+				EAD987A81DD39B6A00B78AAE /* Drawing-Block.h */,
+				EAD987A91DD39B6A00B78AAE /* Drawing-Block.m */,
+			);
+			path = Bezier;
+			sourceTree = "<group>";
+		};
 		EAE5B4611D2E7C8B00DD865D /* ContentView */ = {
 			isa = PBXGroup;
 			children = (
@@ -512,9 +535,12 @@
 			files = (
 				EAB292F91D2A701F004D5EED /* Categorys.m in Sources */,
 				EA3A63531DCAE14700989C0D /* LWDrafter.m in Sources */,
+				EAD987AC1DD39B6A00B78AAE /* Drawing-Block.m in Sources */,
 				EA27A9C11DAB952F00B1264C /* StoreManager.m in Sources */,
 				EAB292C81D2A16C4004D5EED /* ViewController.m in Sources */,
+				EAD987AB1DD39B6A00B78AAE /* BezierUtils.m in Sources */,
 				EAB292C51D2A16C4004D5EED /* AppDelegate.m in Sources */,
+				EAD987AA1DD39B6A00B78AAE /* BaseGeometry.m in Sources */,
 				EA27A9BE1DAB932F00B1264C /* StoreObserver.m in Sources */,
 				EAE5B4691D2E7C8B00DD865D /* LWContentView.m in Sources */,
 				EAB0BC011D9E375800AD3B3D /* LWScrawlView.m in Sources */,

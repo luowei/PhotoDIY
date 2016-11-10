@@ -90,7 +90,11 @@
 
 @interface UIBezierPath(Rotate)
 
+//旋转UIBzierPath
 - (void)rotateDegree:(CGFloat)degree;
+
+//缩放UIBezierPath，宽度缩放比scaleW，高度缩放比scaleH
+-(void)scaleWidth:(CGFloat)scaleW scaleHeight:(CGFloat)scaleH;
 
 @end
 

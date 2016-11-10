@@ -12,6 +12,7 @@
 #import "LWDrawBar.h"
 #import "LWDrawView.h"
 #import "Categorys.h"
+#import "BezierUtils.h"
 
 @implementation LWScrawlView {
     CGFloat keyboardHeight;
@@ -469,7 +470,13 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
                         editingDrafter.rotateAngle = (CGFloat) (movingAngle * 180 / M_PI);
 
                     }else if(_isControling){ //缩放控制
-
+                        CGPoint origin = CGPointMake(CGRectGetMinX(editingDrafter.rect), CGRectGetMinY(editingDrafter.rect));
+                        CGFloat scaleX = (movePoint.x - origin.x) * 2 /CGRectGetWidth(editingDrafter.rect);
+                        CGFloat scaleY = (movePoint.y - origin.y) * 2 /CGRectGetHeight(editingDrafter.rect);
+                        //缩放
+                        [self.controlView setTransform:CGAffineTransformMakeScale(scaleX,scaleY)];
+                        editingDrafter.scaleSize = CGSizeMake(scaleX,scaleY);
+                        NSLog(@"======scaleX:%f,scaleY:%f",scaleX,scaleY);
                     }
                 }
 
@@ -735,6 +742,12 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
 
     //旋转UIBezierPath
     [rectanglePath rotateDegree:drafter.rotateAngle];
+
+    //缩放
+    [rectanglePath scaleWidth:drafter.scaleSize.width scaleHeight:drafter.scaleSize.height];
+
+//    [rectanglePath applyTransform:CGAffineTransformMakeScale(2.0f,2.0f)];
+
 
     [drafter.color setStroke];
     rectanglePath.lineWidth = drafter.lineWidth;

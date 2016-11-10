@@ -46,10 +46,13 @@ typedef NS_OPTIONS(NSUInteger, DrawStatus){
 @property(nonatomic) BOOL isNew;
 
 @property(nonatomic) CGFloat rotateAngle;
+@property(nonatomic) CGSize scaleSize;
+
 //EmojiTile/ImageTile
 @property (nonatomic, strong) NSMutableDictionary<NSString *,NSNumber *> *rotateAngleDict; //{"x,y":"45"}
 
 @property(nonatomic, strong) NSShadow *shadow;
+
 
 -(UIColor *)color;
 -(CGSize)burshSize;

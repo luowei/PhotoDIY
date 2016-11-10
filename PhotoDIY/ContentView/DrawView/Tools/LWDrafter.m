@@ -21,6 +21,7 @@
         _colorIndex = 0;
         _rotateAngle = 0;
         _rect = CGRectZero;
+        _scaleSize = CGSizeMake(1.0,1.0);
     }
     return self;
 }
