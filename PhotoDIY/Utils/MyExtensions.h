@@ -96,5 +96,8 @@
 //缩放UIBezierPath，宽度缩放比scaleW，高度缩放比scaleH
 -(void)scaleWidth:(CGFloat)scaleW scaleHeight:(CGFloat)scaleH;
 
+//按中心点移动缩放UIBezierPath
+-(void)moveCenterToPoint:(CGPoint)destPoint;
+
 @end
 

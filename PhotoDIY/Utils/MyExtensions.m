@@ -315,4 +315,21 @@
     MovePathToPoint(self,origin);
 }
 
+//按中心点移动缩放UIBezierPath
+-(void)moveCenterToPoint:(CGPoint)destPoint{
+    CGRect bounds = CGPathGetBoundingBox(self.CGPath);
+    CGPoint p1 = bounds.origin;
+    CGPoint p2 = destPoint;
+    CGSize offset = CGSizeMake(p2.x - p1.x, p2.y - p1.y);
+    offset.width -= bounds.size.width / 2.0f;
+    offset.height -= bounds.size.height / 2.0f;
+
+    CGPoint center = PathBoundingCenter(self);
+    CGAffineTransform t = CGAffineTransformIdentity;
+    t = CGAffineTransformTranslate(t, center.x, center.y);
+    t = CGAffineTransformTranslate(t,offset.width,offset.height);
+    t = CGAffineTransformTranslate(t, -center.x, -center.y);
+    [self applyTransform:t];
+}
+
 @end

@@ -22,6 +22,7 @@
     DrawStatus _drawStatus;
     BOOL _isRotating;
     BOOL _isControling;
+    BOOL _isMoving;
 }
 
 static inline float fz_min(float a, float b) {
@@ -55,6 +56,7 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
     _drawStatus = Drawing;
     _isRotating = NO;
     _isControling = NO;
+    _isMoving = NO;
 
 }
 
@@ -428,12 +430,23 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
                     CGFloat cDeta = controlRect.size.width/2 - MIN(self.controlView.frame.size.width/4,self.controlView.frame.size.height/4);
                     BOOL isControlInside = CGRectContainsPoint(CGRectInset(controlRect,cDeta,cDeta),convertedPoint);
 
+                    //判断触摸点是否在移动范围内
+                    CGRect cvBounds = self.controlView.bounds;
+                    CGRect movingRect = CGRectInset(cvBounds,cvBounds.size.width/4,cvBounds.size.height/4);
+                    BOOL isMovingInside = CGRectContainsPoint(movingRect,convertedPoint);
+
                     if(isRotateInside){ //如果在旋钮范围内
                         _isRotating = YES;
                         _isControling = NO;
+                        _isMoving = NO;
                     }else if(isControlInside){  //在控制按钮范围内
                         _isControling = YES;
                         _isRotating = NO;
+                        _isMoving = NO;
+                    }else if(isMovingInside){   //在移动范围内
+                        _isControling = NO;
+                        _isRotating = NO;
+                        _isMoving = YES;
                     }
 
                     return;
@@ -471,12 +484,21 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
 
                     }else if(_isControling){ //缩放控制
                         CGPoint origin = CGPointMake(CGRectGetMinX(editingDrafter.rect), CGRectGetMinY(editingDrafter.rect));
-                        CGFloat scaleX = (movePoint.x - origin.x) * 2 /CGRectGetWidth(editingDrafter.rect);
-                        CGFloat scaleY = (movePoint.y - origin.y) * 2 /CGRectGetHeight(editingDrafter.rect);
-                        //缩放
-                        [self.controlView setTransform:CGAffineTransformMakeScale(scaleX,scaleY)];
-                        editingDrafter.scaleSize = CGSizeMake(scaleX,scaleY);
-                        NSLog(@"======scaleX:%f,scaleY:%f",scaleX,scaleY);
+                        CGFloat sW = (CGFloat) fabs(movePoint.x - origin.x);
+                        CGFloat sH = (CGFloat) fabs(movePoint.y - origin.y);
+                        editingDrafter.rect = CGRectMake(MIN(movePoint.x,origin.x),MIN(movePoint.y,origin.y),sW,sH);
+
+                        //更新controlView
+                        self.controlViewWidth.constant = sW;
+                        self.controlViewHeight.constant = sH;
+                        self.controlViewConstX.constant = origin.x;
+                        self.controlViewConstY.constant = origin.y;
+                        [self.controlView setNeedsDisplay];
+                        [editingDrafter.pointArr addObject:[NSValue valueWithCGPoint:movePoint]];
+                    }else if(_isMoving) {
+                        //更新controlView
+                        [self updateControlViewFrameWithPoint:movePoint drafter:editingDrafter];
+                        editingDrafter.movePoint = movePoint;
                     }
                 }
 
@@ -543,6 +565,7 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
     self.controlViewHeight.constant = height;
     self.controlViewConstX.constant = x;
     self.controlViewConstY.constant = y;
+    [self.controlView setNeedsDisplay];
 
     editingDrafter.rect = CGRectMake(x, y, width, height);
 }
@@ -592,13 +615,15 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
                 case Rectangle: {
                     CGPoint pt = [points.firstObject CGPointValue];
                     CGPoint lastPt = [points.lastObject CGPointValue];
-                    [self drawRectangleFromPoint1:pt toPoint2:lastPt withDrafter:drafter];
+                    drafter.rect = CGRectMake(MIN(pt.x, lastPt.x), MIN(pt.y, lastPt.y), (CGFloat) fabs(pt.x - lastPt.x), (CGFloat) fabs(pt.y - lastPt.y));
+                    [self drawRectangleWithDrafter:drafter];
                     break;
                 }
                 case Oval: {
                     CGPoint pt = [points.firstObject CGPointValue];
                     CGPoint lastPt = [points.lastObject CGPointValue];
-                    [self drawOvalFromPoint1:pt toPoint2:lastPt withDrafter:drafter];
+                    drafter.rect = CGRectMake(MIN(pt.x, lastPt.x), MIN(pt.y, lastPt.y), (CGFloat) fabs(pt.x - lastPt.x), (CGFloat) fabs(pt.y - lastPt.y));
+                    [self drawOvalWithDrafter:drafter];
 
                     break;
                 }
@@ -718,12 +743,15 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
 }
 
 //画椭圆
-- (void)drawOvalFromPoint1:(CGPoint)p1 toPoint2:(CGPoint)p2 withDrafter:(LWDrafter *)drafter {
-    CGRect frame = CGRectMake(MIN(p1.x, p2.x), MIN(p1.y, p2.y), (CGFloat) fabs(p1.x - p2.x), (CGFloat) fabs(p1.y - p2.y));
-    UIBezierPath *ovalPath = [UIBezierPath bezierPathWithOvalInRect:frame];
+- (void)drawOvalWithDrafter:(LWDrafter *)drafter {
+    UIBezierPath *ovalPath = [UIBezierPath bezierPathWithOvalInRect:drafter.rect];
 
     //旋转UIBezierPath
     [ovalPath rotateDegree:drafter.rotateAngle];
+    if(drafter.movePoint.x != 0 || drafter.movePoint.y != 0){
+        //移动UIBezierPath
+        [ovalPath moveCenterToPoint:drafter.movePoint];
+    }
 
     [drafter.color setStroke];
     ovalPath.lineWidth = drafter.lineWidth;
@@ -736,18 +764,16 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
 }
 
 //画矩形
-- (void)drawRectangleFromPoint1:(CGPoint)p1 toPoint2:(CGPoint)p2 withDrafter:(LWDrafter *)drafter {
-    CGRect frame = CGRectMake(MIN(p1.x, p2.x), MIN(p1.y, p2.y), (CGFloat) fabs(p1.x - p2.x), (CGFloat) fabs(p1.y - p2.y));
-    UIBezierPath *rectanglePath = [UIBezierPath bezierPathWithRect:frame];
+- (void)drawRectangleWithDrafter:(LWDrafter *)drafter {
+    UIBezierPath *rectanglePath = [UIBezierPath bezierPathWithRect:drafter.rect];
 
     //旋转UIBezierPath
     [rectanglePath rotateDegree:drafter.rotateAngle];
 
-    //缩放
-    [rectanglePath scaleWidth:drafter.scaleSize.width scaleHeight:drafter.scaleSize.height];
-
-//    [rectanglePath applyTransform:CGAffineTransformMakeScale(2.0f,2.0f)];
-
+    if(drafter.movePoint.x != 0 || drafter.movePoint.y != 0){
+        //移动UIBezierPath
+        [rectanglePath moveCenterToPoint:drafter.movePoint];
+    }
 
     [drafter.color setStroke];
     rectanglePath.lineWidth = drafter.lineWidth;
