@@ -19,8 +19,11 @@
         _pointArr = [NSMutableArray array];
         _isNew = YES;
         _colorIndex = 0;
-        _rotateAngle = 0;
         _rect = CGRectZero;
+
+        _pathBounds = CGRectZero;
+        _rotateAngle = 0;
+        _scaleRect = CGRectZero;
         _movePoint = CGPointZero;
     }
     return self;

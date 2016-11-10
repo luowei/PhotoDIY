@@ -333,3 +333,33 @@
 }
 
 @end
+
+//旋转point
+CGPoint RotatePoint(CGPoint pointToRotate, CGFloat degree, CGPoint origin){
+    float angleInRadians = (float) (degree * M_PI / 180);
+    CGPoint distanceFromOrigin = CGPointMake(origin.x - pointToRotate.x, origin.y - pointToRotate.y);
+
+    CGAffineTransform translateToOrigin = CGAffineTransformMakeTranslation(distanceFromOrigin.x, distanceFromOrigin.y);
+    CGAffineTransform rotationTransform = CGAffineTransformMakeRotation(angleInRadians);
+    CGAffineTransform translateBackFromOrigin = CGAffineTransformInvert(translateToOrigin);
+
+    CGAffineTransform totalTransform = CGAffineTransformConcat(translateToOrigin, rotationTransform);
+    totalTransform = CGAffineTransformConcat(totalTransform, translateBackFromOrigin);
+
+    CGPoint rotatedPoint = CGPointApplyAffineTransform(pointToRotate, totalTransform);
+    return rotatedPoint;
+}
+
+//平移Point到原始位置
+CGPoint BackOffsetPoint(CGPoint point, CGSize offset){
+    CGPoint backOffsetedPoint = CGPointMake(point.x - offset.width,point.y - offset.height);
+    return backOffsetedPoint;
+}
+
+//缩放Point到原始位置
+CGPoint BackScalePoint(CGPoint point,CGPoint origin,CGFloat scaleX,CGFloat scaleY){
+    CGSize offset = CGSizeMake(point.x - origin.x,point.y - origin.y);
+    CGSize backScaleOffset = CGSizeMake(offset.width / scaleX,offset.height / scaleY);
+    CGPoint backScaledPoint = CGPointMake(origin.x + backScaleOffset.width,origin.y + backScaleOffset.height);
+    return backScaledPoint;
+}

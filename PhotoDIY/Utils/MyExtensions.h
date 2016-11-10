@@ -101,3 +101,11 @@
 
 @end
 
+
+CGPoint RotatePoint(CGPoint point, CGFloat degree, CGPoint origin);
+
+//平移Point到原始位置
+CGPoint BackOffsetPoint(CGPoint point, CGSize offset);
+
+//缩放Point到原始位置
+CGPoint BackScalePoint(CGPoint point,CGPoint origin,CGFloat scaleX,CGFloat scaleY);

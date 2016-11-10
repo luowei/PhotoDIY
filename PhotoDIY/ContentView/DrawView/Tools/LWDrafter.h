@@ -45,14 +45,15 @@ typedef NS_OPTIONS(NSUInteger, DrawStatus){
 @property(nonatomic) BOOL isEditing;
 @property(nonatomic) BOOL isNew;
 
+@property(nonatomic) CGRect pathBounds;
 @property(nonatomic) CGFloat rotateAngle;
+@property(nonatomic) CGRect scaleRect;
 @property(nonatomic) CGPoint movePoint;
 
 //EmojiTile/ImageTile
 @property (nonatomic, strong) NSMutableDictionary<NSString *,NSNumber *> *rotateAngleDict; //{"x,y":"45"}
 
 @property(nonatomic, strong) NSShadow *shadow;
-
 
 
 
