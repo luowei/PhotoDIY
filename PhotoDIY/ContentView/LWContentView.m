@@ -13,9 +13,9 @@
 #import "MBProgressHUD.h"
 #import "LWImageCropView.h"
 #import "LWFilterImageView.h"
-#import "LWDataManager.h"
 #import "LWImageZoomView.h"
 #import "LWDrawView.h"
+#import "MyExtensions.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 
 @implementation LWContentView
@@ -61,10 +61,10 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [self reloadImage:image];
     });
-    
+
 }
 
-- (void)allURLPicked:(NSArray *)imageURLs{
+- (void)allURLPicked:(NSArray *)imageURLs {
     self.imageURLs = imageURLs;
 }
 
@@ -72,9 +72,10 @@
 #pragma mark - 其他方法
 
 - (void)showErrorHud {
-    self.hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
-    self.hud.mode = MBProgressHUDModeText;
-    self.hud.labelText = NSLocalizedString(@"Error", nil);
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
+    hud.mode = MBProgressHUDModeText;
+    hud.label.text = NSLocalizedString(@"Error", nil);
+    [hud hideAnimated:YES afterDelay:2.0];
 }
 
 
@@ -233,23 +234,52 @@
 
 - (void)saveImage {
     LWDataManager *dm = [LWDataManager sharedInstance];
+    switch (self.currentMode) {
+        case FilterMode: {
+            [self.filterView.filter forceProcessingAtSize:dm.currentImage.size];
+            [self.filterView.sourcePicture processImageUpToFilter:self.filterView.filter
+                                            withCompletionHandler:^(UIImage *processedImage) {
+                                                if (!processedImage) {
+                                                    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul), ^{
+                                                        UIImageWriteToSavedPhotosAlbum(dm.currentImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+                                                    });
+                                                } else {
+                                                    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul), ^{
+                                                        UIImageWriteToSavedPhotosAlbum(processedImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+                                                    });
+                                                }
+                                            }];
+            break;
+        }
+        case DrawMode:{
+            dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul), ^{
+                [self.drawView cacheDrawImage];
+                UIImageWriteToSavedPhotosAlbum(dm.currentImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+            });
+            break;
+        }
+        default: {
+            dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul), ^{
+                UIImageWriteToSavedPhotosAlbum(dm.currentImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+            });
+            break;
+        }
 
-    [self.filterView.filter forceProcessingAtSize:dm.currentImage.size];
-    self.hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
-    [self.filterView.sourcePicture processImageUpToFilter:self.filterView.filter
-                                      withCompletionHandler:^(UIImage *processedImage) {
-                                          if (!processedImage) {
-                                              UIImageWriteToSavedPhotosAlbum(dm.currentImage, self, nil, nil);
-                                          } else {
-                                              UIImageWriteToSavedPhotosAlbum(processedImage, self, nil, nil);
-                                          }
-                                          dispatch_async(dispatch_get_main_queue(), ^{
-                                              self.hud.mode = MBProgressHUDModeText;
-                                              self.hud.labelText = NSLocalizedString(@"Save Success", nil);
-                                              [self.hud hide:YES afterDelay:0];
-                                          });
-                                      }];
-    //[self.hud hide:YES afterDelay:3.0];
+    }
+
+}
+
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(id)contextInfo {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
+    hud.mode = MBProgressHUDModeText;
+    if (error != nil) {
+        //保存失败
+        hud.label.text = NSLocalizedString(@"Error", nil);
+        [hud hideAnimated:YES afterDelay:2.0];
+    } else {
+        hud.label.text = NSLocalizedString(@"Save Success", nil);
+        [hud hideAnimated:YES afterDelay:2.0];
+    }
 }
 
 
@@ -288,6 +318,7 @@
         UIImage *croppedImg = [UIImage imageWithCGImage:imageRef];
 
         self.currentMode = ImageMode;
+        dm.originImage = croppedImg;
         [self reloadImage:croppedImg];
 
         CGImageRelease(imageRef);
@@ -301,7 +332,6 @@
     self.currentMode = ImageMode;
     [self reloadImage:dm.currentImage];
 }
-
 
 
 @end

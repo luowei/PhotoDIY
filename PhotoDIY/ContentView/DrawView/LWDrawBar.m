@@ -313,16 +313,22 @@
                 case 0: {    //小画笔
                     drawView.scrawlView.freeInkLinewidth = 3.0;
                     [self sec3collectionView:collectionView selecteIndexPath:indexPath cell:cell];
+                    LWToolsCell *toolsCell = (LWToolsCell *)[collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:1]];
+                    toolsCell.slider.value = (float) (3.0 / 60);
                     break;
                 }
                 case 1: {    //中画笔
                     drawView.scrawlView.freeInkLinewidth = 6.0;
                     [self sec3collectionView:collectionView selecteIndexPath:indexPath cell:cell];
+                    LWToolsCell *toolsCell = (LWToolsCell *)[collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:1]];
+                    toolsCell.slider.value = (float) (6.0 / 60);
                     break;
                 }
                 case 2: {    //大画笔
                     drawView.scrawlView.freeInkLinewidth = 12.0;
                     [self sec3collectionView:collectionView selecteIndexPath:indexPath cell:cell];
+                    LWToolsCell *toolsCell = (LWToolsCell *)[collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:1]];
+                    toolsCell.slider.value = (float) (12.0 / 60);
                     break;
                 }
                 default:
@@ -365,6 +371,7 @@
         default:
             break;
     }
+    [drawView.scrawlView exitEditingOrTexting];
 
 }
 

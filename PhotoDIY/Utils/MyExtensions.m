@@ -162,8 +162,10 @@
 - (UIImage *)cutImageWithRect:(CGRect)cutRect {
     CGImageRef cutImageRef = CGImageCreateWithImageInRect(self.CGImage, cutRect);
     UIImage *cutImage = [UIImage imageWithCGImage:cutImageRef];
+    CGImageRelease(cutImageRef);
     return cutImage;
 }
+
 
 //在指定大小的绘图区域内,将img2合成到img1上
 + (UIImage *)addImageToImage:(UIImage *)img withImage2:(UIImage *)img2
@@ -281,11 +283,30 @@
 
 @end
 
+@implementation UIView (UIImage)
 
-@implementation UIBezierPath(Rotate)
+- (UIImage *)snapshot {
+    UIImage *snapShot = nil;
+    UIGraphicsBeginImageContext(self.bounds.size);
+    {
+        [self.layer renderInContext:UIGraphicsGetCurrentContext()];
+        snapShot = UIGraphicsGetImageFromCurrentImageContext();
+
+    }
+
+    UIGraphicsEndImageContext();
+    return snapShot;
+
+}
+
+
+@end
+
+
+@implementation UIBezierPath (Rotate)
 
 //旋转UIBzierPath
-- (void)rotateDegree:(CGFloat)degree{
+- (void)rotateDegree:(CGFloat)degree {
     CGRect bounds = CGPathGetBoundingBox(self.CGPath);
     CGPoint center = CGPointMake(CGRectGetMidX(bounds), CGRectGetMidY(bounds));
 
@@ -298,25 +319,25 @@
 }
 
 //缩放UIBezierPath，宽度缩放比scaleW，高度缩放比scaleH
--(void)scaleWidth:(CGFloat)scaleW scaleHeight:(CGFloat)scaleH{
+- (void)scaleWidth:(CGFloat)scaleW scaleHeight:(CGFloat)scaleH {
     CGRect bounds = CGPathGetBoundingBox(self.CGPath);
-    CGPoint origin = CGPointMake(CGRectGetMinX(bounds),CGRectGetMinY(bounds));
+    CGPoint origin = CGPointMake(CGRectGetMinX(bounds), CGRectGetMinY(bounds));
     CGPoint center = CGPointMake(CGRectGetMidX(bounds), CGRectGetMidY(bounds));
 
 //    CGAffineTransform transform = CGAffineTransformMakeScale(scaleW, scaleH);
     CGAffineTransform t = CGAffineTransformIdentity;
     t = CGAffineTransformTranslate(t, center.x, center.y);
     //t = CGAffineTransformConcat(transform, t);
-    t = CGAffineTransformScale(t,scaleW,scaleH);
+    t = CGAffineTransformScale(t, scaleW, scaleH);
     t = CGAffineTransformTranslate(t, -center.x, -center.y);
     [self applyTransform:t];
 
     //以origin为参照点进行拉伸
-    MovePathToPoint(self,origin);
+    MovePathToPoint(self, origin);
 }
 
 //按中心点移动缩放UIBezierPath
--(void)moveCenterToPoint:(CGPoint)destPoint{
+- (void)moveCenterToPoint:(CGPoint)destPoint {
     CGRect bounds = CGPathGetBoundingBox(self.CGPath);
     CGPoint p1 = bounds.origin;
     CGPoint p2 = destPoint;
@@ -327,15 +348,50 @@
     CGPoint center = PathBoundingCenter(self);
     CGAffineTransform t = CGAffineTransformIdentity;
     t = CGAffineTransformTranslate(t, center.x, center.y);
-    t = CGAffineTransformTranslate(t,offset.width,offset.height);
+    t = CGAffineTransformTranslate(t, offset.width, offset.height);
     t = CGAffineTransformTranslate(t, -center.x, -center.y);
     [self applyTransform:t];
 }
 
 @end
 
+@implementation UIView (APIFix)
+
+- (UIViewController *)viewController {
+    if ([self.nextResponder isKindOfClass:UIViewController.class])
+        return (UIViewController *)self.nextResponder;
+    else
+        return nil;
+}
+@end
+
+@implementation UIWindow (PazLabs)
+
+- (UIViewController *)visibleViewController {
+    UIViewController *rootViewController = self.rootViewController;
+    return [UIWindow getVisibleViewControllerFrom:rootViewController];
+}
+
++ (UIViewController *) getVisibleViewControllerFrom:(UIViewController *) vc {
+    if ([vc isKindOfClass:[UINavigationController class]]) {
+        return [UIWindow getVisibleViewControllerFrom:[((UINavigationController *) vc) visibleViewController]];
+    } else if ([vc isKindOfClass:[UITabBarController class]]) {
+        return [UIWindow getVisibleViewControllerFrom:[((UITabBarController *) vc) selectedViewController]];
+    } else {
+        if (vc.presentedViewController) {
+            return [UIWindow getVisibleViewControllerFrom:vc.presentedViewController];
+        } else {
+            return vc;
+        }
+    }
+}
+
+@end
+
+
+
 //旋转point
-CGPoint RotatePoint(CGPoint pointToRotate, CGFloat degree, CGPoint origin){
+CGPoint RotatePoint(CGPoint pointToRotate, CGFloat degree, CGPoint origin) {
     float angleInRadians = (float) (degree * M_PI / 180);
     CGPoint distanceFromOrigin = CGPointMake(origin.x - pointToRotate.x, origin.y - pointToRotate.y);
 
@@ -351,15 +407,15 @@ CGPoint RotatePoint(CGPoint pointToRotate, CGFloat degree, CGPoint origin){
 }
 
 //平移Point到原始位置
-CGPoint BackOffsetPoint(CGPoint point, CGSize offset){
-    CGPoint backOffsetedPoint = CGPointMake(point.x - offset.width,point.y - offset.height);
+CGPoint BackOffsetPoint(CGPoint point, CGSize offset) {
+    CGPoint backOffsetedPoint = CGPointMake(point.x - offset.width, point.y - offset.height);
     return backOffsetedPoint;
 }
 
 //缩放Point到原始位置
-CGPoint BackScalePoint(CGPoint point,CGPoint origin,CGFloat scaleX,CGFloat scaleY){
-    CGSize offset = CGSizeMake(point.x - origin.x,point.y - origin.y);
-    CGSize backScaleOffset = CGSizeMake(offset.width / scaleX,offset.height / scaleY);
-    CGPoint backScaledPoint = CGPointMake(origin.x + backScaleOffset.width,origin.y + backScaleOffset.height);
+CGPoint BackScalePoint(CGPoint point, CGPoint origin, CGFloat scaleX, CGFloat scaleY) {
+    CGSize offset = CGSizeMake(point.x - origin.x, point.y - origin.y);
+    CGSize backScaleOffset = CGSizeMake(offset.width / scaleX, offset.height / scaleY);
+    CGPoint backScaledPoint = CGPointMake(origin.x + backScaleOffset.width, origin.y + backScaleOffset.height);
     return backScaledPoint;
 }

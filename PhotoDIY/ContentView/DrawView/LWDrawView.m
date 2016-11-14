@@ -10,12 +10,19 @@
 #import "LWScratchView.h"
 #import "LWScrawlView.h"
 #import "LWDrawBar.h"
+#import "MyExtensions.h"
+#import "LWDataManager.h"
+#import "LWContentView.h"
+#import "Categorys.h"
+#import <MBProgressHUD/MBProgressHUD.h>
 
 #define kBitsPerComponent (8)
 #define kBitsPerPixel (32)
 #define kPixelChannelCount (4)
 
-@implementation LWDrawView
+@implementation LWDrawView{
+    CGSize imageSize;
+}
 
 
 //开启关闭马赛克按钮
@@ -43,11 +50,66 @@
         self.mosaicBtn.selected = NO;
         [self.scrawlView setNeedsDisplay];
     }
+    [self bringSubviewToFront:self.okBtn];
 }
 
-- (void)setImage:(UIImage *)image {
+-(IBAction)editBtnAction:(UIButton *)editBtn {
+    if(!self.scrawlView.enableEdit){
+        self.scrawlView.enableEdit = YES;
+        editBtn.selected = YES;
+    }else{
+        self.scrawlView.enableEdit = NO;
+        editBtn.selected = NO;
+    }
+}
 
-    CGFloat wRatio = image.size.width/[UIScreen mainScreen].bounds.size.width ;
+-(IBAction)okAction:(UIButton *)okBtn{
+    [self cacheDrawImage];
+
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
+    hud.mode = MBProgressHUDModeText;
+    hud.label.text = NSLocalizedString(@"Cache Success", nil);
+    [hud hideAnimated:YES afterDelay:2.0];
+}
+
+//暂存绘制的图片
+- (void)cacheDrawImage {
+    LWContentView *contentView = [self superViewWithClass:[LWContentView class]];
+    contentView.currentMode = DrawMode;
+    UIImage *drawImg = [self drawImage];
+    LWDataManager *dm = [LWDataManager sharedInstance];
+    dm.originImage = drawImg;
+    [contentView reloadImage:drawImg];
+    //重置画板
+    [self.scrawlView resetDrawing];
+}
+
+//获得drawView 的 Image
+-(UIImage *)drawImage{
+    self.deleteBtn.hidden = YES;
+    self.mosaicBtn.hidden = YES;
+    self.drawBar.hidden = YES;
+    self.okBtn.hidden = YES;
+    [self.scrawlView exitEditingOrTexting];
+
+    UIImage *image = [self snapshot];
+    CGFloat imageScale = fminf(CGRectGetWidth(self.bounds)/imageSize.width, CGRectGetHeight(self.bounds)/imageSize.height);
+    CGSize scaledImageSize = CGSizeMake(imageSize.width*imageScale, imageSize.height*imageScale);
+    CGRect imageFrame = CGRectMake(roundf((CGRectGetWidth(self.bounds)-scaledImageSize.width)/2), roundf((CGRectGetHeight(self.bounds)-scaledImageSize.height)/2), roundf(scaledImageSize.width), roundf(scaledImageSize.height));
+    UIImage *cutImage = [image cutImageWithRect:imageFrame];
+
+    self.deleteBtn.hidden = NO;
+    self.mosaicBtn.hidden = NO;
+    self.drawBar.hidden = NO;
+    self.okBtn.hidden = NO;
+    return cutImage;
+}
+
+
+
+- (void)setImage:(UIImage *)image {
+    CGImageRef cgImage = image.CGImage;
+    imageSize = CGSizeMake(CGImageGetWidth(cgImage),CGImageGetHeight(cgImage));
 
     //设置马赛克图片
     self.mosaicImageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -69,6 +131,7 @@
     [self bringSubviewToFront:self.deleteBtn];
     [self bringSubviewToFront:self.drawBar];
     [self bringSubviewToFront:self.mosaicBtn];
+    [self bringSubviewToFront:self.okBtn];
     self.mosaicBtn.selected = NO;
     [self.scratchView setNeedsDisplay]; //刷新显示
 }

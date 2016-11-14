@@ -88,6 +88,27 @@
 
 @end
 
+@interface UIView (UIImage)
+
+- (UIImage *)snapshot;
+
+@end
+
+
+@interface UIView (APIFix)
+- (UIViewController *)viewController;
+@end
+
+
+
+@interface UIWindow (PazLabs)
+
+- (UIViewController *) visibleViewController;
+
+@end
+
+
+
 @interface UIBezierPath(Rotate)
 
 //旋转UIBzierPath

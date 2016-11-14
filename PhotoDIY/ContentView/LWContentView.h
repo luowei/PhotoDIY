@@ -71,6 +71,7 @@
 @end
 
 
+
 @interface LWPhotosBar:UIView
 
 @property(nonatomic,weak) IBOutlet UIButton *flipBtn;

@@ -21,10 +21,19 @@
 @property(nonatomic,weak) IBOutlet LWDrawBar *drawBar;
 @property(nonatomic,weak) IBOutlet UIButton *mosaicBtn;
 @property(nonatomic,weak) IBOutlet UIButton *deleteBtn;
+@property(nonatomic,weak) IBOutlet UIButton *okBtn;
+@property(nonatomic,weak) IBOutlet UIButton *editBtn;
 
 
 - (IBAction)openOrCloseMosaic:(UIButton *)mosaicButton;
+-(IBAction)okAction:(UIButton *)okBtn;
 
 - (void)setImage:(UIImage *)image;
+
+//暂存绘制的图片
+- (void)cacheDrawImage;
+
+//获得drawView 的 Image
+-(UIImage *)drawImage;
 
 @end

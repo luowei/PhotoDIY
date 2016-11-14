@@ -181,16 +181,57 @@
                                                     <action selector="openOrCloseMosaic:" destination="euM-5w-niK" eventType="touchUpInside" id="8pQ-6b-d7O"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YtB-Nc-H9u" userLabel="Draw clear Btn">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p2m-pb-21y" userLabel="edit">
+                                                <color key="backgroundColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.47058823529999999" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="40" id="KqJ-8f-stQ"/>
+                                                    <constraint firstAttribute="height" constant="40" id="Zvu-q1-PLE"/>
+                                                </constraints>
+                                                <state key="normal" image="EditBtn"/>
+                                                <state key="selected" image="NoEditBtn"/>
+                                                <state key="highlighted" image="NoEditBtn"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="editBtnAction:" destination="euM-5w-niK" eventType="touchUpInside" id="FCo-o9-VAx"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YtB-Nc-H9u" userLabel="clear">
+                                                <color key="backgroundColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.47058823529999999" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="40" id="BVV-FV-iIQ"/>
                                                     <constraint firstAttribute="height" constant="40" id="fmO-3f-kE1"/>
                                                 </constraints>
-                                                <state key="normal" image="draw_clear"/>
-                                                <state key="selected" image="draw_clear_press"/>
-                                                <state key="highlighted" image="draw_clear_press"/>
+                                                <state key="normal" image="btnCancel"/>
+                                                <state key="selected" image="btnCancel"/>
+                                                <state key="highlighted" image="btnCancel"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="resetDrawing" destination="xZQ-UW-W72" eventType="touchUpInside" id="Iah-6y-fTo"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rpm-dL-o4u" userLabel="ok">
+                                                <color key="backgroundColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.47058823529999999" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="40" id="oOQ-Yf-dj8"/>
+                                                    <constraint firstAttribute="height" constant="40" id="qkh-5Y-ruC"/>
+                                                </constraints>
+                                                <state key="normal" image="btnOK"/>
+                                                <state key="highlighted" image="btnOK"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="okAction:" destination="euM-5w-niK" eventType="touchUpInside" id="B8p-PY-YrN"/>
                                                 </connections>
                                             </button>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O5f-Jf-Ls1" userLabel="Draw Bar" customClass="LWDrawBar">
@@ -415,32 +456,38 @@
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="coG-Pc-dqh" firstAttribute="leading" secondItem="euM-5w-niK" secondAttribute="leading" id="17Y-CU-hDi"/>
+                                            <constraint firstItem="O5f-Jf-Ls1" firstAttribute="top" secondItem="Rpm-dL-o4u" secondAttribute="bottom" constant="8" id="2kX-rQ-o2A"/>
                                             <constraint firstAttribute="bottom" secondItem="dfJ-Xb-rco" secondAttribute="bottom" id="6Cr-hp-YCO"/>
                                             <constraint firstAttribute="bottom" secondItem="xZQ-UW-W72" secondAttribute="bottom" id="8UQ-m7-Fqt"/>
                                             <constraint firstAttribute="trailing" secondItem="xZQ-UW-W72" secondAttribute="trailing" id="Eb2-Wl-dYW"/>
-                                            <constraint firstAttribute="trailing" secondItem="YtB-Nc-H9u" secondAttribute="trailing" constant="10" id="Gsj-By-1f9"/>
                                             <constraint firstItem="coG-Pc-dqh" firstAttribute="top" secondItem="euM-5w-niK" secondAttribute="top" id="R20-IP-d53"/>
-                                            <constraint firstItem="YtB-Nc-H9u" firstAttribute="top" secondItem="euM-5w-niK" secondAttribute="top" constant="10" id="RQD-N1-Yyw"/>
                                             <constraint firstAttribute="trailing" secondItem="4kf-gH-kqu" secondAttribute="trailing" constant="10" id="Te4-hz-gcy"/>
                                             <constraint firstAttribute="trailing" secondItem="O5f-Jf-Ls1" secondAttribute="trailing" id="Ye4-vV-qAU"/>
+                                            <constraint firstItem="p2m-pb-21y" firstAttribute="top" secondItem="euM-5w-niK" secondAttribute="top" constant="60" id="ZJc-Mb-0ZY"/>
                                             <constraint firstItem="xZQ-UW-W72" firstAttribute="leading" secondItem="euM-5w-niK" secondAttribute="leading" id="a8E-Cz-0CE"/>
                                             <constraint firstItem="O5f-Jf-Ls1" firstAttribute="leading" secondItem="euM-5w-niK" secondAttribute="leading" id="aQH-lD-kRt"/>
+                                            <constraint firstAttribute="trailing" secondItem="Rpm-dL-o4u" secondAttribute="trailing" constant="10" id="ar8-AY-8wj"/>
                                             <constraint firstItem="xZQ-UW-W72" firstAttribute="top" secondItem="euM-5w-niK" secondAttribute="top" id="dgI-nA-UZA"/>
                                             <constraint firstItem="dfJ-Xb-rco" firstAttribute="leading" secondItem="euM-5w-niK" secondAttribute="leading" id="iBL-iG-Yrj"/>
+                                            <constraint firstItem="O5f-Jf-Ls1" firstAttribute="top" secondItem="YtB-Nc-H9u" secondAttribute="bottom" constant="8" id="is5-GY-hFB"/>
                                             <constraint firstAttribute="bottom" secondItem="coG-Pc-dqh" secondAttribute="bottom" id="jkv-mB-2BH"/>
                                             <constraint firstItem="dfJ-Xb-rco" firstAttribute="top" secondItem="euM-5w-niK" secondAttribute="top" id="ntb-5j-rdI"/>
+                                            <constraint firstItem="YtB-Nc-H9u" firstAttribute="leading" secondItem="euM-5w-niK" secondAttribute="leading" constant="10" id="pHB-ai-mrW"/>
                                             <constraint firstItem="xZQ-UW-W72" firstAttribute="leading" secondItem="euM-5w-niK" secondAttribute="leading" id="qPO-uQ-upO"/>
                                             <constraint firstItem="xZQ-UW-W72" firstAttribute="top" secondItem="euM-5w-niK" secondAttribute="top" id="rrf-sl-SZB"/>
                                             <constraint firstAttribute="trailing" secondItem="coG-Pc-dqh" secondAttribute="trailing" id="sfI-se-Ri6"/>
                                             <constraint firstAttribute="bottom" secondItem="O5f-Jf-Ls1" secondAttribute="bottom" id="t67-qk-6UH"/>
                                             <constraint firstAttribute="trailing" secondItem="dfJ-Xb-rco" secondAttribute="trailing" id="tKw-5f-VEv"/>
-                                            <constraint firstItem="4kf-gH-kqu" firstAttribute="top" secondItem="euM-5w-niK" secondAttribute="top" constant="60" id="y6X-xy-kfr"/>
+                                            <constraint firstAttribute="trailing" secondItem="p2m-pb-21y" secondAttribute="trailing" constant="10" id="tYe-2h-kil"/>
+                                            <constraint firstItem="4kf-gH-kqu" firstAttribute="top" secondItem="euM-5w-niK" secondAttribute="top" constant="10" id="y6X-xy-kfr"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="deleteBtn" destination="YtB-Nc-H9u" id="fxC-cM-VSg"/>
                                             <outlet property="drawBar" destination="O5f-Jf-Ls1" id="GGM-m3-1BC"/>
+                                            <outlet property="editBtn" destination="p2m-pb-21y" id="MyR-Rx-bFH"/>
                                             <outlet property="mosaicBtn" destination="4kf-gH-kqu" id="IqJ-ET-F04"/>
                                             <outlet property="mosaicImageView" destination="coG-Pc-dqh" id="gyX-br-Chw"/>
+                                            <outlet property="okBtn" destination="Rpm-dL-o4u" id="tDQ-SV-ftN"/>
                                             <outlet property="scratchView" destination="dfJ-Xb-rco" id="Stn-HJ-AUS"/>
                                             <outlet property="scrawlView" destination="xZQ-UW-W72" id="Ocz-LV-OzV"/>
                                         </connections>
@@ -905,7 +952,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="EditBtn" width="40" height="40"/>
         <image name="Lambeau.jpg" width="1242" height="1656"/>
+        <image name="NoEditBtn" width="40" height="40"/>
         <image name="TileBtn" width="80" height="80"/>
         <image name="TileBtn_Selected" width="80" height="80"/>
         <image name="albumButton" width="40" height="40"/>
@@ -914,8 +963,6 @@
         <image name="controlBtn" width="20" height="20"/>
         <image name="cropButton" width="40" height="40"/>
         <image name="doodleButton" width="40" height="40"/>
-        <image name="draw_clear" width="40" height="40"/>
-        <image name="draw_clear_press" width="40" height="40"/>
         <image name="empty" width="40" height="80"/>
         <image name="filter" width="44" height="44"/>
         <image name="flip" width="40" height="40"/>

@@ -47,8 +47,13 @@
 @property(nonatomic, weak) IBOutlet  NSLayoutConstraint *controlConstX;
 @property(nonatomic, weak) IBOutlet  NSLayoutConstraint *controlConstY;
 
+@property(nonatomic) BOOL enableEdit;
+
 //画板重置
 -(IBAction) resetDrawing;
+
+//退出编辑以及文本输入状态
+-(void)exitEditingOrTexting;
 
 @end
 
