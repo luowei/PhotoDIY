@@ -196,7 +196,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="editBtnAction:" destination="euM-5w-niK" eventType="touchUpInside" id="FCo-o9-VAx"/>
+                                                    <action selector="editBtnAction:" destination="euM-5w-niK" eventType="touchUpInside" id="D52-qE-Y2m"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YtB-Nc-H9u" userLabel="clear">
@@ -236,7 +236,7 @@
                                             </button>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O5f-Jf-Ls1" userLabel="Draw Bar" customClass="LWDrawBar">
                                                 <subviews>
-                                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="UZg-fF-AAi" customClass="LWDrawToolsView">
+                                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="UZg-fF-AAi" customClass="LWDrawToolsView">
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="1" maxY="0.0"/>
                                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="GZm-Ef-8jH">
@@ -304,7 +304,7 @@
                                                             <constraint firstAttribute="height" constant="10" id="psD-7y-FaW"/>
                                                         </constraints>
                                                     </view>
-                                                    <collectionView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="8AZ-z5-p6g" customClass="LWColorSelectorView">
+                                                    <collectionView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" delaysContentTouches="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="8AZ-z5-p6g" customClass="LWColorSelectorView">
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="qjv-Wd-cAE">
                                                             <size key="itemSize" width="40" height="40"/>
@@ -337,7 +337,7 @@
                                                             </collectionViewCell>
                                                         </cells>
                                                     </collectionView>
-                                                    <collectionView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="UdI-Y3-p3M" customClass="LWTileImagesView">
+                                                    <collectionView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" delaysContentTouches="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="UdI-Y3-p3M" customClass="LWTileImagesView">
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="gCw-2Q-5Rz">
                                                             <size key="itemSize" width="80" height="80"/>
@@ -391,7 +391,7 @@
                                                             </connections>
                                                         </collectionReusableView>
                                                     </collectionView>
-                                                    <collectionView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="MYX-ER-Vpp" customClass="LWFontSelectorView">
+                                                    <collectionView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="MYX-ER-Vpp" customClass="LWFontSelectorView">
                                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="WFh-DS-vB9">
                                                             <size key="itemSize" width="160" height="80"/>
@@ -549,7 +549,7 @@
                                                     <constraint firstAttribute="height" constant="44" id="kdQ-CR-Ixf"/>
                                                 </constraints>
                                             </stackView>
-                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="tKt-Dx-G3i" customClass="LWPhotoCollectionView">
+                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="tKt-Dx-G3i" customClass="LWPhotoCollectionView">
                                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="100" id="WdE-P6-sIc" userLabel="PhotoCollection Height"/>
@@ -695,7 +695,7 @@
                                                     <action selector="slideUpdate:" destination="sQH-bp-mwK" eventType="valueChanged" id="oEh-uC-Iix"/>
                                                 </connections>
                                             </slider>
-                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="BNY-mx-jRu" customClass="LWFilterCollectionView">
+                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="BNY-mx-jRu" customClass="LWFilterCollectionView">
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="120" id="Y0A-Rv-1eH" userLabel="FilterCollection Height"/>
                                                 </constraints>

@@ -25,28 +25,44 @@
 }
 
 
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    self.editBtn.selected = YES;   //edit禁用,selected 为 Yes
+    [self.scrawlView setEnableEdit:NO];
+}
+
+
 //开启关闭马赛克按钮
 - (IBAction)openOrCloseMosaic:(UIButton *)mosaicButton{
     if (!mosaicButton.selected) { //close
         //改变层级关系,并隐藏画笔视图
         self.scrawlView.hidden = YES;
-        self.deleteBtn.hidden = YES;
         self.drawBar.hidden = YES;
+        self.deleteBtn.hidden = YES;
+        self.okBtn.hidden = YES;
+        self.editBtn.hidden = YES;
+
         [self bringSubviewToFront:self.scratchView];
         [self bringSubviewToFront:self.drawBar];
         [self bringSubviewToFront:self.mosaicBtn];
+
         self.mosaicBtn.selected = YES;
         [self.scratchView setNeedsDisplay];
 
     }else{ //open
-        //改变层级关系,并隐藏画笔视图
+        //改变层级关系,并显示画笔视图
         self.scrawlView.hidden = NO;
-        self.deleteBtn.hidden = NO;
         self.drawBar.hidden = NO;
+        self.deleteBtn.hidden = NO;
+        self.okBtn.hidden = NO;
+        self.editBtn.hidden = NO;
         [self bringSubviewToFront:self.scrawlView];
-        [self bringSubviewToFront:self.deleteBtn];
         [self bringSubviewToFront:self.drawBar];
         [self bringSubviewToFront:self.mosaicBtn];
+        [self bringSubviewToFront:self.deleteBtn];
+        [self bringSubviewToFront:self.okBtn];
+        [self bringSubviewToFront:self.editBtn];
+
         self.mosaicBtn.selected = NO;
         [self.scrawlView setNeedsDisplay];
     }
@@ -56,10 +72,10 @@
 -(IBAction)editBtnAction:(UIButton *)editBtn {
     if(!self.scrawlView.enableEdit){
         self.scrawlView.enableEdit = YES;
-        editBtn.selected = YES;
+        editBtn.selected = NO;
     }else{
         self.scrawlView.enableEdit = NO;
-        editBtn.selected = NO;
+        editBtn.selected = YES; //edit禁用,selected 为 Yes
     }
 }
 
@@ -90,6 +106,7 @@
     self.mosaicBtn.hidden = YES;
     self.drawBar.hidden = YES;
     self.okBtn.hidden = YES;
+    self.editBtn.hidden = YES;
     [self.scrawlView exitEditingOrTexting];
 
     UIImage *image = [self snapshot];
@@ -102,6 +119,7 @@
     self.mosaicBtn.hidden = NO;
     self.drawBar.hidden = NO;
     self.okBtn.hidden = NO;
+    self.editBtn.hidden = NO;
     return cutImage;
 }
 
@@ -132,6 +150,7 @@
     [self bringSubviewToFront:self.drawBar];
     [self bringSubviewToFront:self.mosaicBtn];
     [self bringSubviewToFront:self.okBtn];
+    [self bringSubviewToFront:self.editBtn];
     self.mosaicBtn.selected = NO;
     [self.scratchView setNeedsDisplay]; //刷新显示
 }

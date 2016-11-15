@@ -163,7 +163,7 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [super touchesBegan:touches withEvent:event];
 
-    if(!_enableEdit){
+    if(!_enableEdit && _drawType != Text){
         [self.nextResponder touchesBegan:touches withEvent:event];
         return;
     }
@@ -185,12 +185,13 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
                     CGRect rotateFrame = CGRectMake(rotateOrigin.x,rotateOrigin.y,50,50);
                     if(CGRectContainsPoint(rotateFrame,point)){
                         [self.nextResponder touchesBegan:touches withEvent:event];
+                        return;
                     }
-
                 }else{
                     [self.nextResponder touchesBegan:touches withEvent:event];
+                    return;
                 }
-                return;
+
             }
 
             //触摸点在框内
@@ -719,6 +720,9 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
 - (UIImage *)getTileImageWithDrafter:(LWDrafter *)drafter {
     //获得tileImage
     __block UIImage *tileImage = [UIImage imageNamed:@"luowei"];
+    if(drafter.tileImageIndex == 10000){
+        return tileImage;
+    }
     NSString *name = Emoji_Items[(NSUInteger) drafter.tileImageIndex];
     if (drafter.drawType == ImageTile) {
         name = drafter.tileImageUrl.absoluteString;
