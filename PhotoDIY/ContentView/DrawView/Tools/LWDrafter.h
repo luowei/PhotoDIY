@@ -18,6 +18,10 @@ typedef NS_OPTIONS(NSUInteger, DrawType) {
     Text = 1 << 6,
     EmojiTile = 1 << 7,
     ImageTile = 1 << 8,
+    RectangleDash = 1 << 9,
+    RectangleFill = 1 << 10,
+    OvalDash = 1 << 11,
+    OvalFill = 1 << 12,
 };
 
 typedef NS_OPTIONS(NSUInteger, DrawStatus){

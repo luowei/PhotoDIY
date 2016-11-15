@@ -275,12 +275,17 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
 
         case Hand:
         case Rectangle:
-        case Oval: {
+        case RectangleDash:
+        case RectangleFill:
+        case Oval:
+        case OvalDash:
+        case OvalFill:{
             //隐藏文本输入框并且退出文本输入模式
             [self hideTextViewAndEndTexting];
 
             if(_currentDrafter != nil){ //在边框范围内点击
-                BOOL isShape = _currentDrafter.drawType == Hand || _currentDrafter.drawType == Rectangle || _currentDrafter.drawType == Oval;
+                BOOL isShape = _currentDrafter.drawType == Hand || _currentDrafter.drawType == Rectangle || _currentDrafter.drawType == RectangleDash  || _currentDrafter.drawType == RectangleFill
+                        || _currentDrafter.drawType == Oval || _currentDrafter.drawType == OvalDash || _currentDrafter.drawType == OvalFill;
                 if (isShape && !_currentDrafter.isEditing) {
                     _drawStatus = Editing;
                     _currentDrafter.isEditing = YES;
@@ -658,12 +663,39 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
                     [self drawRectangleWithDrafter:drafter];
                     break;
                 }
+                case RectangleDash: {
+                    CGPoint pt = [points.firstObject CGPointValue];
+                    CGPoint lastPt = [points.lastObject CGPointValue];
+                    drafter.rect = CGRectMake(MIN(pt.x, lastPt.x), MIN(pt.y, lastPt.y), (CGFloat) fabs(pt.x - lastPt.x), (CGFloat) fabs(pt.y - lastPt.y));
+                    [self drawRectangleWithDrafter:drafter];
+                    break;
+                }
+                case RectangleFill: {
+                    CGPoint pt = [points.firstObject CGPointValue];
+                    CGPoint lastPt = [points.lastObject CGPointValue];
+                    drafter.rect = CGRectMake(MIN(pt.x, lastPt.x), MIN(pt.y, lastPt.y), (CGFloat) fabs(pt.x - lastPt.x), (CGFloat) fabs(pt.y - lastPt.y));
+                    [self drawRectangleWithDrafter:drafter];
+                    break;
+                }
                 case Oval: {
                     CGPoint pt = [points.firstObject CGPointValue];
                     CGPoint lastPt = [points.lastObject CGPointValue];
                     drafter.rect = CGRectMake(MIN(pt.x, lastPt.x), MIN(pt.y, lastPt.y), (CGFloat) fabs(pt.x - lastPt.x), (CGFloat) fabs(pt.y - lastPt.y));
                     [self drawOvalWithDrafter:drafter];
-
+                    break;
+                }
+                case OvalDash: {
+                    CGPoint pt = [points.firstObject CGPointValue];
+                    CGPoint lastPt = [points.lastObject CGPointValue];
+                    drafter.rect = CGRectMake(MIN(pt.x, lastPt.x), MIN(pt.y, lastPt.y), (CGFloat) fabs(pt.x - lastPt.x), (CGFloat) fabs(pt.y - lastPt.y));
+                    [self drawOvalWithDrafter:drafter];
+                    break;
+                }
+                case OvalFill: {
+                    CGPoint pt = [points.firstObject CGPointValue];
+                    CGPoint lastPt = [points.lastObject CGPointValue];
+                    drafter.rect = CGRectMake(MIN(pt.x, lastPt.x), MIN(pt.y, lastPt.y), (CGFloat) fabs(pt.x - lastPt.x), (CGFloat) fabs(pt.y - lastPt.y));
+                    [self drawOvalWithDrafter:drafter];
                     break;
                 }
                 default:
@@ -804,6 +836,17 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
         [ovalPath moveCenterToPoint:drafter.movePoint];
     }
 
+    //如是填充类型，就填充颜色
+    if(drafter.drawType == OvalFill){
+        [drafter.color setFill];
+        [ovalPath fill];
+    }
+
+    //如果是虚线类型
+    if(drafter.drawType == OvalDash){
+        [ovalPath setLineDash: (CGFloat[]){6, 2} count: 2 phase: 0];
+    }
+
     [drafter.color setStroke];
     ovalPath.lineWidth = drafter.lineWidth;
     [ovalPath stroke];
@@ -832,6 +875,17 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
     if(drafter.movePoint.x != 0 || drafter.movePoint.y != 0){
         //移动UIBezierPath
         [rectanglePath moveCenterToPoint:drafter.movePoint];
+    }
+
+    //如是填充类型，就填充颜色
+    if(drafter.drawType == RectangleFill){
+        [drafter.color setFill];
+        [rectanglePath fill];
+    }
+
+    //如果是虚线类型
+    if(drafter.drawType == RectangleDash){
+        [rectanglePath setLineDash: (CGFloat[]){6, 2} count: 2 phase: 0];
     }
 
     [drafter.color setStroke];
