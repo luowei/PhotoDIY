@@ -22,6 +22,7 @@ typedef NS_OPTIONS(NSUInteger, DrawType) {
     RectangleFill = 1 << 10,
     OvalDash = 1 << 11,
     OvalFill = 1 << 12,
+    LineDash = 1 << 13,
 };
 
 typedef NS_OPTIONS(NSUInteger, DrawStatus){
@@ -60,6 +61,7 @@ typedef NS_OPTIONS(NSUInteger, DrawStatus){
 @property(nonatomic, strong) NSShadow *shadow;
 
 
+@property(nonatomic) BOOL openShadow;
 
 -(UIColor *)color;
 -(CGSize)burshSize;

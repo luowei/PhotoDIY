@@ -25,6 +25,8 @@
         _rotateAngle = 0;
         _scaleRect = CGRectZero;
         _movePoint = CGPointZero;
+
+        _openShadow = NO;
     }
     return self;
 }

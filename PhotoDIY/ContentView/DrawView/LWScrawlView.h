@@ -49,6 +49,8 @@
 
 @property(nonatomic) BOOL enableEdit;
 
+@property(nonatomic) BOOL openShadow;
+
 //画板重置
 -(IBAction) resetDrawing;
 

@@ -48,13 +48,13 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     switch (section) {
         case 0:
-            return 7;
+            return 8;
         case 1:
             return 2;
         case 2:
             return 3;
         case 3:
-            return 9;
+            return 10;
         default:
             return 1;
     }
@@ -101,7 +101,13 @@
                     [self sec1Collection:collectionView selIndexPath:indexPath cell:cell];
                     break;
                 }
-                case 6: {    //橡皮
+                case 6: {    //打开阴影
+                    [cell.btn setImage:[UIImage imageNamed:@"shade"] forState:UIControlStateNormal];
+                    [cell.btn setImage:[UIImage imageNamed:@"shade_selected"] forState:UIControlStateHighlighted ];
+                    [self sec1Collection:collectionView selIndexPath:indexPath cell:cell];
+                    break;
+                }
+                case 7: {    //橡皮
                     [cell.btn setImage:[UIImage imageNamed:@"eraser"] forState:UIControlStateNormal];
                     [cell.btn setImage:[UIImage imageNamed:@"eraser_selected"] forState:UIControlStateHighlighted ];
                     [self sec1Collection:collectionView selIndexPath:indexPath cell:cell];
@@ -158,49 +164,55 @@
                     [self sec4Collection:collectionView selIndexPath:indexPath cell:cell];
                     break;
                 }
-                case 1: {   //箭头
+                case 1: {   //虚线
+                    [cell.btn setImage:[UIImage imageNamed:@"lineDash"] forState:UIControlStateNormal];
+                    [cell.btn setImage:[UIImage imageNamed:@"lineDash_selected"] forState:UIControlStateHighlighted ];
+                    [self sec4Collection:collectionView selIndexPath:indexPath cell:cell];
+                    break;
+                }
+                case 2: {   //箭头
                     [cell.btn setImage:[UIImage imageNamed:@"lineArrow"] forState:UIControlStateNormal];
                     [cell.btn setImage:[UIImage imageNamed:@"lineArrow_selected"] forState:UIControlStateHighlighted ];
                     [self sec4Collection:collectionView selIndexPath:indexPath cell:cell];
                     break;
                 }
-                case 2: {   //矩形
+                case 3: {   //矩形
                     [cell.btn setImage:[UIImage imageNamed:@"rect"] forState:UIControlStateNormal];
                     [cell.btn setImage:[UIImage imageNamed:@"rect_selected"] forState:UIControlStateHighlighted ];
                     [self sec4Collection:collectionView selIndexPath:indexPath cell:cell];
                     break;
                 }
-                case 3: {   //矩形(虚线)
+                case 4: {   //矩形(虚线)
                     [cell.btn setImage:[UIImage imageNamed:@"rectDash"] forState:UIControlStateNormal];
                     [cell.btn setImage:[UIImage imageNamed:@"rectDash_selected"] forState:UIControlStateHighlighted ];
                     [self sec4Collection:collectionView selIndexPath:indexPath cell:cell];
                     break;
                 }
-                case 4: {   //矩形(填充)
+                case 5: {   //矩形(填充)
                     [cell.btn setImage:[UIImage imageNamed:@"rectFill"] forState:UIControlStateNormal];
                     [cell.btn setImage:[UIImage imageNamed:@"rectFill_selected"] forState:UIControlStateHighlighted ];
                     [self sec4Collection:collectionView selIndexPath:indexPath cell:cell];
                     break;
                 }
-                case 5: {   //圆圈
+                case 6: {   //圆圈
                     [cell.btn setImage:[UIImage imageNamed:@"oval"] forState:UIControlStateNormal];
                     [cell.btn setImage:[UIImage imageNamed:@"oval_selected"] forState:UIControlStateHighlighted ];
                     [self sec4Collection:collectionView selIndexPath:indexPath cell:cell];
                     break;
                 }
-                case 6: {   //圆圈(虚线)
+                case 7: {   //圆圈(虚线)
                     [cell.btn setImage:[UIImage imageNamed:@"ovalDash"] forState:UIControlStateNormal];
                     [cell.btn setImage:[UIImage imageNamed:@"ovalDash_selected"] forState:UIControlStateHighlighted ];
                     [self sec4Collection:collectionView selIndexPath:indexPath cell:cell];
                     break;
                 }
-                case 7: {   //圆圈(填充)
+                case 8: {   //圆圈(填充)
                     [cell.btn setImage:[UIImage imageNamed:@"ovalFill"] forState:UIControlStateNormal];
                     [cell.btn setImage:[UIImage imageNamed:@"ovalFill_selected"] forState:UIControlStateHighlighted ];
                     [self sec4Collection:collectionView selIndexPath:indexPath cell:cell];
                     break;
                 }
-                case 8: {   //文字
+                case 9: {   //文字
                     [cell.btn setImage:[UIImage imageNamed:@"text"] forState:UIControlStateNormal];
                     [cell.btn setImage:[UIImage imageNamed:@"text_selected"] forState:UIControlStateHighlighted ];
                     [self sec4Collection:collectionView selIndexPath:indexPath cell:cell];
@@ -308,7 +320,13 @@
                     [self sec1collectionView:collectionView selectIndexPath:indexPath cell:cell];
                     break;
                 }
-                case 6: {    //橡皮
+                case 6: {    //阴影
+                    drawView.scrawlView.openShadow = !drawView.scrawlView.openShadow;
+                    drawView.drawBar.tileSelectorView.hidden = NO;
+                    [self sec1collectionView:collectionView selectIndexPath:indexPath cell:cell];
+                    break;
+                }
+                case 7: {    //橡皮
                     drawView.scrawlView.drawType = Erase;
                     [self sec1collectionView:collectionView selectIndexPath:indexPath cell:cell];
                     break;
@@ -366,42 +384,47 @@
                     [self sec4collectionView:collectionView selectIndexPath:indexPath cell:cell];
                     break;
                 }
-                case 1: {   //箭头
+                case 1: {   //虚线
+                    drawView.scrawlView.drawType = LineDash;
+                    [self sec4collectionView:collectionView selectIndexPath:indexPath cell:cell];
+                    break;
+                }
+                case 2: {   //箭头
                     drawView.scrawlView.drawType = LineArrow;
                     [self sec4collectionView:collectionView selectIndexPath:indexPath cell:cell];
                     break;
                 }
-                case 2: {   //矩形
+                case 3: {   //矩形
                     drawView.scrawlView.drawType = Rectangle;
                     [self sec4collectionView:collectionView selectIndexPath:indexPath cell:cell];
                     break;
                 }
-                case 3: {   //矩形(虚线)
+                case 4: {   //矩形(虚线)
                     drawView.scrawlView.drawType = RectangleDash;
                     [self sec4collectionView:collectionView selectIndexPath:indexPath cell:cell];
                     break;
                 }
-                case 4: {   //矩形(填充)
+                case 5: {   //矩形(填充)
                     drawView.scrawlView.drawType = RectangleFill;
                     [self sec4collectionView:collectionView selectIndexPath:indexPath cell:cell];
                     break;
                 }
-                case 5: {   //圆圈
+                case 6: {   //圆圈
                     drawView.scrawlView.drawType = Oval;
                     [self sec4collectionView:collectionView selectIndexPath:indexPath cell:cell];
                     break;
                 }
-                case 6: {   //圆圈(虚线)
+                case 7: {   //圆圈(虚线)
                     drawView.scrawlView.drawType = OvalDash;
                     [self sec4collectionView:collectionView selectIndexPath:indexPath cell:cell];
                     break;
                 }
-                case 7: {   //圆圈(填充)
+                case 8: {   //圆圈(填充)
                     drawView.scrawlView.drawType = OvalFill;
                     [self sec4collectionView:collectionView selectIndexPath:indexPath cell:cell];
                     break;
                 }
-                case 8: {   //文字
+                case 9: {   //文字
                     drawView.scrawlView.drawType = Text;
                     drawView.drawBar.fontSelectorView.hidden = NO;
                     [self sec4collectionView:collectionView selectIndexPath:indexPath cell:cell];
