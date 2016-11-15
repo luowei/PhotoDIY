@@ -51,4 +51,13 @@
     [[SKPaymentQueue defaultQueue] removeTransactionObserver: [StoreObserver sharedInstance]];
 }
 
+
+//- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window{
+//    if (self.portraitVC) {
+//        return UIInterfaceOrientationMaskAll;
+//    } else {
+//        return UIInterfaceOrientationMaskPortrait;
+//    }
+//}
+
 @end

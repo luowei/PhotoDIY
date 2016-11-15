@@ -10,6 +10,7 @@
 #import "LWContentView.h"
 #import "Categorys.h"
 #import "LWImageZoomView.h"
+#import "AppDelegate.h"
 
 @interface ViewController ()
 
@@ -21,8 +22,31 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+//    [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationPortrait];
+
+//    NSNumber *value = [NSNumber numberWithInt:UIInterfaceOrientationPortrait];
+//    [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
+//    ((AppDelegate *)[[UIApplication sharedApplication] delegate]).portraitVC = YES;
+//    [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationPortrait animated:NO];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+
+//    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+//    appDelegate.portraitVC = NO;
+//
+//    [self supportedInterfaceOrientations];
+//    [self shouldAutorotate];
+//    [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationPortrait animated:NO];
 
 }
+
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -42,18 +66,23 @@
     [self.view didLayoutSubviews];
 }
 
-//只允许竖屏
-- (BOOL)shouldAutorotate {
-    return NO;
-}
+////只允许竖屏
+//- (BOOL)shouldAutorotate {
+//    return NO;
+//}
+//
+//- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+//    return UIInterfaceOrientationMaskPortrait;
+//}
+//
+//- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+//    return UIInterfaceOrientationPortrait;
+//}
+//
+//- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+//    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+//}
 
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
-    return UIInterfaceOrientationMaskPortrait;
-}
-
-- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
-    return UIInterfaceOrientationPortrait;
-}
 
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
@@ -61,6 +90,11 @@
 
     [self.view rotationToInterfaceOrientation:toInterfaceOrientation];
 }
+
+//- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
+//    NSNumber *value = [NSNumber numberWithInt:UIInterfaceOrientationPortrait];
+//    [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
+//}
 
 
 #pragma mark - IBAction

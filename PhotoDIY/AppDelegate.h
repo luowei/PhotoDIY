@@ -13,5 +13,6 @@
 @property (strong, nonatomic) UIWindow *window;
 
 
+@property(nonatomic) BOOL portraitVC;
 @end
 

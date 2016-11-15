@@ -844,7 +844,7 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
 
     //如果是虚线类型
     if(drafter.drawType == OvalDash){
-        [ovalPath setLineDash: (CGFloat[]){6, 2} count: 2 phase: 0];
+        [ovalPath setLineDash: (CGFloat[]){6 * drafter.lineWidth, 2 * drafter.lineWidth} count: 2 phase: 0];
     }
 
     [drafter.color setStroke];
@@ -885,7 +885,7 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
 
     //如果是虚线类型
     if(drafter.drawType == RectangleDash){
-        [rectanglePath setLineDash: (CGFloat[]){6, 2} count: 2 phase: 0];
+        [rectanglePath setLineDash: (CGFloat[]){6 * drafter.lineWidth, 2 * drafter.lineWidth}  count: 2 phase: 0];
     }
 
     [drafter.color setStroke];
