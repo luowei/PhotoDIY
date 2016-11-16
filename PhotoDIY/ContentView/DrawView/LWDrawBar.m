@@ -104,7 +104,10 @@
                 case 6: {    //打开阴影
                     [cell.btn setImage:[UIImage imageNamed:@"shade"] forState:UIControlStateNormal];
                     [cell.btn setImage:[UIImage imageNamed:@"shade_selected"] forState:UIControlStateHighlighted ];
-                    [self sec1Collection:collectionView selIndexPath:indexPath cell:cell];
+                    //[self sec1Collection:collectionView selIndexPath:indexPath cell:cell];
+                    [collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+                    LWDrawView *drawView = [self superViewWithClass:[LWDrawView class]];
+                    cell.highlighted = drawView.scrawlView.openShadow;
                     break;
                 }
                 case 7: {    //橡皮
@@ -322,8 +325,10 @@
                 }
                 case 6: {    //阴影
                     drawView.scrawlView.openShadow = !drawView.scrawlView.openShadow;
-                    drawView.drawBar.tileSelectorView.hidden = NO;
-                    [self sec1collectionView:collectionView selectIndexPath:indexPath cell:cell];
+                    //[self sec1collectionView:collectionView selectIndexPath:indexPath cell:cell];
+                    [collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+                    cell.highlighted = drawView.scrawlView.openShadow;
+                    [collectionView reloadSections:[NSIndexSet indexSetWithIndex:(NSUInteger) indexPath.section]];
                     break;
                 }
                 case 7: {    //橡皮

@@ -936,7 +936,7 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
     }
 
     //如果是虚线类型
-    if(drafter.drawType == OvalDash){
+    if(drafter.drawType == LineDash){
         [linePath setLineDash: (CGFloat[]){6 * drafter.lineWidth, 2 * drafter.lineWidth} count: 2 phase: 0];
     }
     
