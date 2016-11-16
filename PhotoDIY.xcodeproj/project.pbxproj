@@ -50,6 +50,7 @@
 		EAB292EF1D2A6697004D5EED /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB292EE1D2A6697004D5EED /* AssetsLibrary.framework */; };
 		EAB292F11D2A66A4004D5EED /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB292F01D2A66A4004D5EED /* AVFoundation.framework */; };
 		EAB292F91D2A701F004D5EED /* Categorys.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB292F81D2A701F004D5EED /* Categorys.m */; };
+		EAD01E981DDC36B60050D913 /* PhotoDIY.png in Resources */ = {isa = PBXBuildFile; fileRef = EAD01E971DDC36B60050D913 /* PhotoDIY.png */; };
 		EAD987AA1DD39B6A00B78AAE /* BaseGeometry.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD987A51DD39B6A00B78AAE /* BaseGeometry.m */; };
 		EAD987AB1DD39B6A00B78AAE /* BezierUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD987A71DD39B6A00B78AAE /* BezierUtils.m */; };
 		EAD987AC1DD39B6A00B78AAE /* Drawing-Block.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD987A91DD39B6A00B78AAE /* Drawing-Block.m */; };
@@ -123,6 +124,7 @@
 		EAB292F01D2A66A4004D5EED /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		EAB292F71D2A701F004D5EED /* Categorys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Categorys.h; sourceTree = "<group>"; };
 		EAB292F81D2A701F004D5EED /* Categorys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Categorys.m; sourceTree = "<group>"; };
+		EAD01E971DDC36B60050D913 /* PhotoDIY.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PhotoDIY.png; sourceTree = "<group>"; };
 		EAD987A41DD39B6A00B78AAE /* BaseGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseGeometry.h; sourceTree = "<group>"; };
 		EAD987A51DD39B6A00B78AAE /* BaseGeometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseGeometry.m; sourceTree = "<group>"; };
 		EAD987A61DD39B6A00B78AAE /* BezierUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BezierUtils.h; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 		BEF06957E3080BCFA1496337 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				EAD01E971DDC36B60050D913 /* PhotoDIY.png */,
 				EA1C04711D4B218100290495 /* Lambeau.jpg */,
 			);
 			path = Resource;
@@ -475,6 +478,7 @@
 				EA3A63431DC8580400989C0D /* 默陌信笺手写体.ttf in Resources */,
 				EAB292CB1D2A16C4004D5EED /* Main.storyboard in Resources */,
 				EA6F611B1D2B566900827523 /* InfoPlist.strings in Resources */,
+				EAD01E981DDC36B60050D913 /* PhotoDIY.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -493,7 +497,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		142619B6A129C1B4D0A6B270 /* [CP] Copy Pods Resources */ = {
@@ -695,9 +699,28 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Libs/UMSocial/SocialLibraries/Facebook",
+					"$(PROJECT_DIR)/Libs/UMSocial/SocialLibraries/QQ",
+					"$(PROJECT_DIR)/Libs/UMSocial/SocialLibraries/Twitter",
+					"$(PROJECT_DIR)/Libs/UMSocial/UMSocialSDK",
+				);
 				INFOPLIST_FILE = PhotoDIY/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Libs/UMSocial/SocialLibraries/Douban",
+					"$(PROJECT_DIR)/Libs/UMSocial/SocialLibraries/Facebook",
+					"$(PROJECT_DIR)/Libs/UMSocial/SocialLibraries/Instagram",
+					"$(PROJECT_DIR)/Libs/UMSocial/SocialLibraries/QQ",
+					"$(PROJECT_DIR)/Libs/UMSocial/SocialLibraries/Renren",
+					"$(PROJECT_DIR)/Libs/UMSocial/SocialLibraries/Sina",
+					"$(PROJECT_DIR)/Libs/UMSocial/SocialLibraries/Twitter",
+					"$(PROJECT_DIR)/Libs/UMSocial/SocialLibraries/WeChat",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.wodedata.PhotoDIY;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -709,9 +732,28 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Libs/UMSocial/SocialLibraries/Facebook",
+					"$(PROJECT_DIR)/Libs/UMSocial/SocialLibraries/QQ",
+					"$(PROJECT_DIR)/Libs/UMSocial/SocialLibraries/Twitter",
+					"$(PROJECT_DIR)/Libs/UMSocial/UMSocialSDK",
+				);
 				INFOPLIST_FILE = PhotoDIY/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Libs/UMSocial/SocialLibraries/Douban",
+					"$(PROJECT_DIR)/Libs/UMSocial/SocialLibraries/Facebook",
+					"$(PROJECT_DIR)/Libs/UMSocial/SocialLibraries/Instagram",
+					"$(PROJECT_DIR)/Libs/UMSocial/SocialLibraries/QQ",
+					"$(PROJECT_DIR)/Libs/UMSocial/SocialLibraries/Renren",
+					"$(PROJECT_DIR)/Libs/UMSocial/SocialLibraries/Sina",
+					"$(PROJECT_DIR)/Libs/UMSocial/SocialLibraries/Twitter",
+					"$(PROJECT_DIR)/Libs/UMSocial/SocialLibraries/WeChat",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.wodedata.PhotoDIY;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

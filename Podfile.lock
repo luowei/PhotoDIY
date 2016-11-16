@@ -3,9 +3,26 @@ PODS:
   - FXBlurView (1.6.4)
   - GPUImage (0.1.7)
   - MBProgressHUD (1.0.0)
-  - SDWebImage (3.8.1):
-    - SDWebImage/Core (= 3.8.1)
-  - SDWebImage/Core (3.8.1)
+  - SDWebImage (3.8.2):
+    - SDWebImage/Core (= 3.8.2)
+  - SDWebImage/Core (3.8.2)
+  - UMengUShare/Core (6.0.3):
+    - UMengUShare/Network
+  - UMengUShare/Network (6.0.3)
+  - UMengUShare/Social/Facebook (6.0.3):
+    - UMengUShare/Core
+  - UMengUShare/Social/Instagram (6.0.3):
+    - UMengUShare/Core
+  - UMengUShare/Social/QQ (6.0.3):
+    - UMengUShare/Core
+  - UMengUShare/Social/Sina (6.0.3):
+    - UMengUShare/Core
+  - UMengUShare/Social/Twitter (6.0.3):
+    - UMengUShare/Core
+  - UMengUShare/Social/WeChat (6.0.3):
+    - UMengUShare/Core
+  - UMengUShare/UI (6.0.3):
+    - UMengUShare/Core
 
 DEPENDENCIES:
   - FDStackView (= 1.0)
@@ -13,14 +30,22 @@ DEPENDENCIES:
   - GPUImage (~> 0.1.7)
   - MBProgressHUD
   - SDWebImage (~> 3.8.1)
+  - UMengUShare/Social/Facebook
+  - UMengUShare/Social/Instagram
+  - UMengUShare/Social/QQ
+  - UMengUShare/Social/Sina
+  - UMengUShare/Social/Twitter
+  - UMengUShare/Social/WeChat
+  - UMengUShare/UI
 
 SPEC CHECKSUMS:
   FDStackView: 3a4bbe0ce9c35e974246a585168b9da8c32213f1
   FXBlurView: db786c2561cb49a09ae98407f52460096ab8a44f
   GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
-  SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
+  SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
+  UMengUShare: f231fc086d789d4e560a5090dcc13a2db15c686d
 
-PODFILE CHECKSUM: 610492790a70878d69693f5943de7ad298fd096a
+PODFILE CHECKSUM: 77275a83a1bdd872a28f012eaebbaad9a3b78d82
 
-COCOAPODS: 1.0.1
+COCOAPODS: 1.1.0
