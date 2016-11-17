@@ -23,6 +23,7 @@ typedef NS_OPTIONS(NSUInteger, DrawType) {
     OvalDash = 1 << 11,
     OvalFill = 1 << 12,
     LineDash = 1 << 13,
+    CurveDash = 1 << 14,
 };
 
 typedef NS_OPTIONS(NSUInteger, DrawStatus){

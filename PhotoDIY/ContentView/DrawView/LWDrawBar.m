@@ -54,7 +54,7 @@
         case 2:
             return 3;
         case 3:
-            return 10;
+            return 11;
         default:
             return 1;
     }
@@ -215,7 +215,13 @@
                     [self sec4Collection:collectionView selIndexPath:indexPath cell:cell];
                     break;
                 }
-                case 9: {   //文字
+                case 9: {   //虚曲线
+                    [cell.btn setImage:[UIImage imageNamed:@"curveDash"] forState:UIControlStateNormal];
+                    [cell.btn setImage:[UIImage imageNamed:@"curveDash_selected"] forState:UIControlStateHighlighted ];
+                    [self sec4Collection:collectionView selIndexPath:indexPath cell:cell];
+                    break;
+                }
+                case 10: {   //文字
                     [cell.btn setImage:[UIImage imageNamed:@"text"] forState:UIControlStateNormal];
                     [cell.btn setImage:[UIImage imageNamed:@"text_selected"] forState:UIControlStateHighlighted ];
                     [self sec4Collection:collectionView selIndexPath:indexPath cell:cell];
@@ -429,7 +435,12 @@
                     [self sec4collectionView:collectionView selectIndexPath:indexPath cell:cell];
                     break;
                 }
-                case 9: {   //文字
+                case 9: {   //虚曲线
+                    drawView.scrawlView.drawType = CurveDash;
+                    [self sec4collectionView:collectionView selectIndexPath:indexPath cell:cell];
+                    break;
+                }
+                case 10: {   //文字
                     drawView.scrawlView.drawType = Text;
                     drawView.drawBar.fontSelectorView.hidden = NO;
                     [self sec4collectionView:collectionView selectIndexPath:indexPath cell:cell];

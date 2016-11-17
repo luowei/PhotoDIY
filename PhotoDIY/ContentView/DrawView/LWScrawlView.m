@@ -165,7 +165,7 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [super touchesBegan:touches withEvent:event];
 
-    if(!_enableEdit && _drawType != Text){
+    if(!_enableEdit && _drawType != Text && _drawType != EmojiTile && _drawType != ImageTile){
         [self.nextResponder touchesBegan:touches withEvent:event];
         return;
     }
@@ -277,6 +277,7 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
         }
 
         case Hand:
+        case CurveDash:
         case Rectangle:
         case RectangleDash:
         case RectangleFill:
@@ -287,7 +288,7 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
             [self hideTextViewAndEndTexting];
 
             if(_currentDrafter != nil){ //在边框范围内点击
-                BOOL isShape = _currentDrafter.drawType == Hand || _currentDrafter.drawType == Rectangle || _currentDrafter.drawType == RectangleDash  || _currentDrafter.drawType == RectangleFill
+                BOOL isShape = _currentDrafter.drawType == Hand || _currentDrafter.drawType == CurveDash || _currentDrafter.drawType == Rectangle || _currentDrafter.drawType == RectangleDash  || _currentDrafter.drawType == RectangleFill
                         || _currentDrafter.drawType == Oval || _currentDrafter.drawType == OvalDash || _currentDrafter.drawType == OvalFill;
                 if (isShape && !_currentDrafter.isEditing) {
                     _drawStatus = Editing;
@@ -365,6 +366,7 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
     self.controlViewWidth.constant = CGRectGetWidth(_currentDrafter.rect);
     self.controlViewHeight.constant = CGRectGetHeight(_currentDrafter.rect);
     [self.controlView setTransform:CGAffineTransformMakeRotation(_currentDrafter.rotateAngle * M_PI / 180)];
+    [self.controlView setNeedsDisplay];
 }
 
 //隐藏文本输入框并且退出文本输入模式
@@ -562,7 +564,7 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
                         self.controlViewConstX.constant = editingDrafter.scaleRect.origin.x;
                         self.controlViewConstY.constant = editingDrafter.scaleRect.origin.y;
                         [self.controlView setNeedsDisplay];
-                        if(editingDrafter.drawType != Hand){
+                        if(editingDrafter.drawType != Hand || editingDrafter.drawType != CurveDash){
                             [editingDrafter.pointArr addObject:[NSValue valueWithCGPoint:movePoint]];
                         }
                     }else if(_isMoving) {
@@ -645,6 +647,7 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
 
             switch (drafter.drawType) {
                 case Hand:
+                case CurveDash:
                 case Erase: {
                     [self drawCurveWithPoits:points withDrawer:drafter];
                     break;
@@ -801,6 +804,11 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
     if(drafter.openShadow){
         CGContextSaveGState(context);
         CGContextSetShadowWithColor(context, shadow.shadowOffset, shadow.shadowBlurRadius, [shadow.shadowColor CGColor]);
+    }
+
+    //如果是虚线类型
+    if(drafter.drawType == CurveDash){
+        [pointsPath setLineDash: (CGFloat[]){6 * drafter.lineWidth, 2 * drafter.lineWidth} count: 2 phase: 0];
     }
     
     [drafter.color setStroke];
@@ -1080,9 +1088,9 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
         //开启阴影
         if(drafter.openShadow){
             CGContextSetShadowWithColor(context, shadow.shadowOffset, shadow.shadowBlurRadius, [shadow.shadowColor CGColor]);
-            CGContextBeginTransparencyLayer(context, NULL);
         }
 
+        CGContextBeginTransparencyLayer(context, NULL);
         //// Line Drawing
         CGContextSaveGState(context);
 
