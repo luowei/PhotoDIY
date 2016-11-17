@@ -166,6 +166,8 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
     [super touchesBegan:touches withEvent:event];
 
     if(!_enableEdit && _drawType != Text && _drawType != EmojiTile && _drawType != ImageTile){
+        _drawStatus = Drawing;
+        self.controlView.hidden = YES;
         [self.nextResponder touchesBegan:touches withEvent:event];
         return;
     }
@@ -694,9 +696,18 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
             for (int i = 0; i < points.count; i++) {
                 //移动到第i个点
                 CGPoint point = [points[i] CGPointValue];
-                CGRect brushRect = CGRectMake(point.x - drafter.burshSize.width / 2, point.y - drafter.burshSize.height / 2, drafter.burshSize.width, drafter.burshSize.height);
 
                 UIImage *tileImage = [self getTileImageWithDrafter:drafter];
+
+                CGFloat width = tileImage.size.width;
+                CGFloat height = tileImage.size.height;
+                CGSize imgSize = CGSizeMake(height , width);
+                if(width > height){
+                    imgSize = CGSizeMake(drafter.burshSize.width,drafter.burshSize.height * height/width);
+                }else{
+                    imgSize = CGSizeMake(drafter.burshSize.width * width/height,drafter.burshSize.height);
+                }
+                CGRect brushRect = CGRectMake(point.x - imgSize.width / 2, point.y - imgSize.height / 2, imgSize.width, imgSize.height);
 
                 //绘制tileImage
                 [tileImage drawInRect:brushRect];

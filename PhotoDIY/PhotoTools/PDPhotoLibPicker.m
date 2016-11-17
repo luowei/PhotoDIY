@@ -325,8 +325,17 @@
 //            CGImageRef cgImage = [[asset defaultRepresentation] fullResolutionImage];
             CGImageRef cgImage = [[asset defaultRepresentation] fullScreenImage];
             if (cgImage) {
+                CGFloat width = CGImageGetWidth(cgImage);
+                CGFloat height = CGImageGetHeight(cgImage);
+                CGSize imgSize = CGSizeMake(height , width);
+                if(width > height){
+                    imgSize = CGSizeMake(size.width,size.height * height/width);
+                }else{
+                    imgSize = CGSizeMake(size.width * width/height,size.height);
+                }
+
                 UIImage *image = [PDPhotoLibPicker imageWithImage:[UIImage imageWithCGImage:cgImage]
-                                                     scaledToSize:size];
+                                                     scaledToSize:imgSize];
 
                 //在主线程执行block的调用
                 block(image);
