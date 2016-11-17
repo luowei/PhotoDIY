@@ -30,8 +30,8 @@
     [[UMSocialManager defaultManager] setUmSocialAppkey:@"582bd955ae1bf879f700044f"];
 
 
-//    NSString *redirectURL = @"http://wodedata.com/PhotoDIY/AppCallback.php";
-    NSString *redirectURL = @"PhotoDIY://";
+    NSString *redirectURL = @"http://wodedata.com/PhotoDIY/AppCallback.php";
+//    NSString *redirectURL = @"PhotoDIY://";
     //各平台的详细配置
     //设置微信的appId和appKey
     [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"xxxxxxxxxxxxxx" appSecret:@"xxxxxxxxxxxxxxxxxxxxx" redirectURL:redirectURL];
