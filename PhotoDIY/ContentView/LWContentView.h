@@ -59,6 +59,9 @@
 
 - (void)saveImage;
 
+//获取同步的图片
+-(UIImage *)getSyncImage;
+
 - (void)recovery;
 
 - (void)showOrHideCropView;

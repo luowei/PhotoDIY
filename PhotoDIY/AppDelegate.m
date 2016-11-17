@@ -13,6 +13,7 @@
 #import <UMSocialCore/UMSocialCore.h>
 
 
+
 @interface AppDelegate ()
 
 @end
@@ -29,29 +30,45 @@
     [[UMSocialManager defaultManager] setUmSocialAppkey:@"582bd955ae1bf879f700044f"];
 
 
-    NSString *redirectURL = @"http://wodedata.com/PhotoDIY/AppCallback.php";
+//    NSString *redirectURL = @"http://wodedata.com/PhotoDIY/AppCallback.php";
+    NSString *redirectURL = @"PhotoDIY://";
     //各平台的详细配置
     //设置微信的appId和appKey
     [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"xxxxxxxxxxxxxx" appSecret:@"xxxxxxxxxxxxxxxxxxxxx" redirectURL:redirectURL];
 
     //设置分享到QQ互联的appKey和appSecret
-    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_QQ appKey:@"1105751861"  appSecret:@"umZZAIFQOJwnRmYy" redirectURL:redirectURL];
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_QQ appKey:@"1105751861" appSecret:@"umZZAIFQOJwnRmYy" redirectURL:redirectURL];
 
     //设置新浪的appKey和appSecret
-    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Sina appKey:@"3082351787"  appSecret:@"51f1d3ff556e7ab2f593ab787c4cabad" redirectURL:redirectURL];
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Sina appKey:@"3082351787" appSecret:@"51f1d3ff556e7ab2f593ab787c4cabad" redirectURL:redirectURL];
 
     //设置Twitter的appKey和appSecret
-    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Twitter appKey:@"CHbOjdkIMQgUKRkHBr2Oz77ij"  appSecret:@"ACPIwOzeWfFMVIpUEsCA0VxydhuOELAql2EakyoYf1kbZnnvUY" redirectURL:redirectURL];
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Twitter appKey:@"CHbOjdkIMQgUKRkHBr2Oz77ij" appSecret:@"ACPIwOzeWfFMVIpUEsCA0VxydhuOELAql2EakyoYf1kbZnnvUY" redirectURL:redirectURL];
 
     //设置Facebook的appKey和UrlString
-    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Facebook appKey:@"325600794492088"  appSecret:@"c8387c35222f95bfab9550ab182b94bd" redirectURL:redirectURL];
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Facebook appKey:@"325600794492088" appSecret:@"c8387c35222f95bfab9550ab182b94bd" redirectURL:redirectURL];
 
     //设置Instagram的appKey和UrlString
-    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Instagram appKey:@"47a60b44365442e3b16b2b052bd8f0b6"  appSecret:@"ee31f229723641c4b3084f05cdbbec00" redirectURL:redirectURL];
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Instagram appKey:@"47a60b44365442e3b16b2b052bd8f0b6" appSecret:@"ee31f229723641c4b3084f05cdbbec00" redirectURL:redirectURL];
 
     // Attach an observer to the payment queue
     [[SKPaymentQueue defaultQueue] addTransactionObserver:[StoreObserver sharedInstance]];
     return YES;
+}
+
+//回调处理
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url];
+    if (!result) { // 其他如支付等SDK的回调
+    }
+    return result;
+}
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url];
+    if (!result) {
+
+    }
+    return result;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -76,7 +93,7 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 
     // Remove the observer
-    [[SKPaymentQueue defaultQueue] removeTransactionObserver: [StoreObserver sharedInstance]];
+    [[SKPaymentQueue defaultQueue] removeTransactionObserver:[StoreObserver sharedInstance]];
 }
 
 

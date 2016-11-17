@@ -10,6 +10,12 @@
 "Cache Success" = "暂存成功";
 "Error" = "发生错误";
 
+"Share succeed" = "分享成功";
+"Share fail" = "分享失败,错误码为：";
+"share" = "分享";
+"Ok" = "确定";
+"Cancel" = "取消";
+
 "contrast" 				 = "对比度调节";
 "levels" 				 = "色阶调节";
 "rgb" 					 = "RGB调节";

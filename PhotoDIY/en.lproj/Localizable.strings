@@ -10,6 +10,12 @@
 "Cache Success" = "Cache Success";
 "Error" = "Error Occurred";
 
+"Share succeed" = "Share succeed";
+"Share fail" = "Share fail with error code: ";
+"share" = "Share";
+"Ok" = "Ok";
+"Cancel" = "Cancel";
+
 "contrast" 				 = "Contrast";
 "levels" 				 = "Levels";
 "rgb" 					 = "RGB";

@@ -269,6 +269,22 @@
 
 }
 
+//获取同步的图片
+-(UIImage *)getSyncImage{
+    LWDataManager *dm = [LWDataManager sharedInstance];
+    __block UIImage *image = dm.currentImage;
+    if (self.currentMode == FilterMode) {
+        [self.filterView.filter forceProcessingAtSize:dm.currentImage.size];
+        [self.filterView.sourcePicture processImageUpToFilter:self.filterView.filter
+                                        withCompletionHandler:^(UIImage *processedImage) {
+                                            if (processedImage) {
+                                                image = processedImage;
+                                            }
+                                        }];
+    }
+    return image;
+}
+
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(id)contextInfo {
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
     hud.mode = MBProgressHUDModeText;

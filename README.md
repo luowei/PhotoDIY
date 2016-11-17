@@ -11,7 +11,10 @@ AppStore地址：https://itunes.apple.com/cn/app/id1133036606
 
 ##介绍方案
 照片DIY是一款处理照片的App，除了可以对照片进入各种翻转、剪裁、缩放，添加文字等基本操作；
-还可以添加种可调节的滤镜操作以及在各种涂鸦和画笔操作等；
+还可以添加各种可调节的滤镜操作以及在各种涂鸦和画笔操作等；
+
+PhotoDIY is a photo processing App, in addition to the photo into a variety of flip, cut, zoom, add text and other basic operations;
+You can also add a variety of adjustable filter operation and in a variety of graffiti and brush operations;
 
 
 

@@ -51,6 +51,14 @@
 		EAB292F11D2A66A4004D5EED /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB292F01D2A66A4004D5EED /* AVFoundation.framework */; };
 		EAB292F91D2A701F004D5EED /* Categorys.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB292F81D2A701F004D5EED /* Categorys.m */; };
 		EAD01E981DDC36B60050D913 /* PhotoDIY.png in Resources */ = {isa = PBXBuildFile; fileRef = EAD01E971DDC36B60050D913 /* PhotoDIY.png */; };
+		EAD01E9A1DDCAF6D0050D913 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EAD01E991DDCAF6D0050D913 /* libsqlite3.tbd */; };
+		EAD01E9C1DDCAF8B0050D913 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAD01E9B1DDCAF8B0050D913 /* SystemConfiguration.framework */; };
+		EAD01E9E1DDCAF990050D913 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAD01E9D1DDCAF990050D913 /* CoreTelephony.framework */; };
+		EAD01EA01DDCAFAB0050D913 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EAD01E9F1DDCAFAB0050D913 /* libc++.tbd */; };
+		EAD01EA21DDCAFB80050D913 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EAD01EA11DDCAFB80050D913 /* libz.tbd */; };
+		EAD01EA41DDCAFD10050D913 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAD01EA31DDCAFD10050D913 /* ImageIO.framework */; };
+		EAD01EA61DDCB00A0050D913 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAD01EA51DDCB00A0050D913 /* CoreData.framework */; };
+		EAD01EAA1DDCB0AA0050D913 /* TwitterKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EAD01EA91DDCB0AA0050D913 /* TwitterKitResources.bundle */; };
 		EAD987AA1DD39B6A00B78AAE /* BaseGeometry.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD987A51DD39B6A00B78AAE /* BaseGeometry.m */; };
 		EAD987AB1DD39B6A00B78AAE /* BezierUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD987A71DD39B6A00B78AAE /* BezierUtils.m */; };
 		EAD987AC1DD39B6A00B78AAE /* Drawing-Block.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD987A91DD39B6A00B78AAE /* Drawing-Block.m */; };
@@ -125,6 +133,14 @@
 		EAB292F71D2A701F004D5EED /* Categorys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Categorys.h; sourceTree = "<group>"; };
 		EAB292F81D2A701F004D5EED /* Categorys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Categorys.m; sourceTree = "<group>"; };
 		EAD01E971DDC36B60050D913 /* PhotoDIY.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PhotoDIY.png; sourceTree = "<group>"; };
+		EAD01E991DDCAF6D0050D913 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		EAD01E9B1DDCAF8B0050D913 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		EAD01E9D1DDCAF990050D913 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		EAD01E9F1DDCAFAB0050D913 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		EAD01EA11DDCAFB80050D913 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		EAD01EA31DDCAFD10050D913 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		EAD01EA51DDCB00A0050D913 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		EAD01EA91DDCB0AA0050D913 /* TwitterKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TwitterKitResources.bundle; sourceTree = "<group>"; };
 		EAD987A41DD39B6A00B78AAE /* BaseGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseGeometry.h; sourceTree = "<group>"; };
 		EAD987A51DD39B6A00B78AAE /* BaseGeometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseGeometry.m; sourceTree = "<group>"; };
 		EAD987A61DD39B6A00B78AAE /* BezierUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BezierUtils.h; sourceTree = "<group>"; };
@@ -148,6 +164,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAD01EA41DDCAFD10050D913 /* ImageIO.framework in Frameworks */,
+				EAD01E9E1DDCAF990050D913 /* CoreTelephony.framework in Frameworks */,
+				EAD01E9C1DDCAF8B0050D913 /* SystemConfiguration.framework in Frameworks */,
+				EAD01EA61DDCB00A0050D913 /* CoreData.framework in Frameworks */,
+				EAD01E9A1DDCAF6D0050D913 /* libsqlite3.tbd in Frameworks */,
+				EAD01EA21DDCAFB80050D913 /* libz.tbd in Frameworks */,
+				EAD01EA01DDCAFAB0050D913 /* libc++.tbd in Frameworks */,
 				EA27A9BA1DAB338300B1264C /* StoreKit.framework in Frameworks */,
 				EAB292F11D2A66A4004D5EED /* AVFoundation.framework in Frameworks */,
 				EAB292EF1D2A6697004D5EED /* AssetsLibrary.framework in Frameworks */,
@@ -225,6 +248,7 @@
 		BEF06957E3080BCFA1496337 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				EAD01EA91DDCB0AA0050D913 /* TwitterKitResources.bundle */,
 				EAD01E971DDC36B60050D913 /* PhotoDIY.png */,
 				EA1C04711D4B218100290495 /* Lambeau.jpg */,
 			);
@@ -383,6 +407,13 @@
 		F966CF9E9090B9C4FA064864 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EAD01EA51DDCB00A0050D913 /* CoreData.framework */,
+				EAD01EA31DDCAFD10050D913 /* ImageIO.framework */,
+				EAD01EA11DDCAFB80050D913 /* libz.tbd */,
+				EAD01E9F1DDCAFAB0050D913 /* libc++.tbd */,
+				EAD01E9D1DDCAF990050D913 /* CoreTelephony.framework */,
+				EAD01E9B1DDCAF8B0050D913 /* SystemConfiguration.framework */,
+				EAD01E991DDCAF6D0050D913 /* libsqlite3.tbd */,
 				EA27A9B91DAB338300B1264C /* StoreKit.framework */,
 				EAB292F01D2A66A4004D5EED /* AVFoundation.framework */,
 				EAB292EE1D2A6697004D5EED /* AssetsLibrary.framework */,
@@ -467,6 +498,7 @@
 				EA3A63441DC8580400989C0D /* 华文行楷.ttf in Resources */,
 				EA6F611F1D2B567100827523 /* Localizable.strings in Resources */,
 				EAB292CD1D2A16C4004D5EED /* Assets.xcassets in Resources */,
+				EAD01EAA1DDCB0AA0050D913 /* TwitterKitResources.bundle in Resources */,
 				EA1C04721D4B218100290495 /* Lambeau.jpg in Resources */,
 				EA3A63511DC86A9000989C0D /* 方正细圆简体.ttf in Resources */,
 				EA3A63471DC8580400989C0D /* 华文楷体.ttf in Resources */,
