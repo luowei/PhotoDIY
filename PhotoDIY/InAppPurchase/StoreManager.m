@@ -12,7 +12,7 @@
     return self;
 }
 
-- (instancetype)initWithName:(NSString *)name elements:(NSArray *)elements {
+- (instancetype)initWithName:(NSString *)name elements:(NSArray<SKProduct *> *)elements {
     self = [super init];
     if (self != nil) {
         _name = [name copy];
@@ -56,7 +56,7 @@ NSString *const IAPProductRequestNotification = @"IAPProductRequestNotification"
     if (self != nil) {
         _availableProducts = [[NSMutableArray alloc] initWithCapacity:0];
         _invalidProductIds = [[NSMutableArray alloc] initWithCapacity:0];
-        _productRequestResponse = [[NSMutableArray alloc] initWithCapacity:0];
+        _responseModels = [[NSMutableArray alloc] initWithCapacity:0];
     }
     return self;
 }
@@ -66,7 +66,7 @@ NSString *const IAPProductRequestNotification = @"IAPProductRequestNotification"
 
 // Fetch information about your products from the App Store
 - (void)fetchProductInformationForIds:(NSArray *)productIds {
-    self.productRequestResponse = [[NSMutableArray alloc] initWithCapacity:0];
+    self.responseModels = [[NSMutableArray alloc] initWithCapacity:0];
     // Create a product request object and initialize it with our product identifiers
     SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithArray:productIds]];
     request.delegate = self;
@@ -86,7 +86,7 @@ NSString *const IAPProductRequestNotification = @"IAPProductRequestNotification"
     // As such, they can be purchased. Create an "AVAILABLE PRODUCTS" model object.
     if ((response.products).count > 0) {
         model = [[MyModel alloc] initWithName:@"AVAILABLE PRODUCTS" elements:response.products];
-        [self.productRequestResponse addObject:model];
+        [self.responseModels addObject:model];
         self.availableProducts = [NSMutableArray arrayWithArray:response.products];
     }
 
@@ -94,7 +94,7 @@ NSString *const IAPProductRequestNotification = @"IAPProductRequestNotification"
     // Create an "INVALID PRODUCT IDS" model object.
     if ((response.invalidProductIdentifiers).count > 0) {
         model = [[MyModel alloc] initWithName:@"INVALID PRODUCT IDS" elements:response.invalidProductIdentifiers];
-        [self.productRequestResponse addObject:model];
+        [self.responseModels addObject:model];
     }
 
     self.status = IAPProductRequestResponse;

@@ -10,10 +10,10 @@
 // Products/Purchases are organized by category
 @property(nonatomic, copy) NSString *name;
 //  List of products/purchases
-@property(nonatomic, strong) NSArray *elements;
+@property(nonatomic, strong) NSArray<SKProduct *> *elements;
 
 // Create a model object
-- (instancetype)initWithName:(NSString *)name elements:(NSArray *)elements NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithName:(NSString *)name elements:(NSArray<SKProduct *> *)elements NS_DESIGNATED_INITIALIZER;
 
 @end
 
@@ -43,13 +43,13 @@ typedef NS_ENUM(NSInteger, IAPProductRequestStatus) {
 @property(nonatomic) IAPProductRequestStatus status;
 
 // Keep track of all valid products. These products are available for sale in the App Store
-@property(nonatomic, strong) NSMutableArray *availableProducts;
+@property(nonatomic, strong) NSMutableArray<SKProduct *> *availableProducts;
 
 // Keep track of all invalid product identifiers
-@property(nonatomic, strong) NSMutableArray *invalidProductIds;
+@property(nonatomic, strong) NSMutableArray<NSString *> *invalidProductIds;
 
 // Keep track of all valid products (these products are available for sale in the App Store) and of all invalid product identifiers
-@property(nonatomic, strong) NSMutableArray *productRequestResponse;
+@property(nonatomic, strong) NSMutableArray<MyModel *> *responseModels;
 
 // Indicates the cause of the product request failure
 @property(nonatomic, copy) NSString *errorMessage;
@@ -57,7 +57,7 @@ typedef NS_ENUM(NSInteger, IAPProductRequestStatus) {
 + (StoreManager *)sharedInstance;
 
 // Query the App Store about the given product identifiers
-- (void)fetchProductInformationForIds:(NSArray *)productIds;
+- (void)fetchProductInformationForIds:(NSArray<NSString *> *)productIds;
 
 // Return the product's title matching a given product identifier
 - (NSString *)titleMatchingProductIdentifier:(NSString *)identifier;

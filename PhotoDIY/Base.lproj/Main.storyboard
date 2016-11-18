@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Photo Editor-->
+        <!--照片编辑-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
@@ -900,7 +900,7 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Photo Editor" id="N0f-SJ-Bit">
+                    <navigationItem key="navigationItem" title="照片编辑" id="N0f-SJ-Bit">
                         <barButtonItem key="leftBarButtonItem" image="shareBtn" id="Ihh-qc-m2G" userLabel="share">
                             <inset key="imageInsets" minX="-15" minY="0.0" maxX="0.0" maxY="0.0"/>
                             <connections>
@@ -913,6 +913,9 @@
                                 <action selector="saveAction:" destination="BYZ-38-t0r" id="JC9-Ja-0Ia"/>
                             </connections>
                         </barButtonItem>
+                        <connections>
+                            <outlet property="titleView" destination="S2A-f8-s9k" id="0XY-XH-pVA"/>
+                        </connections>
                     </navigationItem>
                     <nil key="simulatedStatusBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -923,6 +926,27 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="S2A-f8-s9k" userLabel="titleView">
+                    <rect key="frame" x="0.0" y="0.0" width="120" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="pZ8-mM-d9M">
+                            <inset key="titleEdgeInsets" minX="-50" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <inset key="imageEdgeInsets" minX="70" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" title="照片编辑" image="TitleIcon_Right">
+                                <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <segue destination="m12-bE-hWL" kind="show" id="Fqy-Pj-4Mq"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="pZ8-mM-d9M" firstAttribute="centerX" secondItem="S2A-f8-s9k" secondAttribute="centerX" id="ZlK-g6-mad"/>
+                        <constraint firstItem="pZ8-mM-d9M" firstAttribute="centerY" secondItem="S2A-f8-s9k" secondAttribute="centerY" id="gEd-sC-qvh"/>
+                    </constraints>
+                </view>
             </objects>
             <point key="canvasLocation" x="1244.8" y="315.74212893553226"/>
         </scene>
@@ -950,6 +974,29 @@
             </objects>
             <point key="canvasLocation" x="591" y="316"/>
         </scene>
+        <!--设置-->
+        <scene sceneID="PSX-FH-P1k">
+            <objects>
+                <viewController id="m12-bE-hWL" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="9ya-tK-hKi"/>
+                        <viewControllerLayoutGuide type="bottom" id="ZQt-CY-5iM"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="uNj-eB-ZzL">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <navigationItem key="navigationItem" title="设置" id="ixy-hp-nAr"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="480"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Bil-49-nbr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1938" y="316"/>
+        </scene>
     </scenes>
     <resources>
         <image name="EditBtn" width="40" height="40"/>
@@ -957,6 +1004,7 @@
         <image name="NoEditBtn" width="40" height="40"/>
         <image name="TileBtn" width="80" height="80"/>
         <image name="TileBtn_Selected" width="80" height="80"/>
+        <image name="TitleIcon_Right" width="30" height="30"/>
         <image name="albumButton" width="40" height="40"/>
         <image name="btnCancel" width="40" height="40"/>
         <image name="btnOK" width="40" height="40"/>

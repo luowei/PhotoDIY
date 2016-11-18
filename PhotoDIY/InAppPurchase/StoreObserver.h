@@ -30,9 +30,9 @@ typedef NS_ENUM(NSInteger, IAPPurchaseNotificationStatus) {
 @property(nonatomic) IAPPurchaseNotificationStatus status;
 
 // Keep track of all purchases
-@property(nonatomic, strong) NSMutableArray *productsPurchased;
+@property(nonatomic, strong) NSMutableArray<SKPaymentTransaction *> *purchasedTransactions;
 // Keep track of all restored purchases
-@property(nonatomic, strong) NSMutableArray *productsRestored;
+@property(nonatomic, strong) NSMutableArray<SKPaymentTransaction *> *restoredTransactions;
 
 @property(nonatomic, copy) NSString *message;
 

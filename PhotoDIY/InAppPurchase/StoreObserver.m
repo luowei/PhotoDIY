@@ -31,8 +31,8 @@ NSString *const IAPPurchaseNotification = @"IAPPurchaseNotification";
 - (instancetype)init {
     self = [super init];
     if (self != nil) {
-        _productsPurchased = [[NSMutableArray alloc] initWithCapacity:0];
-        _productsRestored = [[NSMutableArray alloc] initWithCapacity:0];
+        _purchasedTransactions = [[NSMutableArray alloc] initWithCapacity:0];
+        _restoredTransactions = [[NSMutableArray alloc] initWithCapacity:0];
     }
     return self;
 }
@@ -53,9 +53,9 @@ NSString *const IAPPurchaseNotification = @"IAPPurchaseNotification";
 
 // Returns whether there are purchased products
 - (BOOL)hasPurchasedProducts {
-    // productsPurchased keeps track of all our purchases.
+    // purchasedTransactions keeps track of all our purchases.
     // Returns YES if it contains some items and NO, otherwise
-    return (self.productsPurchased.count > 0);
+    return (self.purchasedTransactions.count > 0);
 }
 
 
@@ -64,9 +64,9 @@ NSString *const IAPPurchaseNotification = @"IAPPurchaseNotification";
 
 // Returns whether there are restored purchases
 - (BOOL)hasRestoredProducts {
-    // productsRestored keeps track of all our restored purchases.
+    // restoredTransactions keeps track of all our restored purchases.
     // Returns YES if it contains some items and NO, otherwise
-    return (self.productsRestored.count > 0);
+    return (self.restoredTransactions.count > 0);
 }
 
 
@@ -74,7 +74,7 @@ NSString *const IAPPurchaseNotification = @"IAPPurchaseNotification";
 #pragma mark Restore purchases
 
 - (void)restore {
-    self.productsRestored = [[NSMutableArray alloc] initWithCapacity:0];
+    self.restoredTransactions = [[NSMutableArray alloc] initWithCapacity:0];
     [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
 }
 
@@ -96,7 +96,7 @@ NSString *const IAPPurchaseNotification = @"IAPPurchaseNotification";
                 // The purchase was successful
             case SKPaymentTransactionStatePurchased: {
                 self.purchasedID = transaction.payment.productIdentifier;
-                [self.productsPurchased addObject:transaction];
+                [self.purchasedTransactions addObject:transaction];
 
                 NSLog(@"Deliver content for %@", transaction.payment.productIdentifier);
                 // Check whether the purchased product has content hosted with Apple.
@@ -110,7 +110,7 @@ NSString *const IAPPurchaseNotification = @"IAPPurchaseNotification";
                 // There are restored products
             case SKPaymentTransactionStateRestored: {
                 self.purchasedID = transaction.payment.productIdentifier;
-                [self.productsRestored addObject:transaction];
+                [self.restoredTransactions addObject:transaction];
 
                 NSLog(@"Restore content for %@", transaction.payment.productIdentifier);
                 // Send a IAPDownloadStarted notification if it has
@@ -213,7 +213,7 @@ NSString *const IAPPurchaseNotification = @"IAPPurchaseNotification";
 // Notify the user about the purchase process. Start the download process if status is
 // IAPDownloadStarted. Finish all transactions, otherwise.
 - (void)completeTransaction:(SKPaymentTransaction *)transaction forStatus:(NSInteger)status {
-    self.status = status;
+    self.status = (IAPPurchaseNotificationStatus) status;
     //Do not send any notifications when the user cancels the purchase
     if (transaction.error.code != SKErrorPaymentCancelled) {
         // Notify the user
@@ -257,7 +257,7 @@ NSString *const IAPPurchaseNotification = @"IAPPurchaseNotification";
         [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
         [[NSNotificationCenter defaultCenter] postNotificationName:IAPPurchaseNotification object:self];
 
-        if ([self.productsRestored containsObject:transaction]) {
+        if ([self.restoredTransactions containsObject:transaction]) {
             self.status = IAPRestoredSucceeded;
             [[NSNotificationCenter defaultCenter] postNotificationName:IAPPurchaseNotification object:self];
         }

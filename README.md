@@ -16,6 +16,7 @@ AppStore地址：https://itunes.apple.com/app/id1133036606
 PhotoDIY is a photo processing App, in addition to the photo into a variety of flip, cut, zoom, add text and other basic operations;
 You can also add a variety of adjustable filter operation and in a variety of graffiti and brush operations;
 
+* [Facebook分享申请流程](http://bbs.mob.com/thread-19148-1-1.html)：`http://bbs.mob.com/thread-19148-1-1.html`
 
 
 ##社会化分享
@@ -39,3 +40,51 @@ You can also add a variety of adjustable filter operation and in a variety of gr
 安装后，运行：ios-sim launch /path/to/your-app.app ；
 完整命令：ios-sim --devicetypeid com.apple.CoreSimulator.SimDeviceType.iPhone-6s launch ~/Desktop/PhotoDIY.app
 4.提交审核,通过[应用面板](https://developers.facebook.com/apps)提交压缩文件（例如：YourApp.zip）；
+
+
+##本地化文案
+1.内购产品说明
+
+- 简体中文
+收费功能开通券
+高级功能永久开放使用券
+
+- 繁体中文
+收費功能開通券
+高級功能永久開放使用券
+
+- 日语
+充電機能オープンチケット
+高度な機能永久にオープンバウチャー
+
+- 韩语
+충전 기능 오픈 티켓
+고급 기능을 영구적으로 개방 쿠폰
+
+- 英语
+Charge Function Pass
+Premium features and function are permanently open for Pass
+
+- 俄语
+Функция заряда активируется купоны
+Расширенные функциональные возможности постоянно открытые ваучеры
+
+- 法语
+La fonction de charge est coupons activés
+Fonctions avancées bons ouverts en permanence
+
+- 德语
+Ladefunktion ist aktiviert Coupons
+Erweiterte Funktionen permanent offene Gutscheine
+
+- 西班牙语
+Billete abierto Función de carga
+Las características avanzadas vales permanentemente abiertas
+
+- 葡萄牙语
+Função de carregamento passagem em aberto
+As características avançadas comprovantes permanentemente abertas
+
+- 阿拉伯语
+شحن وظيفة تذكرة مفتوحة
+الميزات المتقدمة قسائم مفتوحة بشكل دائم
