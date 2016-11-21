@@ -22,7 +22,7 @@
 "hue" 					 = "HUE调节";
 "whiteBalance" 			 = "白平衡";
 "sharpen" 				 = "锐化";
-"beautify" 				 = "美白";
+"Beautify" 				 = "美白";
 "gamma" 				 = "Gamma";
 "toneCurve" 			 = "色调美化";
 "sepiaTone" 			 = "褐色调";

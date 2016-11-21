@@ -82,8 +82,16 @@
 
 - (void)renderWithFilterKey:(NSString *)key {
     self.filterType = [self fileTypeWithKey:key];
-    NSDictionary *filters = [[LWDataManager sharedInstance] filters];
-    self.filter = filters[key];
+    NSArray *filters = [[LWDataManager sharedInstance] filters];
+
+    [filters enumerateObjectsUsingBlock:^(NSDictionary *dict, NSUInteger idx, BOOL *stop) {
+        NSString *keyStr = dict.allKeys.firstObject;
+        if([key isEqualToString:keyStr]){
+            self.filter = dict[key];
+            *stop = YES;
+        }
+    }];
+
     [self renderWithFilter:self.filter];
     [self setupSlider];
 }
@@ -108,7 +116,7 @@
     if([NSLocalizedString(@"sharpen", nil) isEqualToString:key]){
         return Sharpen;
     }
-    if([NSLocalizedString(@"beautify", nil) isEqualToString:key]){
+    if([NSLocalizedString(@"Beautify", nil) isEqualToString:key]){
         return Beautify;
     }
     if([NSLocalizedString(@"gamma", nil) isEqualToString:key]){

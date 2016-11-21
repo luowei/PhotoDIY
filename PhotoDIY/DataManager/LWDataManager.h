@@ -76,9 +76,9 @@ typedef NS_ENUM(NSInteger,FilterType){
 
 + (LWDataManager *)sharedInstance;
 
--(NSDictionary *)filters;
+-(NSArray *)filters;
 
--(NSDictionary *)filterImageName;
+-(NSArray *)filterImageName;
 
 
 @end

@@ -38,15 +38,15 @@
 
 //重新加载Filters
 -(void)reloadFilters{
-    self.filterDict = [[LWDataManager sharedInstance] filters];
+    self.filters = [[LWDataManager sharedInstance] filters];
     self.filterImageNameDict = [[LWDataManager sharedInstance] filterImageName];
     [self reloadData];
 }
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    if(self.filterDict && self.filterDict.count > 0){
-        return self.filterDict.allKeys.count;
+    if(self.filters && self.filters.count > 0){
+        return self.filters.count;
     }else{
         return 0;
     }
@@ -54,8 +54,10 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     LWFilterCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"LWFilterCollectionCell" forIndexPath:indexPath];
-    cell.titleLbl.text = self.filterDict.allKeys[indexPath.item];
-    NSString *imageName = self.filterImageNameDict.allKeys[indexPath.item];
+    NSDictionary *dict = self.filters[(NSUInteger) indexPath.item];
+    cell.titleLbl.text = dict.allKeys.firstObject;
+    NSDictionary *nameDict = self.filterImageNameDict[(NSUInteger) indexPath.item];
+    NSString *imageName = nameDict.allValues.firstObject;
     cell.imageView.image = [UIImage imageNamed:imageName];
     return cell;
 }

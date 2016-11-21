@@ -22,7 +22,7 @@
 "hue" 					 = "HUE";
 "whiteBalance" 			 = "WhiteBalance";
 "sharpen" 				 = "Sharpen";
-"beautify" 				 = "beautify";
+"Beautify" 				 = "Beautify";
 "gamma" 				 = "Gamma";
 "toneCurve" 			 = "ToneCurve";
 "sepiaTone" 			 = "SepiaTone";
