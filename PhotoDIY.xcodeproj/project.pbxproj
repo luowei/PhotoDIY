@@ -75,6 +75,7 @@
 		EAD987AB1DD39B6A00B78AAE /* BezierUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD987A71DD39B6A00B78AAE /* BezierUtils.m */; };
 		EAD987AC1DD39B6A00B78AAE /* Drawing-Block.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD987A91DD39B6A00B78AAE /* Drawing-Block.m */; };
 		EAE5B4691D2E7C8B00DD865D /* LWContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE5B4631D2E7C8B00DD865D /* LWContentView.m */; };
+		EAEE21761DE2DEF000E0D49C /* GPUImageBeautifyFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = EAEE21751DE2DEF000E0D49C /* GPUImageBeautifyFilter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -190,6 +191,8 @@
 		EAE5B4621D2E7C8B00DD865D /* LWContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWContentView.h; sourceTree = "<group>"; };
 		EAE5B4631D2E7C8B00DD865D /* LWContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWContentView.m; sourceTree = "<group>"; };
 		EAE5B60D1D2E812900DD865D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		EAEE21741DE2DEF000E0D49C /* GPUImageBeautifyFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageBeautifyFilter.h; sourceTree = "<group>"; };
+		EAEE21751DE2DEF000E0D49C /* GPUImageBeautifyFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageBeautifyFilter.m; sourceTree = "<group>"; };
 		FB3752B7BE3FC2C396F9E492 /* Pods-PhotoDIY.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoDIY.release.xcconfig"; path = "Pods/Target Support Files/Pods-PhotoDIY/Pods-PhotoDIY.release.xcconfig"; sourceTree = "<group>"; };
 		FFC87A4A05A2799BD5A7991E /* libPods-PhotoDIY.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PhotoDIY.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -261,6 +264,7 @@
 		BEF0657A00B9C9FED2CB6591 /* FilterView */ = {
 			isa = PBXGroup;
 			children = (
+				EAEE21731DE2DEF000E0D49C /* Filters */,
 				EA1C04431D4904A900290495 /* LWFilterImageView.h */,
 				EA1C04441D4904A900290495 /* LWFilterImageView.m */,
 			);
@@ -502,6 +506,15 @@
 			path = ContentView;
 			sourceTree = "<group>";
 		};
+		EAEE21731DE2DEF000E0D49C /* Filters */ = {
+			isa = PBXGroup;
+			children = (
+				EAEE21741DE2DEF000E0D49C /* GPUImageBeautifyFilter.h */,
+				EAEE21751DE2DEF000E0D49C /* GPUImageBeautifyFilter.m */,
+			);
+			path = Filters;
+			sourceTree = "<group>";
+		};
 		F966CF9E9090B9C4FA064864 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -699,6 +712,7 @@
 				BEF061A06B16E3FF98F60928 /* LWImageCropView.m in Sources */,
 				EA1C04451D4904A900290495 /* LWFilterImageView.m in Sources */,
 				BEF0669C241E75514FBCFEB0 /* LWFilterCollectionView.m in Sources */,
+				EAEE21761DE2DEF000E0D49C /* GPUImageBeautifyFilter.m in Sources */,
 				BEF060D7ACDCB1B844B81CE2 /* LWPhotoCollectionView.m in Sources */,
 				BEF063818F90927D3FC30574 /* LWDrawBar.m in Sources */,
 				BEF06F02C08258DD29719AED /* MyExtensions.m in Sources */,

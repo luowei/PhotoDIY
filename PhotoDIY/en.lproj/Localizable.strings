@@ -22,6 +22,7 @@
 "hue" 					 = "HUE";
 "whiteBalance" 			 = "WhiteBalance";
 "sharpen" 				 = "Sharpen";
+"beautify" 				 = "beautify";
 "gamma" 				 = "Gamma";
 "toneCurve" 			 = "ToneCurve";
 "sepiaTone" 			 = "SepiaTone";

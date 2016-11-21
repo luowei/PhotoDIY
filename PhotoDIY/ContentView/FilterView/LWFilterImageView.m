@@ -10,6 +10,7 @@
 #import "Categorys.h"
 #import "LWDataManager.h"
 #import "LWContentView.h"
+#import "GPUImageBeautifyFilter.h"
 
 @implementation LWFilterImageView
 
@@ -62,7 +63,9 @@
     self.filter = filter;
     [self.filter forceProcessingAtSize:dm.currentImage.size];
     [self.sourcePicture removeAllTargets];
-    [self.filter removeAllTargets];
+    if(![self.filter isKindOfClass:[GPUImageBeautifyFilter class]]){
+        [self.filter removeAllTargets];
+    }
 
     [self.sourcePicture addTarget:self.filter];
     [self.filter addTarget:self];
@@ -104,6 +107,9 @@
     }
     if([NSLocalizedString(@"sharpen", nil) isEqualToString:key]){
         return Sharpen;
+    }
+    if([NSLocalizedString(@"beautify", nil) isEqualToString:key]){
+        return Beautify;
     }
     if([NSLocalizedString(@"gamma", nil) isEqualToString:key]){
         return Gamma;
@@ -176,6 +182,10 @@
         }
         case WhiteBalance: {
             [(GPUImageWhiteBalanceFilter *) self.filter setTemperature:[slider value]];
+            break;
+        }
+        case Beautify: {
+            [(GPUImageBeautifyFilter *) self.filter setDistanceNormalizationFactor:10 - [slider value]];
             break;
         }
         case Sharpen: {
@@ -299,6 +309,13 @@
             [slider setMinimumValue:2500.0];
             [slider setMaximumValue:7500.0];
             [slider setValue:5000.0];
+            break;
+        }
+        case Beautify: {
+            slider.hidden = NO;
+            [slider setMinimumValue:0];
+            [slider setMaximumValue:10];
+            [slider setValue:4.0];
             break;
         }
         case Sharpen: {

@@ -25,6 +25,7 @@ typedef NS_ENUM(NSInteger,FilterType){
     HUE,
     WhiteBalance,
     Sharpen,
+    Beautify,
     Gamma,
     ToneCurve,
     SepiaTone,

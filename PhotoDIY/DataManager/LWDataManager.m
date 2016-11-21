@@ -8,6 +8,7 @@
 
 #import "LWDataManager.h"
 #import "GPUImageFilter.h"
+#import "GPUImageBeautifyFilter.h"
 
 @implementation LWDataManager
 
@@ -35,6 +36,8 @@
 
     GPUImageOutput *whiteBalance = [GPUImageWhiteBalanceFilter new];
     [(GPUImageWhiteBalanceFilter *)whiteBalance setTemperature:2500.0];
+
+    GPUImageBeautifyFilter *beautify = [[GPUImageBeautifyFilter alloc] init];
 
     GPUImageOutput *sharpen = [GPUImageSharpenFilter new];
     [(GPUImageSharpenFilter *)sharpen setSharpness:4.0];
@@ -72,8 +75,8 @@
     GPUImageOutput *zoomBlur = [GPUImageZoomBlurFilter new];
 
     return @{NSLocalizedString(@"contrast",nil):contrast,NSLocalizedString(@"levels",nil):levels,
-            NSLocalizedString(@"rgb",nil):rgb,NSLocalizedString(@"hue",nil):hue,
-            NSLocalizedString(@"whiteBalance",nil):whiteBalance,NSLocalizedString(@"sharpen",nil):sharpen,
+            NSLocalizedString(@"rgb",nil):rgb,NSLocalizedString(@"hue",nil):hue,NSLocalizedString(@"whiteBalance",nil):whiteBalance,
+            NSLocalizedString(@"beautify",nil):beautify,NSLocalizedString(@"sharpen",nil):sharpen,
             NSLocalizedString(@"gamma",nil):gamma,NSLocalizedString(@"toneCurve",nil):toneCurve,
             NSLocalizedString(@"sepiaTone",nil):sepiaTone,NSLocalizedString(@"colorInvert",nil):colorInvert,
             NSLocalizedString(@"grayScale",nil):grayScale,NSLocalizedString(@"sobelEdge",nil):sobelEdge,
@@ -85,8 +88,8 @@
 
 -(NSDictionary *)filterImageName{
     return @{NSLocalizedString(@"contrast",nil):@"对比度调节",NSLocalizedString(@"levels",nil):@"色阶调节",
-            NSLocalizedString(@"rgb",nil):@"RGB调节",NSLocalizedString(@"hue",nil):@"HUE调节",
-            NSLocalizedString(@"whiteBalance",nil):@"白平衡",NSLocalizedString(@"sharpen",nil):@"锐化",
+            NSLocalizedString(@"rgb",nil):@"RGB调节",NSLocalizedString(@"hue",nil):@"HUE调节",NSLocalizedString(@"whiteBalance",nil):@"白平衡",
+            NSLocalizedString(@"beautify",nil):@"美白",NSLocalizedString(@"sharpen",nil):@"锐化",
             NSLocalizedString(@"gamma",nil):@"Gamma",NSLocalizedString(@"toneCurve",nil):@"色调美化",
             NSLocalizedString(@"sepiaTone",nil):@"褐色调",NSLocalizedString(@"colorInvert",nil):@"反转",
             NSLocalizedString(@"grayScale",nil):@"灰度",NSLocalizedString(@"sobelEdge",nil):@"边缘勾勒",
