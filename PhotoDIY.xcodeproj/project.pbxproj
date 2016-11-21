@@ -8,9 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		BEF060D7ACDCB1B844B81CE2 /* LWPhotoCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF069A6E65A0CA56DFE1CF5 /* LWPhotoCollectionView.m */; };
-		BEF060DD7AE70DB46660BA16 /* guide_cn.json in Resources */ = {isa = PBXBuildFile; fileRef = BEF062FF7D5854D14423E0AC /* guide_cn.json */; };
 		BEF061A06B16E3FF98F60928 /* LWImageCropView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF060C1F89C5EFEE240BD8C /* LWImageCropView.m */; };
 		BEF063818F90927D3FC30574 /* LWDrawBar.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF060835D4A9C55E94FD61B /* LWDrawBar.m */; };
+		BEF065278D3DB3F27A9A1B48 /* guide_en.json in Resources */ = {isa = PBXBuildFile; fileRef = BEF0630982FBE274EE0F56BF /* guide_en.json */; };
 		BEF0669C241E75514FBCFEB0 /* LWFilterCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF061409EB4310BAC440CE9 /* LWFilterCollectionView.m */; };
 		BEF068B151E77927FAC256F3 /* LWDrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF067546351067E593CAF2A /* LWDrawView.m */; };
 		BEF069FB0617CA4B5E9BA8B6 /* LWImageZoomView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF06FF649F758528E3BB784 /* LWImageZoomView.m */; };
@@ -77,6 +77,7 @@
 		EAD987AC1DD39B6A00B78AAE /* Drawing-Block.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD987A91DD39B6A00B78AAE /* Drawing-Block.m */; };
 		EAE5B4691D2E7C8B00DD865D /* LWContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE5B4631D2E7C8B00DD865D /* LWContentView.m */; };
 		EAEE21761DE2DEF000E0D49C /* GPUImageBeautifyFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = EAEE21751DE2DEF000E0D49C /* GPUImageBeautifyFilter.m */; };
+		EAEE217B1DE3543600E0D49C /* guide_cn.json in Resources */ = {isa = PBXBuildFile; fileRef = EAEE217A1DE3543600E0D49C /* guide_cn.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,7 +87,7 @@
 		BEF060C1F89C5EFEE240BD8C /* LWImageCropView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWImageCropView.m; sourceTree = "<group>"; };
 		BEF061409EB4310BAC440CE9 /* LWFilterCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWFilterCollectionView.m; sourceTree = "<group>"; };
 		BEF0622CE7D97AC10AC3C918 /* LWDrawBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWDrawBar.h; sourceTree = "<group>"; };
-		BEF062FF7D5854D14423E0AC /* guide_cn.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = guide_cn.json; sourceTree = "<group>"; };
+		BEF0630982FBE274EE0F56BF /* guide_en.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = guide_en.json; sourceTree = "<group>"; };
 		BEF064284A669B4E7B1D4BB7 /* LWPhotoCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWPhotoCollectionView.h; sourceTree = "<group>"; };
 		BEF0644EA39B3AFC4D20ED88 /* MyExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyExtensions.h; sourceTree = "<group>"; };
 		BEF067546351067E593CAF2A /* LWDrawView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWDrawView.m; sourceTree = "<group>"; };
@@ -195,6 +196,7 @@
 		EAE5B60D1D2E812900DD865D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		EAEE21741DE2DEF000E0D49C /* GPUImageBeautifyFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageBeautifyFilter.h; sourceTree = "<group>"; };
 		EAEE21751DE2DEF000E0D49C /* GPUImageBeautifyFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageBeautifyFilter.m; sourceTree = "<group>"; };
+		EAEE217A1DE3543600E0D49C /* guide_cn.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = guide_cn.json; sourceTree = "<group>"; };
 		FB3752B7BE3FC2C396F9E492 /* Pods-PhotoDIY.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoDIY.release.xcconfig"; path = "Pods/Target Support Files/Pods-PhotoDIY/Pods-PhotoDIY.release.xcconfig"; sourceTree = "<group>"; };
 		FFC87A4A05A2799BD5A7991E /* libPods-PhotoDIY.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PhotoDIY.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -273,6 +275,15 @@
 			path = FilterView;
 			sourceTree = "<group>";
 		};
+		BEF0665D23099F7EF191A877 /* json */ = {
+			isa = PBXGroup;
+			children = (
+				EAEE217A1DE3543600E0D49C /* guide_cn.json */,
+				BEF0630982FBE274EE0F56BF /* guide_en.json */,
+			);
+			path = json;
+			sourceTree = "<group>";
+		};
 		BEF066A93C354A3204A6DE12 /* InAppPurchase */ = {
 			isa = PBXGroup;
 			children = (
@@ -309,11 +320,11 @@
 		BEF06957E3080BCFA1496337 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				BEF0665D23099F7EF191A877 /* json */,
 				EA47811C1DE0A1120099AE30 /* failedPage.htm */,
 				EAD01EA91DDCB0AA0050D913 /* TwitterKitResources.bundle */,
 				EAD01E971DDC36B60050D913 /* PhotoDIY.png */,
 				EA1C04711D4B218100290495 /* Lambeau.jpg */,
-				BEF062FF7D5854D14423E0AC /* guide_cn.json */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -621,12 +632,13 @@
 				EA3A634D1DC85ABC00989C0D /* 钟齐流江硬笔草体.ttf in Resources */,
 				EA3A63461DC8580400989C0D /* 华文隶书.ttf in Resources */,
 				EA3A63491DC8580400989C0D /* 华文彩云.ttf in Resources */,
+				EAEE217B1DE3543600E0D49C /* guide_cn.json in Resources */,
 				EA3A63481DC8580400989C0D /* 华文琥珀.ttf in Resources */,
 				EA3A63431DC8580400989C0D /* 默陌信笺手写体.ttf in Resources */,
 				EAB292CB1D2A16C4004D5EED /* Main.storyboard in Resources */,
 				EA6F611B1D2B566900827523 /* InfoPlist.strings in Resources */,
 				EAD01E981DDC36B60050D913 /* PhotoDIY.png in Resources */,
-				BEF060DD7AE70DB46660BA16 /* guide_cn.json in Resources */,
+				BEF065278D3DB3F27A9A1B48 /* guide_en.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
