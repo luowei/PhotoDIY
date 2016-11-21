@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LWDataManager.h"
 
 @class LWScratchView;
 @class LWScrawlView;
@@ -24,6 +25,14 @@
 @property(nonatomic,weak) IBOutlet UIButton *okBtn;
 @property(nonatomic,weak) IBOutlet UIButton *editBtn;
 
+
+@property(nonatomic,weak) IBOutlet NSLayoutConstraint *clearBottomConstrant;
+@property(nonatomic,weak) IBOutlet NSLayoutConstraint *okBottomConstrant;
+
+
+@property(nonatomic) BOOL oldHiddenStatus;
+
+@property(nonatomic) enum DIYMode oldDrawMode;
 
 - (IBAction)openOrCloseMosaic:(UIButton *)mosaicButton;
 -(IBAction)okAction:(UIButton *)okBtn;

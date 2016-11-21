@@ -456,10 +456,10 @@
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="coG-Pc-dqh" firstAttribute="leading" secondItem="euM-5w-niK" secondAttribute="leading" id="17Y-CU-hDi"/>
-                                            <constraint firstItem="O5f-Jf-Ls1" firstAttribute="top" secondItem="Rpm-dL-o4u" secondAttribute="bottom" constant="8" id="2kX-rQ-o2A"/>
                                             <constraint firstAttribute="bottom" secondItem="dfJ-Xb-rco" secondAttribute="bottom" id="6Cr-hp-YCO"/>
                                             <constraint firstAttribute="bottom" secondItem="xZQ-UW-W72" secondAttribute="bottom" id="8UQ-m7-Fqt"/>
                                             <constraint firstAttribute="trailing" secondItem="xZQ-UW-W72" secondAttribute="trailing" id="Eb2-Wl-dYW"/>
+                                            <constraint firstAttribute="bottom" secondItem="YtB-Nc-H9u" secondAttribute="bottom" constant="88" id="G3F-IN-ZP8" userLabel="clearBottomConstrant"/>
                                             <constraint firstItem="coG-Pc-dqh" firstAttribute="top" secondItem="euM-5w-niK" secondAttribute="top" id="R20-IP-d53"/>
                                             <constraint firstAttribute="trailing" secondItem="4kf-gH-kqu" secondAttribute="trailing" constant="10" id="Te4-hz-gcy"/>
                                             <constraint firstAttribute="trailing" secondItem="O5f-Jf-Ls1" secondAttribute="trailing" id="Ye4-vV-qAU"/>
@@ -469,7 +469,6 @@
                                             <constraint firstAttribute="trailing" secondItem="Rpm-dL-o4u" secondAttribute="trailing" constant="10" id="ar8-AY-8wj"/>
                                             <constraint firstItem="xZQ-UW-W72" firstAttribute="top" secondItem="euM-5w-niK" secondAttribute="top" id="dgI-nA-UZA"/>
                                             <constraint firstItem="dfJ-Xb-rco" firstAttribute="leading" secondItem="euM-5w-niK" secondAttribute="leading" id="iBL-iG-Yrj"/>
-                                            <constraint firstItem="O5f-Jf-Ls1" firstAttribute="top" secondItem="YtB-Nc-H9u" secondAttribute="bottom" constant="8" id="is5-GY-hFB"/>
                                             <constraint firstAttribute="bottom" secondItem="coG-Pc-dqh" secondAttribute="bottom" id="jkv-mB-2BH"/>
                                             <constraint firstItem="dfJ-Xb-rco" firstAttribute="top" secondItem="euM-5w-niK" secondAttribute="top" id="ntb-5j-rdI"/>
                                             <constraint firstItem="YtB-Nc-H9u" firstAttribute="leading" secondItem="euM-5w-niK" secondAttribute="leading" constant="10" id="pHB-ai-mrW"/>
@@ -479,14 +478,17 @@
                                             <constraint firstAttribute="bottom" secondItem="O5f-Jf-Ls1" secondAttribute="bottom" id="t67-qk-6UH"/>
                                             <constraint firstAttribute="trailing" secondItem="dfJ-Xb-rco" secondAttribute="trailing" id="tKw-5f-VEv"/>
                                             <constraint firstAttribute="trailing" secondItem="p2m-pb-21y" secondAttribute="trailing" constant="10" id="tYe-2h-kil"/>
+                                            <constraint firstAttribute="bottom" secondItem="Rpm-dL-o4u" secondAttribute="bottom" constant="88" id="xGV-uL-O36" userLabel="okBottomConstrant"/>
                                             <constraint firstItem="4kf-gH-kqu" firstAttribute="top" secondItem="euM-5w-niK" secondAttribute="top" constant="10" id="y6X-xy-kfr"/>
                                         </constraints>
                                         <connections>
+                                            <outlet property="clearBottomConstrant" destination="G3F-IN-ZP8" id="m10-1g-umf"/>
                                             <outlet property="deleteBtn" destination="YtB-Nc-H9u" id="fxC-cM-VSg"/>
                                             <outlet property="drawBar" destination="O5f-Jf-Ls1" id="GGM-m3-1BC"/>
                                             <outlet property="editBtn" destination="p2m-pb-21y" id="MyR-Rx-bFH"/>
                                             <outlet property="mosaicBtn" destination="4kf-gH-kqu" id="IqJ-ET-F04"/>
                                             <outlet property="mosaicImageView" destination="coG-Pc-dqh" id="gyX-br-Chw"/>
+                                            <outlet property="okBottomConstrant" destination="xGV-uL-O36" id="j7D-7N-saF"/>
                                             <outlet property="okBtn" destination="Rpm-dL-o4u" id="tDQ-SV-ftN"/>
                                             <outlet property="scratchView" destination="dfJ-Xb-rco" id="Stn-HJ-AUS"/>
                                             <outlet property="scrawlView" destination="xZQ-UW-W72" id="Ocz-LV-OzV"/>
@@ -914,7 +916,7 @@
                             </connections>
                         </barButtonItem>
                         <connections>
-                            <outlet property="titleView" destination="S2A-f8-s9k" id="0XY-XH-pVA"/>
+                            <outlet property="titleView" destination="S2A-f8-s9k" id="aPH-UM-I5z"/>
                         </connections>
                     </navigationItem>
                     <nil key="simulatedStatusBarMetrics"/>
@@ -922,14 +924,21 @@
                     <size key="freeformSize" width="320" height="480"/>
                     <connections>
                         <outlet property="contentView" destination="hc7-a9-rQJ" id="XoY-do-SX8"/>
+                        <outlet property="previewIcon" destination="dFf-nK-lcz" id="cHz-sE-IZA"/>
                         <outlet property="toolBar" destination="t0H-Ca-AMv" id="wbv-HK-Wxu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <view contentMode="scaleToFill" id="S2A-f8-s9k" userLabel="titleView">
-                    <rect key="frame" x="0.0" y="0.0" width="120" height="30"/>
+                    <rect key="frame" x="0.0" y="0.0" width="160" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="albumButton" translatesAutoresizingMaskIntoConstraints="NO" id="dFf-nK-lcz" userLabel="preview-icon">
+                            <constraints>
+                                <constraint firstAttribute="height" constant="30" id="LfG-Xh-Tas"/>
+                                <constraint firstAttribute="width" constant="30" id="pyV-1O-hnJ"/>
+                            </constraints>
+                        </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="pZ8-mM-d9M">
                             <inset key="titleEdgeInsets" minX="-50" minY="0.0" maxX="0.0" maxY="0.0"/>
                             <inset key="imageEdgeInsets" minX="70" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -941,10 +950,11 @@
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="pZ8-mM-d9M" firstAttribute="centerX" secondItem="S2A-f8-s9k" secondAttribute="centerX" id="ZlK-g6-mad"/>
+                        <constraint firstItem="pZ8-mM-d9M" firstAttribute="leading" secondItem="dFf-nK-lcz" secondAttribute="trailing" constant="-5" id="cBD-cV-XXI"/>
                         <constraint firstItem="pZ8-mM-d9M" firstAttribute="centerY" secondItem="S2A-f8-s9k" secondAttribute="centerY" id="gEd-sC-qvh"/>
+                        <constraint firstItem="dFf-nK-lcz" firstAttribute="centerY" secondItem="S2A-f8-s9k" secondAttribute="centerY" id="zz4-xZ-ckc"/>
                     </constraints>
                 </view>
             </objects>

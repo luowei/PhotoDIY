@@ -20,7 +20,7 @@
 #define kBitsPerPixel (32)
 #define kPixelChannelCount (4)
 
-@implementation LWDrawView{
+@implementation LWDrawView {
     CGSize imageSize;
 }
 
@@ -33,7 +33,7 @@
 
 
 //开启关闭马赛克按钮
-- (IBAction)openOrCloseMosaic:(UIButton *)mosaicButton{
+- (IBAction)openOrCloseMosaic:(UIButton *)mosaicButton {
     if (!mosaicButton.selected) { //close
         //改变层级关系,并隐藏画笔视图
         self.scrawlView.hidden = YES;
@@ -49,7 +49,7 @@
         self.mosaicBtn.selected = YES;
         [self.scratchView setNeedsDisplay];
 
-    }else{ //open
+    } else { //open
         //改变层级关系,并显示画笔视图
         self.scrawlView.hidden = NO;
         self.drawBar.hidden = NO;
@@ -69,17 +69,17 @@
     [self bringSubviewToFront:self.okBtn];
 }
 
--(IBAction)editBtnAction:(UIButton *)editBtn {
-    if(!self.scrawlView.enableEdit){
+- (IBAction)editBtnAction:(UIButton *)editBtn {
+    if (!self.scrawlView.enableEdit) {
         self.scrawlView.enableEdit = YES;
         editBtn.selected = NO;
-    }else{
+    } else {
         self.scrawlView.enableEdit = NO;
         editBtn.selected = YES; //edit禁用,selected 为 Yes
     }
 }
 
--(IBAction)okAction:(UIButton *)okBtn{
+- (IBAction)okAction:(UIButton *)okBtn {
     [self cacheDrawImage];
 
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
@@ -101,7 +101,7 @@
 }
 
 //获得drawView 的 Image
--(UIImage *)drawImage{
+- (UIImage *)drawImage {
     self.deleteBtn.hidden = YES;
     self.mosaicBtn.hidden = YES;
     self.drawBar.hidden = YES;
@@ -110,9 +110,10 @@
     [self.scrawlView exitEditingOrTexting];
 
     UIImage *image = [self snapshot];
-    CGFloat imageScale = fminf(CGRectGetWidth(self.bounds)/imageSize.width, CGRectGetHeight(self.bounds)/imageSize.height);
-    CGSize scaledImageSize = CGSizeMake(imageSize.width*imageScale, imageSize.height*imageScale);
-    CGRect imageFrame = CGRectMake(roundf((CGRectGetWidth(self.bounds)-scaledImageSize.width)/2), roundf((CGRectGetHeight(self.bounds)-scaledImageSize.height)/2), roundf(scaledImageSize.width), roundf(scaledImageSize.height));
+    CGFloat scrScale = [UIScreen mainScreen].scale;
+    CGFloat imageScale = fminf(CGRectGetWidth(self.bounds) / imageSize.width, CGRectGetHeight(self.bounds) / imageSize.height);
+    CGSize scaledImageSize = CGSizeMake(imageSize.width * imageScale * scrScale, imageSize.height * imageScale * scrScale);
+    CGRect imageFrame = CGRectMake(roundf((CGRectGetWidth(self.bounds) * scrScale - scaledImageSize.width) / 2), roundf((CGRectGetHeight(self.bounds) *scrScale - scaledImageSize.height) / 2), roundf(scaledImageSize.width), roundf(scaledImageSize.height));
     UIImage *cutImage = [image cutImageWithRect:imageFrame];
 
     self.deleteBtn.hidden = NO;
@@ -124,14 +125,13 @@
 }
 
 
-
 - (void)setImage:(UIImage *)image {
     CGImageRef cgImage = image.CGImage;
-    imageSize = CGSizeMake(CGImageGetWidth(cgImage),CGImageGetHeight(cgImage));
+    imageSize = CGSizeMake(CGImageGetWidth(cgImage), CGImageGetHeight(cgImage));
 
     //设置马赛克图片
     self.mosaicImageView.contentMode = UIViewContentModeScaleAspectFit;
-    UIImage *renderImg = [LWDrawView transToMosaicImage:image blockLevel:image.size.width/ 50];
+    UIImage *renderImg = [LWDrawView transToMosaicImage:image blockLevel:image.size.width / 50];
     self.mosaicImageView.image = renderImg;
 
     //把底图绘制到scratchView上
@@ -163,7 +163,7 @@
     CGImageRef imgRef = orginImage.CGImage;
     CGFloat width = CGImageGetWidth(imgRef);
     CGFloat height = CGImageGetHeight(imgRef);
-    CGContextRef context = CGBitmapContextCreate(nil,width,height,
+    CGContextRef context = CGBitmapContextCreate(nil, width, height,
             kBitsPerComponent,        //每个颜色值8bit
             width * kPixelChannelCount, //每一行的像素点占用的字节数，每个像素点的ARGB四个通道各占8个bit
             colorSpace,

@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet LWContentView *contentView;
 @property (weak, nonatomic) IBOutlet LWToolBar *toolBar;
 //@property (weak, nonatomic) IBOutlet UIView *titleView;
+@property (weak, nonatomic) IBOutlet UIImageView *previewIcon;
 
 @end
 

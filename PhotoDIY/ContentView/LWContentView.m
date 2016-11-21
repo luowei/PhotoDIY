@@ -16,6 +16,8 @@
 #import "LWImageZoomView.h"
 #import "LWDrawView.h"
 #import "MyExtensions.h"
+#import "LWDrawBar.h"
+#import "ViewController.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 
 @implementation LWContentView
@@ -179,11 +181,15 @@
         self.filterBar.hidden = !self.filterBar.hidden;
     }
 
-    self.currentMode = DrawMode;
+    DIYMode oldMode = self.currentMode;
+    BOOL oldStatus = self.drawView.drawBar.hidden;
+    
+    self.drawView.oldDrawMode = oldMode;
+    self.drawView.oldHiddenStatus = oldStatus;
 
+    self.currentMode = DrawMode;
     LWDataManager *dm = [LWDataManager sharedInstance];
     [self reloadImage:dm.currentImage];
-
 }
 
 #pragma mark -
@@ -192,6 +198,7 @@
 
     LWDataManager *dm = [LWDataManager sharedInstance];
     dm.currentImage = image;
+    ViewController *vc = (ViewController *) self.viewController;
 
     switch (self.currentMode) {
         case FilterMode: {
@@ -200,6 +207,7 @@
             self.cropView.hidden = YES;
             self.drawView.hidden = YES;
             [self.filterView loadImage2GPUImagePicture:image];
+            vc.previewIcon.image = [UIImage imageNamed:@"filter"];
             break;
         }
         case CropMode: {
@@ -208,6 +216,7 @@
             self.cropView.hidden = NO;
             self.drawView.hidden = YES;
             [self.cropView setImage:image];
+            vc.previewIcon.image = [UIImage imageNamed:@"cropButton"];
             break;
         }
         case DrawMode: {
@@ -216,6 +225,18 @@
             self.cropView.hidden = YES;
             self.drawView.hidden = NO;
             [self.drawView setImage:image];
+
+            if(self.drawView.oldDrawMode == DrawMode){
+                self.drawView.drawBar.hidden = !self.drawView.oldHiddenStatus;
+                if(self.drawView.oldHiddenStatus){
+                    self.drawView.okBottomConstrant.constant = 88;
+                    self.drawView.clearBottomConstrant.constant = 88;
+                }else{
+                    self.drawView.okBottomConstrant.constant = 8;
+                    self.drawView.clearBottomConstrant.constant = 8;
+                }
+            }
+            vc.previewIcon.image = [UIImage imageNamed:@"doodleButton"];
             break;
         }
         case ImageMode:
@@ -226,6 +247,7 @@
             self.drawView.hidden = YES;
             self.zoomView.image = image;
             [self setNeedsUpdateConstraints];
+            vc.previewIcon.image = [UIImage imageNamed:@"albumButton"];
             break;
         }
     }

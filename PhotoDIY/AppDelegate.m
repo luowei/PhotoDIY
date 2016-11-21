@@ -34,7 +34,7 @@
 //    NSString *redirectURL = @"PhotoDIY://";
     //各平台的详细配置
     //设置微信的appId和appKey
-    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"xxxxxxxxxxxxxx" appSecret:@"xxxxxxxxxxxxxxxxxxxxx" redirectURL:redirectURL];
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"wxe9ee15bc76746188" appSecret:@"fb4ca3b28e9110091fad90769279e789" redirectURL:redirectURL];
 
     //设置分享到QQ互联的appKey和appSecret
     [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_QQ appKey:@"1105751861" appSecret:@"umZZAIFQOJwnRmYy" redirectURL:redirectURL];

@@ -41,6 +41,9 @@ You can also add a variety of adjustable filter operation and in a variety of gr
 完整命令：ios-sim --devicetypeid com.apple.CoreSimulator.SimDeviceType.iPhone-6s launch ~/Desktop/PhotoDIY.app
 4.提交审核,通过[应用面板](https://developers.facebook.com/apps)提交压缩文件（例如：YourApp.zip）；
 
+##第三方AppKey 及 Secrect
+微信:`APPID:wxe9ee15bc76746188   APPSecret:fb4ca3b28e9110091fad90769279e789`
+
 
 ##本地化文案
 1.内购产品说明

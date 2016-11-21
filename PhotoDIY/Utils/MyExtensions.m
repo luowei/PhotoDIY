@@ -288,7 +288,8 @@
 
 - (UIImage *)snapshot {
     UIImage *snapShot = nil;
-    UIGraphicsBeginImageContext(self.bounds.size);
+//    UIGraphicsBeginImageContext(size);
+    UIGraphicsBeginImageContextWithOptions(self.bounds.size, self.opaque, 0.0);
     {
         [self.layer renderInContext:UIGraphicsGetCurrentContext()];
         snapShot = UIGraphicsGetImageFromCurrentImageContext();
@@ -299,7 +300,6 @@
     return snapShot;
 
 }
-
 
 @end
 
@@ -359,10 +359,20 @@
 @implementation UIView (APIFix)
 
 - (UIViewController *)viewController {
-    if ([self.nextResponder isKindOfClass:UIViewController.class])
-        return (UIViewController *)self.nextResponder;
-    else
+    UIResponder *responder = self;
+    while (![responder isKindOfClass:[UIViewController class]]) {
+        responder = [responder nextResponder];
+        if (nil == responder) {
+            break;
+        }
+    }
+    //返回
+    if([responder isKindOfClass:[UIViewController class]]){
+        return (UIViewController *)responder;
+    }else{
         return nil;
+    }
+
 }
 @end
 
