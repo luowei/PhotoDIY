@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		BEF060D7ACDCB1B844B81CE2 /* LWPhotoCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF069A6E65A0CA56DFE1CF5 /* LWPhotoCollectionView.m */; };
+		BEF060DD7AE70DB46660BA16 /* guide_cn.json in Resources */ = {isa = PBXBuildFile; fileRef = BEF062FF7D5854D14423E0AC /* guide_cn.json */; };
 		BEF061A06B16E3FF98F60928 /* LWImageCropView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF060C1F89C5EFEE240BD8C /* LWImageCropView.m */; };
 		BEF063818F90927D3FC30574 /* LWDrawBar.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF060835D4A9C55E94FD61B /* LWDrawBar.m */; };
 		BEF0669C241E75514FBCFEB0 /* LWFilterCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF061409EB4310BAC440CE9 /* LWFilterCollectionView.m */; };
@@ -85,6 +86,7 @@
 		BEF060C1F89C5EFEE240BD8C /* LWImageCropView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWImageCropView.m; sourceTree = "<group>"; };
 		BEF061409EB4310BAC440CE9 /* LWFilterCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWFilterCollectionView.m; sourceTree = "<group>"; };
 		BEF0622CE7D97AC10AC3C918 /* LWDrawBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWDrawBar.h; sourceTree = "<group>"; };
+		BEF062FF7D5854D14423E0AC /* guide_cn.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = guide_cn.json; sourceTree = "<group>"; };
 		BEF064284A669B4E7B1D4BB7 /* LWPhotoCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWPhotoCollectionView.h; sourceTree = "<group>"; };
 		BEF0644EA39B3AFC4D20ED88 /* MyExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyExtensions.h; sourceTree = "<group>"; };
 		BEF067546351067E593CAF2A /* LWDrawView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWDrawView.m; sourceTree = "<group>"; };
@@ -311,6 +313,7 @@
 				EAD01EA91DDCB0AA0050D913 /* TwitterKitResources.bundle */,
 				EAD01E971DDC36B60050D913 /* PhotoDIY.png */,
 				EA1C04711D4B218100290495 /* Lambeau.jpg */,
+				BEF062FF7D5854D14423E0AC /* guide_cn.json */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -623,6 +626,7 @@
 				EAB292CB1D2A16C4004D5EED /* Main.storyboard in Resources */,
 				EA6F611B1D2B566900827523 /* InfoPlist.strings in Resources */,
 				EAD01E981DDC36B60050D913 /* PhotoDIY.png in Resources */,
+				BEF060DD7AE70DB46660BA16 /* guide_cn.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -19,3 +19,9 @@
 - (IBAction)buyAction:(UIButton *)sender;
 
 @end
+
+@interface LWTableViewCell : UITableViewCell
+
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+
+@end

@@ -29,9 +29,15 @@
             completionHandler:^(NSData *data,
                     NSURLResponse *response,
                     NSError *error) {
-                weakSelf.data = ((NSMutableDictionary *)[NSJSONSerialization JSONObjectWithData:data options:0 error:nil])[@"guide_gif"];
+                if(error){
+                    weakSelf.data = ((NSMutableDictionary *)[NSJSONSerialization JSONObjectWithData:data options:0 error:nil])[@"data"];
+                }else{
+                    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"guide_cn" ofType:@"json"];
+                    NSData *fileData = [NSData dataWithContentsOfFile:filePath];
+                    self.data = ((NSMutableDictionary *)[NSJSONSerialization JSONObjectWithData:fileData options:0 error:nil])[@"data"];                }
 
             }] resume];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -43,63 +49,62 @@
 - (IBAction)buyAction:(UIButton *)sender {
 }
 
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return self.data.count;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    NSUInteger count = 0;
+    NSDictionary *sectionDict = self.data[(NSUInteger) section];
+    NSArray *sectionData = sectionDict.allValues.firstObject;
+    count = sectionData.count;
+    return count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    LWTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    NSDictionary *sectionDict = self.data[(NSUInteger) indexPath.section];
+    NSArray *sectionData = sectionDict.allValues.firstObject;
+    NSDictionary *rowDict = sectionData[(NSUInteger) indexPath.row];
+    NSString *key = rowDict.allKeys.firstObject;
+    cell.titleLabel.text = key;
+    return cell;
+}
+
+
+
 
 #pragma mark - UITableViewDelegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    switch (indexPath.section){
-        case 0:{    //关于
-            switch (indexPath.row){
-                case 0:{
-                    break;
-                }
-                case 1:{
-                    NSURL *url = [NSURL URLWithString:@"http://wodedata.com"];
-                    LWWebViewController *webVC = [LWWebViewController viewController:url title:@"官方网站"];
-                    [self.navigationController pushViewController:webVC animated:YES];
-                    break;
-                }
-                case 2:{
-                    NSURL *url = [NSURL URLWithString:@"http://m.weibo.cn/u/1745746500"];
-                    LWWebViewController *webVC = [LWWebViewController viewController:url title:@"微博"];
-                    [self.navigationController pushViewController:webVC animated:YES];
-                    break;
-                }
-                case 3:{
-                    NSURL *url = [NSURL URLWithString:@"http://github.com/luowei/PhotoDIY"];
-                    LWWebViewController *webVC = [LWWebViewController viewController:url title:@"PhotoDIY源代码"];
-                    [self.navigationController pushViewController:webVC animated:YES];
-                    break;
-                }
-                default:{
-                    break;
-                }
-            }
-            break;
-        }
-        //----------------------
-        case 1:{    //使用指南
-            switch (indexPath.row){
-                default:{
-                    if(self.data.count == 0){
-                        return;
-                    }
-                    NSDictionary *keyValue = self.data[(NSUInteger) indexPath.row];
-                    NSString *key = keyValue.allKeys.firstObject;
-                    NSURL *url = [NSURL URLWithString:keyValue[key]];
-                    LWWebViewController *webVC = [LWWebViewController viewController:url title:key];
-                    [self.navigationController pushViewController:webVC animated:YES];
-                    break;
-                }
-            }
-            break;
-        }
-        default:{
-            break;
-        }
-    }
+- (nullable NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    NSDictionary *sectionDict = self.data[(NSUInteger) section];
+    NSString *sectionTitle = sectionDict.allKeys.firstObject;
+    return sectionTitle;
+}
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
+    NSDictionary *sectionDict = self.data[(NSUInteger) indexPath.section];
+    NSArray *sectionData = sectionDict.allValues.firstObject;
+    NSDictionary *rowDict = sectionData[(NSUInteger) indexPath.row];
+    NSString *key = rowDict.allKeys.firstObject;
+
+    NSString *urlString = rowDict[key];
+    if(![urlString isKindOfClass:[NSString class]] || urlString == nil || [urlString isEqualToString:@""]){
+        return;
+    }
+    NSURL *url = [NSURL URLWithString:urlString];
+    LWWebViewController *webVC = [LWWebViewController viewController:url title:key];
+    [self.navigationController pushViewController:webVC animated:YES];
 }
 
 @end
+
+@implementation LWTableViewCell
+
+
+@end
+
