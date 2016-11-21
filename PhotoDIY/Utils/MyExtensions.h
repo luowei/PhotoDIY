@@ -130,3 +130,10 @@ CGPoint BackOffsetPoint(CGPoint point, CGSize offset);
 
 //缩放Point到原始位置
 CGPoint BackScalePoint(CGPoint point,CGPoint origin,CGFloat scaleX,CGFloat scaleY);
+
+
+@interface NSString (Encode)
+
+- (NSString *)md5;
+- (NSString*) mk_urlEncodedString;
+@end

@@ -7,6 +7,8 @@ pod 'MBProgressHUD'
 pod 'FXBlurView', '~> 1.6.4'
 pod 'FDStackView', "1.0"
 pod 'SDWebImage', '~> 3.8.1'
+#pod 'MJRefresh', '~> 3.1.12'
+#pod 'KINWebBrowser', '~> 1.3.2'
 
 # U-Share SDK UI模块（分享面板，建议添加）
 pod ‘UMengUShare/UI’

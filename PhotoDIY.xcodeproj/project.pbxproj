@@ -30,6 +30,17 @@
 		EA3A634F1DC85ABC00989C0D /* 书体坊于右任标准草书.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA3A634C1DC85ABC00989C0D /* 书体坊于右任标准草书.ttf */; };
 		EA3A63511DC86A9000989C0D /* 方正细圆简体.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA3A63501DC86A9000989C0D /* 方正细圆简体.ttf */; };
 		EA3A63531DCAE14700989C0D /* LWDrafter.m in Sources */ = {isa = PBXBuildFile; fileRef = EA3A63521DCAE14700989C0D /* LWDrafter.m */; };
+		EA4780E11DE05C920099AE30 /* LWWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4780E01DE05C920099AE30 /* LWWebViewController.m */; };
+		EA4781141DE083B80099AE30 /* JRSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4781031DE083B80099AE30 /* JRSwizzle.m */; };
+		EA4781151DE083B80099AE30 /* README.markdown in Sources */ = {isa = PBXBuildFile; fileRef = EA4781041DE083B80099AE30 /* README.markdown */; };
+		EA4781161DE083B80099AE30 /* KINWebBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4781071DE083B80099AE30 /* KINWebBrowserViewController.m */; };
+		EA4781171DE083B80099AE30 /* LWProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4781091DE083B80099AE30 /* LWProgressBar.m */; };
+		EA4781181DE083B80099AE30 /* NSHTTPCookie+javascriptString.m in Sources */ = {isa = PBXBuildFile; fileRef = EA47810B1DE083B80099AE30 /* NSHTTPCookie+javascriptString.m */; };
+		EA4781191DE083B80099AE30 /* LWBrowserPluginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EA47810F1DE083B80099AE30 /* LWBrowserPluginManager.m */; };
+		EA47811A1DE083B80099AE30 /* LWModifyExpressageInfoPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4781111DE083B80099AE30 /* LWModifyExpressageInfoPlugin.m */; };
+		EA47811B1DE083B80099AE30 /* UIWebView+Cookie.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4781131DE083B80099AE30 /* UIWebView+Cookie.m */; };
+		EA47811D1DE0A1120099AE30 /* failedPage.htm in Resources */ = {isa = PBXBuildFile; fileRef = EA47811C1DE0A1120099AE30 /* failedPage.htm */; };
+		EA4781201DE0A9F30099AE30 /* RegExCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = EA47811F1DE0A9F30099AE30 /* RegExCategories.m */; };
 		EA6F611B1D2B566900827523 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA6F611D1D2B566900827523 /* InfoPlist.strings */; };
 		EA6F611F1D2B567100827523 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA6F61211D2B567100827523 /* Localizable.strings */; };
 		EA6F61251D2B5A4500827523 /* LWDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6F61241D2B5A4500827523 /* LWDataManager.m */; };
@@ -59,6 +70,7 @@
 		EAD01EA41DDCAFD10050D913 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAD01EA31DDCAFD10050D913 /* ImageIO.framework */; };
 		EAD01EA61DDCB00A0050D913 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAD01EA51DDCB00A0050D913 /* CoreData.framework */; };
 		EAD01EAA1DDCB0AA0050D913 /* TwitterKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EAD01EA91DDCB0AA0050D913 /* TwitterKitResources.bundle */; };
+		EAD5969D1DDEF807007E482A /* LWSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD5969C1DDEF807007E482A /* LWSettingViewController.m */; };
 		EAD987AA1DD39B6A00B78AAE /* BaseGeometry.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD987A51DD39B6A00B78AAE /* BaseGeometry.m */; };
 		EAD987AB1DD39B6A00B78AAE /* BezierUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD987A71DD39B6A00B78AAE /* BezierUtils.m */; };
 		EAD987AC1DD39B6A00B78AAE /* Drawing-Block.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD987A91DD39B6A00B78AAE /* Drawing-Block.m */; };
@@ -101,6 +113,27 @@
 		EA3A634C1DC85ABC00989C0D /* 书体坊于右任标准草书.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "书体坊于右任标准草书.ttf"; sourceTree = "<group>"; };
 		EA3A63501DC86A9000989C0D /* 方正细圆简体.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "方正细圆简体.ttf"; sourceTree = "<group>"; };
 		EA3A63521DCAE14700989C0D /* LWDrafter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWDrafter.m; sourceTree = "<group>"; };
+		EA4780DF1DE05C920099AE30 /* LWWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWWebViewController.h; sourceTree = "<group>"; };
+		EA4780E01DE05C920099AE30 /* LWWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWWebViewController.m; sourceTree = "<group>"; };
+		EA4781021DE083B80099AE30 /* JRSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JRSwizzle.h; sourceTree = "<group>"; };
+		EA4781031DE083B80099AE30 /* JRSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JRSwizzle.m; sourceTree = "<group>"; };
+		EA4781041DE083B80099AE30 /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.markdown; sourceTree = "<group>"; };
+		EA4781061DE083B80099AE30 /* KINWebBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KINWebBrowserViewController.h; sourceTree = "<group>"; };
+		EA4781071DE083B80099AE30 /* KINWebBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KINWebBrowserViewController.m; sourceTree = "<group>"; };
+		EA4781081DE083B80099AE30 /* LWProgressBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWProgressBar.h; sourceTree = "<group>"; };
+		EA4781091DE083B80099AE30 /* LWProgressBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWProgressBar.m; sourceTree = "<group>"; };
+		EA47810A1DE083B80099AE30 /* NSHTTPCookie+javascriptString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSHTTPCookie+javascriptString.h"; sourceTree = "<group>"; };
+		EA47810B1DE083B80099AE30 /* NSHTTPCookie+javascriptString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSHTTPCookie+javascriptString.m"; sourceTree = "<group>"; };
+		EA47810D1DE083B80099AE30 /* LWBrowserPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWBrowserPlugin.h; sourceTree = "<group>"; };
+		EA47810E1DE083B80099AE30 /* LWBrowserPluginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWBrowserPluginManager.h; sourceTree = "<group>"; };
+		EA47810F1DE083B80099AE30 /* LWBrowserPluginManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWBrowserPluginManager.m; sourceTree = "<group>"; };
+		EA4781101DE083B80099AE30 /* LWModifyExpressageInfoPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWModifyExpressageInfoPlugin.h; sourceTree = "<group>"; };
+		EA4781111DE083B80099AE30 /* LWModifyExpressageInfoPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWModifyExpressageInfoPlugin.m; sourceTree = "<group>"; };
+		EA4781121DE083B80099AE30 /* UIWebView+Cookie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+Cookie.h"; sourceTree = "<group>"; };
+		EA4781131DE083B80099AE30 /* UIWebView+Cookie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+Cookie.m"; sourceTree = "<group>"; };
+		EA47811C1DE0A1120099AE30 /* failedPage.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = failedPage.htm; sourceTree = "<group>"; };
+		EA47811E1DE0A9F30099AE30 /* RegExCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegExCategories.h; sourceTree = "<group>"; };
+		EA47811F1DE0A9F30099AE30 /* RegExCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegExCategories.m; sourceTree = "<group>"; };
 		EA6F611C1D2B566900827523 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EA6F611E1D2B566C00827523 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EA6F61201D2B567100827523 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -141,6 +174,8 @@
 		EAD01EA31DDCAFD10050D913 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		EAD01EA51DDCB00A0050D913 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		EAD01EA91DDCB0AA0050D913 /* TwitterKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TwitterKitResources.bundle; sourceTree = "<group>"; };
+		EAD5969B1DDEF807007E482A /* LWSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWSettingViewController.h; sourceTree = "<group>"; };
+		EAD5969C1DDEF807007E482A /* LWSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWSettingViewController.m; sourceTree = "<group>"; };
 		EAD987A41DD39B6A00B78AAE /* BaseGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseGeometry.h; sourceTree = "<group>"; };
 		EAD987A51DD39B6A00B78AAE /* BaseGeometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseGeometry.m; sourceTree = "<group>"; };
 		EAD987A61DD39B6A00B78AAE /* BezierUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BezierUtils.h; sourceTree = "<group>"; };
@@ -195,6 +230,15 @@
 			path = CropView;
 			sourceTree = "<group>";
 		};
+		BEF0641061D1018B6F9A5498 /* ThirdParts */ = {
+			isa = PBXGroup;
+			children = (
+				EA4781011DE083B80099AE30 /* JRSwizzle */,
+				EA4781051DE083B80099AE30 /* KINWebBrowser */,
+			);
+			path = ThirdParts;
+			sourceTree = "<group>";
+		};
 		BEF0647B44847F476B9B7F3B /* Tools */ = {
 			isa = PBXGroup;
 			children = (
@@ -234,6 +278,17 @@
 			path = InAppPurchase;
 			sourceTree = "<group>";
 		};
+		BEF067CFFC6D80C2CC26E60B /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				EAD5969B1DDEF807007E482A /* LWSettingViewController.h */,
+				EAD5969C1DDEF807007E482A /* LWSettingViewController.m */,
+				EA4780DF1DE05C920099AE30 /* LWWebViewController.h */,
+				EA4780E01DE05C920099AE30 /* LWWebViewController.m */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
 		BEF0687D412B10B50B10997E /* PopBoard */ = {
 			isa = PBXGroup;
 			children = (
@@ -248,6 +303,7 @@
 		BEF06957E3080BCFA1496337 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				EA47811C1DE0A1120099AE30 /* failedPage.htm */,
 				EAD01EA91DDCB0AA0050D913 /* TwitterKitResources.bundle */,
 				EAD01E971DDC36B60050D913 /* PhotoDIY.png */,
 				EA1C04711D4B218100290495 /* Lambeau.jpg */,
@@ -283,6 +339,8 @@
 		BEF06B5F8E3BE5417F2B1162 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				EA47811E1DE0A9F30099AE30 /* RegExCategories.h */,
+				EA47811F1DE0A9F30099AE30 /* RegExCategories.m */,
 				BEF0688B28C6E5EBE31CA408 /* MyExtensions.m */,
 				BEF0644EA39B3AFC4D20ED88 /* MyExtensions.h */,
 			);
@@ -323,6 +381,44 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		EA4781011DE083B80099AE30 /* JRSwizzle */ = {
+			isa = PBXGroup;
+			children = (
+				EA4781021DE083B80099AE30 /* JRSwizzle.h */,
+				EA4781031DE083B80099AE30 /* JRSwizzle.m */,
+				EA4781041DE083B80099AE30 /* README.markdown */,
+			);
+			path = JRSwizzle;
+			sourceTree = "<group>";
+		};
+		EA4781051DE083B80099AE30 /* KINWebBrowser */ = {
+			isa = PBXGroup;
+			children = (
+				EA4781061DE083B80099AE30 /* KINWebBrowserViewController.h */,
+				EA4781071DE083B80099AE30 /* KINWebBrowserViewController.m */,
+				EA4781081DE083B80099AE30 /* LWProgressBar.h */,
+				EA4781091DE083B80099AE30 /* LWProgressBar.m */,
+				EA47810A1DE083B80099AE30 /* NSHTTPCookie+javascriptString.h */,
+				EA47810B1DE083B80099AE30 /* NSHTTPCookie+javascriptString.m */,
+				EA47810C1DE083B80099AE30 /* Plugins */,
+				EA4781121DE083B80099AE30 /* UIWebView+Cookie.h */,
+				EA4781131DE083B80099AE30 /* UIWebView+Cookie.m */,
+			);
+			path = KINWebBrowser;
+			sourceTree = "<group>";
+		};
+		EA47810C1DE083B80099AE30 /* Plugins */ = {
+			isa = PBXGroup;
+			children = (
+				EA47810D1DE083B80099AE30 /* LWBrowserPlugin.h */,
+				EA47810E1DE083B80099AE30 /* LWBrowserPluginManager.h */,
+				EA47810F1DE083B80099AE30 /* LWBrowserPluginManager.m */,
+				EA4781101DE083B80099AE30 /* LWModifyExpressageInfoPlugin.h */,
+				EA4781111DE083B80099AE30 /* LWModifyExpressageInfoPlugin.m */,
+			);
+			path = Plugins;
+			sourceTree = "<group>";
+		};
 		EAB292B41D2A16C4004D5EED = {
 			isa = PBXGroup;
 			children = (
@@ -345,10 +441,12 @@
 		EAB292BF1D2A16C4004D5EED /* PhotoDIY */ = {
 			isa = PBXGroup;
 			children = (
+				BEF0641061D1018B6F9A5498 /* ThirdParts */,
 				EAE5B4611D2E7C8B00DD865D /* ContentView */,
 				BEF06D1AE73117D3C5B28302 /* DataManager */,
 				BEF06A7D3A612643CDD7DF8F /* PhotoTools */,
 				BEF066A93C354A3204A6DE12 /* InAppPurchase */,
+				BEF067CFFC6D80C2CC26E60B /* ViewController */,
 				EAB292C31D2A16C4004D5EED /* AppDelegate.h */,
 				EAB292C41D2A16C4004D5EED /* AppDelegate.m */,
 				EAB292C61D2A16C4004D5EED /* ViewController.h */,
@@ -503,6 +601,7 @@
 				EA3A63511DC86A9000989C0D /* 方正细圆简体.ttf in Resources */,
 				EA3A63471DC8580400989C0D /* 华文楷体.ttf in Resources */,
 				EA3A634F1DC85ABC00989C0D /* 书体坊于右任标准草书.ttf in Resources */,
+				EA47811D1DE0A1120099AE30 /* failedPage.htm in Resources */,
 				EA3A634D1DC85ABC00989C0D /* 钟齐流江硬笔草体.ttf in Resources */,
 				EA3A63461DC8580400989C0D /* 华文隶书.ttf in Resources */,
 				EA3A63491DC8580400989C0D /* 华文彩云.ttf in Resources */,
@@ -573,16 +672,27 @@
 				EA3A63531DCAE14700989C0D /* LWDrafter.m in Sources */,
 				EAD987AC1DD39B6A00B78AAE /* Drawing-Block.m in Sources */,
 				EA27A9C11DAB952F00B1264C /* StoreManager.m in Sources */,
+				EA4781171DE083B80099AE30 /* LWProgressBar.m in Sources */,
+				EAD5969D1DDEF807007E482A /* LWSettingViewController.m in Sources */,
 				EAB292C81D2A16C4004D5EED /* ViewController.m in Sources */,
 				EAD987AB1DD39B6A00B78AAE /* BezierUtils.m in Sources */,
 				EAB292C51D2A16C4004D5EED /* AppDelegate.m in Sources */,
+				EA4781141DE083B80099AE30 /* JRSwizzle.m in Sources */,
 				EAD987AA1DD39B6A00B78AAE /* BaseGeometry.m in Sources */,
 				EA27A9BE1DAB932F00B1264C /* StoreObserver.m in Sources */,
+				EA4781161DE083B80099AE30 /* KINWebBrowserViewController.m in Sources */,
+				EA4781191DE083B80099AE30 /* LWBrowserPluginManager.m in Sources */,
+				EA4780E11DE05C920099AE30 /* LWWebViewController.m in Sources */,
 				EAE5B4691D2E7C8B00DD865D /* LWContentView.m in Sources */,
 				EAB0BC011D9E375800AD3B3D /* LWScrawlView.m in Sources */,
+				EA4781201DE0A9F30099AE30 /* RegExCategories.m in Sources */,
+				EA4781181DE083B80099AE30 /* NSHTTPCookie+javascriptString.m in Sources */,
+				EA47811B1DE083B80099AE30 /* UIWebView+Cookie.m in Sources */,
+				EA4781151DE083B80099AE30 /* README.markdown in Sources */,
 				EA6F61251D2B5A4500827523 /* LWDataManager.m in Sources */,
 				EA6F612E1D2B937600827523 /* PDPhotoLibPicker.m in Sources */,
 				EAB292C21D2A16C4004D5EED /* main.m in Sources */,
+				EA47811A1DE083B80099AE30 /* LWModifyExpressageInfoPlugin.m in Sources */,
 				BEF069FB0617CA4B5E9BA8B6 /* LWImageZoomView.m in Sources */,
 				EAB0BBFE1D9E36F300AD3B3D /* LWScratchView.m in Sources */,
 				BEF068B151E77927FAC256F3 /* LWDrawView.m in Sources */,

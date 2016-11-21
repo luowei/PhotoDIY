@@ -5,6 +5,7 @@
 
 #import "MyExtensions.h"
 #import "BezierUtils.h"
+#import <CommonCrypto/CommonDigest.h>
 
 
 @implementation MyExtensions {
@@ -419,3 +420,34 @@ CGPoint BackScalePoint(CGPoint point, CGPoint origin, CGFloat scaleX, CGFloat sc
     CGPoint backScaledPoint = CGPointMake(origin.x + backScaleOffset.width, origin.y + backScaleOffset.height);
     return backScaledPoint;
 }
+
+@implementation NSString (Encode)
+
+//md5 32位 加密 （小写）
+- (NSString *)md5 {
+    const char *cStr = [self UTF8String];
+    unsigned char result[16];
+    CC_MD5(cStr, (CC_LONG) strlen(cStr), result);
+    return [NSString stringWithFormat:
+            @"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
+            result[0], result[1], result[2], result[3],
+            result[4], result[5], result[6], result[7],
+            result[8], result[9], result[10], result[11],
+            result[12], result[13], result[14], result[15]];
+}
+- (NSString*) mk_urlEncodedString { // mk_ prefix prevents a clash with a private api
+
+    CFStringRef encodedCFString = CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
+            (__bridge CFStringRef) self,
+            nil,
+            CFSTR("?!@#$^&%*+,:;='\"`<>()[]{}/\\| "),
+            kCFStringEncodingUTF8);
+
+    NSString *encodedString = [[NSString alloc] initWithString:(__bridge_transfer NSString*) encodedCFString];
+
+    if(!encodedString)
+        encodedString = @"";
+
+    return encodedString;
+}
+@end

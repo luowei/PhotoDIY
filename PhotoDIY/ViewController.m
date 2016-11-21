@@ -142,7 +142,7 @@
                 SKProduct *aProduct = products.firstObject;
                 NSString *title = aProduct.localizedTitle;
                 NSString *price = [NSString stringWithFormat:@"%@ %@",[aProduct.priceLocale objectForKey:NSLocaleCurrencySymbol],aProduct.price];
-                NSLog(@"=======title:%@, price:%@",title,price);
+                NSLog(@"====availabel===title:%@, price:%@",title,price);
             }
         }
 
