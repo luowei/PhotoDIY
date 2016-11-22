@@ -554,7 +554,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3AD-9g-vOF" userLabel="recovation">
-                                                        <rect key="frame" x="87" y="2" width="40" height="40"/>
+                                                        <rect key="frame" x="86.5" y="2" width="40" height="40"/>
                                                         <color key="backgroundColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.47058823529999999" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <state key="normal" image="revocation"/>
                                                         <userDefinedRuntimeAttributes>
@@ -567,7 +567,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yiH-wa-XYH" userLabel="Undo Left">
-                                                        <rect key="frame" x="173" y="2" width="40" height="40"/>
+                                                        <rect key="frame" x="173.5" y="2" width="40" height="40"/>
                                                         <color key="backgroundColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.47058823529999999" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <state key="normal" image="undoButton"/>
                                                         <userDefinedRuntimeAttributes>
@@ -1039,7 +1039,7 @@
                     <toolbarItems/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="480"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="0LN-IN-gSp">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="0LN-IN-gSp">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1290,7 +1290,7 @@
                         <viewControllerLayoutGuide type="bottom" id="ijD-nO-Ops"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="ouz-n8-8xN">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="386"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>

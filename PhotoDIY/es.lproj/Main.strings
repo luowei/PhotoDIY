@@ -1,39 +1,39 @@
 
 /* Class = "UILabel"; text = "访问照片失败,请确认是否打开了照片访问权限"; ObjectID = "2LQ-Wg-hTq"; */
-"2LQ-Wg-hTq.text" = "访问照片失败,请确认是否打开了照片访问权限";
+"2LQ-Wg-hTq.text" = "No se pudo acceder a la foto. Comprueba si has activado el acceso a fotos";
 
 /* Class = "UIButton"; normalTitle = "购买高级功能开通券"; ObjectID = "FdT-tp-olH"; */
-"FdT-tp-olH.normalTitle" = "购买高级功能开通券";
+"FdT-tp-olH.normalTitle" = "Compra de pases premium";
 
 /* Class = "UIButton"; normalTitle = "列表"; ObjectID = "Kdz-Dq-hio"; */
-"Kdz-Dq-hio.normalTitle" = "列表";
+"Kdz-Dq-hio.normalTitle" = "Lista";
 
 /* Class = "UINavigationItem"; title = "照片编辑"; ObjectID = "N0f-SJ-Bit"; */
-"N0f-SJ-Bit.title" = "照片编辑";
+"N0f-SJ-Bit.title" = "Editor de fotos";
 
 /* Class = "UIButton"; normalTitle = "上一个"; ObjectID = "Oa6-lb-qtb"; */
-"Oa6-lb-qtb.normalTitle" = "上一个";
+"Oa6-lb-qtb.normalTitle" = "anterior";
 
 /* Class = "UILabel"; text = "谢谢您的支持！"; ObjectID = "P3L-48-YJn"; */
-"P3L-48-YJn.text" = "谢谢您的支持！";
+"P3L-48-YJn.text" = "¡Gracias por su apoyo!";
 
 /* Class = "UILabel"; text = "使用指南"; ObjectID = "fiH-9z-Z3Q"; */
-"fiH-9z-Z3Q.text" = "使用指南";
+"fiH-9z-Z3Q.text" = "Guía";
 
 /* Class = "UILabel"; text = "版本信息:V1.0"; ObjectID = "ksf-1b-TI2"; */
-"ksf-1b-TI2.text" = "版本信息:V1.0";
+"ksf-1b-TI2.text" = "Versión:V1.0";
 
 /* Class = "UIButton"; normalTitle = "设置"; ObjectID = "okW-wH-jMv"; */
-"okW-wH-jMv.normalTitle" = "设置";
+"okW-wH-jMv.normalTitle" = "Ajuste";
 
 /* Class = "UIButton"; normalTitle = "照片编辑"; ObjectID = "pZ8-mM-d9M"; */
-"pZ8-mM-d9M.normalTitle" = "照片编辑";
+"pZ8-mM-d9M.normalTitle" = "Editor de fotos";
 
 /* Class = "UINavigationItem"; title = "设置"; ObjectID = "qnw-oF-4iG"; */
-"qnw-oF-4iG.title" = "设置";
+"qnw-oF-4iG.title" = "Ajuste";
 
 /* Class = "UIButton"; normalTitle = "下一个"; ObjectID = "sLw-PY-kKo"; */
-"sLw-PY-kKo.normalTitle" = "下一个";
+"sLw-PY-kKo.normalTitle" = "Siguiente";
 
 /* Class = "UIButton"; normalTitle = "刷新"; ObjectID = "ucn-Ll-sAf"; */
-"ucn-Ll-sAf.normalTitle" = "刷新";
+"ucn-Ll-sAf.normalTitle" = "Refrescar";

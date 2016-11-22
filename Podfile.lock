@@ -13,13 +13,9 @@ PODS:
     - UMengUShare/Core
   - UMengUShare/Social/Instagram (6.0.3):
     - UMengUShare/Core
-  - UMengUShare/Social/QQ (6.0.3):
-    - UMengUShare/Core
   - UMengUShare/Social/Sina (6.0.3):
     - UMengUShare/Core
   - UMengUShare/Social/Twitter (6.0.3):
-    - UMengUShare/Core
-  - UMengUShare/Social/WeChat (6.0.3):
     - UMengUShare/Core
   - UMengUShare/UI (6.0.3):
     - UMengUShare/Core
@@ -32,10 +28,8 @@ DEPENDENCIES:
   - SDWebImage (~> 3.8.1)
   - UMengUShare/Social/Facebook
   - UMengUShare/Social/Instagram
-  - UMengUShare/Social/QQ
   - UMengUShare/Social/Sina
   - UMengUShare/Social/Twitter
-  - UMengUShare/Social/WeChat
   - UMengUShare/UI
 
 SPEC CHECKSUMS:
@@ -46,6 +40,6 @@ SPEC CHECKSUMS:
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   UMengUShare: f231fc086d789d4e560a5090dcc13a2db15c686d
 
-PODFILE CHECKSUM: 133043b832e55868a9af05eb015dbb6b5a8902af
+PODFILE CHECKSUM: 8b872f9ac2309eb5ac3d715dedcd26122454c963
 
 COCOAPODS: 1.1.0

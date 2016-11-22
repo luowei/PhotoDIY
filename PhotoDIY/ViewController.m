@@ -275,7 +275,7 @@
     UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
 
     //设置文本
-    messageObject.text = @"照片DIY的图片分享";
+    messageObject.text = NSLocalizedString(@"ShareText",@"照片DIY的图片分享");
 
     //创建图片内容对象
     UMShareImageObject *shareObject = [[UMShareImageObject alloc] init];

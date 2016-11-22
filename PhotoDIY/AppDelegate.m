@@ -33,11 +33,11 @@
     NSString *redirectURL = @"http://wodedata.com/PhotoDIY/AppCallback.php";
 //    NSString *redirectURL = @"PhotoDIY://";
     //各平台的详细配置
-    //设置微信的appId和appKey
-    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"wxe9ee15bc76746188" appSecret:@"fb4ca3b28e9110091fad90769279e789" redirectURL:redirectURL];
-
-    //设置分享到QQ互联的appKey和appSecret
-    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_QQ appKey:@"1105751861" appSecret:@"umZZAIFQOJwnRmYy" redirectURL:redirectURL];
+//    //设置微信的appId和appKey
+//    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"wxe9ee15bc76746188" appSecret:@"fb4ca3b28e9110091fad90769279e789" redirectURL:redirectURL];
+//
+//    //设置分享到QQ互联的appKey和appSecret
+//    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_QQ appKey:@"1105751861" appSecret:@"umZZAIFQOJwnRmYy" redirectURL:redirectURL];
 
     //设置新浪的appKey和appSecret
     [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Sina appKey:@"3082351787" appSecret:@"51f1d3ff556e7ab2f593ab787c4cabad" redirectURL:redirectURL];
