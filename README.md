@@ -43,6 +43,8 @@ You can also add a variety of adjustable filter operation and in a variety of gr
 
 ##第三方AppKey 及 Secrect
 微信:`APPID:wxe9ee15bc76746188   APPSecret:fb4ca3b28e9110091fad90769279e789`
+Facebook测试账号：`326136004438567   APPSecret:43eafc5c6dde0656e7031c40f414b8fc`
+Facebook正式账号：`325600794492088   APPSecret:c8387c35222f95bfab9550ab182b94bd`
 
 
 ##本地化文案

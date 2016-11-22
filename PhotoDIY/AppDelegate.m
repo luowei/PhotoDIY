@@ -46,7 +46,7 @@
     [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Twitter appKey:@"CHbOjdkIMQgUKRkHBr2Oz77ij" appSecret:@"ACPIwOzeWfFMVIpUEsCA0VxydhuOELAql2EakyoYf1kbZnnvUY" redirectURL:redirectURL];
 
     //设置Facebook的appKey和UrlString
-    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Facebook appKey:@"325600794492088" appSecret:@"c8387c35222f95bfab9550ab182b94bd" redirectURL:redirectURL];
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Facebook appKey:@"326136004438567" appSecret:@"43eafc5c6dde0656e7031c40f414b8fc" redirectURL:redirectURL];
 
     //设置Instagram的appKey和UrlString
     [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Instagram appKey:@"47a60b44365442e3b16b2b052bd8f0b6" appSecret:@"ee31f229723641c4b3084f05cdbbec00" redirectURL:redirectURL];

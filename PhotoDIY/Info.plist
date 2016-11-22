@@ -79,14 +79,14 @@
 			<string>facebook</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb325600794492088</string>
+				<string>fb326136004438567</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>FacebookAppID</key>
-	<string>325600794492088</string>
+	<string>326136004438567</string>
 	<key>FacebookDisplayName</key>
 	<string>PhotoDIY</string>
 	<key>ITSAppUsesNonExemptEncryption</key>

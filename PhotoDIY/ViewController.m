@@ -30,6 +30,7 @@
 //    NSNumber *value = [NSNumber numberWithInt:UIInterfaceOrientationPortrait];
 //    [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
 
+/*
     //监听产品请求处理通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleProductRequestNotification:)
                                                  name:IAPProductRequestNotification
@@ -41,6 +42,7 @@
 
     //从AppStore获取内购产品信息
     [self fetchProductInformation];
+*/
 }
 
 - (void)dealloc {
