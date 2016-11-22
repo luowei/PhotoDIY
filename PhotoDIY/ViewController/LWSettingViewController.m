@@ -25,7 +25,26 @@
 
     self.data = @[];
 
+    NSString *fileName = [self getJsonFileName];    //获得json文件的名字
 
+    if ([[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == NotReachable) {
+        NSString *filePath = [[NSBundle mainBundle] pathForResource:fileName ofType:@"json"];
+        NSData *fileData = [NSData dataWithContentsOfFile:filePath];
+        self.data = ((NSMutableDictionary *) [NSJSONSerialization JSONObjectWithData:fileData options:0 error:nil])[@"data"];
+    } else {
+        NSString *urlStr = [NSString stringWithFormat:@"http://wodedata.com/MyResource/PhotoDIY-Guide/%@.json",fileName];
+        NSURL *url = [NSURL URLWithString:urlStr];
+        __weak typeof(self) weakSelf = self;
+        NSURLSession *session = [NSURLSession sharedSession];
+        [[session dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+            weakSelf.data = ((NSMutableDictionary *) [NSJSONSerialization JSONObjectWithData:data options:0 error:nil])[@"data"];
+        }] resume];
+    }
+
+}
+
+//获得json文件的名字
+- (NSString *)getJsonFileName {
     NSLocale *locale = [NSLocale currentLocale];
     NSString *language = [locale displayNameForKey:NSLocaleIdentifier value:[locale localeIdentifier]];
 //    NSString *languageCode = locale.languageCode;
@@ -56,21 +75,7 @@
     } else if ([language containsString:@"繁體"]) {
         fileName = @"guide_hk";
     }
-
-    if ([[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == NotReachable) {
-        NSString *filePath = [[NSBundle mainBundle] pathForResource:fileName ofType:@"json"];
-        NSData *fileData = [NSData dataWithContentsOfFile:filePath];
-        self.data = ((NSMutableDictionary *) [NSJSONSerialization JSONObjectWithData:fileData options:0 error:nil])[@"data"];
-    } else {
-        NSString *urlStr = [NSString stringWithFormat:@"http://wodedata.com/MyResource/PhotoDIY-Guide/%@.json",fileName];
-        NSURL *url = [NSURL URLWithString:urlStr];
-        __weak typeof(self) weakSelf = self;
-        NSURLSession *session = [NSURLSession sharedSession];
-        [[session dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-            weakSelf.data = ((NSMutableDictionary *) [NSJSONSerialization JSONObjectWithData:data options:0 error:nil])[@"data"];
-        }] resume];
-    }
-
+    return fileName;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -85,6 +90,12 @@
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    if(!self.data || self.data.count == 0){
+        NSString *fileName = [self getJsonFileName];
+        NSString *filePath = [[NSBundle mainBundle] pathForResource:fileName ofType:@"json"];
+        NSData *fileData = [NSData dataWithContentsOfFile:filePath];
+        self.data = ((NSMutableDictionary *) [NSJSONSerialization JSONObjectWithData:fileData options:0 error:nil])[@"data"];
+    }
     return self.data.count;
 }
 
@@ -124,11 +135,14 @@
     NSString *key = rowDict.allKeys.firstObject;
 
     NSString *urlString = rowDict[key];
-    if (![urlString isKindOfClass:[NSString class]] || urlString == nil || [urlString isEqualToString:@""]) {
+    if (![urlString isKindOfClass:[NSString class]] || [urlString isEqualToString:@""]) {
         return;
     }
     NSURL *url = [NSURL URLWithString:urlString];
     LWWebViewController *webVC = [LWWebViewController viewController:url title:key];
+    
+    webVC.sectionData = sectionData;
+    webVC.currentRow = indexPath.row;
     [self.navigationController pushViewController:webVC animated:YES];
 }
 

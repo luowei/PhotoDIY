@@ -554,7 +554,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3AD-9g-vOF" userLabel="recovation">
-                                                        <rect key="frame" x="86.5" y="2" width="40" height="40"/>
+                                                        <rect key="frame" x="87" y="2" width="40" height="40"/>
                                                         <color key="backgroundColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.47058823529999999" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <state key="normal" image="revocation"/>
                                                         <userDefinedRuntimeAttributes>
@@ -567,7 +567,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yiH-wa-XYH" userLabel="Undo Left">
-                                                        <rect key="frame" x="173.5" y="2" width="40" height="40"/>
+                                                        <rect key="frame" x="173" y="2" width="40" height="40"/>
                                                         <color key="backgroundColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.47058823529999999" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <state key="normal" image="undoButton"/>
                                                         <userDefinedRuntimeAttributes>
@@ -719,7 +719,7 @@
                                                 </connections>
                                             </collectionView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UzC-kM-k4R" userLabel="Photo TopLine">
-                                                <rect key="frame" x="0.0" y="44" width="320" height="0.5"/>
+                                                <rect key="frame" x="0.0" y="44" width="320" height="1"/>
                                                 <color key="backgroundColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="0.5" id="Avq-Mk-diM"/>
@@ -829,7 +829,7 @@
                                                 </connections>
                                             </collectionView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zwm-Fq-YWP" userLabel="Filter TopLine">
-                                                <rect key="frame" x="0.0" y="30" width="320" height="0.5"/>
+                                                <rect key="frame" x="0.0" y="30" width="320" height="1"/>
                                                 <color key="backgroundColor" red="0.3333333432674408" green="0.3333333432674408" blue="0.3333333432674408" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="0.5" id="uAm-3K-cYb"/>
@@ -939,7 +939,7 @@
                                         <color key="backgroundColor" red="0.086274509803921567" green="0.086274509803921567" blue="0.086274509803921567" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NMg-Wv-BtS" userLabel="topLine">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="0.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
                                         <color key="backgroundColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="0.5" id="TXE-5i-v6Z"/>
@@ -1039,7 +1039,7 @@
                     <toolbarItems/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="480"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="0LN-IN-gSp">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="0LN-IN-gSp">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1085,14 +1085,14 @@
                                     </connections>
                                 </button>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dkx-r8-6Tp" userLabel="BottomLine">
-                                    <rect key="frame" x="0.0" y="109.5" width="320" height="0.5"/>
+                                    <rect key="frame" x="0.0" y="110" width="320" height="0.0"/>
                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="0.5" id="euh-VE-Kmd"/>
                                     </constraints>
                                 </view>
                                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="谢谢您的支持！" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P3L-48-YJn">
-                                    <rect key="frame" x="103" y="76" width="114.5" height="19.5"/>
+                                    <rect key="frame" x="103" y="76" width="115" height="20"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                     <color key="textColor" red="1" green="0.43529411759999997" blue="0.37647058820000001" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
@@ -1166,7 +1166,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="使用指南" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fiH-9z-Z3Q">
-                            <rect key="frame" x="15" y="6" width="61.5" height="18"/>
+                            <rect key="frame" x="15" y="6" width="62" height="18"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -1203,32 +1203,41 @@
                                 <rect key="frame" x="0.0" y="386" width="320" height="30"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vh9-xE-Dj8" userLabel="topLine">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="0.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="0.5" id="ork-Fq-2U2"/>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oa6-lb-qtb">
-                                        <rect key="frame" x="8" y="0.5" width="43" height="29"/>
+                                        <rect key="frame" x="8" y="1" width="43" height="29"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <state key="normal" title="上一个">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="previousAction:" destination="o7g-4X-FLX" eventType="touchUpInside" id="5Ld-ve-qXe"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kdz-Dq-hio">
-                                        <rect key="frame" x="145" y="0.5" width="30" height="29"/>
+                                        <rect key="frame" x="145" y="1" width="30" height="29"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <state key="normal" title="列表">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="listAction:" destination="o7g-4X-FLX" eventType="touchUpInside" id="YyJ-lm-VdG"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sLw-PY-kKo">
-                                        <rect key="frame" x="269" y="0.5" width="43" height="29"/>
+                                        <rect key="frame" x="269" y="1" width="43" height="29"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <state key="normal" title="下一个">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="nextAction:" destination="o7g-4X-FLX" eventType="touchUpInside" id="jwM-dv-Hvg"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1262,6 +1271,11 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="480"/>
+                    <connections>
+                        <outlet property="listBtn" destination="Kdz-Dq-hio" id="PK0-j7-Bee"/>
+                        <outlet property="nextBtn" destination="sLw-PY-kKo" id="7co-ST-DvZ"/>
+                        <outlet property="previousBtn" destination="Oa6-lb-qtb" id="rpC-s2-f9O"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ltN-pQ-KES" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
