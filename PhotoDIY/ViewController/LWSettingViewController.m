@@ -9,7 +9,7 @@
 #import "LWSettingViewController.h"
 #import "LWWebViewController.h"
 
-@interface LWSettingViewController (){
+@interface LWSettingViewController () {
 }
 
 @property(nonatomic, strong) NSArray *data;
@@ -23,20 +23,31 @@
     // Do any additional setup after loading the view.
 
     self.data = @[];
+
+    NSURL *url = [NSURL URLWithString:@"http://wodedata.com/MyResource/PhotoDIY-Guide/guide_cn.json"];
+    NSLocale *locale = [NSLocale currentLocale];
+    NSString *language = [locale displayNameForKey:NSLocaleIdentifier value:[locale localeIdentifier]];
+//    NSString *languageCode = locale.languageCode;
+//    NSLog(@"-----languageCode:%@",languageCode);
+
+    if([language containsString:@"English"]){
+        url = [NSURL URLWithString:@"http://wodedata.com/MyResource/PhotoDIY-Guide/guide_en.json"];
+    }else if([language containsString:@"English"]){
+        url = [NSURL URLWithString:@"http://wodedata.com/MyResource/PhotoDIY-Guide/guide_en.json"];
+    }
+
     __weak typeof(self) weakSelf = self;
     NSURLSession *session = [NSURLSession sharedSession];
-    [[session dataTaskWithURL:[NSURL URLWithString:@"http://wodedata.com/MyResource/PhotoDIY-Guide/guide_cn.json"]
-            completionHandler:^(NSData *data,
-                    NSURLResponse *response,
-                    NSError *error) {
-                if(error){
-                    weakSelf.data = ((NSMutableDictionary *)[NSJSONSerialization JSONObjectWithData:data options:0 error:nil])[@"data"];
-                }else{
-                    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"guide_cn" ofType:@"json"];
-                    NSData *fileData = [NSData dataWithContentsOfFile:filePath];
-                    self.data = ((NSMutableDictionary *)[NSJSONSerialization JSONObjectWithData:fileData options:0 error:nil])[@"data"];                }
+    [[session dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (error) {
+            weakSelf.data = ((NSMutableDictionary *) [NSJSONSerialization JSONObjectWithData:data options:0 error:nil])[@"data"];
+        } else {
+            NSString *filePath = [[NSBundle mainBundle] pathForResource:@"guide_cn" ofType:@"json"];
+            NSData *fileData = [NSData dataWithContentsOfFile:filePath];
+            self.data = ((NSMutableDictionary *) [NSJSONSerialization JSONObjectWithData:fileData options:0 error:nil])[@"data"];
+        }
 
-            }] resume];
+    }] resume];
 
 }
 
@@ -51,11 +62,11 @@
 
 #pragma mark - UITableViewDataSource
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.data.count;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     NSUInteger count = 0;
     NSDictionary *sectionDict = self.data[(NSUInteger) section];
     NSArray *sectionData = sectionDict.allValues.firstObject;
@@ -63,7 +74,7 @@
     return count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     LWTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     NSDictionary *sectionDict = self.data[(NSUInteger) indexPath.section];
     NSArray *sectionData = sectionDict.allValues.firstObject;
@@ -74,17 +85,15 @@
 }
 
 
-
-
 #pragma mark - UITableViewDelegate
 
-- (nullable NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+- (nullable NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     NSDictionary *sectionDict = self.data[(NSUInteger) section];
     NSString *sectionTitle = sectionDict.allKeys.firstObject;
     return sectionTitle;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
     NSDictionary *sectionDict = self.data[(NSUInteger) indexPath.section];
@@ -93,7 +102,7 @@
     NSString *key = rowDict.allKeys.firstObject;
 
     NSString *urlString = rowDict[key];
-    if(![urlString isKindOfClass:[NSString class]] || urlString == nil || [urlString isEqualToString:@""]){
+    if (![urlString isKindOfClass:[NSString class]] || urlString == nil || [urlString isEqualToString:@""]) {
         return;
     }
     NSURL *url = [NSURL URLWithString:urlString];

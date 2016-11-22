@@ -1,0 +1,69 @@
+{
+  "data":[
+    {
+      "حول":[
+        {
+          "الإصدار：V1.0": ""
+        },
+        {
+          "موقع الكتروني：http://wodedata.com": "http://wodedata.com"
+        },
+        {
+          "Twitter：@luowei010101": "https://twitter.com/luowei010101"
+        },
+        {
+          "شفرة المصدر (للأغراض التعليمية فقط)": "http://github.com/luowei/PhotoDIY"
+        }
+      ]
+    },
+
+    {
+      "دليل": [
+        {
+          "صورة اختيار ومقياس": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/01_Photo_Select_And_Scale.gif"
+        },
+        {
+          "قلب، تدوير والإنعاش": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/02_Photo_rotate_and_turn.gif"
+        },
+        {
+          "استخدام والسيطرة على تصفية": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/03_Filter_Use.gif"
+        },
+        {
+          "كليب صور ل": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/04_Clip.gif"
+        },
+        {
+          "كيفية إضافة الفسيفساء": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/05_mosical.gif"
+        },
+        {
+          "استخدام القلم الحر": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/06_Free_Pen.gif"
+        },
+        {
+          "اختيار اللون والخط العرض": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/07_Color_And_LineWidth.gif"
+        },
+        {
+          "بلاط رمز تعبيري رسم مجاني": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/08_EmojiTile.gif"
+        },
+        {
+          "صورة بلاطة رسم مجاني": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/09_ImageTile.gif"
+        },
+        {
+          "إضافة الظل": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/10_Shadow.gif"
+        },
+        {
+          "استخدام الممحاة وتراجع": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/11_Erase_And_Undo.gif"
+        },
+        {
+          "رسم خط، سهم، مستطيل والبيضاوي": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/12_line_arrow_ranctangle_oval.gif"
+        },
+        {
+          "تعيين الخط وإضافة نص": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/13_Text_input.gif"
+        },
+        {
+          "استخدام تحرير وظيفة": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/14_Edit_And_Save.gif"
+        }
+      ]
+    }
+
+  ]
+
+}

@@ -1,0 +1,69 @@
+{
+  "data":[
+    {
+      "sur":[
+        {
+          "version：V1.0": ""
+        },
+        {
+          "Website：http://wodedata.com": "http://wodedata.com"
+        },
+        {
+          "Twitter：@luowei010101": "https://twitter.com/luowei010101"
+        },
+        {
+          "le code source (à des fins éducatives seulement)": "http://github.com/luowei/PhotoDIY"
+        }
+      ]
+    },
+
+    {
+      "Guide": [
+        {
+          "photo choisir et échelle": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/01_Photo_Select_And_Scale.gif"
+        },
+        {
+          "renversement, rotation et la récupération": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/02_Photo_rotate_and_turn.gif"
+        },
+        {
+          "l'utilisation et le contrôle de filtre": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/03_Filter_Use.gif"
+        },
+        {
+          "Photos Clip": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/04_Clip.gif"
+        },
+        {
+          "comment la mosaïque de crapaud": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/05_mosical.gif"
+        },
+        {
+          "utiliser un stylo gratuit": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/06_Free_Pen.gif"
+        },
+        {
+          "couleur choisir et la largeur de ligne": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/07_Color_And_LineWidth.gif"
+        },
+        {
+          "emo et de tuiles tirage gratuit": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/08_EmojiTile.gif"
+        },
+        {
+          "mosaïque d'images de tirage gratuit": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/09_ImageTile.gif"
+        },
+        {
+          "Un DDT et de l'ombre": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/10_Shadow.gif"
+        },
+        {
+          "les Etats-Unis effaçons EOF rand Annuler": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/11_Erase_And_Undo.gif"
+        },
+        {
+          "tracer une ligne, flèche, rectangle et ovale": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/12_line_arrow_ranctangle_oval.gif"
+        },
+        {
+          "définir la police et ajouter du texte": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/13_Text_input.gif"
+        },
+        {
+          "la fonction d'édition US EOF": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/14_Edit_And_Save.gif"
+        }
+      ]
+    }
+
+  ]
+
+}
