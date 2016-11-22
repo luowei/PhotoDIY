@@ -8,6 +8,7 @@
 
 #import "LWSettingViewController.h"
 #import "LWWebViewController.h"
+#import "Reachability.h"
 
 @interface LWSettingViewController () {
 }
@@ -24,30 +25,51 @@
 
     self.data = @[];
 
-    NSURL *url = [NSURL URLWithString:@"http://wodedata.com/MyResource/PhotoDIY-Guide/guide_cn.json"];
+
     NSLocale *locale = [NSLocale currentLocale];
     NSString *language = [locale displayNameForKey:NSLocaleIdentifier value:[locale localeIdentifier]];
 //    NSString *languageCode = locale.languageCode;
 //    NSLog(@"-----languageCode:%@",languageCode);
+    NSLog(@"-----language:%@",language);
 
-    if([language containsString:@"English"]){
-        url = [NSURL URLWithString:@"http://wodedata.com/MyResource/PhotoDIY-Guide/guide_en.json"];
-    }else if([language containsString:@"English"]){
-        url = [NSURL URLWithString:@"http://wodedata.com/MyResource/PhotoDIY-Guide/guide_en.json"];
+    NSString *fileName = @"guide_en";
+    if ([language containsString:@"中文"] && ![language containsString:@"繁體"]) {
+        fileName = @"guide_cn";
+    }else if ([language containsString:@"English"]) {
+        fileName = @"guide_en";
+    } else if ([language containsString:@"الولايات المتحدة"]) {
+        fileName = @"guide_ar";
+    } else if ([language containsString:@"français"]) {
+        fileName = @"guide_fr";
+    } else if ([language containsString:@"日本語"]) {
+        fileName = @"guide_ja";
+    } else if ([language containsString:@"한국어"]) {
+        fileName = @"guide_ko";
+    } else if ([language containsString:@"português"]) {
+        fileName = @"guide_pt";
+    } else if ([language containsString:@"русский"]) {
+        fileName = @"guide_ru";
+    } else if ([language containsString:@"español"]) {
+        fileName = @"guide_es";
+    } else if ([language containsString:@"Deutsch"]) {
+        fileName = @"guide_de";
+    } else if ([language containsString:@"繁體"]) {
+        fileName = @"guide_hk";
     }
 
-    __weak typeof(self) weakSelf = self;
-    NSURLSession *session = [NSURLSession sharedSession];
-    [[session dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error) {
+    if ([[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == NotReachable) {
+        NSString *filePath = [[NSBundle mainBundle] pathForResource:fileName ofType:@"json"];
+        NSData *fileData = [NSData dataWithContentsOfFile:filePath];
+        self.data = ((NSMutableDictionary *) [NSJSONSerialization JSONObjectWithData:fileData options:0 error:nil])[@"data"];
+    } else {
+        NSString *urlStr = [NSString stringWithFormat:@"http://wodedata.com/MyResource/PhotoDIY-Guide/%@.json",fileName];
+        NSURL *url = [NSURL URLWithString:urlStr];
+        __weak typeof(self) weakSelf = self;
+        NSURLSession *session = [NSURLSession sharedSession];
+        [[session dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
             weakSelf.data = ((NSMutableDictionary *) [NSJSONSerialization JSONObjectWithData:data options:0 error:nil])[@"data"];
-        } else {
-            NSString *filePath = [[NSBundle mainBundle] pathForResource:@"guide_cn" ofType:@"json"];
-            NSData *fileData = [NSData dataWithContentsOfFile:filePath];
-            self.data = ((NSMutableDictionary *) [NSJSONSerialization JSONObjectWithData:fileData options:0 error:nil])[@"data"];
-        }
-
-    }] resume];
+        }] resume];
+    }
 
 }
 

@@ -12,6 +12,7 @@
 		BEF061B488CF06E55C183303 /* guide_pt.json in Resources */ = {isa = PBXBuildFile; fileRef = BEF06D271DE0823D8B74AC35 /* guide_pt.json */; };
 		BEF061E42AF48D9637DADA7A /* guide_fr.json in Resources */ = {isa = PBXBuildFile; fileRef = BEF06D41A733818D7F77EFB9 /* guide_fr.json */; };
 		BEF063818F90927D3FC30574 /* LWDrawBar.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF060835D4A9C55E94FD61B /* LWDrawBar.m */; };
+		BEF063E04D1BCAFA4AD8772C /* guide_hk.json in Resources */ = {isa = PBXBuildFile; fileRef = BEF0683227638073306CCC38 /* guide_hk.json */; };
 		BEF065278D3DB3F27A9A1B48 /* guide_en.json in Resources */ = {isa = PBXBuildFile; fileRef = BEF0630982FBE274EE0F56BF /* guide_en.json */; };
 		BEF0669C241E75514FBCFEB0 /* LWFilterCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF061409EB4310BAC440CE9 /* LWFilterCollectionView.m */; };
 		BEF068B151E77927FAC256F3 /* LWDrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF067546351067E593CAF2A /* LWDrawView.m */; };
@@ -19,6 +20,7 @@
 		BEF06956392C91F35166D0BB /* guide_es.json in Resources */ = {isa = PBXBuildFile; fileRef = BEF0638BAEA3F2851CA1131B /* guide_es.json */; };
 		BEF06972A9F6EA6B4F9B41EE /* guide_de.json in Resources */ = {isa = PBXBuildFile; fileRef = BEF06D49D3CC43B7DECBC77C /* guide_de.json */; };
 		BEF069FB0617CA4B5E9BA8B6 /* LWImageZoomView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF06FF649F758528E3BB784 /* LWImageZoomView.m */; };
+		BEF06A14154FDD3996853131 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF061DAFD9970DE310EE9F9 /* Reachability.m */; };
 		BEF06E7983B583D856F29706 /* guide_ko.json in Resources */ = {isa = PBXBuildFile; fileRef = BEF06363D1F0602C203EF43B /* guide_ko.json */; };
 		BEF06EC71EE5E0B7723E2B38 /* guide_ru.json in Resources */ = {isa = PBXBuildFile; fileRef = BEF06C68B8772F1B9556F88E /* guide_ru.json */; };
 		BEF06F02C08258DD29719AED /* MyExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF0688B28C6E5EBE31CA408 /* MyExtensions.m */; };
@@ -94,14 +96,17 @@
 		BEF060835D4A9C55E94FD61B /* LWDrawBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWDrawBar.m; sourceTree = "<group>"; };
 		BEF060C1F89C5EFEE240BD8C /* LWImageCropView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWImageCropView.m; sourceTree = "<group>"; };
 		BEF061409EB4310BAC440CE9 /* LWFilterCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWFilterCollectionView.m; sourceTree = "<group>"; };
+		BEF061DAFD9970DE310EE9F9 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		BEF0622CE7D97AC10AC3C918 /* LWDrawBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWDrawBar.h; sourceTree = "<group>"; };
 		BEF0630982FBE274EE0F56BF /* guide_en.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = guide_en.json; sourceTree = "<group>"; };
 		BEF06363D1F0602C203EF43B /* guide_ko.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = guide_ko.json; sourceTree = "<group>"; };
 		BEF0638BAEA3F2851CA1131B /* guide_es.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = guide_es.json; sourceTree = "<group>"; };
 		BEF064284A669B4E7B1D4BB7 /* LWPhotoCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWPhotoCollectionView.h; sourceTree = "<group>"; };
 		BEF0644EA39B3AFC4D20ED88 /* MyExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyExtensions.h; sourceTree = "<group>"; };
+		BEF0645A33B40A0AA279249F /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		BEF067546351067E593CAF2A /* LWDrawView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWDrawView.m; sourceTree = "<group>"; };
 		BEF067A810F0BAA513676090 /* LWDrawView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWDrawView.h; sourceTree = "<group>"; };
+		BEF0683227638073306CCC38 /* guide_hk.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = guide_hk.json; sourceTree = "<group>"; };
 		BEF0688B28C6E5EBE31CA408 /* MyExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyExtensions.m; sourceTree = "<group>"; };
 		BEF069A6E65A0CA56DFE1CF5 /* LWPhotoCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWPhotoCollectionView.m; sourceTree = "<group>"; };
 		BEF06B92FD0107440A3E9A90 /* LWImageZoomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWImageZoomView.h; sourceTree = "<group>"; };
@@ -304,6 +309,7 @@
 				BEF06363D1F0602C203EF43B /* guide_ko.json */,
 				BEF06FF1E779583D992FF22E /* guide_ar.json */,
 				BEF06D271DE0823D8B74AC35 /* guide_pt.json */,
+				BEF0683227638073306CCC38 /* guide_hk.json */,
 			);
 			path = json;
 			sourceTree = "<group>";
@@ -385,6 +391,8 @@
 				EA47811F1DE0A9F30099AE30 /* RegExCategories.m */,
 				BEF0688B28C6E5EBE31CA408 /* MyExtensions.m */,
 				BEF0644EA39B3AFC4D20ED88 /* MyExtensions.h */,
+				BEF0645A33B40A0AA279249F /* Reachability.h */,
+				BEF061DAFD9970DE310EE9F9 /* Reachability.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -671,6 +679,7 @@
 				BEF06E7983B583D856F29706 /* guide_ko.json in Resources */,
 				BEF06FDF8BC398DE568052C4 /* guide_ar.json in Resources */,
 				BEF061B488CF06E55C183303 /* guide_pt.json in Resources */,
+				BEF063E04D1BCAFA4AD8772C /* guide_hk.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -764,6 +773,7 @@
 				BEF060D7ACDCB1B844B81CE2 /* LWPhotoCollectionView.m in Sources */,
 				BEF063818F90927D3FC30574 /* LWDrawBar.m in Sources */,
 				BEF06F02C08258DD29719AED /* MyExtensions.m in Sources */,
+				BEF06A14154FDD3996853131 /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
