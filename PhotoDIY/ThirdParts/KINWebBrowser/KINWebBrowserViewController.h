@@ -65,7 +65,7 @@
  For convenience, two sets of static initializers are available.
  
  */
-@interface KINWebBrowserViewController : UIViewController <WKNavigationDelegate, WKUIDelegate, UIWebViewDelegate,UIActionSheetDelegate>
+@interface KINWebBrowserViewController : UIViewController <WKNavigationDelegate, WKUIDelegate, UIWebViewDelegate,UIActionSheetDelegate,WKScriptMessageHandler>
 
 #pragma mark - Public Properties
 

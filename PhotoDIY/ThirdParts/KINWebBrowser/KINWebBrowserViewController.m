@@ -110,6 +110,12 @@ static void *KINWebBrowserContext = &KINWebBrowserContext;
             
             WKUserContentController *userContentController = [[WKUserContentController alloc] init];
             [userContentController addUserScript:cookieScript];
+
+            //添加ScriptMessageHandler
+            [userContentController addScriptMessageHandler:self name:@"webViewBack"];
+            [userContentController addScriptMessageHandler:self name:@"webViewReload"];
+
+
             if(configuration) {
                 configuration.userContentController = userContentController;
                 self.wkWebView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:configuration];
@@ -171,6 +177,10 @@ static void *KINWebBrowserContext = &KINWebBrowserContext;
         self.wkWebView.navigationDelegate = self;
         self.wkWebView.UIDelegate = self;
         self.wkWebView.allowsBackForwardNavigationGestures = YES;
+
+//        //开启离线缓存
+//        SEL sel = NSSelectorFromString([@"_setOfflineApplication" stringByAppendingString:@"CacheIsEnabled:"]);
+//        [self.wkWebView.configuration.preferences performSelector:sel withObject:@(YES)];
 
         [self.view addSubview:self.wkWebView];
         
@@ -602,6 +612,19 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredentia
         }
     }
     decisionHandler(WKNavigationActionPolicyAllow);
+}
+
+#pragma mark - WKScriptMessageHandler
+
+//处理当接收到html页面脚本发来的消息
+- (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
+    //返回
+    if ([message.name isEqualToString:@"webViewBack"]) {
+        [self.wkWebView goBack];
+        //重新加载
+    } else if ([message.name isEqualToString:@"webViewReload"]) {
+        [self.wkWebView reload];
+    }
 }
 
 #pragma mark - WKUIDelegate
