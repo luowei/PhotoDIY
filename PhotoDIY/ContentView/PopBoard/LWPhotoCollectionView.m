@@ -7,10 +7,18 @@
 //
 
 #import "LWPhotoCollectionView.h"
-#import "LWDataManager.h"
 #import "Categorys.h"
 #import "LWContentView.h"
 #import "SDImageCache.h"
+#import "USImagePickerController.h"
+#import "ViewController.h"
+#import "USImagePickerController+Protect.h"
+
+
+@interface LWPhotoCollectionView () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, USImagePickerControllerDelegate>
+
+
+@end
 
 @implementation LWPhotoCollectionView {
     NSIndexPath *_selectedIndexPath;
@@ -40,7 +48,7 @@
     CGFloat scale = [UIScreen mainScreen].scale;
     CGSize itemSize = CGSizeMake(80 * scale, 100 * scale);
 
-    if(!self.photoPicker){
+    if (!self.photoPicker) {
         self.photoPicker = [[PDPhotoLibPicker alloc] initWithDelegate:self];
     }
     self.photoPicker.delegate = self;
@@ -53,7 +61,7 @@
 - (void)setHidden:(BOOL)hidden {
     [super setHidden:hidden];
     self.topLine.hidden = hidden;
-    if(!hidden){
+    if (!hidden) {
         [self reloadData];
     }
 }
@@ -79,14 +87,14 @@
 
         //从缓存目录找,没有才去相册加载
         SDImageCache *imageCache = [SDImageCache sharedImageCache];
-        if([imageCache diskImageExistsWithKey:url.absoluteString]){
+        if ([imageCache diskImageExistsWithKey:url.absoluteString]) {
             UIImage *image = [imageCache imageFromDiskCacheForKey:url.absoluteString];
             cell.imageView.image = image;
             cell.imageView.highlightedImage = image;
-        }else{
+        } else {
             CGFloat scale = [UIScreen mainScreen].scale;
             CGSize itemSize = CGSizeMake(80 * scale, 100 * scale);
-            [self.photoPicker pictureWithURL:url size:itemSize imageBlock:^(UIImage *image){
+            [self.photoPicker pictureWithURL:url size:itemSize imageBlock:^(UIImage *image) {
                 dispatch_async(dispatch_get_main_queue(), ^() {
                     cell.imageView.image = image;
                     cell.imageView.highlightedImage = image;
@@ -99,24 +107,34 @@
     return cell;
 }
 
-- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath{
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
     NSArray *pathes = collectionView.indexPathsForSelectedItems;
 //    [pathes enumerateObjectsUsingBlock:^(NSIndexPath *path, NSUInteger idx, BOOL *stop) {
 //
 //    }];
 
-    LWPhotoCollectionCell *cel = (LWPhotoCollectionCell *)cell;
-    if(_selectedIndexPath != nil && _selectedIndexPath.item == indexPath.item){
+    LWPhotoCollectionCell *cel = (LWPhotoCollectionCell *) cell;
+    if (_selectedIndexPath != nil && _selectedIndexPath.item == indexPath.item) {
         cel.selectIcon.hidden = NO;
         [collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
-    }else{
+    } else {
         cel.selectIcon.hidden = YES;
         [collectionView deselectItemAtIndexPath:indexPath animated:NO];
     }
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    LWPhotoCollectionCell *cell = (LWPhotoCollectionCell *)[collectionView cellForItemAtIndexPath:indexPath];
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    if (kind == UICollectionElementKindSectionHeader) {
+        self.selectHeader = (LWPhotoSelectHeader *) [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"LWPhotoSelectHeader" forIndexPath:indexPath];
+        return self.selectHeader;
+
+    }
+    return nil;
+}
+
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    LWPhotoCollectionCell *cell = (LWPhotoCollectionCell *) [collectionView cellForItemAtIndexPath:indexPath];
     [collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
     cell.selected = YES;
     cell.selectIcon.hidden = NO;
@@ -127,13 +145,12 @@
     [photoPicker pictureWithURL:cell.url];
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath{
-    LWPhotoCollectionCell *cell = (LWPhotoCollectionCell *)[collectionView cellForItemAtIndexPath:indexPath];
+- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
+    LWPhotoCollectionCell *cell = (LWPhotoCollectionCell *) [collectionView cellForItemAtIndexPath:indexPath];
     [collectionView deselectItemAtIndexPath:indexPath animated:NO];
     cell.selected = NO;
     cell.selectIcon.hidden = YES;
 }
-
 
 
 #pragma mark - PDPhotoPickerProtocol 实现
@@ -154,19 +171,43 @@
 - (void)loadPhoto:(UIImage *)image {
 }
 
--(void)collectPhotoFailed{
+- (void)collectPhotoFailed {
     [self.loadingIndicator stopAnimating];
     self.msgView.hidden = NO;
+}
+
+#pragma mark - USImagePickerControllerDelegate 实现
+
+- (void)imagePickerController:(USImagePickerController *)picker didFinishPickingMediaWithAsset:(id)asset {
+//    NSLog(@"didFinishPickingMediaWithAsset\n %@", asset);
+//    [[asset valueForProperty:ALAssetPropertyType] isEqual:ALAssetTypePhoto]
+
+    NSData *imgData = ((ALAsset *) asset).originalImageData;
+    UIImage *image = [UIImage imageWithData:imgData];
+
+    LWContentView *contentView = [self superViewWithClass:[LWContentView class]];
+    [contentView loadPhoto:image];
+
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)imagePickerController:(USImagePickerController *)picker didFinishPickingMediaWithImage:(UIImage *)mediaImage {
+//    NSLog(@"didFinishPickingMediaWithImage %@", mediaImage);
+
+    LWContentView *contentView = [self superViewWithClass:[LWContentView class]];
+    [contentView loadPhoto:mediaImage];
+
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
 
 #pragma mark - Action
 
--(IBAction)settingAction:(UIButton *)btn{
-    [[UIApplication sharedApplication]openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+- (IBAction)settingAction:(UIButton *)btn {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
 }
 
--(IBAction)reloadAction:(UIButton *)btn{
+- (IBAction)reloadAction:(UIButton *)btn {
     [self reloadPhotos];
 }
 
@@ -180,5 +221,26 @@
     self.imageView = (UIImageView *) [self viewWithTag:101];
 }
 
+
+@end
+
+
+@implementation LWPhotoSelectHeader
+
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+}
+
+- (IBAction)tileBtnAction {
+    ViewController *vc = [self superViewWithClass:[ViewController class]];
+    LWPhotoCollectionView *photoCV = [self superViewWithClass:[LWPhotoCollectionView class]];
+
+    //选择单张照片
+    USImagePickerController *controller = [[USImagePickerController alloc] init];
+    controller.delegate = photoCV;
+    [controller setSelectedOriginalImage:YES];
+    [vc presentViewController:controller animated:true completion:nil];
+}
 
 @end

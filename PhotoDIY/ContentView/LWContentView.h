@@ -49,6 +49,9 @@
 //加载默认图片
 - (void)loadDefaultImage;
 
+//加载一张照片
+- (void)loadPhoto:(UIImage *)image;
+
 - (void)reloadImage:(UIImage *)image;
 
 //加载照片

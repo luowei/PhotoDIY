@@ -554,7 +554,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3AD-9g-vOF" userLabel="recovation">
-                                                        <rect key="frame" x="86.5" y="2" width="40" height="40"/>
+                                                        <rect key="frame" x="87" y="2" width="40" height="40"/>
                                                         <color key="backgroundColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.47058823529999999" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <state key="normal" image="revocation"/>
                                                         <userDefinedRuntimeAttributes>
@@ -567,7 +567,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yiH-wa-XYH" userLabel="Undo Left">
-                                                        <rect key="frame" x="173.5" y="2" width="40" height="40"/>
+                                                        <rect key="frame" x="173" y="2" width="40" height="40"/>
                                                         <color key="backgroundColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.47058823529999999" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <state key="normal" image="undoButton"/>
                                                         <userDefinedRuntimeAttributes>
@@ -605,7 +605,7 @@
                                                 </constraints>
                                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="NgJ-Uc-6dO">
                                                     <size key="itemSize" width="80" height="100"/>
-                                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                    <size key="headerReferenceSize" width="100" height="100"/>
                                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 </collectionViewFlowLayout>
@@ -669,7 +669,7 @@
                                                 </view>
                                                 <cells>
                                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="LWPhotoCollectionCell" id="a18-I8-tvf" customClass="LWPhotoCollectionCell">
-                                                        <rect key="frame" x="0.0" y="0.0" width="80" height="100"/>
+                                                        <rect key="frame" x="100" y="0.0" width="80" height="100"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                             <rect key="frame" x="0.0" y="0.0" width="80" height="100"/>
@@ -711,6 +711,30 @@
                                                         </connections>
                                                     </collectionViewCell>
                                                 </cells>
+                                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="LWPhotoSelectHeader" id="bSZ-lj-hDr" customClass="LWPhotoSelectHeader">
+                                                    <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x5E-9l-Rsm" userLabel="SelectBtn">
+                                                            <rect key="frame" x="-17" y="10" width="134" height="80"/>
+                                                            <state key="normal" title="Button" image="PhotoSelectBtn"/>
+                                                            <state key="selected" image="PhotoSelectBtn_Selected"/>
+                                                            <state key="highlighted" image="PhotoSelectBtn_Selected"/>
+                                                            <connections>
+                                                                <action selector="tileBtnAction" destination="bSZ-lj-hDr" eventType="touchUpInside" id="QvP-nJ-Lfa"/>
+                                                            </connections>
+                                                        </button>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="x5E-9l-Rsm" firstAttribute="leading" secondItem="bSZ-lj-hDr" secondAttribute="leading" id="P44-qP-dsa"/>
+                                                        <constraint firstAttribute="bottom" secondItem="x5E-9l-Rsm" secondAttribute="bottom" id="RrL-dX-5Fy"/>
+                                                        <constraint firstItem="x5E-9l-Rsm" firstAttribute="top" secondItem="bSZ-lj-hDr" secondAttribute="top" id="enm-yo-G2L"/>
+                                                        <constraint firstAttribute="trailing" secondItem="x5E-9l-Rsm" secondAttribute="trailing" id="rkE-FC-zhd"/>
+                                                    </constraints>
+                                                    <connections>
+                                                        <outlet property="selectBtn" destination="x5E-9l-Rsm" id="Qpy-VC-Biv"/>
+                                                    </connections>
+                                                </collectionReusableView>
                                                 <connections>
                                                     <outlet property="loadingIndicator" destination="tQJ-gb-aRq" id="y9y-X1-UQm"/>
                                                     <outlet property="msgView" destination="HDe-ow-a7K" id="z4Z-vJ-g3i"/>
@@ -1039,7 +1063,7 @@
                     <toolbarItems/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="480"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="0LN-IN-gSp">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="0LN-IN-gSp">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1306,6 +1330,8 @@
         <image name="Lambeau.jpg" width="1242" height="1656"/>
         <image name="NoEditBtn" width="40" height="40"/>
         <image name="PhotoDIY.png" width="288" height="288"/>
+        <image name="PhotoSelectBtn" width="100" height="100"/>
+        <image name="PhotoSelectBtn_Selected" width="100" height="100"/>
         <image name="TileBtn" width="80" height="80"/>
         <image name="TileBtn_Selected" width="80" height="80"/>
         <image name="TitleIcon_Right" width="30" height="30"/>

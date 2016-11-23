@@ -25,6 +25,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+
+    //绘图板添加默认图片
+    [self.contentView loadDefaultImage];
+
 //    [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationPortrait];
 
 //    NSNumber *value = [NSNumber numberWithInt:UIInterfaceOrientationPortrait];
@@ -72,9 +76,6 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-
-    //绘图板添加默认图片
-    [self.contentView loadDefaultImage];
 }
 
 
