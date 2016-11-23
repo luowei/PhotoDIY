@@ -1,41 +1,39 @@
-/* 
-  Localizable.strings
-  PhotoDIY
+/*
+ Localizable.strings
+ PhotoDIY
+ 
+ Created by luowei on 16/7/5.
+ Copyright © 2016年 wodedata. All rights reserved.
+ */
 
-  Created by luowei on 16/7/5.
-  Copyright © 2016年 wodedata. All rights reserved.
-*/
-
-"Save Success" = "保存成功";
-"Cache Success" = "暂存成功";
-"Error" = "发生错误";
-
-"Share succeed" = "分享成功";
-"Share fail" = "分享失败,错误码为：";
-"share" = "分享";
-"Ok" = "确定";
-"Cancel" = "取消";
-"Close" = "关闭";
-"ShareText" = "照片DIY的图片分享";
-
-"contrast" 				 = "对比度调节";
-"levels" 				 = "色阶调节";
-"rgb" 					 = "RGB调节";
-"hue" 					 = "HUE调节";
-"whiteBalance" 			 = "白平衡";
-"sharpen" 				 = "锐化";
-"Beautify" 				 = "美白";
-"gamma" 				 = "Gamma";
-"toneCurve" 			 = "色调美化";
-"sepiaTone" 			 = "褐色调";
-"colorInvert" 			 = "反转";
-"grayScale" 			 = "灰度";
-"sobelEdge" 			 = "边缘勾勒";
-"sketch" 				 = "素描";
-"emboss" 				 = "浮雕";
-"vignette" 				 = "晕映";
-"gaussianBlur" 			 = "高斯模糊";
-"gaussianSelectiveBlur"	 = "虚化背影";
-"boxBlur" 				 = "盒状模糊";
-"motionBlur" 			 = "运动模糊";
-"zoomBlur" 				 = "变焦模糊";
+"Save Success"           = "حفظ النجاح";
+"Cache Success"          = "مخبأ النجاح";
+"Error"                  = "حدث خطأ";
+"Share succeed"          = "حصة تنجح";
+"Share fail"             = "حصة تفشل مع رمز الخطأ:";
+"share"                  = "سهم";
+"Ok"                     = "حسنا";
+"Cancel"                 = "إلغاء";
+"Close"                  = "قريب";
+"ShareText"              = "PhotoDIY صورة حصة";
+"contrast" 				 = "تباين";
+"levels" 				 = "مستويات";
+"rgb" 					 = "RGB";
+"hue" 					 = "هوى";
+"whiteBalance" 			 = "موازنة اللون الأبيض";
+"sharpen" 				 = "شحذ";
+"Beautify" 				 = "تجميل";
+"gamma" 				 = "غاما";
+"toneCurve" 			 = "ToneCurve";
+"sepiaTone" 			 = "SepiaTone";
+"colorInvert" 			 = "ColorInvert";
+"grayScale" 			 = "درجات الرمادي";
+"sobelEdge" 			 = "SobelEdge";
+"sketch" 				 = "رسم";
+"emboss" 				 = "زخرف";
+"vignette" 				 = "المقالة القصيرة";
+"gaussianBlur" 			 = "GaussianBlur";
+"gaussianSelectiveBlur"	 = "HoleBlur";
+"boxBlur" 				 = "BoxBlur";
+"motionBlur" 			 = "تشتت الحركة";
+"zoomBlur" 				 = "زوم";

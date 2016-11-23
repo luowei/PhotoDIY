@@ -1,22 +1,22 @@
-/* 
-  Localizable.strings
-  PhotoDIY
+/*
+ Localizable.strings
+ PhotoDIY
+ 
+ Created by luowei on 16/7/5.
+ Copyright © 2016年 wodedata. All rights reserved.
+ */
 
-  Created by luowei on 16/7/5.
-  Copyright © 2016年 wodedata. All rights reserved.
-*/
+"Save Success"           = "Save Success";
+"Cache Success"          = "Cache Success";
+"Error"                  = "Error Occurred";
 
-"Save Success" = "Save Success";
-"Cache Success" = "Cache Success";
-"Error" = "Error Occurred";
-
-"Share succeed" = "Share succeed";
-"Share fail" = "Share fail with error code: ";
-"share" = "Share";
-"Ok" = "Ok";
-"Cancel" = "Cancel";
-"Close" = "Close";
-"ShareText" = "PhotoDIY Image Share";
+"Share succeed"          = "Share succeed";
+"Share fail"             = "Share fail with error code: ";
+"share"                  = "Share";
+"Ok"                     = "Ok";
+"Cancel"                 = "Cancel";
+"Close"                  = "Close";
+"ShareText"              = "PhotoDIY Image Share";
 
 "contrast" 				 = "Contrast";
 "levels" 				 = "Levels";

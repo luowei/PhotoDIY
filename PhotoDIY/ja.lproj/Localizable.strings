@@ -6,36 +6,34 @@
   Copyright © 2016年 wodedata. All rights reserved.
 */
 
-"Save Success" = "保存成功";
-"Cache Success" = "暂存成功";
-"Error" = "发生错误";
-
-"Share succeed" = "分享成功";
-"Share fail" = "分享失败,错误码为：";
-"share" = "分享";
-"Ok" = "确定";
-"Cancel" = "取消";
-"Close" = "关闭";
-"ShareText" = "照片DIY的图片分享";
-
-"contrast" 				 = "对比度调节";
-"levels" 				 = "色阶调节";
-"rgb" 					 = "RGB调节";
-"hue" 					 = "HUE调节";
-"whiteBalance" 			 = "白平衡";
-"sharpen" 				 = "锐化";
-"Beautify" 				 = "美白";
-"gamma" 				 = "Gamma";
-"toneCurve" 			 = "色调美化";
-"sepiaTone" 			 = "褐色调";
-"colorInvert" 			 = "反转";
-"grayScale" 			 = "灰度";
-"sobelEdge" 			 = "边缘勾勒";
-"sketch" 				 = "素描";
-"emboss" 				 = "浮雕";
-"vignette" 				 = "晕映";
-"gaussianBlur" 			 = "高斯模糊";
-"gaussianSelectiveBlur"	 = "虚化背影";
-"boxBlur" 				 = "盒状模糊";
-"motionBlur" 			 = "运动模糊";
-"zoomBlur" 				 = "变焦模糊";
+"Save Success"           = "正常に保存されました";
+"Cache Success"          = "ステージング成功";
+"Error"                  = "エラーが発生しました";
+"Share succeed"          = "シェア成功";
+"Share fail"             = "共有はできませんでした。エラーコード：";
+"share"                  = "シェア";
+"Ok"                     = "決定します";
+"Cancel"                 = "キャンセル";
+"Close"                  = "クローズ";
+"ShareText"              = "写真DIYの写真共有";
+"contrast" 				 = "コントラスト調節";
+"levels" 				 = "レベル調整";
+"rgb" 					 = "RGB調整";
+"hue" 					 = "HUEは、調整します";
+"whiteBalance" 			 = "ホワイトバランス";
+"sharpen" 				 = "研ぎます";
+"Beautify" 				 = "ホワイトニング";
+"gamma" 				 = "ガンマ";
+"toneCurve" 			 = "フエ造園";
+"sepiaTone" 			 = "セピア";
+"colorInvert" 			 = "復帰";
+"grayScale" 			 = "グレースケール";
+"sobelEdge" 			 = "エッジアウトライン";
+"sketch" 				 = "スケッチ";
+"emboss" 				 = "救済";
+"vignette" 				 = "口径食";
+"gaussianBlur" 			 = "ガウスぼかし";
+"gaussianSelectiveBlur"	 = "バックぼかし";
+"boxBlur" 				 = "ボックスブラー";
+"motionBlur" 			 = "モーションブラー";
+"zoomBlur" 				 = "ズームブラー";

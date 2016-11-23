@@ -6,36 +6,34 @@
   Copyright © 2016年 wodedata. All rights reserved.
 */
 
-"Save Success" = "保存成功";
-"Cache Success" = "暂存成功";
-"Error" = "发生错误";
-
-"Share succeed" = "分享成功";
-"Share fail" = "分享失败,错误码为：";
-"share" = "分享";
-"Ok" = "确定";
-"Cancel" = "取消";
-"Close" = "关闭";
-"ShareText" = "照片DIY的图片分享";
-
-"contrast" 				 = "对比度调节";
-"levels" 				 = "色阶调节";
-"rgb" 					 = "RGB调节";
-"hue" 					 = "HUE调节";
-"whiteBalance" 			 = "白平衡";
-"sharpen" 				 = "锐化";
-"Beautify" 				 = "美白";
-"gamma" 				 = "Gamma";
-"toneCurve" 			 = "色调美化";
-"sepiaTone" 			 = "褐色调";
-"colorInvert" 			 = "反转";
-"grayScale" 			 = "灰度";
-"sobelEdge" 			 = "边缘勾勒";
-"sketch" 				 = "素描";
-"emboss" 				 = "浮雕";
-"vignette" 				 = "晕映";
-"gaussianBlur" 			 = "高斯模糊";
-"gaussianSelectiveBlur"	 = "虚化背影";
-"boxBlur" 				 = "盒状模糊";
-"motionBlur" 			 = "运动模糊";
-"zoomBlur" 				 = "变焦模糊";
+"Save Success"           = "성공적으로 저장";
+"Cache Success"          = "준비 성공";
+"Error"                  = "오류가 발생했습니다";
+"Share succeed"          = "공유 성공";
+"Share fail"             = "오류 코드로 실패 공유 :";
+"share"                  = "몫";
+"Ok"                     = "결정";
+"Cancel"                 = "취소";
+"Close"                  = "가까운";
+"ShareText"              = "사진 DIY의 사진 공유";
+"contrast" 				 = "대비 조정";
+"levels" 				 = "레벨 조정";
+"rgb" 					 = "RGB 조정";
+"hue" 					 = "색조 조정";
+"whiteBalance" 			 = "화이트 밸런스";
+"sharpen" 				 = "선명하게";
+"Beautify" 				 = "화이트닝";
+"gamma" 				 = "감마";
+"toneCurve" 			 = "색조 조경";
+"sepiaTone" 			 = "SEPIA";
+"colorInvert" 			 = "전도";
+"grayScale" 			 = "그레이 스케일";
+"sobelEdge" 			 = "에지 개요";
+"sketch" 				 = "스케치";
+"emboss" 				 = "구조";
+"vignette" 				 = "비네팅";
+"gaussianBlur" 			 = "가우시안 흐림";
+"gaussianSelectiveBlur"	 = "다시 흐림";
+"boxBlur" 				 = "상자 흐림";
+"motionBlur" 			 = "모션 블러";
+"zoomBlur" 				 = "줌 흐림";
