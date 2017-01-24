@@ -6,18 +6,20 @@ PODS:
   - SDWebImage (3.8.2):
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
-  - UMengUShare/Core (6.0.3):
+  - UMengUShare/Core (6.2.2):
     - UMengUShare/Network
-  - UMengUShare/Network (6.0.3)
-  - UMengUShare/Social/Facebook (6.0.3):
+  - UMengUShare/Network (6.2.2)
+  - UMengUShare/Social/Instagram (6.2.2):
     - UMengUShare/Core
-  - UMengUShare/Social/Instagram (6.0.3):
+  - UMengUShare/Social/QQ (6.2.2):
     - UMengUShare/Core
-  - UMengUShare/Social/Sina (6.0.3):
+  - UMengUShare/Social/Sina (6.2.2):
     - UMengUShare/Core
-  - UMengUShare/Social/Twitter (6.0.3):
+  - UMengUShare/Social/Twitter (6.2.2):
     - UMengUShare/Core
-  - UMengUShare/UI (6.0.3):
+  - UMengUShare/Social/WeChat (6.2.2):
+    - UMengUShare/Core
+  - UMengUShare/UI (6.2.2):
     - UMengUShare/Core
 
 DEPENDENCIES:
@@ -26,10 +28,11 @@ DEPENDENCIES:
   - GPUImage (~> 0.1.7)
   - MBProgressHUD
   - SDWebImage (~> 3.8.1)
-  - UMengUShare/Social/Facebook
   - UMengUShare/Social/Instagram
+  - UMengUShare/Social/QQ
   - UMengUShare/Social/Sina
   - UMengUShare/Social/Twitter
+  - UMengUShare/Social/WeChat
   - UMengUShare/UI
 
 SPEC CHECKSUMS:
@@ -38,8 +41,8 @@ SPEC CHECKSUMS:
   GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
-  UMengUShare: f231fc086d789d4e560a5090dcc13a2db15c686d
+  UMengUShare: fc0a98b8d5297632e82874318fd72a10d17da228
 
-PODFILE CHECKSUM: 8b872f9ac2309eb5ac3d715dedcd26122454c963
+PODFILE CHECKSUM: f50d69644d25af8e2f9bc184f0ec97bed5cbdc43
 
-COCOAPODS: 1.1.0
+COCOAPODS: 1.1.1

@@ -33,11 +33,11 @@
     NSString *redirectURL = @"http://wodedata.com/PhotoDIY/AppCallback.php";
 //    NSString *redirectURL = @"PhotoDIY://";
     //各平台的详细配置
-//    //设置微信的appId和appKey
-//    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"wxe9ee15bc76746188" appSecret:@"fb4ca3b28e9110091fad90769279e789" redirectURL:redirectURL];
-//
-//    //设置分享到QQ互联的appKey和appSecret
-//    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_QQ appKey:@"1105751861" appSecret:@"umZZAIFQOJwnRmYy" redirectURL:redirectURL];
+    //设置微信的appId和appKey
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"wxe9ee15bc76746188" appSecret:@"fb4ca3b28e9110091fad90769279e789" redirectURL:redirectURL];
+
+    //设置分享到QQ互联的appKey和appSecret
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_QQ appKey:@"1105751861" appSecret:@"umZZAIFQOJwnRmYy" redirectURL:redirectURL];
 
     //设置新浪的appKey和appSecret
     [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Sina appKey:@"3082351787" appSecret:@"51f1d3ff556e7ab2f593ab787c4cabad" redirectURL:redirectURL];
@@ -45,14 +45,14 @@
     //设置Twitter的appKey和appSecret
     [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Twitter appKey:@"CHbOjdkIMQgUKRkHBr2Oz77ij" appSecret:@"ACPIwOzeWfFMVIpUEsCA0VxydhuOELAql2EakyoYf1kbZnnvUY" redirectURL:redirectURL];
 
-    //设置Facebook的appKey和UrlString
-    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Facebook appKey:@"326136004438567" appSecret:@"43eafc5c6dde0656e7031c40f414b8fc" redirectURL:redirectURL];
+//    //设置Facebook的appKey和UrlString
+//    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Facebook appKey:@"326136004438567" appSecret:@"43eafc5c6dde0656e7031c40f414b8fc" redirectURL:redirectURL];
 
     //设置Instagram的appKey和UrlString
     [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Instagram appKey:@"47a60b44365442e3b16b2b052bd8f0b6" appSecret:@"ee31f229723641c4b3084f05cdbbec00" redirectURL:redirectURL];
 
-    // Attach an observer to the payment queue
-    [[SKPaymentQueue defaultQueue] addTransactionObserver:[StoreObserver sharedInstance]];
+//    // Attach an observer to the payment queue
+//    [[SKPaymentQueue defaultQueue] addTransactionObserver:[StoreObserver sharedInstance]];
     return YES;
 }
 
@@ -92,8 +92,8 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 
-    // Remove the observer
-    [[SKPaymentQueue defaultQueue] removeTransactionObserver:[StoreObserver sharedInstance]];
+//    // Remove the observer
+//    [[SKPaymentQueue defaultQueue] removeTransactionObserver:[StoreObserver sharedInstance]];
 }
 
 

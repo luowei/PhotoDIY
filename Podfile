@@ -16,15 +16,15 @@ pod ‘UMengUShare/UI’
 # 集成新浪微博
 pod ‘UMengUShare/Social/Sina'
 
-## 集成微信
-#pod ‘UMengUShare/Social/WeChat'
-#
-## 集成QQ
-#pod ‘UMengUShare/Social/QQ'
+# 集成微信
+pod ‘UMengUShare/Social/WeChat'
+
+# 集成QQ
+pod ‘UMengUShare/Social/QQ'
 
 
-# 集成Facebook
-pod ‘UMengUShare/Social/Facebook'
+## 集成Facebook
+#pod ‘UMengUShare/Social/Facebook'
 
 # 集成Twitter
 pod ‘UMengUShare/Social/Twitter'

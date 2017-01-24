@@ -12,8 +12,7 @@
 #import "LWImageZoomView.h"
 #import "StoreObserver.h"
 #import "StoreManager.h"
-#import <UMengUShare/UMShareMenuSelectionView.h>
-#import <UMengUShare/UMSocialUIManager.h>
+#import <UShareUI/UShareUI.h>
 
 @interface ViewController ()
 
@@ -255,7 +254,7 @@
 
     //显示分享面板
     __weak typeof(self) weakSelf = self;
-    [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMShareMenuSelectionView *shareSelectionView, UMSocialPlatformType platformType) {
+    [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
         [weakSelf shareImageAndTextToPlatformType:platformType];
     }];
 
