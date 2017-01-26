@@ -19,6 +19,20 @@ You can also add a variety of adjustable filter operation and in a variety of gr
 * [Facebook分享申请流程](http://bbs.mob.com/thread-19148-1-1.html)：`http://bbs.mob.com/thread-19148-1-1.html`
 
 
+## Icon 与 Launch Image 的生成
+
+[http://ticons.fokkezb.nl/](http://ticons.fokkezb.nl/)
+
+安装：`brew install imagemagick && sudo npm i -g ticons`
+命令行：
+```
+ticons icons ./PhotoDIY.png --output-dir ~/Pictures/icons --alloy --platforms iphone,ipad
+ticons splashes ./Launch.png --output-dir ~/Pictures/launch --alloy --platforms iphone,ipad
+```
+
+
+
+
 ##社会化分享
 1.facebook：https://developers.facebook.com/docs/sharing/ios#message
 2.twitter：https://apps.twitter.com/app/13101254/show

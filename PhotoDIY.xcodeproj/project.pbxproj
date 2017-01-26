@@ -360,6 +360,7 @@
 		EAEE21741DE2DEF000E0D49C /* GPUImageBeautifyFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageBeautifyFilter.h; sourceTree = "<group>"; };
 		EAEE21751DE2DEF000E0D49C /* GPUImageBeautifyFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageBeautifyFilter.m; sourceTree = "<group>"; };
 		EAEE217A1DE3543600E0D49C /* guide_cn.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = guide_cn.json; sourceTree = "<group>"; };
+		EAFF786A1E37E90B002EA2B4 /* doc */ = {isa = PBXFileReference; lastKnownFileType = folder; path = doc; sourceTree = "<group>"; };
 		FB3752B7BE3FC2C396F9E492 /* Pods-PhotoDIY.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoDIY.release.xcconfig"; path = "Pods/Target Support Files/Pods-PhotoDIY/Pods-PhotoDIY.release.xcconfig"; sourceTree = "<group>"; };
 		FFC87A4A05A2799BD5A7991E /* libPods-PhotoDIY.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PhotoDIY.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -716,6 +717,7 @@
 		EAB292B41D2A16C4004D5EED = {
 			isa = PBXGroup;
 			children = (
+				EAFF786A1E37E90B002EA2B4 /* doc */,
 				EA1C04731D4E3BDC00290495 /* README.md */,
 				EAB292BF1D2A16C4004D5EED /* PhotoDIY */,
 				EAB292BE1D2A16C4004D5EED /* Products */,

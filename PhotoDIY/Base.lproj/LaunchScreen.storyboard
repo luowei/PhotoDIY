@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina4_7" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -18,19 +18,35 @@
                         <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9RN-tr-TPt">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch" translatesAutoresizingMaskIntoConstraints="NO" id="9RN-tr-TPt">
+                                <rect key="frame" x="0.0" y="20" width="414" height="716"/>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="wodedata.com" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ifq-wI-bsL">
+                                <rect key="frame" x="150.66666666666669" y="695" width="113.00000000000006" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="照片DIY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H2n-10-j8n">
+                                <rect key="frame" x="149.66666666666669" y="199" width="115.00000000000006" height="38"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                <color key="textColor" red="0.48309970812021047" green="0.54788938985427238" blue="0.75206023875482242" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="Ifq-wI-bsL" secondAttribute="bottom" constant="20" id="4fU-se-6cS"/>
                             <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="9RN-tr-TPt" secondAttribute="bottom" id="DCq-V4-1Hc"/>
                             <constraint firstAttribute="trailing" secondItem="9RN-tr-TPt" secondAttribute="trailing" id="Hla-H0-zfL"/>
                             <constraint firstItem="9RN-tr-TPt" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="WXN-pl-MXR"/>
+                            <constraint firstItem="H2n-10-j8n" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-150" id="czT-Ux-gTt"/>
                             <constraint firstItem="9RN-tr-TPt" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" id="jMd-gC-87c"/>
+                            <constraint firstItem="H2n-10-j8n" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="mr5-Ft-nyI"/>
+                            <constraint firstItem="Ifq-wI-bsL" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="pmu-s5-gOZ"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -39,4 +55,7 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="launch" width="1242" height="2148"/>
+    </resources>
 </document>

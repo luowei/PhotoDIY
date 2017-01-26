@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="UFw-lB-Auc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="UFw-lB-Auc">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -554,7 +554,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3AD-9g-vOF" userLabel="recovation">
-                                                        <rect key="frame" x="87" y="2" width="40" height="40"/>
+                                                        <rect key="frame" x="86.5" y="2" width="40" height="40"/>
                                                         <color key="backgroundColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.47058823529999999" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <state key="normal" image="revocation"/>
                                                         <userDefinedRuntimeAttributes>
@@ -567,7 +567,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yiH-wa-XYH" userLabel="Undo Left">
-                                                        <rect key="frame" x="173" y="2" width="40" height="40"/>
+                                                        <rect key="frame" x="173.5" y="2" width="40" height="40"/>
                                                         <color key="backgroundColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.47058823529999999" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <state key="normal" image="undoButton"/>
                                                         <userDefinedRuntimeAttributes>
@@ -715,8 +715,8 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x5E-9l-Rsm" userLabel="SelectBtn">
-                                                            <rect key="frame" x="-17" y="10" width="134" height="80"/>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x5E-9l-Rsm" userLabel="SelectBtn">
+                                                            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                                             <state key="normal" title="Button" image="PhotoSelectBtn"/>
                                                             <state key="selected" image="PhotoSelectBtn_Selected"/>
                                                             <state key="highlighted" image="PhotoSelectBtn_Selected"/>
@@ -1099,7 +1099,7 @@
                                         <constraint firstAttribute="height" constant="60" id="prE-Ng-Kh1"/>
                                     </constraints>
                                 </imageView>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FdT-tp-olH">
+                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FdT-tp-olH">
                                     <rect key="frame" x="91" y="76" width="138" height="30"/>
                                     <state key="normal" title="购买高级功能开通券">
                                         <color key="titleColor" red="1" green="0.43529411759999997" blue="0.37647058820000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -1143,8 +1143,8 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="版本信息:V1.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ksf-1b-TI2">
-                                            <rect key="frame" x="23" y="13" width="94" height="18"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Welcome" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ksf-1b-TI2">
+                                            <rect key="frame" x="23" y="13" width="98.5" height="18"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -1314,7 +1314,7 @@
                         <viewControllerLayoutGuide type="bottom" id="ijD-nO-Ops"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="ouz-n8-8xN">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="386"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
