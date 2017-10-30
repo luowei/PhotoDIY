@@ -49,7 +49,7 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
     _drawType = Hand;
     _freeInkLinewidth = 3.0;
     _freeInkColorIndex = 5;
-    _tileImageIndex = 10000;    //[UIImage imageNamed:@"luowei"]
+    _tileImageIndex = 0;    //[UIImage imageNamed:@"luowei"]
     _tileImageUrl = nil;
     _fontName = @"HelveticaNeue";
 
@@ -748,33 +748,28 @@ CGSize fitPageToScreen(CGSize page, CGSize screen) {
 - (UIImage *)getTileImageWithDrafter:(LWDrafter *)drafter {
     //获得tileImage
     __block UIImage *tileImage = [UIImage imageNamed:@"luowei"];
-    if(drafter.tileImageIndex == 10000){
-        return tileImage;
-    }
     NSString *name = Emoji_Items[(NSUInteger) drafter.tileImageIndex];
     if (drafter.drawType == ImageTile) {
         name = drafter.tileImageUrl.absoluteString;
     }
 
-    if (drafter.tileImageIndex < 5000) {
-        //从缓存目录找,没有才去相册加载
-        SDImageCache *imageCache = [SDImageCache sharedImageCache];
-        if ([imageCache diskImageExistsWithKey:[NSString stringWithFormat:@"tile_%lf_%@", drafter.lineWidth, name]]) {
-            tileImage = [imageCache imageFromDiskCacheForKey:[NSString stringWithFormat:@"tile_%lf_%@", drafter.lineWidth, name]];
+    //从缓存目录找,没有才去相册加载
+    SDImageCache *imageCache = [SDImageCache sharedImageCache];
+    if ([imageCache diskImageExistsWithKey:[NSString stringWithFormat:@"tile_%lf_%@", drafter.lineWidth, name]]) {
+        tileImage = [imageCache imageFromDiskCacheForKey:[NSString stringWithFormat:@"tile_%lf_%@", drafter.lineWidth, name]];
+    } else {
+        if (drafter.drawType == ImageTile) {
+            CGFloat scale = [UIScreen mainScreen].scale;
+            LWDrawView *drawView = [self superViewWithClass:[LWDrawView class]];
+            [drawView.drawBar.tileSelectorView.photoPicker pictureWithURL:drafter.tileImageUrl size:CGSizeMake(drafter.lineWidth * 2 * scale, drafter.lineWidth * 2 * scale) imageBlock:^(UIImage *image) {
+                tileImage = image;
+            }];
         } else {
-            if (drafter.drawType == ImageTile) {
-                CGFloat scale = [UIScreen mainScreen].scale;
-                LWDrawView *drawView = [self superViewWithClass:[LWDrawView class]];
-                [drawView.drawBar.tileSelectorView.photoPicker pictureWithURL:drafter.tileImageUrl size:CGSizeMake(drafter.lineWidth * 2 * scale, drafter.lineWidth * 2 * scale) imageBlock:^(UIImage *image) {
-                    tileImage = image;
-                }];
-            } else {
-                tileImage = [name image:CGSizeMake(drafter.lineWidth * 2, drafter.lineWidth * 2)];
-            }
-            dispatch_async(dispatch_get_main_queue(), ^() {
-                [[SDImageCache sharedImageCache] storeImage:tileImage forKey:[NSString stringWithFormat:@"tile_%lf_%@", drafter.lineWidth, name] toDisk:YES];
-            });
+            tileImage = [name image:CGSizeMake(drafter.lineWidth * 2, drafter.lineWidth * 2)];
         }
+        dispatch_async(dispatch_get_main_queue(), ^() {
+            [[SDImageCache sharedImageCache] storeImage:tileImage forKey:[NSString stringWithFormat:@"tile_%lf_%@", drafter.lineWidth, name] toDisk:YES];
+        });
     }
     return tileImage;
 }

@@ -9,6 +9,7 @@
 #import "LWDrawView.h"
 #import "LWScrawlView.h"
 #import "SDImageCache.h"
+#import "LWFontManager.h"
 
 
 #pragma mark - LWDrawBar
@@ -753,8 +754,11 @@
 //        [[SDImageCache sharedImageCache] storeImage:image forKey:[NSString stringWithFormat:@"%@_160",fontName] toDisk:YES];
 //    }
 
-    image = [self getFontImageWithSize:cellImgSize fontName:fontName withIndexPath:indexPath];
-    cell.imageView.image = image;
+    NSString *tempFontName = fontName;
+    if(![LWFontManager isAvaliableFont:fontName]){  //如果字体不可用
+        tempFontName = @"Helvetica";
+    }
+    cell.imageView.image = [self getFontImageWithFontName:tempFontName];
 
     return cell;
 }
@@ -767,6 +771,12 @@
     self.hidden = YES;
 }
 
+- (UIImage *)getFontImageWithFontName:(NSString *)fontName {
+    fontName = [fontName stringByReplacingOccurrencesOfString:@"." withString:@"_"];
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:fontName ofType:@"JPG"];
+    UIImage *jpgImage = [UIImage imageWithContentsOfFile:filePath];
+    return jpgImage;
+}
 
 //根据字体获得指定大小的图片
 - (UIImage *)getFontImageWithSize:(CGSize)cellImgSize fontName:(NSString *)fontName withIndexPath:(NSIndexPath *)indexPath {
@@ -793,7 +803,20 @@
     //合并图片
     CGRect logoFrame = CGRectMake((colorImage.size.width - textImg.size.width) / 2, (colorImage.size.height - textImg.size.height) / 2, textImg.size.width, textImg.size.height);
     UIImage *combinedImg = [UIImage addImageToImage:colorImage withImage2:textImg andRect:logoFrame withImageSize:cellImgSize];
+
+    //保存图片到相册
+//    UIImageWriteToSavedPhotosAlbum(combinedImg, self, @selector(photoSaved:didFinishSavingWithError:contextInfo:), nil);
+
     return combinedImg;
+}
+
+//显示保存图片完成后保存的操作提示
+-(void)photoSaved:(UIImage*)image didFinishSavingWithError:(NSError*)error contextInfo:(void*)contextInfo {
+    if(!error){
+        NSLog(@"=====%@",NSLocalizedString(@"Save Success", nil));
+    } else{
+        NSLog(@"=====%@",NSLocalizedString(@"Save Error", nil));
+    }
 }
 
 

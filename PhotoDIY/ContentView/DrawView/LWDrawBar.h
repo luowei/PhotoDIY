@@ -47,9 +47,8 @@
     @"Cochin-BoldItalic",@"Papyrus",@"Papyrus-Condensed",@"Damascus",@"HoeflerText-Italic",\
     \
     @"AvenirNextCondensed-UltraLight",@"Baskerville-Italic",@"BodoniOrnamentsITCTT",@"BradleyHandITCTT-Bold",@"TamilSangamMN",\
-    @"TrebuchetMS",@"TrebuchetMS",@"GeezaPro",@"Courier",@"Zapfino",\
-    @"MarkerFelt-Thin",@"MarkerFelt-Wide",@"Noteworthy-Light",@"Menlo-Regular",@"SavoyeLetPlain",\
-    @"DINCondensed-Bold"\
+    @"TrebuchetMS",@"GeezaPro",@"Courier",@"Zapfino",@"MarkerFelt-Thin",\
+    @"MarkerFelt-Wide",@"Noteworthy-Light",@"Menlo-Regular",@"SavoyeLetPlain",@"DINCondensed-Bold"\
     ]
 
 
