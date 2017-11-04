@@ -51,7 +51,6 @@
     @"MarkerFelt-Wide",@"Noteworthy-Light",@"Menlo-Regular",@"SavoyeLetPlain",@"DINCondensed-Bold"\
     ]
 
-
 @class LWDrawToolsView;
 @class LWColorSelectorView;
 @class LWTileHeader;

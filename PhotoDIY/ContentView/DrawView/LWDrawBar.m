@@ -10,6 +10,7 @@
 #import "LWScrawlView.h"
 #import "SDImageCache.h"
 #import "LWFontManager.h"
+#import "ViewController.h"
 
 
 #pragma mark - LWDrawBar
@@ -755,9 +756,9 @@
 //    }
 
     NSString *tempFontName = fontName;
-    if(![LWFontManager isAvaliableFont:fontName]){  //如果字体不可用
-        tempFontName = @"Helvetica";
-    }
+//    if(![LWFontManager isAvaliableFont:fontName]){  //如果字体不可用
+//        tempFontName = @"Helvetica";
+//    }
     cell.imageView.image = [self getFontImageWithFontName:tempFontName];
 
     return cell;
@@ -766,6 +767,26 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     NSString *fontName = Font_Items[(NSUInteger) indexPath.item];
 
+    ViewController *vc = [self superViewWithClass:[ViewController class]];
+    if(![LWFontManager isAvaliableFont:fontName]){  //如果字体不可用
+        //下载字体
+        [LWFontManager downloadCustomFontWithFontName:fontName URLString:vc.fontURLMap[fontName]
+                                    showProgressBlock:^{
+                                        vc.circleProgressBar.hidden = NO;
+                                        [vc.view bringSubviewToFront:vc.circleProgressBar];
+                                        [vc.circleProgressBar setProgress:0 animated:NO];
+                                    }
+                                  updateProgressBlock:^(float progress) {
+                                      [vc.view bringSubviewToFront:vc.circleProgressBar];
+                                      [vc.circleProgressBar setProgress:progress animated:NO];
+                                  }
+                                        completeBlock:^{
+                                            vc.circleProgressBar.hidden = YES;
+                                        }];
+
+        return;
+    }
+    
     LWDrawView *drawView = [self superViewWithClass:[LWDrawView class]];
     drawView.scrawlView.fontName = fontName;
     self.hidden = YES;

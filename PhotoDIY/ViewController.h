@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CircleProgressBar.h"
 
 @class LWContentView;
 @class LWToolBar;
@@ -18,6 +19,8 @@
 //@property (weak, nonatomic) IBOutlet UIView *titleView;
 @property (weak, nonatomic) IBOutlet UIImageView *previewIcon;
 
+@property(nonatomic, strong) CircleProgressBar *circleProgressBar;
+@property(nonatomic, strong) NSDictionary <NSString *,NSString *>* fontURLMap;
 @end
 
 

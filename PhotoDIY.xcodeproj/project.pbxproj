@@ -31,15 +31,6 @@
 		EA27A9BA1DAB338300B1264C /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA27A9B91DAB338300B1264C /* StoreKit.framework */; };
 		EA27A9BE1DAB932F00B1264C /* StoreObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = EA27A9BD1DAB932F00B1264C /* StoreObserver.m */; };
 		EA27A9C11DAB952F00B1264C /* StoreManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EA27A9C01DAB952F00B1264C /* StoreManager.m */; };
-		EA3A63431DC8580400989C0D /* 默陌信笺手写体.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA3A633B1DC8580400989C0D /* 默陌信笺手写体.ttf */; };
-		EA3A63441DC8580400989C0D /* 华文行楷.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA3A633C1DC8580400989C0D /* 华文行楷.ttf */; };
-		EA3A63461DC8580400989C0D /* 华文隶书.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA3A633E1DC8580400989C0D /* 华文隶书.ttf */; };
-		EA3A63471DC8580400989C0D /* 华文楷体.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA3A633F1DC8580400989C0D /* 华文楷体.ttf */; };
-		EA3A63481DC8580400989C0D /* 华文琥珀.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA3A63401DC8580400989C0D /* 华文琥珀.ttf */; };
-		EA3A63491DC8580400989C0D /* 华文彩云.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA3A63411DC8580400989C0D /* 华文彩云.ttf */; };
-		EA3A634D1DC85ABC00989C0D /* 钟齐流江硬笔草体.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA3A634A1DC85ABC00989C0D /* 钟齐流江硬笔草体.ttf */; };
-		EA3A634F1DC85ABC00989C0D /* 书体坊于右任标准草书.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA3A634C1DC85ABC00989C0D /* 书体坊于右任标准草书.ttf */; };
-		EA3A63511DC86A9000989C0D /* 方正细圆简体.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA3A63501DC86A9000989C0D /* 方正细圆简体.ttf */; };
 		EA3A63531DCAE14700989C0D /* LWDrafter.m in Sources */ = {isa = PBXBuildFile; fileRef = EA3A63521DCAE14700989C0D /* LWDrafter.m */; };
 		EA3EBFD11DE55FBF005F82B0 /* ALAsset+ImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = EA3EBF921DE55FBF005F82B0 /* ALAsset+ImagePicker.m */; };
 		EA3EBFD21DE55FBF005F82B0 /* ALAssetsLibrary+ImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = EA3EBF941DE55FBF005F82B0 /* ALAssetsLibrary+ImagePicker.m */; };
@@ -144,6 +135,7 @@
 		EA4BA9D81FA796CF007E19EA /* Verdana.JPG in Resources */ = {isa = PBXBuildFile; fileRef = EA4BA9A11FA793B9007E19EA /* Verdana.JPG */; };
 		EA4BA9D91FA796CF007E19EA /* Zapfino.JPG in Resources */ = {isa = PBXBuildFile; fileRef = EA4BA9A21FA793B9007E19EA /* Zapfino.JPG */; };
 		EA4BA9DB1FA798B3007E19EA /* LiuJiang-Cao-1_0.JPG in Resources */ = {isa = PBXBuildFile; fileRef = EA4BA9DA1FA7985D007E19EA /* LiuJiang-Cao-1_0.JPG */; };
+		EA4BA9E21FAE0E1B007E19EA /* CircleProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4BA9E11FAE0AEA007E19EA /* CircleProgressBar.m */; };
 		EA6F611B1D2B566900827523 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA6F611D1D2B566900827523 /* InfoPlist.strings */; };
 		EA6F611F1D2B567100827523 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA6F61211D2B567100827523 /* Localizable.strings */; };
 		EA6F61251D2B5A4500827523 /* LWDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6F61241D2B5A4500827523 /* LWDataManager.m */; };
@@ -220,15 +212,6 @@
 		EA27A9BD1DAB932F00B1264C /* StoreObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreObserver.m; sourceTree = "<group>"; };
 		EA27A9BF1DAB952F00B1264C /* StoreManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreManager.h; sourceTree = "<group>"; };
 		EA27A9C01DAB952F00B1264C /* StoreManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreManager.m; sourceTree = "<group>"; };
-		EA3A633B1DC8580400989C0D /* 默陌信笺手写体.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "默陌信笺手写体.ttf"; sourceTree = "<group>"; };
-		EA3A633C1DC8580400989C0D /* 华文行楷.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "华文行楷.ttf"; sourceTree = "<group>"; };
-		EA3A633E1DC8580400989C0D /* 华文隶书.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "华文隶书.ttf"; sourceTree = "<group>"; };
-		EA3A633F1DC8580400989C0D /* 华文楷体.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "华文楷体.ttf"; sourceTree = "<group>"; };
-		EA3A63401DC8580400989C0D /* 华文琥珀.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "华文琥珀.ttf"; sourceTree = "<group>"; };
-		EA3A63411DC8580400989C0D /* 华文彩云.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "华文彩云.ttf"; sourceTree = "<group>"; };
-		EA3A634A1DC85ABC00989C0D /* 钟齐流江硬笔草体.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "钟齐流江硬笔草体.ttf"; sourceTree = "<group>"; };
-		EA3A634C1DC85ABC00989C0D /* 书体坊于右任标准草书.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "书体坊于右任标准草书.ttf"; sourceTree = "<group>"; };
-		EA3A63501DC86A9000989C0D /* 方正细圆简体.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "方正细圆简体.ttf"; sourceTree = "<group>"; };
 		EA3A63521DCAE14700989C0D /* LWDrafter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWDrafter.m; sourceTree = "<group>"; };
 		EA3EBEFA1DE4A44D005F82B0 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
 		EA3EBEFB1DE4A44D005F82B0 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
@@ -416,6 +399,8 @@
 		EA4BA9A11FA793B9007E19EA /* Verdana.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Verdana.JPG; sourceTree = "<group>"; };
 		EA4BA9A21FA793B9007E19EA /* Zapfino.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Zapfino.JPG; sourceTree = "<group>"; };
 		EA4BA9DA1FA7985D007E19EA /* LiuJiang-Cao-1_0.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "LiuJiang-Cao-1_0.JPG"; sourceTree = "<group>"; };
+		EA4BA9E01FAE0AEA007E19EA /* CircleProgressBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CircleProgressBar.h; sourceTree = "<group>"; };
+		EA4BA9E11FAE0AEA007E19EA /* CircleProgressBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CircleProgressBar.m; sourceTree = "<group>"; };
 		EA6F611C1D2B566900827523 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EA6F611E1D2B566C00827523 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EA6F61201D2B567100827523 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -518,6 +503,7 @@
 		BEF0641061D1018B6F9A5498 /* ThirdParts */ = {
 			isa = PBXGroup;
 			children = (
+				EA4BA9DF1FAE0AEA007E19EA /* CircleProgressBar */,
 				EA3EBF8F1DE55FBF005F82B0 /* USImagePickerController */,
 				EA4781011DE083B80099AE30 /* JRSwizzle */,
 				EA4781051DE083B80099AE30 /* KINWebBrowser */,
@@ -666,22 +652,6 @@
 				EA6F61241D2B5A4500827523 /* LWDataManager.m */,
 			);
 			path = DataManager;
-			sourceTree = "<group>";
-		};
-		BEF06FE007777591F4403915 /* Fonts */ = {
-			isa = PBXGroup;
-			children = (
-				EA3A63501DC86A9000989C0D /* 方正细圆简体.ttf */,
-				EA3A634A1DC85ABC00989C0D /* 钟齐流江硬笔草体.ttf */,
-				EA3A634C1DC85ABC00989C0D /* 书体坊于右任标准草书.ttf */,
-				EA3A633B1DC8580400989C0D /* 默陌信笺手写体.ttf */,
-				EA3A633C1DC8580400989C0D /* 华文行楷.ttf */,
-				EA3A633E1DC8580400989C0D /* 华文隶书.ttf */,
-				EA3A633F1DC8580400989C0D /* 华文楷体.ttf */,
-				EA3A63401DC8580400989C0D /* 华文琥珀.ttf */,
-				EA3A63411DC8580400989C0D /* 华文彩云.ttf */,
-			);
-			path = Fonts;
 			sourceTree = "<group>";
 		};
 		D3C4F9F4B69BA8AACD84BAC6 /* Pods */ = {
@@ -893,6 +863,15 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		EA4BA9DF1FAE0AEA007E19EA /* CircleProgressBar */ = {
+			isa = PBXGroup;
+			children = (
+				EA4BA9E01FAE0AEA007E19EA /* CircleProgressBar.h */,
+				EA4BA9E11FAE0AEA007E19EA /* CircleProgressBar.m */,
+			);
+			path = CircleProgressBar;
+			sourceTree = "<group>";
+		};
 		EAB292B41D2A16C4004D5EED = {
 			isa = PBXGroup;
 			children = (
@@ -934,7 +913,6 @@
 				EAB292F71D2A701F004D5EED /* Categorys.h */,
 				EAB292F81D2A701F004D5EED /* Categorys.m */,
 				BEF06B5F8E3BE5417F2B1162 /* Utils */,
-				BEF06FE007777591F4403915 /* Fonts */,
 			);
 			path = PhotoDIY;
 			sourceTree = "<group>";
@@ -1095,7 +1073,6 @@
 				EA3EBFEE1DE55FBF005F82B0 /* USAssetGroupViewController.xib in Resources */,
 				EA4BA9B21FA796CF007E19EA /* Helvetica-Bold.JPG in Resources */,
 				EAB292D01D2A16C4004D5EED /* LaunchScreen.storyboard in Resources */,
-				EA3A63441DC8580400989C0D /* 华文行楷.ttf in Resources */,
 				EA4BA9A31FA796CF007E19EA /* AvenirNextCondensed-UltraLight.JPG in Resources */,
 				EA4BA9BD1FA796CF007E19EA /* MarkerFelt-Wide.JPG in Resources */,
 				EA6F611F1D2B567100827523 /* Localizable.strings in Resources */,
@@ -1118,31 +1095,23 @@
 				EA4BA9CB1FA796CF007E19EA /* SavoyeLetPlain.JPG in Resources */,
 				EA4BA9DB1FA798B3007E19EA /* LiuJiang-Cao-1_0.JPG in Resources */,
 				EA1C04721D4B218100290495 /* Lambeau.jpg in Resources */,
-				EA3A63511DC86A9000989C0D /* 方正细圆简体.ttf in Resources */,
-				EA3A63471DC8580400989C0D /* 华文楷体.ttf in Resources */,
 				EA4BA9C61FA796CF007E19EA /* PingFangSC-Thin.JPG in Resources */,
 				EA4BA9BA1FA796CF007E19EA /* HoeflerText-Italic.JPG in Resources */,
 				EA4BA9CA1FA796CF007E19EA /* PingFangTC-Regular.JPG in Resources */,
 				EA3EBFDD1DE55FBF005F82B0 /* USPicker-Checkbox@3x.png in Resources */,
-				EA3A634F1DC85ABC00989C0D /* 书体坊于右任标准草书.ttf in Resources */,
 				EA4BA9A51FA796CF007E19EA /* BodoniOrnamentsITCTT.JPG in Resources */,
 				EA47811D1DE0A1120099AE30 /* failedPage.htm in Resources */,
 				EA4BA9AE1FA796CF007E19EA /* FZY1JW--GB1-0.JPG in Resources */,
 				EA4BA9AD1FA796CF007E19EA /* DINCondensed-Bold.JPG in Resources */,
 				EA3EBFD91DE55FBF005F82B0 /* USPicker-Assets-Back@2x.png in Resources */,
-				EA3A634D1DC85ABC00989C0D /* 钟齐流江硬笔草体.ttf in Resources */,
 				EA4BA9D71FA796CF007E19EA /* Verdana-BoldItalic.JPG in Resources */,
 				EA4BA9C71FA796CF007E19EA /* PingFangSC-Ultralight.JPG in Resources */,
 				EA4BA9C51FA796CF007E19EA /* PingFangSC-Regular.JPG in Resources */,
 				EA4BA9AC1FA796CF007E19EA /* Damascus.JPG in Resources */,
-				EA3A63461DC8580400989C0D /* 华文隶书.ttf in Resources */,
-				EA3A63491DC8580400989C0D /* 华文彩云.ttf in Resources */,
 				EA3EBFDF1DE55FBF005F82B0 /* USPicker-Checkmark-Selected@3x.png in Resources */,
 				EA3EBFEB1DE55FBF005F82B0 /* USAssetCollectionCell.xib in Resources */,
 				EA4BA9CE1FA796CF007E19EA /* SnellRoundhand.JPG in Resources */,
 				EAEE217B1DE3543600E0D49C /* guide_cn.json in Resources */,
-				EA3A63481DC8580400989C0D /* 华文琥珀.ttf in Resources */,
-				EA3A63431DC8580400989C0D /* 默陌信笺手写体.ttf in Resources */,
 				EAB292CB1D2A16C4004D5EED /* Main.storyboard in Resources */,
 				EA4BA9D31FA796CF007E19EA /* STLiti.JPG in Resources */,
 				EA4BA9C11FA796CF007E19EA /* Papyrus-Condensed.JPG in Resources */,
@@ -1299,6 +1268,7 @@
 				BEF063818F90927D3FC30574 /* LWDrawBar.m in Sources */,
 				EA3EBFEC1DE55FBF005F82B0 /* USAssetGroupTableCell.m in Sources */,
 				BEF06F02C08258DD29719AED /* MyExtensions.m in Sources */,
+				EA4BA9E21FAE0E1B007E19EA /* CircleProgressBar.m in Sources */,
 				BEF06A14154FDD3996853131 /* Reachability.m in Sources */,
 				BEF06A95649AC92C5B096EAF /* LWImageCropView.m in Sources */,
 			);

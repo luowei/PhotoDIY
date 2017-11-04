@@ -28,6 +28,20 @@
     //绘图板添加默认图片
     [self.contentView loadDefaultImage];
 
+    self.fontURLMap = @{
+            @"SCFYYREN":@"http://oss.wodedata.com/Fonts/%E4%B9%A6%E4%BD%93%E5%9D%8A%E4%BA%8E%E5%8F%B3%E4%BB%BB%E6%A0%87%E5%87%86%E8%8D%89%E4%B9%A6.ttf",
+            @"STCaiyun":@"http://oss.wodedata.com/Fonts/%E5%8D%8E%E6%96%87%E5%BD%A9%E4%BA%91.ttf",
+            @"STKaiti":@"http://oss.wodedata.com/Fonts/%E5%8D%8E%E6%96%87%E6%A5%B7%E4%BD%93.ttf",
+            @"STHupo":@"http://oss.wodedata.com/Fonts/%E5%8D%8E%E6%96%87%E7%90%A5%E7%8F%80.ttf",
+            @"STXingkai":@"http://oss.wodedata.com/Fonts/%E5%8D%8E%E6%96%87%E8%A1%8C%E6%A5%B7.ttf",
+            @"STLiti":@"http://oss.wodedata.com/Fonts/%E5%8D%8E%E6%96%87%E9%9A%B6%E4%B9%A6.ttf",
+            @"FZY1JW--GB1-0":@"http://oss.wodedata.com/Fonts/%E6%96%B9%E6%AD%A3%E7%BB%86%E5%9C%86%E7%AE%80%E4%BD%93.ttf",
+            @"LiuJiang-Cao-1.0":@"http://oss.wodedata.com/Fonts/%E9%92%9F%E9%BD%90%E6%B5%81%E6%B1%9F%E7%A1%AC%E7%AC%94%E8%8D%89%E4%BD%93.ttf",
+            @"momo_xinjian":@"http://oss.wodedata.com/Fonts/%E9%BB%98%E9%99%8C%E4%BF%A1%E7%AC%BA%E6%89%8B%E5%86%99%E4%BD%93.ttf",
+    };
+
+//    self.circleProgressBar.hidden = YES;
+
 //    [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationPortrait];
 
 //    NSNumber *value = [NSNumber numberWithInt:UIInterfaceOrientationPortrait];
@@ -47,6 +61,22 @@
     [self fetchProductInformation];
 */
 }
+
+- (void)updateViewConstraints {
+    [super updateViewConstraints];
+
+    self.circleProgressBar = [[CircleProgressBar alloc] init];
+    [self.view addSubview:self.circleProgressBar];
+    self.circleProgressBar.backgroundColor = [UIColor clearColor];
+    self.circleProgressBar.translatesAutoresizingMaskIntoConstraints = NO;
+    NSLayoutConstraint *xConstraint = [NSLayoutConstraint constraintWithItem:self.circleProgressBar attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1 constant:0];
+    NSLayoutConstraint *yConstraint = [NSLayoutConstraint constraintWithItem:self.circleProgressBar attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1 constant:0];
+    NSLayoutConstraint *widthConstraint = [NSLayoutConstraint constraintWithItem:self.circleProgressBar attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeWidth multiplier:1 constant:60];
+    NSLayoutConstraint *heightConstraint = [NSLayoutConstraint constraintWithItem:self.circleProgressBar attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeHeight multiplier:1 constant:60];
+    [NSLayoutConstraint activateConstraints:@[xConstraint,yConstraint,widthConstraint,heightConstraint]];
+    self.circleProgressBar.hidden = YES;
+}
+
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:IAPProductRequestNotification object:[StoreManager sharedInstance]];
