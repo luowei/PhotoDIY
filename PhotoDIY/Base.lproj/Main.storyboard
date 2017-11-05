@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="UFw-lB-Auc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="UFw-lB-Auc">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment version="2304" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,14 +19,14 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="44" width="320" height="436"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hc7-a9-rQJ" userLabel="Content View" customClass="LWContentView">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="392"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="372"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r2h-iU-VsJ" userLabel="Zoom Image View" customClass="LWImageZoomView">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="392"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="372"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="392" image="Lambeau.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="4ij-qm-Hl0" userLabel="Image View">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="392"/>
@@ -47,13 +47,13 @@
                                         </connections>
                                     </scrollView>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sQH-bp-mwK" userLabel="Filter Image View" customClass="LWFilterImageView">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="392"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="372"/>
                                     </view>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OyO-Fb-QTL" userLabel="Crop Image View" customClass="LWImageCropView">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="392"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="372"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HzR-QA-1ed" userLabel="ok">
-                                                <rect key="frame" x="265" y="337" width="40" height="40"/>
+                                                <rect key="frame" x="265" y="317" width="40" height="40"/>
                                                 <color key="backgroundColor" red="0.47058823529411764" green="0.47058823529411764" blue="0.47058823529411764" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="puC-bM-pqu"/>
@@ -71,7 +71,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vbu-qT-KrD" userLabel="cancel">
-                                                <rect key="frame" x="15" y="337" width="40" height="40"/>
+                                                <rect key="frame" x="15" y="317" width="40" height="40"/>
                                                 <color key="backgroundColor" red="0.47058823529411764" green="0.47058823529411764" blue="0.47058823529411764" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" image="btnCancel"/>
                                                 <userDefinedRuntimeAttributes>
@@ -102,17 +102,17 @@
                                         </connections>
                                     </view>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="euM-5w-niK" userLabel="Draw View" customClass="LWDrawView">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="392"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="372"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="coG-Pc-dqh" userLabel="Mosaic ImageView">
-                                                <rect key="frame" x="0.0" y="0.0" width="320" height="392"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="372"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             </imageView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dfJ-Xb-rco" userLabel="Scratch View" customClass="LWScratchView">
-                                                <rect key="frame" x="0.0" y="0.0" width="320" height="392"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="372"/>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xZQ-UW-W72" userLabel="Scrawl View" customClass="LWScrawlView">
-                                                <rect key="frame" x="0.0" y="0.0" width="320" height="392"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="372"/>
                                                 <subviews>
                                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Re-0O-MfZ" userLabel="controlView" customClass="LWControlView">
                                                         <rect key="frame" x="20" y="20" width="100" height="100"/>
@@ -224,7 +224,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YtB-Nc-H9u" userLabel="clear">
-                                                <rect key="frame" x="10" y="264" width="40" height="40"/>
+                                                <rect key="frame" x="10" y="244" width="40" height="40"/>
                                                 <color key="backgroundColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.47058823529999999" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="40" id="BVV-FV-iIQ"/>
@@ -243,7 +243,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rpm-dL-o4u" userLabel="ok">
-                                                <rect key="frame" x="270" y="264" width="40" height="40"/>
+                                                <rect key="frame" x="270" y="244" width="40" height="40"/>
                                                 <color key="backgroundColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.47058823529999999" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="40" id="oOQ-Yf-dj8"/>
@@ -261,7 +261,7 @@
                                                 </connections>
                                             </button>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O5f-Jf-Ls1" userLabel="Draw Bar" customClass="LWDrawBar">
-                                                <rect key="frame" x="0.0" y="312" width="320" height="80"/>
+                                                <rect key="frame" x="0.0" y="292" width="320" height="80"/>
                                                 <subviews>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="UZg-fF-AAi" customClass="LWDrawToolsView">
                                                         <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
@@ -308,7 +308,7 @@
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <subviews>
                                                                         <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.050000000000000003" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="LuQ-p3-Sbd">
-                                                                            <rect key="frame" x="16" y="25" width="168" height="31"/>
+                                                                            <rect key="frame" x="8" y="25" width="184" height="31"/>
                                                                             <connections>
                                                                                 <action selector="slideMove:" destination="K9K-45-nG5" eventType="valueChanged" id="Voo-Bh-far"/>
                                                                             </connections>
@@ -535,12 +535,12 @@
                                         </connections>
                                     </view>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7lC-69-oBc" userLabel="Photos Bar" customClass="LWPhotosBar">
-                                        <rect key="frame" x="0.0" y="248" width="320" height="144"/>
+                                        <rect key="frame" x="0.0" y="228" width="320" height="144"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="k3Z-Ew-WTR">
                                                 <rect key="frame" x="10" y="0.0" width="300" height="44"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RqG-YX-nDI" userLabel="flip">
+                                                    <button verifyAmbiguity="off" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RqG-YX-nDI" userLabel="flip">
                                                         <rect key="frame" x="0.0" y="2" width="40" height="40"/>
                                                         <color key="backgroundColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.47058823529999999" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <state key="normal" image="flip"/>
@@ -553,7 +553,7 @@
                                                             <action selector="flipHorizonal:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eT1-Ta-aCF"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3AD-9g-vOF" userLabel="recovation">
+                                                    <button verifyAmbiguity="off" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3AD-9g-vOF" userLabel="recovation">
                                                         <rect key="frame" x="86.5" y="2" width="40" height="40"/>
                                                         <color key="backgroundColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.47058823529999999" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <state key="normal" image="revocation"/>
@@ -566,7 +566,7 @@
                                                             <action selector="recovery:" destination="BYZ-38-t0r" eventType="touchUpInside" id="c3u-pT-oWa"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yiH-wa-XYH" userLabel="Undo Left">
+                                                    <button verifyAmbiguity="off" opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yiH-wa-XYH" userLabel="Undo Left">
                                                         <rect key="frame" x="173.5" y="2" width="40" height="40"/>
                                                         <color key="backgroundColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.47058823529999999" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <state key="normal" image="undoButton"/>
@@ -579,7 +579,7 @@
                                                             <action selector="rotateLeft:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NHw-Ac-PVo"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ehu-yL-tNk" userLabel="Redo Right">
+                                                    <button verifyAmbiguity="off" opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ehu-yL-tNk" userLabel="Redo Right">
                                                         <rect key="frame" x="260" y="2" width="40" height="40"/>
                                                         <color key="backgroundColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.47058823529999999" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <state key="normal" image="redoButton"/>
@@ -771,7 +771,7 @@
                                         </connections>
                                     </view>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E5d-y9-Muj" userLabel="Filter Bar" customClass="LWFilterBar">
-                                        <rect key="frame" x="0.0" y="242" width="320" height="150"/>
+                                        <rect key="frame" x="0.0" y="222" width="320" height="150"/>
                                         <subviews>
                                             <slider hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" continuous="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P8S-W1-pug">
                                                 <rect key="frame" x="23" y="0.0" width="274" height="31"/>
@@ -926,7 +926,7 @@
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t0H-Ca-AMv" userLabel="Tool Bar" customClass="LWToolBar">
-                                <rect key="frame" x="0.0" y="392" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="372" width="320" height="44"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="T8E-8s-elr" userLabel="Buttons">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -999,12 +999,14 @@
                     <navigationItem key="navigationItem" title="照片编辑" id="N0f-SJ-Bit">
                         <barButtonItem key="leftBarButtonItem" image="shareBtn" id="Ihh-qc-m2G" userLabel="share">
                             <inset key="imageInsets" minX="-15" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="share:" destination="BYZ-38-t0r" id="p1h-D6-RVa"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="saveButton" id="J9T-ek-bTa" userLabel="save">
                             <inset key="imageInsets" minX="-10" minY="0.0" maxX="10" maxY="0.0"/>
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="saveAction:" destination="BYZ-38-t0r" id="JC9-Ja-0Ia"/>
                             </connections>
@@ -1064,12 +1066,15 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="480"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="0LN-IN-gSp">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="Tec-LP-P2d">
-                        <rect key="frame" x="0.0" y="436" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
@@ -1085,7 +1090,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="LWSettingViewController" id="Fhm-Zs-196" customClass="LWSettingViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsMultipleSelection="YES" rowHeight="44" sectionHeaderHeight="30" sectionFooterHeight="1" id="lCX-Wj-fDi">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="hLk-ZO-y7l">
@@ -1214,7 +1219,7 @@
                         <viewControllerLayoutGuide type="bottom" id="X4c-43-h8d"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="D7r-pA-k9F">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ATs-yE-IRW">
