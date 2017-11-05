@@ -9,7 +9,9 @@
 #import "AppDelegate.h"
 #import <StoreKit/StoreKit.h>
 #import "StoreObserver.h"
-
+#import "LWPushManager.h"
+#import "XGPush.h"
+#import "Categorys.h"
 #import <UMSocialCore/UMSocialCore.h>
 
 
@@ -23,6 +25,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    application.applicationIconBadgeNumber = 0;
+    //程序启动时处理推送
+    [[LWPushManager shareManager] handPushInApplicationDidFinishLaunchingWithOptions:launchOptions];
 
     //打开日志
     [[UMSocialManager defaultManager] openLog:YES];
@@ -54,21 +59,6 @@
 //    // Attach an observer to the payment queue
 //    [[SKPaymentQueue defaultQueue] addTransactionObserver:[StoreObserver sharedInstance]];
     return YES;
-}
-
-//回调处理
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url];
-    if (!result) { // 其他如支付等SDK的回调
-    }
-    return result;
-}
-- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
-    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url];
-    if (!result) {
-
-    }
-    return result;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -104,5 +94,112 @@
 //        return UIInterfaceOrientationMaskPortrait;
 //    }
 //}
+
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url];
+    if (!result) { // 其他如支付等SDK的回调
+    }
+
+    NSString *from = [url queryDictionary][@"from"];
+    NSTimeInterval duration = [from isEqualToString:@"native"] ? .05 : .15;
+
+    NSString *host = [url host];
+    NSString *hostPrefix = [host subStringWithRegex:@"^([\\w_-]*)\\..*" matchIndex:1];
+    [self performSelector:@selector(postNotification:) withObject:@{@"URL": url} afterDelay:duration];
+
+    return YES;
+}
+
+- (void)postNotification:(NSDictionary *)dict {
+    [[NSNotificationCenter defaultCenter] postNotificationName:Notification_ShowViewController object:nil userInfo:dict];
+}
+
+
+#pragma mark - 处理推送
+
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
+
+}
+
+//远程通知 Remote Notification
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    //向信息注册设备号
+    NSString *deviceTokenStr = [XGPush registerDevice:deviceToken account:nil successCallback:^{
+        Log(@"XGPush registerDevice:%@ account:%@  Success", deviceToken, nil);
+    }                                   errorCallback:^{
+        Log(@"XGPush registerDevice:%@ account:%@  Faild", deviceToken, nil);
+    }];
+    NSLog(@"[PhotoDIY] device token is %@", deviceTokenStr);
+}
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url];
+    if (!result) {
+
+    }
+    return result;
+}
+
+
+//收到静默推送的回调
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
+    //清除角标
+    application.applicationIconBadgeNumber = 0;
+
+    //处理推送消息
+    [[LWPushManager shareManager] handRemotePushNotificationWithUserInfo:userInfo];
+
+    //推送反馈XG
+    [XGPush handleReceiveNotification:userInfo successCallback:nil errorCallback:nil];
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    if (error.code == 3010) {
+        Log(@"iOS Simulator 不支持远程推送消息");
+    } else {
+        Log(@"application:didFailToRegisterForRemoteNotificationsWithError:%@", error.localizedFailureReason);
+    }
+}
+
+
+//handleAction
+- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo withResponseInfo:(NSDictionary *)responseInfo completionHandler:(void (^)())completionHandler {
+
+}
+
+- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void (^)())completionHandler {
+
+}
+
+//本地通知 Local Notification
+- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forLocalNotification:(UILocalNotification *)notification completionHandler:(void (^)())completionHandler {
+
+}
+
+- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forLocalNotification:(UILocalNotification *)notification withResponseInfo:(NSDictionary *)responseInfo completionHandler:(void (^)())completionHandler {
+
+}
+
+//收到远程通知的回调,iOS10 废弃的方法 Deprecated Message
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    Log(@"--------%d:%s \n\n", __LINE__, __func__);
+    //清除角标
+    application.applicationIconBadgeNumber = 0;
+
+    //处理推送消息
+    [[LWPushManager shareManager] handRemotePushNotificationWithUserInfo:userInfo];
+
+    //推送反馈XG
+    [XGPush handleReceiveNotification:userInfo successCallback:nil errorCallback:nil];
+}
+
+//收到本地通知的回调
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+    Log(@"--------%d:%s \n\n", __LINE__, __func__);
+    //清除角标
+    application.applicationIconBadgeNumber = 0;
+}
+
 
 @end

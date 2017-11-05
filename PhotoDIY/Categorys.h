@@ -41,3 +41,42 @@
 
 @end
 
+
+@interface NSString (Addtion)
+
+-(BOOL)isBlank;
+
+-(BOOL)isNotBlank;
+
+-(BOOL)containsChineseCharacters;
+
+- (NSString *)subStringWithRegex:(NSString *)regexText matchIndex:(NSUInteger)index;
+
+- (NSArray<NSString *> *)matchStringWithRegex:(NSString *)regexText;
+
+@end
+
+
+@interface NSString(Match)
+
+- (BOOL)isMatchString:(NSString *)pattern;
+
+- (BOOL)isiTunesURL;
+
+- (BOOL)isDomain;
+
+- (BOOL)isHttpURL;
+
+@end
+
+
+@interface NSURL (Extension)
+
+
+- (NSDictionary *)queryDictionary;
+-(BOOL)urlIsImage;
+
+
+@end
+
+

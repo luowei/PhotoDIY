@@ -140,6 +140,8 @@
 		EA6F611F1D2B567100827523 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA6F61211D2B567100827523 /* Localizable.strings */; };
 		EA6F61251D2B5A4500827523 /* LWDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6F61241D2B5A4500827523 /* LWDataManager.m */; };
 		EA6F612E1D2B937600827523 /* PDPhotoLibPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6F612D1D2B937600827523 /* PDPhotoLibPicker.m */; };
+		EA7E50651FAEC9DE007B3346 /* libXG-SDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA7E50621FAEC9D5007B3346 /* libXG-SDK.a */; };
+		EA7E50681FAECA72007B3346 /* LWPushManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7E50671FAECA72007B3346 /* LWPushManager.m */; };
 		EAB0BBFE1D9E36F300AD3B3D /* LWScratchView.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB0BBFD1D9E36F300AD3B3D /* LWScratchView.m */; };
 		EAB0BC011D9E375800AD3B3D /* LWScrawlView.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB0BC001D9E375800AD3B3D /* LWScrawlView.m */; };
 		EAB292C21D2A16C4004D5EED /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB292C11D2A16C4004D5EED /* main.m */; };
@@ -409,6 +411,12 @@
 		EA6F61241D2B5A4500827523 /* LWDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWDataManager.m; sourceTree = "<group>"; };
 		EA6F612C1D2B937600827523 /* PDPhotoLibPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDPhotoLibPicker.h; sourceTree = "<group>"; };
 		EA6F612D1D2B937600827523 /* PDPhotoLibPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDPhotoLibPicker.m; sourceTree = "<group>"; };
+		EA7E50621FAEC9D5007B3346 /* libXG-SDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libXG-SDK.a"; sourceTree = "<group>"; };
+		EA7E50631FAEC9D5007B3346 /* XGPush.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XGPush.h; sourceTree = "<group>"; };
+		EA7E50641FAEC9D5007B3346 /* XGSetting.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XGSetting.h; sourceTree = "<group>"; };
+		EA7E50661FAECA72007B3346 /* LWPushManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LWPushManager.h; sourceTree = "<group>"; };
+		EA7E50671FAECA72007B3346 /* LWPushManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LWPushManager.m; sourceTree = "<group>"; };
+		EA7E50691FAECF0E007B3346 /* PhotoDIY.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PhotoDIY.entitlements; sourceTree = "<group>"; };
 		EAB0BBFC1D9E36F300AD3B3D /* LWScratchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWScratchView.h; sourceTree = "<group>"; };
 		EAB0BBFD1D9E36F300AD3B3D /* LWScratchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWScratchView.m; sourceTree = "<group>"; };
 		EAB0BBFF1D9E375800AD3B3D /* LWScrawlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWScrawlView.h; sourceTree = "<group>"; };
@@ -485,6 +493,7 @@
 				EAB292E71D2A6665004D5EED /* CoreVideo.framework in Frameworks */,
 				EAB292E51D2A665A004D5EED /* CoreMedia.framework in Frameworks */,
 				CCD59F3ADD3AFC82051038E6 /* libPods-PhotoDIY.a in Frameworks */,
+				EA7E50651FAEC9DE007B3346 /* libXG-SDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -503,6 +512,7 @@
 		BEF0641061D1018B6F9A5498 /* ThirdParts */ = {
 			isa = PBXGroup;
 			children = (
+				EA7E50611FAEC9D5007B3346 /* libXGPush */,
 				EA4BA9DF1FAE0AEA007E19EA /* CircleProgressBar */,
 				EA3EBF8F1DE55FBF005F82B0 /* USImagePickerController */,
 				EA4781011DE083B80099AE30 /* JRSwizzle */,
@@ -633,6 +643,8 @@
 		BEF06B5F8E3BE5417F2B1162 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				EA7E50661FAECA72007B3346 /* LWPushManager.h */,
+				EA7E50671FAECA72007B3346 /* LWPushManager.m */,
 				EA4BA9691FA77611007E19EA /* LWFontManager.h */,
 				EA4BA9681FA77611007E19EA /* LWFontManager.m */,
 				EA47811E1DE0A9F30099AE30 /* RegExCategories.h */,
@@ -872,6 +884,16 @@
 			path = CircleProgressBar;
 			sourceTree = "<group>";
 		};
+		EA7E50611FAEC9D5007B3346 /* libXGPush */ = {
+			isa = PBXGroup;
+			children = (
+				EA7E50621FAEC9D5007B3346 /* libXG-SDK.a */,
+				EA7E50631FAEC9D5007B3346 /* XGPush.h */,
+				EA7E50641FAEC9D5007B3346 /* XGSetting.h */,
+			);
+			path = libXGPush;
+			sourceTree = "<group>";
+		};
 		EAB292B41D2A16C4004D5EED = {
 			isa = PBXGroup;
 			children = (
@@ -895,6 +917,7 @@
 		EAB292BF1D2A16C4004D5EED /* PhotoDIY */ = {
 			isa = PBXGroup;
 			children = (
+				EA7E50691FAECF0E007B3346 /* PhotoDIY.entitlements */,
 				BEF0641061D1018B6F9A5498 /* ThirdParts */,
 				EAE5B4611D2E7C8B00DD865D /* ContentView */,
 				BEF06D1AE73117D3C5B28302 /* DataManager */,
@@ -1022,9 +1045,13 @@
 					EAB292BC1D2A16C4004D5EED = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = G3A2KYKYBU;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
-								enabled = 0;
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
 							};
 						};
 					};
@@ -1252,6 +1279,7 @@
 				EA3EBFEF1DE55FBF005F82B0 /* USAssetsPreviewViewController.m in Sources */,
 				BEF069FB0617CA4B5E9BA8B6 /* LWImageZoomView.m in Sources */,
 				EA3EBFE41DE55FBF005F82B0 /* RSKImageCropViewController.m in Sources */,
+				EA7E50681FAECA72007B3346 /* LWPushManager.m in Sources */,
 				EAB0BBFE1D9E36F300AD3B3D /* LWScratchView.m in Sources */,
 				EA3EBFE51DE55FBF005F82B0 /* RSKImageScrollView.m in Sources */,
 				BEF068B151E77927FAC256F3 /* LWDrawView.m in Sources */,
@@ -1455,7 +1483,9 @@
 			baseConfigurationReference = 475E9ECC827629C9DEAAE6D1 /* Pods-PhotoDIY.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = PhotoDIY/PhotoDIY.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = G3A2KYKYBU;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1478,9 +1508,12 @@
 					"$(PROJECT_DIR)/Libs/UMSocial/SocialLibraries/Sina",
 					"$(PROJECT_DIR)/Libs/UMSocial/SocialLibraries/Twitter",
 					"$(PROJECT_DIR)/Libs/UMSocial/SocialLibraries/WeChat",
+					"$(PROJECT_DIR)/PhotoDIY/ThirdParts/libXGPush",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.wodedata.PhotoDIY;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "ecbbd7b0-18f0-4f71-961d-a3a4ff635852";
+				PROVISIONING_PROFILE_SPECIFIER = dev_photodiy;
 			};
 			name = Debug;
 		};
@@ -1489,7 +1522,10 @@
 			baseConfigurationReference = FB3752B7BE3FC2C396F9E492 /* Pods-PhotoDIY.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = PhotoDIY/PhotoDIY.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = G3A2KYKYBU;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1512,9 +1548,12 @@
 					"$(PROJECT_DIR)/Libs/UMSocial/SocialLibraries/Sina",
 					"$(PROJECT_DIR)/Libs/UMSocial/SocialLibraries/Twitter",
 					"$(PROJECT_DIR)/Libs/UMSocial/SocialLibraries/WeChat",
+					"$(PROJECT_DIR)/PhotoDIY/ThirdParts/libXGPush",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.wodedata.PhotoDIY;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "ece0b38e-5e1c-4be1-9157-66a88422b3d0";
+				PROVISIONING_PROFILE_SPECIFIER = dis_photodiy;
 			};
 			name = Release;
 		};

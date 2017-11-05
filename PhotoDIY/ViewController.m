@@ -12,6 +12,8 @@
 #import "LWImageZoomView.h"
 #import "StoreObserver.h"
 #import "StoreManager.h"
+#import "LWWebViewController.h"
+#import "AppDelegate.h"
 #import <UShareUI/UShareUI.h>
 
 @interface ViewController ()
@@ -40,9 +42,8 @@
             @"momo_xinjian":@"http://oss.wodedata.com/Fonts/%E9%BB%98%E9%99%8C%E4%BF%A1%E7%AC%BA%E6%89%8B%E5%86%99%E4%BD%93.ttf",
     };
 
-//    self.circleProgressBar.hidden = YES;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showDetailVC:) name:Notification_ShowViewController object:nil];
 
-//    [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationPortrait];
 
 //    NSNumber *value = [NSNumber numberWithInt:UIInterfaceOrientationPortrait];
 //    [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
@@ -79,8 +80,9 @@
 
 
 - (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:IAPProductRequestNotification object:[StoreManager sharedInstance]];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:IAPPurchaseNotification object:[StoreObserver sharedInstance]];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:IAPProductRequestNotification object:[StoreManager sharedInstance]];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:IAPPurchaseNotification object:[StoreObserver sharedInstance]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -353,6 +355,35 @@
                                           otherButtonTitles:nil];
     [alert show];
 }
+
+- (void)showDetailVC:(NSNotification *)notification {
+    NSDictionary *dict = notification.userInfo;
+    NSURL *url = dict[@"URL"];
+    NSString *scheme = [[url scheme] lowercaseString];
+    NSString *host = [url host];
+    NSString *hostSufix = [host subStringWithRegex:@".*\\.([\\w_-]*)$" matchIndex:1];
+    NSDictionary *queryDict = [url queryDictionary];
+    UIViewController *controller = nil;
+
+    if ([scheme isEqualToString:@"photodiy"]) {
+        NSString *urlString = [queryDict[@"url"] stringByRemovingPercentEncoding];
+        urlString = (NSString *) CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (__bridge CFStringRef) urlString, (CFStringRef) @"!NULL,'()*+,-./:;=?@_~%#[]", NULL, kCFStringEncodingUTF8));
+        NSURL *detailURL = [NSURL URLWithString:urlString];
+
+        if (([hostSufix isEqualToString:@"http"] || [hostSufix isEqualToString:@"https"]) && detailURL) {
+            controller = [LWWebViewController viewController:detailURL title:nil];
+        }else{
+            return;
+        }
+    }
+    if (controller) {
+        NSString *title = [queryDict[@"title"] stringByRemovingPercentEncoding];
+        controller.navigationItem.title = title;
+        [controller setHidesBottomBarWhenPushed:YES];
+        [self.navigationController pushViewController:controller animated:YES];
+    }
+}
+
 
 @end
 
