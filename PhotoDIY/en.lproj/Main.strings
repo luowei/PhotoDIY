@@ -2,8 +2,8 @@
 /* Class = "UILabel"; text = "访问照片失败,请确认是否打开了照片访问权限"; ObjectID = "2LQ-Wg-hTq"; */
 "2LQ-Wg-hTq.text" = "Failed to access the photo. Please check if you have turned on photo access";
 
-/* Class = "UIButton"; normalTitle = "购买高级功能开通券"; ObjectID = "FdT-tp-olH"; */
-"FdT-tp-olH.normalTitle" = "Purchase of premium pass";
+/* Class = "UIButton"; normalTitle = "开始购买"; ObjectID = "FdT-tp-olH"; */
+"FdT-tp-olH.normalTitle" = "Purchase";
 
 /* Class = "UIButton"; normalTitle = "列表"; ObjectID = "Kdz-Dq-hio"; */
 "Kdz-Dq-hio.normalTitle" = "List";

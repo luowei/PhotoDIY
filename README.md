@@ -64,46 +64,21 @@ Facebook正式账号：`325600794492088   APPSecret:c8387c35222f95bfab9550ab182b
 ##本地化文案
 1.内购产品说明
 
-- 简体中文
-收费功能开通券
-高级功能永久开放使用券
+去掉所有限制和广告
 
-- 繁体中文
-收費功能開通券
-高級功能永久開放使用券
+购买之后可以解除所有App限制和广告。
 
-- 日语
-充電機能オープンチケット
-高度な機能永久にオープンバウチャー
 
-- 韩语
-충전 기능 오픈 티켓
-고급 기능을 영구적으로 개방 쿠폰
+Remove all restrictions and ads
 
-- 英语
-Charge Function Pass
-Premium features and function are permanently open for Pass
+After purchase, you can unblock all App restrictions and ads.
 
-- 俄语
-Функция заряда активируется купоны
-Расширенные функциональные возможности постоянно открытые ваучеры
 
-- 法语
-La fonction de charge est coupons activés
-Fonctions avancées bons ouverts en permanence
+모든 제한 사항 및 광고 삭제
 
-- 德语
-Ladefunktion ist aktiviert Coupons
-Erweiterte Funktionen permanent offene Gutscheine
+구매 후 모든 앱 제한 사항 및 광고 차단을 해제 할 수 있습니다.
 
-- 西班牙语
-Billete abierto Función de carga
-Las características avanzadas vales permanentemente abiertas
 
-- 葡萄牙语
-Função de carregamento passagem em aberto
-As características avançadas comprovantes permanentemente abertas
+すべての制限と広告を削除する
 
-- 阿拉伯语
-شحن وظيفة تذكرة مفتوحة
-الميزات المتقدمة قسائم مفتوحة بشكل دائم
+購入後、すべてのアプリの制限と広告のブロックを解除できます。

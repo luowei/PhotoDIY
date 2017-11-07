@@ -13,7 +13,7 @@
 
 //IAP购买成功
 #define Key_isPurchasedSuccessedUser  @"Key_isPurchasedSuccessedUser"
-#define IAPProductId @"com.wodedata.PhotoDIY_NoAdPass"   //内购ProductId
+#define IAPProductId @"com.wodedata.PhotoDIYNoLimit"   //内购ProductId
 
 #define Open_Day @"2017-12-01"  //开放日,开启WallActivity
 
@@ -22,8 +22,10 @@
 
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UILabel *headerLabel;
-@property (weak, nonatomic) IBOutlet UIButton *buyBtn;
+
 @property (weak, nonatomic) IBOutlet UILabel *purchasedLabel;
+@property (weak, nonatomic) IBOutlet UIButton *buyBtn;
+@property (weak, nonatomic) IBOutlet UIButton *restoreBtn;
 
 - (IBAction)buyAction:(UIButton *)sender;
 

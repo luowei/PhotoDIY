@@ -97,10 +97,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-
-- (IBAction)buyAction:(UIButton *)sender {
-}
-
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -161,6 +157,29 @@
 }
 
 #pragma mark - 内购处理
+
+//开始购买
+- (IBAction)buyAction:(UIButton *)sender {
+    self.isRestoreRequest = NO;
+    NSNumber *isPurchasedValue = [[NSUserDefaults standardUserDefaults] objectForKey:Key_isPurchasedSuccessedUser];
+    if(![isPurchasedValue boolValue]){ //还未赋初值或还未购买
+        [self fetchProductInformation]; //获取内购产品
+    }else {
+        [LWHelper showHUDWithDetailMessage:NSLocalizedString(@"Have been purchased", nil)];
+    }
+}
+
+//恢复购买
+- (IBAction)restoreAction:(UIButton *)sender {
+    self.isRestoreRequest = YES;
+    NSNumber *isPurchasedValue = [[NSUserDefaults standardUserDefaults] objectForKey:Key_isPurchasedSuccessedUser];
+    if(![isPurchasedValue boolValue]){ //还未赋初值或还未购买
+        [self fetchProductInformation]; //获取内购产品
+    }else {
+        [LWHelper showHUDWithDetailMessage:NSLocalizedString(@"Have been purchased", nil)];
+    }
+}
+
 
 //从AppStore获取内购产品信息
 - (void)fetchProductInformation {

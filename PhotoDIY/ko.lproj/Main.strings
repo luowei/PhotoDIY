@@ -2,8 +2,8 @@
 /* Class = "UILabel"; text = "访问照片失败,请确认是否打开了照片访问权限"; ObjectID = "2LQ-Wg-hTq"; */
 "2LQ-Wg-hTq.text" = "실패 사진을 방문, 사진 오픈 액세스 여부를 확인하시기 바랍니다";
 
-/* Class = "UIButton"; normalTitle = "购买高级功能开通券"; ObjectID = "FdT-tp-olH"; */
-"FdT-tp-olH.normalTitle" = "고급 티켓 구매 기능이 활성화됩니다";
+/* Class = "UIButton"; normalTitle = "开始购买"; ObjectID = "FdT-tp-olH"; */
+"FdT-tp-olH.normalTitle" = "구매 시작";
 
 /* Class = "UIButton"; normalTitle = "列表"; ObjectID = "Kdz-Dq-hio"; */
 "Kdz-Dq-hio.normalTitle" = "명부";
