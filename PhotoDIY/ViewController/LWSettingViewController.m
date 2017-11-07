@@ -9,11 +9,16 @@
 #import "LWSettingViewController.h"
 #import "LWWebViewController.h"
 #import "Reachability.h"
+#import "LWHelper.h"
+#import "FCAlertView.h"
 
 @interface LWSettingViewController () {
 }
 
 @property(nonatomic, strong) NSArray *data;
+
+@property(nonatomic, strong) SKProduct *iapProduct;
+@property(nonatomic) BOOL isRestoreRequest;
 
 @end
 
@@ -40,6 +45,15 @@
             weakSelf.data = ((NSMutableDictionary *) [NSJSONSerialization JSONObjectWithData:data options:0 error:nil])[@"data"];
         }] resume];
     }
+
+    //监听产品请求处理通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleProductRequestNotification:)
+                                                 name:IAPProductRequestNotification
+                                               object:[StoreManager sharedInstance]];
+    //监听内购处理通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePurchasesNotification:)
+                                                 name:IAPPurchaseNotification
+                                               object:[StoreObserver sharedInstance]];
 
 }
 
@@ -145,6 +159,134 @@
     webVC.currentRow = indexPath.row;
     [self.navigationController pushViewController:webVC animated:YES];
 }
+
+#pragma mark - 内购处理
+
+//从AppStore获取内购产品信息
+- (void)fetchProductInformation {
+    if ([SKPaymentQueue canMakePayments]) {
+        NSArray<NSString *> *productIds = @[IAPProductId];
+        [[StoreManager sharedInstance] fetchProductInformationForIds:productIds];
+    } else {
+        [LWHelper showHUDWithDetailMessage:NSLocalizedString(@"Purchases Disabled on this device.", nil)];
+    }
+}
+
+//处理内购产品请求结果通知
+- (void)handleProductRequestNotification:(NSNotification *)notification {
+    StoreManager *storeManager = (StoreManager *) notification.object;
+    IAPProductRequestStatus result = (IAPProductRequestStatus) storeManager.status;
+
+    if (result == IAPProductRequestResponse) {
+        NSArray *models = storeManager.responseModels;
+        for (MyModel *model in models) {
+
+            NSArray<SKProduct *> *products = model.elements;
+            if ([model.name isEqualToString:@"AVAILABLE PRODUCTS"]) {
+
+                SKProduct *iapProduct = products.firstObject;
+                if([IAPProductId isEqualToString:iapProduct.productIdentifier]){
+                    self.iapProduct = iapProduct;
+                    if(self.isRestoreRequest){
+                        //首次安装走恢复购买
+                        [[StoreObserver sharedInstance] restoreWithProduct:iapProduct];   //恢复购买
+                    }else{
+                        //显示购买产品弹窗
+                        [self showProductAlert:iapProduct];
+                    }
+                    return;
+                }
+            }
+        }
+
+    }
+}
+
+//显示购买产品弹窗
+- (void)showProductAlert:(SKProduct *)iapProduct {
+    NSString *title = iapProduct.localizedTitle;
+    NSString *price = [NSString stringWithFormat:@"%@%@", [iapProduct.priceLocale objectForKey:NSLocaleCurrencySymbol], iapProduct.price];
+    NSString *descText = [NSString stringWithFormat:@"%@\n%@%@",iapProduct.localizedDescription, NSLocalizedString(@"Support Developer", nil),price];
+    NSLog(@"====availabel===title:%@, price:%@",title,price);
+
+
+    //弹窗
+    FCAlertView *alert = [FCAlertView new];
+    alert.avoidCustomImageTint = YES;
+    [alert makeAlertTypeSuccess];
+    //alert.blurBackground = YES;
+    alert.bounceAnimations = YES;
+
+    __weak typeof(alert) weakAlert = alert;
+    [alert doneActionBlock:^{
+        __strong typeof(weakAlert) strongAlert = weakAlert;
+
+        [[StoreObserver sharedInstance] buy:iapProduct];    //执行购买
+        [strongAlert dismissAlertView];
+    }];
+    [alert addButton:NSLocalizedString(@"Cancel", nil) withActionBlock:^{
+        __strong typeof(weakAlert) strongAlert = weakAlert;
+        [strongAlert dismissAlertView];
+    }];
+
+    UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
+    [alert showAlertInWindow:keyWindow withTitle:title withSubtitle:descText
+             withCustomImage:nil withDoneButtonTitle:NSLocalizedString(@"Ok", nil) andButtons:nil];
+
+    //消息提示
+    NSNumber *value = [[NSUserDefaults standardUserDefaults] objectForKey:Key_isPurchasedSuccessedUser];
+    if(!value && [LWHelper isAfterDate:Open_Day]){  //新安装
+        [LWHelper showHUDWithDetailMessage:NSLocalizedString(@"RePurchased Free", nil)];
+    }
+
+}
+
+
+//处理购买结果通知
+- (void)handlePurchasesNotification:(NSNotification *)notification {
+    StoreObserver *storeObserver = (StoreObserver *) notification.object;
+    IAPPurchaseNotificationStatus status = (IAPPurchaseNotificationStatus) storeObserver.status;
+
+    switch (status) {
+        case IAPPurchaseFailed:
+            [[NSUserDefaults standardUserDefaults] setObject:@NO forKey:Key_isPurchasedSuccessedUser];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            [LWHelper showHUDWithDetailMessage:storeObserver.message];
+            [self.tableView reloadData];
+            break;
+        case IAPRestoredSucceeded: {
+            [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:Key_isPurchasedSuccessedUser];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            [LWHelper showHUDWithDetailMessage:storeObserver.message];
+            [self.tableView reloadData];
+            break;
+        }
+        case IAPRestoredFailed:
+            [[NSUserDefaults standardUserDefaults] setObject:@NO forKey:Key_isPurchasedSuccessedUser];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            [LWHelper showHUDWithDetailMessage:storeObserver.message];
+            [self.tableView reloadData];
+            break;
+        case IAPDownloadStarted: {
+            break;
+        }
+        case IAPDownloadInProgress: {
+            //[NSString stringWithFormat:@" Downloading %@   %.2f%%", displayedTitle, storeObserver.downloadProgress];
+            break;
+        }
+        case IAPDownloadSucceeded: {
+            [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:Key_isPurchasedSuccessedUser];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            //[LWHelper showHUDWithDetailMessage:storeObserver.message];
+            [self.tableView reloadData];
+            break;
+        }
+        default:
+            break;
+    }
+}
+
+
 
 @end
 

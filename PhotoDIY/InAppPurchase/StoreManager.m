@@ -78,8 +78,14 @@ NSString *const IAPProductRequestNotification = @"IAPProductRequestNotification"
 
 #pragma mark - SKProductsRequestDelegate
 
+- (void)requestDidFinish:(SKRequest *)request{
+    //隐藏加载菊花
+    NSLog(@"requestDidFinish");
+}
+
 // Used to get the App Store's response to your request and notifies your observer
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response {
+    NSLog(@"didReceiveResponse");
     MyModel *model = nil;
 
     // The products array contains products whose identifiers have been recognized by the App Store.

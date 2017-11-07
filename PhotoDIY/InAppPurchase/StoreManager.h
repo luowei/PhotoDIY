@@ -32,6 +32,7 @@ extern NSString *const IAPProductRequestNotification;
 
 
 @interface StoreManager : NSObject
+
 typedef NS_ENUM(NSInteger, IAPProductRequestStatus) {
     IAPProductsFound,// Indicates that there are some valid products
     IAPIdentifiersNotFound, // indicates that are some invalid product identifiers

@@ -7,6 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "StoreObserver.h"
+#import "StoreManager.h"
+
+
+//IAP购买成功
+#define Key_isPurchasedSuccessedUser  @"Key_isPurchasedSuccessedUser"
+#define IAPProductId @"com.wodedata.PhotoDIY_NoAdPass"   //内购ProductId
+
+#define Open_Day @"2017-12-01"  //开放日,开启WallActivity
+
 
 @interface LWSettingViewController : UITableViewController<UITableViewDataSource,UITableViewDelegate>
 
@@ -14,7 +24,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *headerLabel;
 @property (weak, nonatomic) IBOutlet UIButton *buyBtn;
 @property (weak, nonatomic) IBOutlet UILabel *purchasedLabel;
-
 
 - (IBAction)buyAction:(UIButton *)sender;
 

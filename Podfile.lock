@@ -1,4 +1,5 @@
 PODS:
+  - FCAlertView (1.4.0)
   - FDStackView (1.0)
   - FXBlurView (1.6.4)
   - GPUImage (0.1.7)
@@ -23,6 +24,7 @@ PODS:
     - UMengUShare/Core
 
 DEPENDENCIES:
+  - FCAlertView (~> 1.4.0)
   - FDStackView (= 1.0)
   - FXBlurView (~> 1.6.4)
   - GPUImage (~> 0.1.7)
@@ -36,6 +38,7 @@ DEPENDENCIES:
   - UMengUShare/UI
 
 SPEC CHECKSUMS:
+  FCAlertView: fdddd63381898c1d1a5a20c9f084fbd2c6d12f8b
   FDStackView: 3a4bbe0ce9c35e974246a585168b9da8c32213f1
   FXBlurView: db786c2561cb49a09ae98407f52460096ab8a44f
   GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
@@ -43,6 +46,6 @@ SPEC CHECKSUMS:
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   UMengUShare: fc0a98b8d5297632e82874318fd72a10d17da228
 
-PODFILE CHECKSUM: f50d69644d25af8e2f9bc184f0ec97bed5cbdc43
+PODFILE CHECKSUM: 3271e7438b4bdacda2b4ba04894504a02a84fe5e
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.4.0.beta.1

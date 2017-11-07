@@ -37,3 +37,10 @@
 "boxBlur" 				 = "BoxBlur";
 "motionBlur" 			 = "Размытость";
 "zoomBlur" 				 = "Увеличить";
+
+"RePurchased Free" = "You Have been purchased,RePurchased will be free";
+"Purchases Disabled on this device." = "Purchases Disabled on this device.";
+"Support Developer" = "Support Developer,just ";
+
+"Have been purchased" = "You Have been purchased,No need Repurchase";
+"Thanks for Your Surpport" = "Thanks for Your Surpport!";

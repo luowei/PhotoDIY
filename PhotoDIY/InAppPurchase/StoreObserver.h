@@ -40,6 +40,7 @@ typedef NS_ENUM(NSInteger, IAPPurchaseNotificationStatus) {
 // Keep track of the purchased/restored product's identifier
 @property(nonatomic, copy) NSString *purchasedID;
 
+@property(nonatomic, strong) SKProduct *product;
 
 - (BOOL)hasPurchasedProducts;
 
@@ -49,6 +50,9 @@ typedef NS_ENUM(NSInteger, IAPPurchaseNotificationStatus) {
 
 // Implement the purchase of a product
 - (void)buy:(SKProduct *)product;
+
+//恢复购买指定product
+- (void)restoreWithProduct:(SKProduct *)product;
 
 // Implement the restoration of previously completed purchases
 - (void)restore;

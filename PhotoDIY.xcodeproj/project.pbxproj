@@ -10,9 +10,11 @@
 		BEF060D7ACDCB1B844B81CE2 /* LWPhotoCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF069A6E65A0CA56DFE1CF5 /* LWPhotoCollectionView.m */; };
 		BEF061B488CF06E55C183303 /* guide_pt.json in Resources */ = {isa = PBXBuildFile; fileRef = BEF06D271DE0823D8B74AC35 /* guide_pt.json */; };
 		BEF061E42AF48D9637DADA7A /* guide_fr.json in Resources */ = {isa = PBXBuildFile; fileRef = BEF06D41A733818D7F77EFB9 /* guide_fr.json */; };
+		BEF06370221CD20D220378CA /* StoreObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF06FDBD6A9A31D84E23E8A /* StoreObserver.m */; };
 		BEF063818F90927D3FC30574 /* LWDrawBar.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF060835D4A9C55E94FD61B /* LWDrawBar.m */; };
 		BEF063E04D1BCAFA4AD8772C /* guide_hk.json in Resources */ = {isa = PBXBuildFile; fileRef = BEF0683227638073306CCC38 /* guide_hk.json */; };
 		BEF065278D3DB3F27A9A1B48 /* guide_en.json in Resources */ = {isa = PBXBuildFile; fileRef = BEF0630982FBE274EE0F56BF /* guide_en.json */; };
+		BEF0658D9B0A7E9F119DF561 /* LWHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF06880ABEA870B0D2113EB /* LWHelper.m */; };
 		BEF0669C241E75514FBCFEB0 /* LWFilterCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF061409EB4310BAC440CE9 /* LWFilterCollectionView.m */; };
 		BEF068B151E77927FAC256F3 /* LWDrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF067546351067E593CAF2A /* LWDrawView.m */; };
 		BEF069003DE5F44C385FC2FE /* guide_ja.json in Resources */ = {isa = PBXBuildFile; fileRef = BEF06D09E1B863C7BF00A9BE /* guide_ja.json */; };
@@ -21,6 +23,7 @@
 		BEF069FB0617CA4B5E9BA8B6 /* LWImageZoomView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF06FF649F758528E3BB784 /* LWImageZoomView.m */; };
 		BEF06A14154FDD3996853131 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF061DAFD9970DE310EE9F9 /* Reachability.m */; };
 		BEF06A95649AC92C5B096EAF /* LWImageCropView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF0674AD6CDD6D9CDDE45AB /* LWImageCropView.m */; };
+		BEF06BD9A3EE197441C811F2 /* StoreManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF068E40ABFA6EAAFAE78D9 /* StoreManager.m */; };
 		BEF06E7983B583D856F29706 /* guide_ko.json in Resources */ = {isa = PBXBuildFile; fileRef = BEF06363D1F0602C203EF43B /* guide_ko.json */; };
 		BEF06EC71EE5E0B7723E2B38 /* guide_ru.json in Resources */ = {isa = PBXBuildFile; fileRef = BEF06C68B8772F1B9556F88E /* guide_ru.json */; };
 		BEF06F02C08258DD29719AED /* MyExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF0688B28C6E5EBE31CA408 /* MyExtensions.m */; };
@@ -29,8 +32,6 @@
 		EA1C04451D4904A900290495 /* LWFilterImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA1C04441D4904A900290495 /* LWFilterImageView.m */; };
 		EA1C04721D4B218100290495 /* Lambeau.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EA1C04711D4B218100290495 /* Lambeau.jpg */; };
 		EA27A9BA1DAB338300B1264C /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA27A9B91DAB338300B1264C /* StoreKit.framework */; };
-		EA27A9BE1DAB932F00B1264C /* StoreObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = EA27A9BD1DAB932F00B1264C /* StoreObserver.m */; };
-		EA27A9C11DAB952F00B1264C /* StoreManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EA27A9C01DAB952F00B1264C /* StoreManager.m */; };
 		EA3A63531DCAE14700989C0D /* LWDrafter.m in Sources */ = {isa = PBXBuildFile; fileRef = EA3A63521DCAE14700989C0D /* LWDrafter.m */; };
 		EA3EBFD11DE55FBF005F82B0 /* ALAsset+ImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = EA3EBF921DE55FBF005F82B0 /* ALAsset+ImagePicker.m */; };
 		EA3EBFD21DE55FBF005F82B0 /* ALAssetsLibrary+ImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = EA3EBF941DE55FBF005F82B0 /* ALAssetsLibrary+ImagePicker.m */; };
@@ -184,7 +185,9 @@
 		BEF061409EB4310BAC440CE9 /* LWFilterCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWFilterCollectionView.m; sourceTree = "<group>"; };
 		BEF061DAFD9970DE310EE9F9 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		BEF0622CE7D97AC10AC3C918 /* LWDrawBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWDrawBar.h; sourceTree = "<group>"; };
+		BEF062C48F3CA6A47FD0EA84 /* LWHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWHelper.h; sourceTree = "<group>"; };
 		BEF0630982FBE274EE0F56BF /* guide_en.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = guide_en.json; sourceTree = "<group>"; };
+		BEF0634ABD981D9F96DC7F14 /* StoreObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreObserver.h; sourceTree = "<group>"; };
 		BEF06363D1F0602C203EF43B /* guide_ko.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = guide_ko.json; sourceTree = "<group>"; };
 		BEF0638BAEA3F2851CA1131B /* guide_es.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = guide_es.json; sourceTree = "<group>"; };
 		BEF064284A669B4E7B1D4BB7 /* LWPhotoCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWPhotoCollectionView.h; sourceTree = "<group>"; };
@@ -194,15 +197,19 @@
 		BEF067546351067E593CAF2A /* LWDrawView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWDrawView.m; sourceTree = "<group>"; };
 		BEF067A810F0BAA513676090 /* LWDrawView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWDrawView.h; sourceTree = "<group>"; };
 		BEF0683227638073306CCC38 /* guide_hk.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = guide_hk.json; sourceTree = "<group>"; };
+		BEF06880ABEA870B0D2113EB /* LWHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWHelper.m; sourceTree = "<group>"; };
 		BEF0688B28C6E5EBE31CA408 /* MyExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyExtensions.m; sourceTree = "<group>"; };
+		BEF068E40ABFA6EAAFAE78D9 /* StoreManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreManager.m; sourceTree = "<group>"; };
 		BEF069A6E65A0CA56DFE1CF5 /* LWPhotoCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWPhotoCollectionView.m; sourceTree = "<group>"; };
 		BEF06B92FD0107440A3E9A90 /* LWImageZoomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWImageZoomView.h; sourceTree = "<group>"; };
 		BEF06C68B8772F1B9556F88E /* guide_ru.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = guide_ru.json; sourceTree = "<group>"; };
 		BEF06D09E1B863C7BF00A9BE /* guide_ja.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = guide_ja.json; sourceTree = "<group>"; };
+		BEF06D2266FD75AA20B8B6DE /* StoreManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreManager.h; sourceTree = "<group>"; };
 		BEF06D271DE0823D8B74AC35 /* guide_pt.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = guide_pt.json; sourceTree = "<group>"; };
 		BEF06D41A733818D7F77EFB9 /* guide_fr.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = guide_fr.json; sourceTree = "<group>"; };
 		BEF06D49D3CC43B7DECBC77C /* guide_de.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = guide_de.json; sourceTree = "<group>"; };
 		BEF06F3FD57AF5A8015F5D73 /* LWFilterCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWFilterCollectionView.h; sourceTree = "<group>"; };
+		BEF06FDBD6A9A31D84E23E8A /* StoreObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreObserver.m; sourceTree = "<group>"; };
 		BEF06FF1E779583D992FF22E /* guide_ar.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = guide_ar.json; sourceTree = "<group>"; };
 		BEF06FF649F758528E3BB784 /* LWImageZoomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWImageZoomView.m; sourceTree = "<group>"; };
 		EA1C04431D4904A900290495 /* LWFilterImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWFilterImageView.h; sourceTree = "<group>"; };
@@ -210,10 +217,6 @@
 		EA1C04711D4B218100290495 /* Lambeau.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Lambeau.jpg; sourceTree = "<group>"; };
 		EA1C04731D4E3BDC00290495 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		EA27A9B91DAB338300B1264C /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		EA27A9BC1DAB932F00B1264C /* StoreObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreObserver.h; sourceTree = "<group>"; };
-		EA27A9BD1DAB932F00B1264C /* StoreObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreObserver.m; sourceTree = "<group>"; };
-		EA27A9BF1DAB952F00B1264C /* StoreManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreManager.h; sourceTree = "<group>"; };
-		EA27A9C01DAB952F00B1264C /* StoreManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreManager.m; sourceTree = "<group>"; };
 		EA3A63521DCAE14700989C0D /* LWDrafter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWDrafter.m; sourceTree = "<group>"; };
 		EA3EBEFA1DE4A44D005F82B0 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
 		EA3EBEFB1DE4A44D005F82B0 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
@@ -571,10 +574,10 @@
 		BEF066A93C354A3204A6DE12 /* InAppPurchase */ = {
 			isa = PBXGroup;
 			children = (
-				EA27A9BF1DAB952F00B1264C /* StoreManager.h */,
-				EA27A9C01DAB952F00B1264C /* StoreManager.m */,
-				EA27A9BC1DAB932F00B1264C /* StoreObserver.h */,
-				EA27A9BD1DAB932F00B1264C /* StoreObserver.m */,
+				BEF06FDBD6A9A31D84E23E8A /* StoreObserver.m */,
+				BEF06D2266FD75AA20B8B6DE /* StoreManager.h */,
+				BEF0634ABD981D9F96DC7F14 /* StoreObserver.h */,
+				BEF068E40ABFA6EAAFAE78D9 /* StoreManager.m */,
 			);
 			path = InAppPurchase;
 			sourceTree = "<group>";
@@ -653,6 +656,8 @@
 				BEF0644EA39B3AFC4D20ED88 /* MyExtensions.h */,
 				BEF0645A33B40A0AA279249F /* Reachability.h */,
 				BEF061DAFD9970DE310EE9F9 /* Reachability.m */,
+				BEF062C48F3CA6A47FD0EA84 /* LWHelper.h */,
+				BEF06880ABEA870B0D2113EB /* LWHelper.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1193,13 +1198,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PhotoDIY-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		142619B6A129C1B4D0A6B270 /* [CP] Copy Pods Resources */ = {
@@ -1208,9 +1216,21 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-PhotoDIY/Pods-PhotoDIY-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FCAlertView/FCAlertView.bundle",
+				"${PODS_ROOT}/GPUImage/framework/Resources/lookup.png",
+				"${PODS_ROOT}/GPUImage/framework/Resources/lookup_amatorka.png",
+				"${PODS_ROOT}/GPUImage/framework/Resources/lookup_miss_etikate.png",
+				"${PODS_ROOT}/GPUImage/framework/Resources/lookup_soft_elegance_1.png",
+				"${PODS_ROOT}/GPUImage/framework/Resources/lookup_soft_elegance_2.png",
+				"${PODS_ROOT}/UMengUShare/UShareSDK/SocialLibraries/QQ/TencentOpenApi_IOS_Bundle.bundle",
+				"${PODS_ROOT}/UMengUShare/UShareSDK/SocialLibraries/Sina/WeiboSDK.bundle",
+				"${PODS_ROOT}/UMengUShare/UShareSDK/SocialLibraries/Twitter/TwitterKit.framework/Resources/TwitterKitResources.bundle",
+				"${PODS_ROOT}/UMengUShare/UShareSDK/UMSocialUI/UMSocialSDKResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1242,7 +1262,6 @@
 				EAB292F91D2A701F004D5EED /* Categorys.m in Sources */,
 				EA3A63531DCAE14700989C0D /* LWDrafter.m in Sources */,
 				EAD987AC1DD39B6A00B78AAE /* Drawing-Block.m in Sources */,
-				EA27A9C11DAB952F00B1264C /* StoreManager.m in Sources */,
 				EA3EBFD31DE55FBF005F82B0 /* PHAsset+ImagePicker.m in Sources */,
 				EA3EBFD51DE55FBF005F82B0 /* USAssetItemViewController.m in Sources */,
 				EA4781171DE083B80099AE30 /* LWProgressBar.m in Sources */,
@@ -1256,7 +1275,6 @@
 				EA4781141DE083B80099AE30 /* JRSwizzle.m in Sources */,
 				EAD987AA1DD39B6A00B78AAE /* BaseGeometry.m in Sources */,
 				EA3EBFD21DE55FBF005F82B0 /* ALAssetsLibrary+ImagePicker.m in Sources */,
-				EA27A9BE1DAB932F00B1264C /* StoreObserver.m in Sources */,
 				EA4781161DE083B80099AE30 /* KINWebBrowserViewController.m in Sources */,
 				EA4BA96A1FA77611007E19EA /* LWFontManager.m in Sources */,
 				EA3EBFE61DE55FBF005F82B0 /* RSKInternalUtility.m in Sources */,
@@ -1299,6 +1317,9 @@
 				EA4BA9E21FAE0E1B007E19EA /* CircleProgressBar.m in Sources */,
 				BEF06A14154FDD3996853131 /* Reachability.m in Sources */,
 				BEF06A95649AC92C5B096EAF /* LWImageCropView.m in Sources */,
+				BEF06370221CD20D220378CA /* StoreObserver.m in Sources */,
+				BEF06BD9A3EE197441C811F2 /* StoreManager.m in Sources */,
+				BEF0658D9B0A7E9F119DF561 /* LWHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

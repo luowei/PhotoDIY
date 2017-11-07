@@ -37,3 +37,10 @@
 "boxBlur" 				 = "ボックスブラー";
 "motionBlur" 			 = "モーションブラー";
 "zoomBlur" 				 = "ズームブラー";
+
+"RePurchased Free" = "あなたが以前に購入した場合は、再度購入することが自由になります";
+"Purchases Disabled on this device." = "Purchases Disabled on this device.";
+"Support Developer" = "Support Developer,just ";
+
+"Have been purchased" = "You Have been purchased,No need Repurchase";
+"Thanks for Your Surpport" = "Thanks for Your Surpport!";

@@ -39,3 +39,11 @@
 "boxBlur" 				 = "盒状模糊";
 "motionBlur" 			 = "运动模糊";
 "zoomBlur" 				 = "变焦模糊";
+
+
+"RePurchased Free" = "若之前购买过，再次购买将免费";
+"Purchases Disabled on this device." = "无法在此设备上进行购买";
+"Support Developer" = "支持开发者,只要";
+
+"Have been purchased" = "你已购买过,无需重购买";
+"Thanks for Your Surpport" = "谢谢你的支持!";

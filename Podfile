@@ -32,6 +32,8 @@ pod ‘UMengUShare/Social/Twitter'
 # 集成Instagram
 pod ‘UMengUShare/Social/Instagram'
 
+pod 'FCAlertView', '~> 1.4.0'
+
 end
 
 

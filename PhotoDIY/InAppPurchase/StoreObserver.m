@@ -14,6 +14,9 @@
 
 NSString *const IAPPurchaseNotification = @"IAPPurchaseNotification";
 
+@interface StoreObserver ()
+
+@end
 
 @implementation StoreObserver
 
@@ -37,19 +40,25 @@ NSString *const IAPPurchaseNotification = @"IAPPurchaseNotification";
     return self;
 }
 
+- (void)dealloc {
+    [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
+}
 
-#pragma mark -
-#pragma mark Make a purchase
+#pragma mark - Make a purchase
 
 // Create and add a payment request to the payment queue
 - (void)buy:(SKProduct *)product {
+    //添加交易队列观察者
+    [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
+
+    self.product = product;
+
     SKMutablePayment *payment = [SKMutablePayment paymentWithProduct:product];
     [[SKPaymentQueue defaultQueue] addPayment:payment];
 }
 
 
-#pragma mark -
-#pragma mark Has purchased products
+#pragma mark - Has purchased products
 
 // Returns whether there are purchased products
 - (BOOL)hasPurchasedProducts {
@@ -59,8 +68,7 @@ NSString *const IAPPurchaseNotification = @"IAPPurchaseNotification";
 }
 
 
-#pragma mark -
-#pragma mark Has restored products
+#pragma mark - Has restored products
 
 // Returns whether there are restored purchases
 - (BOOL)hasRestoredProducts {
@@ -70,21 +78,36 @@ NSString *const IAPPurchaseNotification = @"IAPPurchaseNotification";
 }
 
 
-#pragma mark -
-#pragma mark Restore purchases
+#pragma mark - Restore purchases
 
-- (void)restore {
+//恢复购买指定product
+- (void)restoreWithProduct:(SKProduct *)product {
+    //添加交易队列观察者
+    [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
+
+    self.product = product;
+
     self.restoredTransactions = [[NSMutableArray alloc] initWithCapacity:0];
     [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
 }
 
 
-#pragma mark -
-#pragma mark SKPaymentTransactionObserver methods
+//恢复购买
+- (void)restore {
+    //添加交易队列观察者
+    [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
+
+    self.restoredTransactions = [[NSMutableArray alloc] initWithCapacity:0];
+    [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
+}
+
+
+#pragma mark - SKPaymentTransactionObserver methods
 
 // Called when there are trasactions in the payment queue
 - (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions {
     for (SKPaymentTransaction *transaction in transactions) {
+
         switch (transaction.transactionState) {
             case SKPaymentTransactionStatePurchasing:
                 break;
@@ -105,8 +128,8 @@ NSString *const IAPPurchaseNotification = @"IAPPurchaseNotification";
                 } else {
                     [self completeTransaction:transaction forStatus:IAPPurchaseSucceeded];
                 }
-            }
                 break;
+            }
                 // There are restored products
             case SKPaymentTransactionStateRestored: {
                 self.purchasedID = transaction.payment.productIdentifier;
@@ -119,14 +142,14 @@ NSString *const IAPPurchaseNotification = @"IAPPurchaseNotification";
                 } else {
                     [self completeTransaction:transaction forStatus:IAPRestoredSucceeded];
                 }
-            }
                 break;
+            }
                 // The transaction failed
             case SKPaymentTransactionStateFailed: {
                 self.message = [NSString stringWithFormat:@"Purchase of %@ failed.", transaction.payment.productIdentifier];
                 [self completeTransaction:transaction forStatus:IAPPurchaseFailed];
-            }
                 break;
+            }
             default:
                 break;
         }
@@ -144,9 +167,8 @@ NSString *const IAPPurchaseNotification = @"IAPPurchaseNotification";
                 self.purchasedID = download.transaction.payment.productIdentifier;
                 self.downloadProgress = download.progress * 100;
                 [[NSNotificationCenter defaultCenter] postNotificationName:IAPPurchaseNotification object:self];
-            }
                 break;
-
+            }
             case SKDownloadStateCancelled:
                 // StoreKit saves your downloaded content in the Caches directory. Let's remove it
                 // before finishing the transaction.
@@ -204,11 +226,39 @@ NSString *const IAPPurchaseNotification = @"IAPPurchaseNotification";
 // Called when all restorable transactions have been processed by the payment queue
 - (void)paymentQueueRestoreCompletedTransactionsFinished:(SKPaymentQueue *)queue {
     NSLog(@"All restorable transactions have been processed by the payment queue.");
+
+//    for (SKPaymentTransaction *transaction in [[SKPaymentQueue defaultQueue] transactions]) {
+//        if ([transaction.payment.productIdentifier isEqualToString:IAPProductId]
+//                && [self verifyPurchaseWithPaymentTrasaction:transaction]) {
+//            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:Key_isPurchasedSuccessedUser];
+//            [[NSUserDefaults standardUserDefaults] synchronize];
+//            break;
+//        }
+//    }
+
+    if ([[[SKPaymentQueue defaultQueue] transactions] count] == 0){ //如果没有交易记录，则直接去购买
+        [self buy:self.product];
+    } else {
+        for (SKPaymentTransaction *transaction in [[SKPaymentQueue defaultQueue] transactions]) {
+            if (![transaction.payment.productIdentifier isEqualToString:self.product.productIdentifier]) {
+                [self buy:self.product];
+                break;
+            }
+        }
+    }
 }
 
+////添加一个付款条
+//-(void)addNewPaymentForProductId:(NSString *)productId{
+//    if([SKPaymentQueue canMakePayments]){
+//        SKPayment *payment = [SKPayment paymentWithProductIdentifier:productId];
+//        [[SKPaymentQueue defaultQueue] addPayment:payment];
+//    }
+//}
 
-#pragma mark -
-#pragma mark Complete transaction
+
+
+#pragma mark - Complete transaction
 
 // Notify the user about the purchase process. Start the download process if status is
 // IAPDownloadStarted. Finish all transactions, otherwise.
@@ -223,14 +273,20 @@ NSString *const IAPPurchaseNotification = @"IAPPurchaseNotification";
     if (status == IAPDownloadStarted) {
         // The purchased product is a hosted one, let's download its content
         [[SKPaymentQueue defaultQueue] startDownloads:transaction.downloads];
-    } else {
+    } else if(status == IAPPurchaseSucceeded || status == IAPRestoredSucceeded || status == IAPDownloadSucceeded){
+//todo:非消耗型商品，这里可以无需作凭证数据验证
+//        // 发送到苹果服务器验证凭证
+//        [self verifyPurchaseWithPayment];
+
+        // Remove the transaction from the queue for purchased and restored statuses
+        [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+    }else{
         // Remove the transaction from the queue for purchased and restored statuses
         [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
     }
 }
 
 
-#pragma mark -
 #pragma mark - Handle download transaction
 
 - (void)finishDownloadTransaction:(SKPaymentTransaction *)transaction {
@@ -264,5 +320,81 @@ NSString *const IAPPurchaseNotification = @"IAPPurchaseNotification";
 
     }
 }
+
+#pragma mark - 验证购买凭据
+
+//沙盒测试环境验证
+#define SANDBOX @"https://sandbox.itunes.apple.com/verifyReceipt"
+//正式环境验证
+#define AppStore @"https://buy.itunes.apple.com/verifyReceipt"
+
+
+// 验证购买凭据
+- (BOOL)verifyPurchaseWithPayment {
+
+    // 验证凭据，获取到苹果返回的交易凭据
+    // appStoreReceiptURL iOS7.0增加的，购买交易完成后，会将凭据存放在该地址
+    NSURL *receiptURL = [[NSBundle mainBundle] appStoreReceiptURL];
+    // 从沙盒中获取到购买凭据
+    NSData *receiptData = [NSData dataWithContentsOfURL:receiptURL];
+
+    // 发送网络POST请求，对购买凭据进行验证
+    //测试验证地址:https://sandbox.itunes.apple.com/verifyReceipt
+    //正式验证地址:https://buy.itunes.apple.com/verifyReceipt
+    NSData *appStoreResult = [self postReceiptData:receiptData withURL:[NSURL URLWithString:AppStore]];
+
+    // AppStore验证结果为空
+    if (appStoreResult == nil) {
+        NSLog(@"验证失败");
+        return NO;
+    }
+
+    //AppStore验证结果
+    NSDictionary *appStoreResultDict = [NSJSONSerialization JSONObjectWithData:appStoreResult options:NSJSONReadingAllowFragments error:nil];
+    if (appStoreResultDict != nil) {
+
+        if([appStoreResultDict[@"status"] longValue] == 21007){ //如果返回21007,则再去Sanbox验证
+            NSData *sandboxResult = [self postReceiptData:receiptData withURL:[NSURL URLWithString:SANDBOX]];
+
+            // Sandbox验证结果为空
+            if (sandboxResult == nil) {
+                NSLog(@"验证失败");
+                return NO;
+            }
+
+            NSDictionary *sandboxResultDict = [NSJSONSerialization JSONObjectWithData:sandboxResult options:NSJSONReadingAllowFragments error:nil];
+            if(sandboxResultDict != nil){
+                // 比对字典中以下信息基本上可以保证数据安全,确保用户是否已经正确购买
+                // bundle_id , application_version , product_id , transaction_id
+                //NSLog(@"Sandbox 验证成功！购买的商品是：%@", [sandboxResultDict yy_modelToJSONString]);
+                NSLog(@"Sandbox 验证成功！");
+                return YES;
+            }
+
+        } else{
+            // 比对字典中以下信息基本上可以保证数据安全
+            // bundle_id , application_version , product_id , transaction_id
+            //NSLog(@"App Store 验证成功！购买的商品是：%@", [appStoreResultDict yy_modelToJSONString]);
+            NSLog(@"App Store 验证成功！");
+            return YES;
+        }
+    }
+    return NO;
+}
+
+// 发送网络POST请求，对购买凭据进行验证
+- (NSData *)postReceiptData:(NSData *)receiptData withURL:(NSURL *)url {
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0f];
+    urlRequest.HTTPMethod = @"POST";
+    NSString *encodeStr = [receiptData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
+    NSString *payload = [NSString stringWithFormat:@"{\"receipt-data\" : \"%@\"}", encodeStr];
+    NSData *payloadData = [payload dataUsingEncoding:NSUTF8StringEncoding];
+    urlRequest.HTTPBody = payloadData;
+
+    // 提交验证请求，并获得官方的验证JSON结果 iOS9后更改了另外的一个方法
+    NSData *result = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:nil error:nil];
+    return result;
+}
+
 
 @end

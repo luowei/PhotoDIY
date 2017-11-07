@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 #import <StoreKit/StoreKit.h>
-#import "StoreObserver.h"
 #import "LWPushManager.h"
 #import "XGPush.h"
 #import "Categorys.h"
