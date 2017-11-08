@@ -1105,7 +1105,7 @@
                                     </constraints>
                                 </imageView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FdT-tp-olH">
-                                    <rect key="frame" x="49" y="84" width="62" height="30"/>
+                                    <rect key="frame" x="79" y="80" width="62" height="30"/>
                                     <state key="normal" title="开始购买">
                                         <color key="titleColor" red="0.091421891480000003" green="0.65759835030000002" blue="0.1402774578" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </state>
@@ -1114,7 +1114,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AiD-DJ-5uZ">
-                                    <rect key="frame" x="209" y="84" width="62" height="30"/>
+                                    <rect key="frame" x="179" y="80" width="62" height="30"/>
                                     <state key="normal" title="恢复购买">
                                         <color key="titleColor" red="0.091421891480000003" green="0.65759835030000002" blue="0.1402774578" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </state>
@@ -1138,12 +1138,12 @@
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstItem="AiD-DJ-5uZ" firstAttribute="centerX" secondItem="hLk-ZO-y7l" secondAttribute="centerX" constant="80" id="6o5-yQ-6Wm"/>
+                                <constraint firstItem="AiD-DJ-5uZ" firstAttribute="centerX" secondItem="hLk-ZO-y7l" secondAttribute="centerX" constant="50" id="6o5-yQ-6Wm"/>
                                 <constraint firstItem="P3L-48-YJn" firstAttribute="top" secondItem="pgO-24-g11" secondAttribute="bottom" constant="2" id="8wN-Wz-DfU"/>
-                                <constraint firstItem="FdT-tp-olH" firstAttribute="centerX" secondItem="hLk-ZO-y7l" secondAttribute="centerX" constant="-80" id="GT1-C0-GLx"/>
+                                <constraint firstItem="FdT-tp-olH" firstAttribute="centerX" secondItem="hLk-ZO-y7l" secondAttribute="centerX" constant="-50" id="GT1-C0-GLx"/>
                                 <constraint firstAttribute="bottom" secondItem="dkx-r8-6Tp" secondAttribute="bottom" id="HZK-8d-Lx8"/>
-                                <constraint firstItem="FdT-tp-olH" firstAttribute="top" secondItem="pgO-24-g11" secondAttribute="bottom" constant="16" id="PGr-J9-WPq"/>
-                                <constraint firstItem="AiD-DJ-5uZ" firstAttribute="top" secondItem="pgO-24-g11" secondAttribute="bottom" constant="16" id="Sce-of-cmc"/>
+                                <constraint firstItem="FdT-tp-olH" firstAttribute="top" secondItem="pgO-24-g11" secondAttribute="bottom" constant="12" id="PGr-J9-WPq"/>
+                                <constraint firstItem="AiD-DJ-5uZ" firstAttribute="top" secondItem="pgO-24-g11" secondAttribute="bottom" constant="12" id="Sce-of-cmc"/>
                                 <constraint firstItem="dkx-r8-6Tp" firstAttribute="leading" secondItem="hLk-ZO-y7l" secondAttribute="leading" id="ZKZ-UZ-v5v"/>
                                 <constraint firstItem="P3L-48-YJn" firstAttribute="centerX" secondItem="hLk-ZO-y7l" secondAttribute="centerX" id="iUF-lE-l4V"/>
                                 <constraint firstItem="pgO-24-g11" firstAttribute="centerX" secondItem="hLk-ZO-y7l" secondAttribute="centerX" id="lM5-LZ-EGc"/>
