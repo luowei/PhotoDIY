@@ -11,6 +11,7 @@
 #import "SDImageCache.h"
 #import "LWFontManager.h"
 #import "ViewController.h"
+#import "LWHelper.h"
 
 
 #pragma mark - LWDrawBar
@@ -282,6 +283,11 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    if(![LWHelper isPurchased]){
+        [LWHelper showHUDWithDetailMessage:NSLocalizedString(@"Purchase remove all limits", nil)];
+        return;
+    }
+
     LWToolsCell *cell = (LWToolsCell *) [collectionView dequeueReusableCellWithReuseIdentifier:@"ToolCell" forIndexPath:indexPath];
 
     LWDrawView *drawView = [self superViewWithClass:[LWDrawView class]];

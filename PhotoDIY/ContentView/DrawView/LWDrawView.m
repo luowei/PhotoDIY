@@ -14,6 +14,7 @@
 #import "LWDataManager.h"
 #import "LWContentView.h"
 #import "Categorys.h"
+#import "LWHelper.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 
 #define kBitsPerComponent (8)
@@ -34,6 +35,11 @@
 
 //开启关闭马赛克按钮
 - (IBAction)openOrCloseMosaic:(UIButton *)mosaicButton {
+    if(![LWHelper isPurchased]){
+        [LWHelper showHUDWithDetailMessage:NSLocalizedString(@"Purchase remove all limits", nil)];
+        return;
+    }
+
     if (!mosaicButton.selected) { //close
         //改变层级关系,并隐藏画笔视图
         self.scrawlView.hidden = YES;
@@ -70,6 +76,11 @@
 }
 
 - (IBAction)editBtnAction:(UIButton *)editBtn {
+    if(![LWHelper isPurchased]){
+        [LWHelper showHUDWithDetailMessage:NSLocalizedString(@"Purchase remove all limits", nil)];
+        return;
+    }
+
     if (!self.scrawlView.enableEdit) {
         self.scrawlView.enableEdit = YES;
         editBtn.selected = NO;

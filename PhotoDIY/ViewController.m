@@ -179,7 +179,9 @@
 
 
 - (IBAction)saveAction:(id)sender {
-    [self.contentView saveImage];
+    if(![self showSearchAd]){
+        [self.contentView saveImage];
+    }
 }
 
 - (IBAction)recovery:(id)sender {
@@ -199,7 +201,9 @@
 }
 
 - (IBAction)share:(id)sender {
-
+    if([self showSearchAd]){
+        return;
+    }
     //显示分享面板
     __weak typeof(self) weakSelf = self;
     [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
