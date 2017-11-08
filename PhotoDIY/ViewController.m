@@ -12,9 +12,10 @@
 #import "LWImageZoomView.h"
 #import "LWWebViewController.h"
 #import "AppDelegate.h"
+#import "LWHelper.h"
 #import <UShareUI/UShareUI.h>
 
-@interface ViewController ()
+@interface ViewController ()<GADRewardBasedVideoAdDelegate>
 
 @end
 
@@ -27,6 +28,8 @@
 
     //绘图板添加默认图片
     [self.contentView loadDefaultImage];
+
+    [self setupRewardBasedVideoAd]; //设置广告
 
     self.fontURLMap = @{
             @"SCFYYREN":@"http://oss.wodedata.com/Fonts/%E4%B9%A6%E4%BD%93%E5%9D%8A%E4%BA%8E%E5%8F%B3%E4%BB%BB%E6%A0%87%E5%87%86%E8%8D%89%E4%B9%A6.ttf",
@@ -66,7 +69,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -101,25 +103,78 @@
 //    [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
 //}
 
+//创建RewardBasedVideoAd，谷歌广告
+- (void)setupRewardBasedVideoAd {
+    [GADRewardBasedVideoAd sharedInstance].delegate = self;
+    GADRequest *request = [GADRequest request];
+    request.testDevices = @[ @"282f51ecaa6124fb574870131212a1fe" ];
+    //request.testDevices = @[kGADSimulatorID,@"282f51ecaa6124fb574870131212a1fe"];
+    [[GADRewardBasedVideoAd sharedInstance] loadRequest:request withAdUnitID:@"ca-app-pub-8760692904992206/1973725839"];
+}
+
+#pragma mark - GADRewardBasedVideoAdDelegate
+
+- (void)rewardBasedVideoAd:(GADRewardBasedVideoAd *)rewardBasedVideoAd
+   didRewardUserWithReward:(GADAdReward *)reward {
+    NSString *rewardMessage = [NSString stringWithFormat:@"Reward received with currency %@ , amount %lf",
+                                       reward.type,
+                                       [reward.amount doubleValue]];
+    NSLog(@"rewardMessage:%@",rewardMessage);
+}
+
+- (void)rewardBasedVideoAdDidReceiveAd:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
+    NSLog(@"Reward based video ad is received.");
+}
+
+- (void)rewardBasedVideoAdDidOpen:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
+    NSLog(@"Opened reward based video ad.");
+}
+
+- (void)rewardBasedVideoAdDidStartPlaying:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
+    NSLog(@"Reward based video ad started playing.");
+}
+
+- (void)rewardBasedVideoAdDidClose:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
+    NSLog(@"Reward based video ad is closed.");
+}
+
+- (void)rewardBasedVideoAdWillLeaveApplication:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
+    NSLog(@"Reward based video ad will leave application.");
+}
+
+- (void)rewardBasedVideoAd:(GADRewardBasedVideoAd *)rewardBasedVideoAd
+    didFailToLoadWithError:(NSError *)error {
+    NSLog(@"Reward based video ad failed to load.");
+}
+
+
 
 #pragma mark - IBAction
 - (IBAction)titleBtnAction:(UIButton *)sender {
 }
 
 - (IBAction)selPhotoAction:(id)sender {
-    [self.contentView showPhotos];
+    if(![self showSearchAd]){
+        [self.contentView showPhotos];
+    }
 }
 
 - (IBAction)filterAction:(id)sender {
-    [self.contentView showFilters];
+    if(![self showSearchAd]){
+        [self.contentView showFilters];
+    }
 }
 
 - (IBAction)cropAction:(id)sender {
-    [self.contentView showOrHideCropView];
+    if(![self showSearchAd]){
+        [self.contentView showOrHideCropView];
+    }
 }
 
 - (IBAction)drawAction:(id)sender {
-    [self.contentView showDrawView];
+    if(![self showSearchAd]){
+        [self.contentView showDrawView];
+    }
 }
 
 
@@ -244,6 +299,26 @@
         [self.navigationController pushViewController:controller animated:YES];
     }
 }
+
+//展示广告
+- (BOOL)showSearchAd {
+    if (![[GADRewardBasedVideoAd sharedInstance] isReady]) {
+        [self setupRewardBasedVideoAd];
+    }
+
+    NSInteger adOpenCount = [[NSUserDefaults standardUserDefaults] integerForKey:Key_AdOpenCount];
+    if ([GADRewardBasedVideoAd sharedInstance].isReady && adOpenCount >= 3 && ![LWHelper isPurchased]) {  //判断是否弹出广告
+        [[GADRewardBasedVideoAd sharedInstance] presentFromRootViewController:self];
+        [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:Key_AdOpenCount];
+        return YES;
+
+    } else {
+        [[NSUserDefaults standardUserDefaults] setInteger:adOpenCount + 1 forKey:Key_AdOpenCount];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        return NO;
+    }
+}
+
 
 
 @end

@@ -271,20 +271,20 @@
             [[NSUserDefaults standardUserDefaults] setObject:@NO forKey:Key_isPurchasedSuccessedUser];
             [[NSUserDefaults standardUserDefaults] synchronize];
             [LWHelper showHUDWithDetailMessage:storeObserver.message];
-            [self.tableView reloadData];
+            [self updateBuyUI]; //更新购买UI
             break;
         case IAPRestoredSucceeded: {
             [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:Key_isPurchasedSuccessedUser];
             [[NSUserDefaults standardUserDefaults] synchronize];
             [LWHelper showHUDWithDetailMessage:storeObserver.message];
-            [self.tableView reloadData];
+            [self updateBuyUI]; //更新购买UI
             break;
         }
         case IAPRestoredFailed:
             [[NSUserDefaults standardUserDefaults] setObject:@NO forKey:Key_isPurchasedSuccessedUser];
             [[NSUserDefaults standardUserDefaults] synchronize];
             [LWHelper showHUDWithDetailMessage:storeObserver.message];
-            [self.tableView reloadData];
+            [self updateBuyUI]; //更新购买UI
             break;
         case IAPDownloadStarted: {
             break;
@@ -297,7 +297,7 @@
             [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:Key_isPurchasedSuccessedUser];
             [[NSUserDefaults standardUserDefaults] synchronize];
             //[LWHelper showHUDWithDetailMessage:storeObserver.message];
-            [self.tableView reloadData];
+            [self updateBuyUI]; //更新购买UI
             break;
         }
         default:
@@ -305,6 +305,19 @@
     }
 }
 
+/*
+ * 更新购买UI
+ */
+- (void)updateBuyUI {
+    if([LWHelper isPurchased]){
+        self.buyBtn.enabled = NO;
+        self.purchasedLabel.hidden = NO;
+        self.purchasedLabel.text = NSLocalizedString(@"Thanks for Your Surpport", nil);
+    }else{
+        self.buyBtn.enabled = YES;
+        self.purchasedLabel.hidden = YES;
+    }
+}
 
 
 @end

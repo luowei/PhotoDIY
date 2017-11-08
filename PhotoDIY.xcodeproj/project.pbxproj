@@ -1535,6 +1535,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "ecbbd7b0-18f0-4f71-961d-a3a4ff635852";
 				PROVISIONING_PROFILE_SPECIFIER = dev_photodiy;
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 			};
 			name = Debug;
 		};
@@ -1575,6 +1576,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "ece0b38e-5e1c-4be1-9157-66a88422b3d0";
 				PROVISIONING_PROFILE_SPECIFIER = dis_photodiy;
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 			};
 			name = Release;
 		};

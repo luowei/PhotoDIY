@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "CircleProgressBar.h"
+#import <GoogleMobileAds/GoogleMobileAds.h>
+
+#define Key_AdOpenCount @"Key_AdOpenCount"
 
 @class LWContentView;
 @class LWToolBar;

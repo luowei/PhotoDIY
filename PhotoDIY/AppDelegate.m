@@ -12,6 +12,7 @@
 #import "XGPush.h"
 #import "Categorys.h"
 #import <UMSocialCore/UMSocialCore.h>
+#import <GoogleMobileAds/GADMobileAds.h>
 
 
 
@@ -27,6 +28,8 @@
     application.applicationIconBadgeNumber = 0;
     //程序启动时处理推送
     [[LWPushManager shareManager] handPushInApplicationDidFinishLaunchingWithOptions:launchOptions];
+
+    [GADMobileAds configureWithApplicationID:@"ca-app-pub-8760692904992206~9489732700"];
 
     //打开日志
     [[UMSocialManager defaultManager] openLog:YES];
