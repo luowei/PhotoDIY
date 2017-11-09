@@ -31,3 +31,10 @@
 
 
 @end
+
+
+@interface LWTittleView : UIView
+
+@property (weak, nonatomic) IBOutlet UIButton *titleBtn;
+
+@end

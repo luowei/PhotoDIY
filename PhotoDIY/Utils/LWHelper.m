@@ -72,6 +72,7 @@
 
 //是否已经购买过了
 +(BOOL)isPurchased {
+//    return YES;
     NSNumber *isPurchasedValue = [[NSUserDefaults standardUserDefaults] objectForKey:Key_isPurchasedSuccessedUser];
     return isPurchasedValue && [isPurchasedValue boolValue];
 }

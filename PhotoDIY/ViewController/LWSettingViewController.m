@@ -24,6 +24,12 @@
 
 @implementation LWSettingViewController
 
++(instancetype)viewController {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    LWSettingViewController *settingVC = [storyboard instantiateViewControllerWithIdentifier:@"LWSettingViewController"];
+    return settingVC;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.

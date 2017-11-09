@@ -13,6 +13,7 @@
 #import "LWWebViewController.h"
 #import "AppDelegate.h"
 #import "LWHelper.h"
+#import "LWSettingViewController.h"
 #import <UShareUI/UShareUI.h>
 
 @interface ViewController ()<GADRewardBasedVideoAdDelegate>
@@ -107,7 +108,7 @@
 - (void)setupRewardBasedVideoAd {
     [GADRewardBasedVideoAd sharedInstance].delegate = self;
     GADRequest *request = [GADRequest request];
-    request.testDevices = @[ @"282f51ecaa6124fb574870131212a1fe" ];
+    request.testDevices = @[ @"282f51ecaa6124fb574870131212a1fe",@"ba19897ab4622cc1a4bc69a31665ec2d" ];
     //request.testDevices = @[kGADSimulatorID,@"282f51ecaa6124fb574870131212a1fe"];
     [[GADRewardBasedVideoAd sharedInstance] loadRequest:request withAdUnitID:@"ca-app-pub-8760692904992206/1973725839"];
 }
@@ -151,6 +152,8 @@
 
 #pragma mark - IBAction
 - (IBAction)titleBtnAction:(UIButton *)sender {
+    LWSettingViewController *settingVC = [LWSettingViewController viewController];
+    [self.navigationController pushViewController:settingVC animated:YES];
 }
 
 - (IBAction)selPhotoAction:(id)sender {
@@ -339,3 +342,10 @@
 
 @end
 
+@implementation LWTittleView
+
+- (CGSize)intrinsicContentSize {
+    return CGSizeMake(150, 36);
+}
+
+@end

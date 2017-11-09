@@ -27,6 +27,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *buyBtn;
 @property (weak, nonatomic) IBOutlet UIButton *restoreBtn;
 
+
++(instancetype)viewController;
 - (IBAction)buyAction:(UIButton *)sender;
 
 @end
