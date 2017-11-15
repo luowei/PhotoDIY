@@ -68,6 +68,12 @@ Facebook正式账号：`325600794492088   APPSecret:c8387c35222f95bfab9550ab182b
 
 购买之后可以解除所有App限制和广告。
 
+欢迎使用
+
+去掉所有限制和廣告
+
+購買之後可以解除所有App限制和廣告。
+
 
 Remove all restrictions and ads
 
@@ -82,3 +88,23 @@ After purchase, you can unblock all App restrictions and ads.
 すべての制限と広告を削除する
 
 購入後、すべてのアプリの制限と広告のブロックを解除できます。
+
+#### 支持网址
+http://app.wodedata.com/myapp/photodiy.html
+
+### v1.1版本
+
+1. 自定义字体动态下载，减少了安装包体积；
+2. 兼容了iPhoneX；
+3. 修改了图标及背景；
+4. 添加了消息推送；
+
+PhotoDIY是一款可以加滤镜、各种涂鸭、打码塞克、裁剪等功能的图片照片处理的App。
+
+1. Custom font dynamic download, reducing the volume of the installation package;
+Compatible with iPhoneX
+3. modified the icon and background;
+4. Added message push;
+
+PhotoDIY is a photo processing application that can add filters, all kinds of graffiti, playing code Seck, cropping and other functions.
+
