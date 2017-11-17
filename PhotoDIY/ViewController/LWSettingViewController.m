@@ -279,6 +279,7 @@
             [LWHelper showHUDWithDetailMessage:storeObserver.message];
             [self updateBuyUI]; //更新购买UI
             break;
+        case IAPPurchaseSucceeded:
         case IAPRestoredSucceeded: {
             [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:Key_isPurchasedSuccessedUser];
             [[NSUserDefaults standardUserDefaults] synchronize];
