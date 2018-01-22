@@ -75,9 +75,9 @@ Facebook正式账号：`325600794492088   APPSecret:c8387c35222f95bfab9550ab182b
 購買之後可以解除所有App限制和廣告。
 
 
-Remove all restrictions and ads
+Remove all restrictions
 
-After purchase, you can unblock all App restrictions and ads.
+After purchase, unblock all App restrictions and ads.
 
 
 모든 제한 사항 및 광고 삭제

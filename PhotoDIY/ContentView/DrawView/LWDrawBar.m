@@ -761,11 +761,11 @@
 //        [[SDImageCache sharedImageCache] storeImage:image forKey:[NSString stringWithFormat:@"%@_160",fontName] toDisk:YES];
 //    }
 
-    NSString *tempFontName = fontName;
+//    NSString *tempFontName = fontName;
 //    if(![LWFontManager isAvaliableFont:fontName]){  //如果字体不可用
 //        tempFontName = @"Helvetica";
 //    }
-    cell.imageView.image = [self getFontImageWithFontName:tempFontName];
+    cell.imageView.image = [self getFontImageWithFontName:fontName];
 
     return cell;
 }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="UFw-lB-Auc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="UFw-lB-Auc">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment version="2304" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -1100,12 +1100,16 @@
                             <rect key="frame" x="0.0" y="0.0" width="320" height="110"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PhotoDIY.png" translatesAutoresizingMaskIntoConstraints="NO" id="pgO-24-g11">
+                                <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PhotoDIY.png" translatesAutoresizingMaskIntoConstraints="NO" id="pgO-24-g11">
                                     <rect key="frame" x="130" y="8" width="60" height="60"/>
+                                    <gestureRecognizers/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="60" id="CLg-F2-yjT"/>
                                         <constraint firstAttribute="height" constant="60" id="prE-Ng-Kh1"/>
                                     </constraints>
+                                    <connections>
+                                        <outletCollection property="gestureRecognizers" destination="3MX-oF-4VL" appends="YES" id="Y5c-bN-dLo"/>
+                                    </connections>
                                 </imageView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FdT-tp-olH">
                                     <rect key="frame" x="79" y="80" width="62" height="30"/>
@@ -1128,7 +1132,6 @@
                                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="谢谢您的支持！" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P3L-48-YJn">
                                     <rect key="frame" x="110" y="70" width="100" height="17"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dkx-r8-6Tp" userLabel="BottomLine">
@@ -1222,6 +1225,12 @@
                         <constraint firstItem="fiH-9z-Z3Q" firstAttribute="centerY" secondItem="JRR-CL-PNr" secondAttribute="centerY" id="Xny-bJ-yvg"/>
                     </constraints>
                 </view>
+                <tapGestureRecognizer id="3MX-oF-4VL">
+                    <connections>
+                        <action selector="logoTaped:" destination="Fhm-Zs-196" id="k0K-ww-Cb5"/>
+                        <outlet property="delegate" destination="pgO-24-g11" id="wN0-r2-EvF"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1931" y="316"/>
         </scene>

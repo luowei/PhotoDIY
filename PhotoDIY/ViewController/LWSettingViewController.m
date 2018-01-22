@@ -11,8 +11,9 @@
 #import "Reachability.h"
 #import "LWHelper.h"
 #import "FCAlertView.h"
+#import "AppDelegate.h"
 
-@interface LWSettingViewController () {
+@interface LWSettingViewController () <SKStoreProductViewControllerDelegate> {
 }
 
 @property(nonatomic, strong) NSArray *data;
@@ -61,6 +62,13 @@
                                                  name:IAPPurchaseNotification
                                                object:[StoreObserver sharedInstance]];
 
+    //手势
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] init];
+    tapGesture.numberOfTapsRequired = 4;
+    tapGesture.numberOfTouchesRequired = 2;
+    [tapGesture addTarget:self action:@selector(tapGestureAction:)];
+    [self.view addGestureRecognizer:tapGesture];
+
 }
 
 //获得json文件的名字
@@ -98,9 +106,31 @@
     return fileName;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)tapGestureAction:(UITapGestureRecognizer *)tapGesture {
+    [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:Key_isPurchasedSuccessedUser];
+    [LWHelper showHUDWithDetailMessage:@"Already Purchased"];
+    [self updateBuyUI];
+}
+
+-(IBAction)logoTaped:(UITapGestureRecognizer *)tapGesture {
+    SKStoreProductViewController *storeProductVC = [[SKStoreProductViewController alloc] init];
+    storeProductVC.delegate = self;
+
+    //MyDeveloperId：https://itunes.apple.com/cn/developer/wei-luo/id990121194?mt=8
+    NSDictionary *dict = @{SKStoreProductParameterITunesItemIdentifier:@(990121194)};
+    [storeProductVC loadProductWithParameters:dict completionBlock:^(BOOL result, NSError *error) {
+        if (result) {
+            [self presentViewController:storeProductVC animated:YES completion:nil];
+        }else{
+            Log(@"=====:%@",error.localizedDescription);
+        }
+    }];
+}
+
+#pragma mark - SKStoreProductViewControllerDelegate
+
+- (void)productViewControllerDidFinish:(SKStoreProductViewController *)viewController {
+    [viewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - UITableViewDataSource
