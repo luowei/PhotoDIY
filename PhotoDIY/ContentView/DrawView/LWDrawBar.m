@@ -132,6 +132,7 @@
                 }
                 case 1:{
                     cell = (LWToolsCell *) [collectionView dequeueReusableCellWithReuseIdentifier:@"ToolSliderCell" forIndexPath:indexPath];
+                    break;
                 }
                 default:
                     break;

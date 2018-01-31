@@ -461,3 +461,192 @@ CGPoint BackScalePoint(CGPoint point, CGPoint origin, CGFloat scaleX, CGFloat sc
     return encodedString;
 }
 @end
+
+
+@implementation NSData(DataMimeType)
+
+//媒体类型
+- (NSString *)dataMimeType {
+
+    if(self.length > 12){
+        unsigned char bytes[12];  // <=>
+        [self getBytes:&bytes length:12];
+
+
+        NSMutableString *sbuf = @"".mutableCopy;
+        NSInteger i;
+        for (i=0; i<12; ++i) {
+            [sbuf appendFormat:@"%02X", (NSUInteger)bytes[i]];
+        }
+        NSLog(@"=======bytes:%@",sbuf);
+
+        if(bytes[8] == 0x33 && bytes[9] == 0x67 && bytes[10] == 0x70){
+            return @"video/3gpp";
+        }
+        if(bytes[8] == 0x4d && bytes[9] == 0x34 && bytes[10] == 0x56 && bytes[11] == 0x20){
+            //return @"video/x-flv;video/m4v";
+            return @"video/x-flv";
+        }
+        if(bytes[8] == 0x4d && bytes[9] == 0x53 && bytes[10] == 0x4e && bytes[11] == 0x56){
+            return @"video/mp4";
+        }
+        if(bytes[8] == 0x69 && bytes[9] == 0x73 && bytes[10] == 0x6f && bytes[11] == 0x6d){
+            return @"video/mp4";
+        }
+        if(bytes[8] == 0x6D && bytes[9] == 0x70 && bytes[10] == 0x34 && bytes[11] == 0x32){
+            return @"video/m4v";
+        }
+        if(bytes[8] == 0x71 && bytes[9] == 0x74 && bytes[10] == 0x20 && bytes[11] == 0x20){
+            return @"video/quicktime";
+        }
+    }
+
+
+    uint8_t c;
+    [self getBytes:&c length:1];
+
+    //文件头签名列表：https://en.wikipedia.org/wiki/List_of_file_signatures
+    //mime type:https://www.sitepoint.com/mime-types-complete-list/
+    switch (c) {
+        case 0xFF:{
+            uint16_t s;
+            [self getBytes:&s length:1];
+            if(s == 0xFFFB){
+                return @"audio/mpeg3";
+            }
+            return @"image/jpeg";
+        }
+        case 0x89:{
+            return @"image/png";
+        }
+        case 0x47:{
+            return @"image/gif";
+        }
+        case 0x49:
+        case 0x4D:{
+            uint16_t s;
+            [self getBytes:&s length:1];
+            if(s == 0x4944){
+                return @"audio/mpeg3";
+            }
+            return @"image/tiff";
+        }
+        case 0x25:{
+            return @"application/pdf";
+        }
+        case 0xD0:{
+            return @"application/vnd";
+        }
+        case 0x23:
+        case 0x7b:  //rtf
+        case 0x81:  //WordPerfect text file
+        case 0x46:{
+            return @"text/plain";
+        }
+        case 0x50:{  //zip,jar,odt,ods,odp,docx,xlsx,pptx,vsdx,apk,aar
+            return @"application/zip";
+        }
+        case 0x52:{ //avi,wav
+            return @"video/avi";
+        }
+        default:{
+            return @"application/octet-stream";
+        }
+
+    }
+    return @"application/octet-stream";
+}
+
+//后缀
+-(NSString *)dataSuffix {
+
+    if(self.length > 12){
+        unsigned char bytes[12];  // <=>
+        [self getBytes:&bytes length:12];
+
+
+        NSMutableString *sbuf = @"".mutableCopy;
+        NSInteger i;
+        for (i=0; i<12; ++i) {
+            [sbuf appendFormat:@"%02X", (NSUInteger)bytes[i]];
+        }
+        NSLog(@"=======bytes:%@",sbuf);
+
+        if(bytes[8] == 0x33 && bytes[9] == 0x67 && bytes[10] == 0x70){
+            return @"3gp";
+        }
+        if(bytes[8] == 0x4d && bytes[9] == 0x34 && bytes[10] == 0x56 && bytes[11] == 0x20){
+            return @"flv";
+        }
+        if(bytes[8] == 0x4d && bytes[9] == 0x53 && bytes[10] == 0x4e && bytes[11] == 0x56){
+            return @"mp4";
+        }
+        if(bytes[8] == 0x69 && bytes[9] == 0x73 && bytes[10] == 0x6f && bytes[11] == 0x6d){
+            return @"mp4";
+        }
+        if(bytes[8] == 0x6D && bytes[9] == 0x70 && bytes[10] == 0x34 && bytes[11] == 0x32){
+            return @"m4v";
+        }
+        if(bytes[8] == 0x71 && bytes[9] == 0x74 && bytes[10] == 0x20 && bytes[11] == 0x20){
+            return @"mov";
+        }
+    }
+
+
+    uint8_t c;
+    [self getBytes:&c length:1];
+
+    switch (c) {
+        case 0xFF:{
+            uint16_t s;
+            [self getBytes:&s length:1];
+            if(s == 0xFFFB){
+                return @"mp3";
+            }
+            return @"jpg";
+        }
+        case 0x89:{
+            return @"png";
+        }
+        case 0x47:{
+            return @"gif";
+        }
+        case 0x49:
+        case 0x4D:{
+            uint16_t s;
+            [self getBytes:&s length:1];
+            if(s == 0x4944){
+                return @"mp3";
+            }
+            return @"tiff";
+        }
+        case 0x25:{
+            return @"pdf";
+        }
+        case 0xD0:{
+            return @"vnd";
+        }
+        case 0x23:
+        case 0x7b:{  //rtf
+            return @"rtf";
+        }
+        case 0x81:  //WordPerfect text file
+        case 0x46:{ //text file
+            return @"";//@"txt";
+        }
+        case 0x50:{  //zip,jar,odt,ods,odp,docx,xlsx,pptx,vsdx,apk,aar
+            return @"zip";
+        }
+        case 0x52:{ //avi,wav
+            return @"avi";
+        }
+        default:{
+            return @"";
+        }
+
+    }
+    return @"";
+}
+
+
+@end

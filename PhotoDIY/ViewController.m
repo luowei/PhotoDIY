@@ -14,6 +14,8 @@
 #import "AppDelegate.h"
 #import "LWHelper.h"
 #import "LWSettingViewController.h"
+#import "SVProgressHUD.h"
+#import "MyExtensions.h"
 #import <UShareUI/UShareUI.h>
 
 @interface ViewController ()<GADRewardBasedVideoAdDelegate>
@@ -289,23 +291,78 @@
     UIViewController *controller = nil;
 
     if ([scheme isEqualToString:@"photodiy"]) {
-        NSString *urlString = [queryDict[@"url"] stringByRemovingPercentEncoding];
-        urlString = (NSString *) CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (__bridge CFStringRef) urlString, (CFStringRef) @"!NULL,'()*+,-./:;=?@_~%#[]", NULL, kCFStringEncodingUTF8));
-        NSURL *detailURL = [NSURL URLWithString:urlString];
 
-        if (([hostSufix isEqualToString:@"http"] || [hostSufix isEqualToString:@"https"]) && detailURL) {
-            controller = [LWWebViewController viewController:detailURL title:nil];
-        }else{
-            return;
+        if([host hasPrefix:@"share"]){    //如果是Share Extension跳来的
+
+            if([hostSufix isEqualToString:@"file"]){    //文件
+//                //从app group中获得文件路径
+                NSString *absolutePath = [queryDict[@"url"] stringByRemovingPercentEncoding];
+                if(!absolutePath || absolutePath.length <= 0){
+                    return;
+                }
+                NSData *data = [[NSFileManager defaultManager] contentsAtPath:absolutePath];
+                NSString *mimeType = [data dataMimeType];
+
+                if( ([mimeType hasPrefix:@"image"] && data.length/1024.0f/1024.0f > 10)
+                    /*|| ([mimeType hasPrefix:@"video"] && data.length/1024.0f/1024.0f > 100)*/
+                        ){   //大于10M
+                    [SVProgressHUD showErrorWithStatus:@"file too big"];    //文件太大
+                    return;
+                }
+
+                //是图片，不是GIF图片
+                if([mimeType hasPrefix:@"image"] && ![mimeType isEqualToString:@"image/gif"]){  //图片
+                    //NSString *fileName = [absolutePath subStringWithRegex:@".*/([^/]*)$" matchIndex:1];
+                    UIImage *image = [[UIImage alloc] initWithData:data];
+                    [self.contentView loadPhoto:image];
+                    [self.navigationController popToRootViewControllerAnimated:YES];
+                    return;
+                }
+
+                //ShareExtension 把livephoto 当图片文件处理了，所以这里不用处理livephoto;
+                //同样video类型的视频也不用处理忽略
+                return;
+            }
+
+            if([hostSufix containsString:@"http"]){ //链接
+                NSURL *detailURL = [self getHTTPURLFromQueryDict:queryDict];
+                if(!detailURL){
+                    return;
+                }
+                controller = [LWWebViewController viewController:detailURL title:nil];
+                [self showViewController:controller withQueryDict:queryDict];
+                return;
+            }
+
+
+        }else if (([hostSufix containsString:@"http"])) {
+            NSURL *detailURL = [self getHTTPURLFromQueryDict:queryDict];
+            if(detailURL){
+                controller = [LWWebViewController viewController:detailURL title:nil];
+                [self showViewController:controller withQueryDict:queryDict];
+            }
         }
+
     }
+}
+
+- (void)showViewController:(UIViewController *)controller withQueryDict:(NSDictionary *)queryDict {
     if (controller) {
         NSString *title = [queryDict[@"title"] stringByRemovingPercentEncoding];
         controller.navigationItem.title = title;
         [controller setHidesBottomBarWhenPushed:YES];
+
         [self.navigationController pushViewController:controller animated:YES];
     }
 }
+
+- (NSURL *)getHTTPURLFromQueryDict:(NSDictionary *)queryDict {
+    NSString *urlString = [queryDict[@"url"] stringByRemovingPercentEncoding];
+//    urlString = (NSString *) CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (__bridge CFStringRef) urlString, (CFStringRef) @"!NULL,'()*+,-./:;=?@_~%#[]", NULL, kCFStringEncodingUTF8));
+    NSURL *detailURL = [NSURL URLWithString:urlString];
+    return detailURL;
+}
+
 
 //展示广告
 - (BOOL)showSearchAd {

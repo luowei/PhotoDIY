@@ -1,0 +1,11 @@
+/* 
+  Localizable.strings
+  GIFEmoji
+
+  Created by Luo Wei on 2018/1/27.
+  Copyright © 2018年 Luo Wei. All rights reserved.
+*/
+
+"Share Data" = "Share Data";
+"Import MyBrowser" = "导入我的浏览器";
+"Data Empty" = "数据为空";

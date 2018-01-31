@@ -4,5 +4,15 @@
 <dict>
 	<key>aps-environment</key>
 	<string>development</string>
+	<key>com.apple.security.application-groups</key>
+	<array>
+		<string>group.com.wodedata.GIFEmoji</string>
+		<string>group.com.wodedata.LWInputMethod</string>
+		<string>group.com.wodedata.MarkDownEditer</string>
+		<string>group.com.wodedata.MyBrowser</string>
+		<string>group.com.wodedata.MyInputMethod</string>
+		<string>group.com.wodedata.photodiy</string>
+		<string>group.com.wodedata.test</string>
+	</array>
 </dict>
 </plist>

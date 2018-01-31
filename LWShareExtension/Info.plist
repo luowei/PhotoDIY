@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>LWShareExtension</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>$(PRODUCT_NAME)</string>
+	<key>CFBundlePackageType</key>
+	<string>XPC!</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.2</string>
+	<key>CFBundleVersion</key>
+	<string>20180128</string>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>请允许访问媒体库</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>请允许使用日历</string>
+	<key>NSCameraUsageDescription</key>
+	<string>请允许使用相机</string>
+	<key>NSContactsUsageDescription</key>
+	<string>请允许访问联系人</string>
+	<key>NSExtension</key>
+	<dict>
+		<key>NSExtensionAttributes</key>
+		<dict>
+			<key>NSExtensionActivationRule</key>
+			<string>SUBQUERY (
+				extensionItems,
+				$extensionItem,
+				SUBQUERY (
+				$extensionItem.attachments,
+				$attachment,
+
+				(
+				ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "com.adobe.pdf"
+				|| ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.image"
+				|| ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.plain-text"
+				|| ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.png"
+				|| ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.jpeg"
+				|| ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.jpeg-2000"
+				|| ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.tiff"
+				|| ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "com.compuserve.gif"
+				|| ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "com.microsoft.bmp"
+				|| ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "com.microsoft.word.doc"
+				|| ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "org.openxmlformats.wordprocessingml.document"
+				|| ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.comma-separated-values-text"
+				|| ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.data"
+				|| ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.content"
+				|| ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.item"
+				|| ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.database"
+				|| ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.calendar-event"
+				|| ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.message"
+				|| ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.contact"
+				|| ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.archive"
+				)
+				AND
+				(
+				NOT ( ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "com.adobe.photoshop-image" )
+				)
+
+				).@count == $extensionItem.attachments.@count
+				).@count == 1
+			</string>
+			<key>NSExtensionActivationUsesStrictMatching</key>
+			<true/>
+		</dict>
+		<key>NSExtensionPointIdentifier</key>
+		<string>com.apple.share-services</string>
+		<key>NSExtensionPrincipalClass</key>
+		<string>ShareNavigationViewController</string>
+	</dict>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>请允许添加照片</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>请允许访问相册</string>
+</dict>
+</plist>

@@ -136,4 +136,19 @@ CGPoint BackScalePoint(CGPoint point,CGPoint origin,CGFloat scaleX,CGFloat scale
 
 - (NSString *)md5;
 - (NSString*) mk_urlEncodedString;
+
 @end
+
+
+
+@interface NSData (DataMimeType)
+
+//媒体类型
+- (NSString *)dataMimeType;
+
+//后缀
+-(NSString *)dataSuffix;
+
+@end
+
+

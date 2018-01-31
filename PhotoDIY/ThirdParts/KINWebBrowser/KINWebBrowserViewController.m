@@ -36,6 +36,7 @@
 #import "UIWebView+Cookie.h"
 #import "NSHTTPCookie+javascriptString.h"
 #import "RegExCategories.h"
+#import "ShareCategories.h"
 //#import <MJRefresh/MJRefresh.h>
 
 static void *KINWebBrowserContext = &KINWebBrowserContext;
@@ -365,6 +366,10 @@ static void *KINWebBrowserContext = &KINWebBrowserContext;
 #pragma mark - WKNavigationDelegate
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler {
+    if([navigationResponse.response.MIMEType isEqualToString:@"application/x-apple-aspen-config"]){
+        [self openURLWithUrl:navigationResponse.response.URL];
+        decisionHandler(WKNavigationResponsePolicyCancel);
+    }
     decisionHandler(WKNavigationResponsePolicyAllow);
 }
 
@@ -405,6 +410,14 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredentia
         dispatch_async(dispatch_get_main_queue(), ^{
             [self presentViewController:alertController animated:YES completion:nil];
         });
+
+    }else if([authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust]    /*服务端证书验证方式*/
+            || [authenticationMethod isEqualToString:NSURLAuthenticationMethodClientCertificate]){
+        SecTrustRef serverTrust = challenge.protectionSpace.serverTrust;
+        CFDataRef exceptions = SecTrustCopyExceptions (serverTrust);
+        SecTrustSetExceptions (serverTrust, exceptions);
+        CFRelease (exceptions);
+        completionHandler (NSURLSessionAuthChallengeUseCredential, [NSURLCredential credentialForTrust:serverTrust]);
 
     } else {
         completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, nil);
@@ -610,6 +623,19 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredentia
             }]];
             [self presentViewController:alertController animated:YES completion:nil];
         }
+
+        //打开自己的App
+        if([url.scheme.lowercaseString isEqualToString:@"lwinputmethod"]
+                || [url.scheme.lowercaseString isEqualToString:@"mymarkdown"]
+                || [url.scheme.lowercaseString isEqualToString:@"mywallpaper"]
+                || [url.scheme.lowercaseString isEqualToString:@"gifemoji"]
+                || [url.scheme.lowercaseString isEqualToString:@"photodiy"]
+                || [url.scheme.lowercaseString isEqualToString:@"mybrowser"]){
+            [self openURLWithUrl:url];
+            decisionHandler(WKNavigationActionPolicyCancel);
+            return;
+        }
+
     }
     decisionHandler(WKNavigationActionPolicyAllow);
 }
