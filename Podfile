@@ -34,7 +34,7 @@ pod ‘UMengUShare/Social/Instagram'
 
 pod 'FCAlertView', '~> 1.4.0'
 
-pod 'Google-Mobile-Ads-SDK', '~> 7.25.0'
+pod 'Google-Mobile-Ads-SDK', '~> 7.28.0'
 
 end
 

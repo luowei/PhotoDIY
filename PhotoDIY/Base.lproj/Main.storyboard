@@ -1096,7 +1096,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="hLk-ZO-y7l">
+                        <view key="tableHeaderView" contentMode="scaleToFill" misplaced="YES" id="hLk-ZO-y7l">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="110"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
@@ -1135,7 +1135,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dkx-r8-6Tp" userLabel="BottomLine">
-                                    <rect key="frame" x="0.0" y="110" width="320" height="0.0"/>
+                                    <rect key="frame" x="0.0" y="46" width="320" height="0.0"/>
                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="0.5" id="euh-VE-Kmd"/>
@@ -1358,7 +1358,7 @@
         <image name="Index_Right" width="30" height="30"/>
         <image name="Lambeau.jpg" width="1242" height="1656"/>
         <image name="NoEditBtn" width="40" height="40"/>
-        <image name="PhotoDIY.png" width="288" height="288"/>
+        <image name="PhotoDIY.png" width="512" height="512"/>
         <image name="PhotoSelectBtn" width="100" height="100"/>
         <image name="PhotoSelectBtn_Selected" width="100" height="100"/>
         <image name="TileBtn" width="80" height="80"/>

@@ -1483,7 +1483,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-PhotoDIY/Pods-PhotoDIY-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/FCAlertView/FCAlertView.bundle",
+				$PODS_CONFIGURATION_BUILD_DIR/FCAlertView/FCAlertView.bundle,
 				"${PODS_ROOT}/GPUImage/framework/Resources/lookup.png",
 				"${PODS_ROOT}/GPUImage/framework/Resources/lookup_amatorka.png",
 				"${PODS_ROOT}/GPUImage/framework/Resources/lookup_miss_etikate.png",

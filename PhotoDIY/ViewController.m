@@ -110,7 +110,7 @@
 - (void)setupRewardBasedVideoAd {
     [GADRewardBasedVideoAd sharedInstance].delegate = self;
     GADRequest *request = [GADRequest request];
-    request.testDevices = @[ @"282f51ecaa6124fb574870131212a1fe",@"ba19897ab4622cc1a4bc69a31665ec2d" ];
+    request.testDevices = @[ @"282f51ecaa6124fb574870131212a1fe",@"ba19897ab4622cc1a4bc69a31665ec2d",@"282f51ecaa6124fb574870131212a1fe" ];
     //request.testDevices = @[kGADSimulatorID,@"282f51ecaa6124fb574870131212a1fe"];
     [[GADRewardBasedVideoAd sharedInstance] loadRequest:request withAdUnitID:@"ca-app-pub-8760692904992206/1973725839"];
 }

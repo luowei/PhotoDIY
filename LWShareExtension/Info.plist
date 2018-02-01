@@ -19,7 +19,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.2</string>
 	<key>CFBundleVersion</key>
-	<string>20180128</string>
+	<string>20180130</string>
 	<key>NSAppleMusicUsageDescription</key>
 	<string>请允许访问媒体库</string>
 	<key>NSCalendarsUsageDescription</key>

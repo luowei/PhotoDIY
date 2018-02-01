@@ -84,7 +84,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>20180128</string>
+	<string>20180130</string>
 	<key>FacebookAppID</key>
 	<string>326136004438567</string>
 	<key>FacebookDisplayName</key>
@@ -340,11 +340,11 @@
 	<key>NSAppleMusicUsageDescription</key>
 	<string></string>
 	<key>NSCameraUsageDescription</key>
-	<string>请允许打开相机</string>
+	<string>请允许使用相机拍摄照片</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>请充许添加照片</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>请允许打开相册</string>
+	<string>请允许访问相册，选择相册照片进行DIY编辑？</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>
