@@ -1,0 +1,455 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1D0E5F2A2C8E4F5800123456 /* PhotofyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0E5F292C8E4F5800123456 /* PhotofyApp.swift */; };
+		1D0E5F2C2C8E4F5800123456 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0E5F2B2C8E4F5800123456 /* ContentView.swift */; };
+		1D0E5F2E2C8E4F5A00123456 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1D0E5F2D2C8E4F5A00123456 /* Assets.xcassets */; };
+		1D0E5F312C8E4F5A00123456 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1D0E5F302C8E4F5A00123456 /* Preview Assets.xcassets */; };
+		1D0E5F722C8E4F9900123456 /* Placeholders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0E5F712C8E4F9900123456 /* Placeholders.swift */; };
+		1D0E5F732C8E4FA000123456 /* ZoomableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0E5F742C8E4FA000123456 /* ZoomableImageView.swift */; };
+		1D0E5F752C8E4FA100123456 /* ImageFilterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0E5F762C8E4FA100123456 /* ImageFilterManager.swift */; };
+		1D0E5F772C8E4FA200123456 /* AIImageProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0E5F782C8E4FA200123456 /* AIImageProcessor.swift */; };
+		1D0E5F792C8E4FA300123456 /* FilterSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0E5F7A2C8E4FA300123456 /* FilterSelectorView.swift */; };
+		1D0E5F7B2C8E4FA400123456 /* EditingToolsPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0E5F7C2C8E4FA400123456 /* EditingToolsPanel.swift */; };
+		1D0E5F7D2C8E4FA500123456 /* AIFeaturesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0E5F7E2C8E4FA500123456 /* AIFeaturesView.swift */; };
+		1D0E5F7F2C8E4FA600123456 /* EditingOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0E5F802C8E4FA600123456 /* EditingOverlayView.swift */; };
+		1D0E5F812C8E4FA700123456 /* EditingModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0E5F822C8E4FA700123456 /* EditingModels.swift */; };
+		1D0E5F832C8E4FA800123456 /* ImageCropManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0E5F842C8E4FA800123456 /* ImageCropManager.swift */; };
+		1D0E5F852C8E4FA900123456 /* CropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0E5F862C8E4FA900123456 /* CropView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1D0E5F262C8E4F5800123456 /* Photofy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Photofy.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D0E5F292C8E4F5800123456 /* PhotofyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotofyApp.swift; sourceTree = "<group>"; };
+		1D0E5F2B2C8E4F5800123456 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		1D0E5F2D2C8E4F5A00123456 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1D0E5F302C8E4F5A00123456 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		1D0E5F532C8E4F9800123456 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1D0E5F712C8E4F9900123456 /* Placeholders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Placeholders.swift; sourceTree = "<group>"; };
+		1D0E5F742C8E4FA000123456 /* ZoomableImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomableImageView.swift; sourceTree = "<group>"; };
+		1D0E5F762C8E4FA100123456 /* ImageFilterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFilterManager.swift; sourceTree = "<group>"; };
+		1D0E5F782C8E4FA200123456 /* AIImageProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIImageProcessor.swift; sourceTree = "<group>"; };
+		1D0E5F7A2C8E4FA300123456 /* FilterSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSelectorView.swift; sourceTree = "<group>"; };
+		1D0E5F7C2C8E4FA400123456 /* EditingToolsPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingToolsPanel.swift; sourceTree = "<group>"; };
+		1D0E5F7E2C8E4FA500123456 /* AIFeaturesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIFeaturesView.swift; sourceTree = "<group>"; };
+		1D0E5F802C8E4FA600123456 /* EditingOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingOverlayView.swift; sourceTree = "<group>"; };
+		1D0E5F822C8E4FA700123456 /* EditingModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingModels.swift; sourceTree = "<group>"; };
+		1D0E5F842C8E4FA800123456 /* ImageCropManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCropManager.swift; sourceTree = "<group>"; };
+		1D0E5F862C8E4FA900123456 /* CropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1D0E5F232C8E4F5800123456 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1D0E5F1D2C8E4F5800123456 = {
+			isa = PBXGroup;
+			children = (
+				1D0E5F282C8E4F5800123456 /* Photofy */,
+				1D0E5F272C8E4F5800123456 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1D0E5F272C8E4F5800123456 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1D0E5F262C8E4F5800123456 /* Photofy.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1D0E5F282C8E4F5800123456 /* Photofy */ = {
+			isa = PBXGroup;
+			children = (
+				1D0E5F532C8E4F9800123456 /* Info.plist */,
+				1D0E5F542C8E4FA000123456 /* App */,
+				1D0E5F832C8E4FB200123456 /* Models */,
+				1D0E5F812C8E4FB000123456 /* Views */,
+				1D0E5F822C8E4FB100123456 /* Services */,
+				1D0E5F557C8E4FAF00123456 /* Resources */,
+				1D0E5F2F2C8E4F5A00123456 /* Preview Content */,
+				1D0E5F712C8E4F9900123456 /* Placeholders.swift */,
+			);
+			path = Photofy;
+			sourceTree = "<group>";
+		};
+		1D0E5F2F2C8E4F5A00123456 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				1D0E5F302C8E4F5A00123456 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		1D0E5F542C8E4FA000123456 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				1D0E5F292C8E4F5800123456 /* PhotofyApp.swift */,
+				1D0E5F2B2C8E4F5800123456 /* ContentView.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		1D0E5F557C8E4FAF00123456 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				1D0E5F2D2C8E4F5A00123456 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		1D0E5F812C8E4FB000123456 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1D0E5F742C8E4FA000123456 /* ZoomableImageView.swift */,
+				1D0E5F7A2C8E4FA300123456 /* FilterSelectorView.swift */,
+				1D0E5F7C2C8E4FA400123456 /* EditingToolsPanel.swift */,
+				1D0E5F7E2C8E4FA500123456 /* AIFeaturesView.swift */,
+				1D0E5F802C8E4FA600123456 /* EditingOverlayView.swift */,
+				1D0E5F862C8E4FA900123456 /* CropView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		1D0E5F822C8E4FB100123456 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				1D0E5F762C8E4FA100123456 /* ImageFilterManager.swift */,
+				1D0E5F782C8E4FA200123456 /* AIImageProcessor.swift */,
+				1D0E5F842C8E4FA800123456 /* ImageCropManager.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		1D0E5F832C8E4FB200123456 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				1D0E5F822C8E4FA700123456 /* EditingModels.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1D0E5F252C8E4F5800123456 /* Photofy */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1D0E5F4A2C8E4F5A00123456 /* Build configuration list for PBXNativeTarget "Photofy" */;
+			buildPhases = (
+				1D0E5F222C8E4F5800123456 /* Sources */,
+				1D0E5F232C8E4F5800123456 /* Frameworks */,
+				1D0E5F242C8E4F5800123456 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Photofy;
+			productName = Photofy;
+			productReference = 1D0E5F262C8E4F5800123456 /* Photofy.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1D0E5F1E2C8E4F5800123456 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					1D0E5F252C8E4F5800123456 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = 1D0E5F212C8E4F5800123456 /* Build configuration list for PBXProject "Photofy" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 1D0E5F1D2C8E4F5800123456;
+			productRefGroup = 1D0E5F272C8E4F5800123456 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1D0E5F252C8E4F5800123456 /* Photofy */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1D0E5F242C8E4F5800123456 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D0E5F312C8E4F5A00123456 /* Preview Assets.xcassets in Resources */,
+				1D0E5F2E2C8E4F5A00123456 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1D0E5F222C8E4F5800123456 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D0E5F2C2C8E4F5800123456 /* ContentView.swift in Sources */,
+				1D0E5F2A2C8E4F5800123456 /* PhotofyApp.swift in Sources */,
+				1D0E5F722C8E4F9900123456 /* Placeholders.swift in Sources */,
+				1D0E5F732C8E4FA000123456 /* ZoomableImageView.swift in Sources */,
+				1D0E5F752C8E4FA100123456 /* ImageFilterManager.swift in Sources */,
+				1D0E5F772C8E4FA200123456 /* AIImageProcessor.swift in Sources */,
+				1D0E5F792C8E4FA300123456 /* FilterSelectorView.swift in Sources */,
+				1D0E5F7B2C8E4FA400123456 /* EditingToolsPanel.swift in Sources */,
+				1D0E5F7D2C8E4FA500123456 /* AIFeaturesView.swift in Sources */,
+				1D0E5F7F2C8E4FA600123456 /* EditingOverlayView.swift in Sources */,
+				1D0E5F812C8E4FA700123456 /* EditingModels.swift in Sources */,
+				1D0E5F832C8E4FA800123456 /* ImageCropManager.swift in Sources */,
+				1D0E5F852C8E4FA900123456 /* CropView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1D0E5F482C8E4F5A00123456 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		1D0E5F492C8E4F5A00123456 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		1D0E5F4B2C8E4F5A00123456 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Photofy/Preview Content\"";
+				DEVELOPMENT_TEAM = G3A2KYKYBU;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Photofy/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Photofy;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Photofy needs access to camera to take photos for editing";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Photofy needs permission to save edited photos to your photo library";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Photofy needs access to photo library to select and save edited photos";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UIRequiredDeviceCapabilities = armv7;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wodedata.photofy;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		1D0E5F4C2C8E4F5A00123456 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Photofy/Preview Content\"";
+				DEVELOPMENT_TEAM = G3A2KYKYBU;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Photofy/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Photofy;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Photofy needs access to camera to take photos for editing";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Photofy needs permission to save edited photos to your photo library";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Photofy needs access to photo library to select and save edited photos";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UIRequiredDeviceCapabilities = armv7;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wodedata.photofy;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1D0E5F212C8E4F5800123456 /* Build configuration list for PBXProject "Photofy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1D0E5F482C8E4F5A00123456 /* Debug */,
+				1D0E5F492C8E4F5A00123456 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1D0E5F4A2C8E4F5A00123456 /* Build configuration list for PBXNativeTarget "Photofy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1D0E5F4B2C8E4F5A00123456 /* Debug */,
+				1D0E5F4C2C8E4F5A00123456 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1D0E5F1E2C8E4F5800123456 /* Project object */;
+}

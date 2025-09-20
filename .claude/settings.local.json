@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project . -list)",
+      "Bash(xcodebuild:*)",
+      "Bash(swiftc:*)",
+      "Bash(/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -typecheck -target arm64-apple-ios16.0-simulator /Users/luowei/projects/My_App/PhotoDIY/Swift/Photofy/Views/EditingOverlayView.swift -I /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.0.sdk/usr/include -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.0.sdk)",
+      "Bash(/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project Photofy.xcodeproj -scheme Photofy -destination \"platform=iOS Simulator,name=iPhone 15,OS=latest\" build)",
+      "Bash(/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project Photofy.xcodeproj -scheme Photofy -destination \"platform=iOS Simulator,name=iPhone 17,OS=26.0\" build)",
+      "Bash(open:*)",
+      "Bash(/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project Photofy.xcodeproj -scheme Photofy -destination \"platform=iOS Simulator,name=iPhone 17,OS=26.0\" build-for-testing)",
+      "Bash(xcrun simctl install:*)",
+      "Bash(xcrun simctl launch:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
