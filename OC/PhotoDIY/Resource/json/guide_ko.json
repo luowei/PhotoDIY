@@ -1,0 +1,70 @@
+{
+  "data":[
+    {
+      "에":[
+        {
+          "버전 정보：V1.0": ""
+        },
+        {
+          "공식 웹 사이트：http://wodedata.com": "http://wodedata.com"
+        },
+        {
+          "Twitter：@luowei010101": "https://twitter.com/luowei010101"
+        },
+        {
+          "오픈 소스 (만 연구 및 참조)": "http://github.com/luowei/PhotoDIY"
+        }
+      ]
+    },
+
+    {
+      "가이드": [
+        {
+          "사진 선택 및 확대": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/01_Photo_Select_And_Scale.gif"
+        },
+        {
+          "사진 플립, 회전 및 복원": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/02_Photo_rotate_and_turn.gif"
+        },
+        {
+          "레귤레이터 필터": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/03_Filter_Use.gif"
+        },
+        {
+          "잘립니다": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/04_Clip.gif"
+        },
+        {
+          "모자이크 추가": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/05_mosical.gif"
+        },
+        {
+          "무료 브러쉬": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/06_Free_Pen.gif"
+        },
+        {
+          "색과 라인 폭의 조정을 선택": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/07_Color_And_LineWidth.gif"
+        },
+        {
+          "이모티콘 수익성 자유롭게 그려": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/08_EmojiTile.gif"
+        },
+        {
+          "수익성 무료로 사진을 그립니다": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/09_ImageTile.gif"
+        },
+        {
+          "그림자 설정": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/10_Shadow.gif"
+        },
+        {
+          "지우개 및 사용 취소": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/11_Erase_And_Undo.gif"
+        },
+        {
+          "사각형과 원형을, 직선을 그립니다 화살표": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/12_line_arrow_ranctangle_oval.gif"
+        },
+        {
+          "선택하고 텍스트 글꼴을 삽입": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/13_Text_input.gif"
+        },
+        {
+          "모바일 회전 줌 사용 편집 기능": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/14_Edit_And_Save.gif"
+        }
+      ]
+    }
+
+  ]
+
+}
+

@@ -1,0 +1,70 @@
+{
+  "data":[
+    {
+      "關於":[
+        {
+          "版本信息：V1.0": ""
+        },
+        {
+          "官方網站：http://wodedata.com": "http://wodedata.com"
+        },
+        {
+          "微博：@維唯為為": "http://m.weibo.cn/u/1745746500"
+        },
+        {
+          "開放源碼（僅供學習參考）": "http://github.com/luowei/PhotoDIY"
+        }
+      ]
+    },
+
+    {
+      "使用指南": [
+        {
+          "照片的選擇與縮放": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/01_Photo_Select_And_Scale.gif"
+        },
+        {
+          "照片的翻轉，旋轉及還原": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/02_Photo_rotate_and_turn.gif"
+        },
+        {
+          "濾鏡的使用與調節": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/03_Filter_Use.gif"
+        },
+        {
+          "照片的裁剪": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/04_Clip.gif"
+        },
+        {
+          "添加馬賽克": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/05_mosical.gif"
+        },
+        {
+          "使用自由畫筆": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/06_Free_Pen.gif"
+        },
+        {
+          "顏色的選擇與線寬調節": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/07_Color_And_LineWidth.gif"
+        },
+        {
+          "Emoji紋底自由繪製": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/08_EmojiTile.gif"
+        },
+        {
+          "照片紋底自由繪製": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/09_ImageTile.gif"
+        },
+        {
+          "陰影的設置": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/10_Shadow.gif"
+        },
+        {
+          "橡皮擦及撤銷的使用": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/11_Erase_And_Undo.gif"
+        },
+        {
+          "直線，箭頭，方形及圓形的繪製": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/12_line_arrow_ranctangle_oval.gif"
+        },
+        {
+          "字體的選擇及插入文本": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/13_Text_input.gif"
+        },
+        {
+          "移動旋轉縮放編輯功能的使用": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/14_Edit_And_Save.gif"
+        }
+      ]
+    }
+
+  ]
+
+}
+

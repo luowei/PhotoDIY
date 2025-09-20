@@ -1,0 +1,39 @@
+
+/* Class = "UILabel"; text = "访问照片失败,请确认是否打开了照片访问权限"; ObjectID = "2LQ-Wg-hTq"; */
+"2LQ-Wg-hTq.text" = "فشل في الوصول إلى الصورة. يرجى التحقق مما إذا قمت بتشغيل الوصول الصورة";
+
+/* Class = "UIButton"; normalTitle = "开始购买"; ObjectID = "FdT-tp-olH"; */
+"FdT-tp-olH.normalTitle" = "Purchase";
+
+/* Class = "UIButton"; normalTitle = "列表"; ObjectID = "Kdz-Dq-hio"; */
+"Kdz-Dq-hio.normalTitle" = "قائمة";
+
+/* Class = "UINavigationItem"; title = "照片编辑"; ObjectID = "N0f-SJ-Bit"; */
+"N0f-SJ-Bit.title" = "معدل الصور";
+
+/* Class = "UIButton"; normalTitle = "上一个"; ObjectID = "Oa6-lb-qtb"; */
+"Oa6-lb-qtb.normalTitle" = "سابق";
+
+/* Class = "UILabel"; text = "谢谢您的支持！"; ObjectID = "P3L-48-YJn"; */
+"P3L-48-YJn.text" = "شكرا لدعمك!";
+
+/* Class = "UILabel"; text = "使用指南"; ObjectID = "fiH-9z-Z3Q"; */
+"fiH-9z-Z3Q.text" = "دليل";
+
+/* Class = "UILabel"; text = "版本信息:V1.0"; ObjectID = "ksf-1b-TI2"; */
+"ksf-1b-TI2.text" = "الإصدار:V1.0";
+
+/* Class = "UIButton"; normalTitle = "设置"; ObjectID = "okW-wH-jMv"; */
+"okW-wH-jMv.normalTitle" = "ضبط";
+
+/* Class = "UIButton"; normalTitle = "照片编辑"; ObjectID = "pZ8-mM-d9M"; */
+"pZ8-mM-d9M.normalTitle" = "معدل الصور";
+
+/* Class = "UINavigationItem"; title = "设置"; ObjectID = "qnw-oF-4iG"; */
+"qnw-oF-4iG.title" = "ضبط";
+
+/* Class = "UIButton"; normalTitle = "下一个"; ObjectID = "sLw-PY-kKo"; */
+"sLw-PY-kKo.normalTitle" = "التالى";
+
+/* Class = "UIButton"; normalTitle = "刷新"; ObjectID = "ucn-Ll-sAf"; */
+"ucn-Ll-sAf.normalTitle" = "اعادة تنشيط";

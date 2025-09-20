@@ -1,0 +1,48 @@
+/* 
+  Localizable.strings
+  PhotoDIY
+
+  Created by luowei on 16/7/5.
+  Copyright © 2016年 wodedata. All rights reserved.
+*/
+
+"Save Success"           = "성공적으로 저장";
+"Cache Success"          = "준비 성공";
+"Error"                  = "오류가 발생했습니다";
+"Share succeed"          = "공유 성공";
+"Share fail"             = "오류 코드로 실패 공유 :";
+"share"                  = "몫";
+"Ok"                     = "결정";
+"Cancel"                 = "취소";
+"Close"                  = "가까운";
+"ShareText"              = "사진 DIY의 사진 공유";
+"contrast" 				 = "대비 조정";
+"levels" 				 = "레벨 조정";
+"rgb" 					 = "RGB 조정";
+"hue" 					 = "색조 조정";
+"whiteBalance" 			 = "화이트 밸런스";
+"sharpen" 				 = "선명하게";
+"Beautify" 				 = "화이트닝";
+"gamma" 				 = "감마";
+"toneCurve" 			 = "색조 조경";
+"sepiaTone" 			 = "SEPIA";
+"colorInvert" 			 = "전도";
+"grayScale" 			 = "그레이 스케일";
+"sobelEdge" 			 = "에지 개요";
+"sketch" 				 = "스케치";
+"emboss" 				 = "구조";
+"vignette" 				 = "비네팅";
+"gaussianBlur" 			 = "가우시안 흐림";
+"gaussianSelectiveBlur"	 = "다시 흐림";
+"boxBlur" 				 = "상자 흐림";
+"motionBlur" 			 = "모션 블러";
+"zoomBlur" 				 = "줌 흐림";
+
+"RePurchased Free" = "이전에 구매 한 적이 있으면 다시 구매할 수 있습니다.";
+"Purchases Disabled on this device." = "Purchases Disabled on this device.";
+"Support Developer" = "Support Developer,just ";
+
+"Have been purchased" = "You Have been purchased,No need Repurchase";
+"Thanks for Your Surpport" = "Thanks for Your Surpport!";
+
+"Purchase remove all limits" = "모든 제한을 해제하기위한 구매";

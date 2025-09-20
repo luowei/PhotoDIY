@@ -1,0 +1,69 @@
+{
+  "data":[
+    {
+      "acerca de":[
+        {
+          "versión：V1.0": ""
+        },
+        {
+          "sitio web：http://wodedata.com": "http://wodedata.com"
+        },
+        {
+          "Twitter：@luowei010101": "https://twitter.com/luowei010101"
+        },
+        {
+          "código fuente (sólo con fines educativos)": "http://github.com/luowei/PhotoDIY"
+        }
+      ]
+    },
+
+    {
+      "guiar": [
+        {
+          "foto escoger y escala": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/01_Photo_Select_And_Scale.gif"
+        },
+        {
+          "vuelco, rotar y recuperación": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/02_Photo_rotate_and_turn.gif"
+        },
+        {
+          "el uso y el control de filtro": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/03_Filter_Use.gif"
+        },
+        {
+          "clip de fotos": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/04_Clip.gif"
+        },
+        {
+          "la forma del mosaico del sapo": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/05_mosical.gif"
+        },
+        {
+          "usar la pluma libre": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/06_Free_Pen.gif"
+        },
+        {
+          "el color y la línea de ancho elegir": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/07_Color_And_LineWidth.gif"
+        },
+        {
+          "emo y baldosas de drenaje libre": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/08_EmojiTile.gif"
+        },
+        {
+          "mosaico de imagen libre de empate": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/09_ImageTile.gif"
+        },
+        {
+          "Un DDT y sombra": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/10_Shadow.gif"
+        },
+        {
+          "los EE.UU. EOF borramos rand deshacer": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/11_Erase_And_Undo.gif"
+        },
+        {
+          "dibujar la línea, flecha, rectángulo y óvalo": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/12_line_arrow_ranctangle_oval.gif"
+        },
+        {
+          "establecer la fuente y añadir texto": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/13_Text_input.gif"
+        },
+        {
+          "la función de edición de Estados Unidos EOF": "https://coding.net/u/luow/p/MyResource/git/raw/master/PhotoDIY/14_Edit_And_Save.gif"
+        }
+      ]
+    }
+
+  ]
+
+}

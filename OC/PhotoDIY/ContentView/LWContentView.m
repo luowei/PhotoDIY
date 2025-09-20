@@ -1,0 +1,413 @@
+//
+//  LWContentView.m
+//  PhotoDIY
+//
+//  Created by luowei on 16/7/4.
+//  Copyright © 2016年 wodedata. All rights reserved.
+//
+
+#import "LWContentView.h"
+#import "Categorys.h"
+#import "LWFilterCollectionView.h"
+#import "LWPhotoCollectionView.h"
+#import "MBProgressHUD.h"
+#import "LWImageCropView.h"
+#import "LWFilterImageView.h"
+#import "LWImageZoomView.h"
+#import "LWDrawView.h"
+#import "MyExtensions.h"
+#import "LWDrawBar.h"
+#import "ViewController.h"
+#import <MBProgressHUD/MBProgressHUD.h>
+
+@implementation LWContentView
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+
+    self.backgroundColor = [UIColor blackColor];
+    self.currentMode = ImageMode;
+}
+
+- (void)rotationToInterfaceOrientation:(UIInterfaceOrientation)orientation {
+    [super rotationToInterfaceOrientation:orientation];
+
+    [self hiddenHandBoard];
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [super touchesBegan:touches withEvent:event];
+    //隐藏HandBoard
+    [self hiddenHandBoard];
+}
+
+//初次启动,加载默认图片
+- (void)loadDefaultImage {
+    UIImage *inputImage = [UIImage imageNamed:@"Lambeau.jpg"];
+    [self loadPhoto:inputImage];
+}
+
+#pragma mark - PDPhotoPickerProtocol 实现
+
+- (void)collectPhotoFailed {
+
+}
+
+- (void)loadPhoto:(UIImage *)image {
+    if (!image) {
+        return;
+    }
+    LWDataManager *dm = [LWDataManager sharedInstance];
+    dm.originImage = image;
+    self.currentMode = ImageMode;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self reloadImage:image];
+    });
+
+}
+
+- (void)allURLPicked:(NSArray *)imageURLs {
+    self.imageURLs = imageURLs;
+}
+
+
+#pragma mark - 其他方法
+
+- (void)showErrorHud {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
+    hud.mode = MBProgressHUDModeText;
+    hud.label.text = NSLocalizedString(@"Error", nil);
+    [hud hideAnimated:YES afterDelay:2.0];
+}
+
+
+//隐藏HandBoard
+- (void)hiddenHandBoard {
+    if (!self.filterBar.hidden) {
+        self.filterBar.hidden = !self.filterBar.hidden;
+    }
+    if (!self.photosBar.hidden) {
+        self.photosBar.hidden = !self.photosBar.hidden;
+    }
+    NSComparisonResult result = [[UIDevice currentDevice].systemVersion compare:@"8.0"];
+    if (result == NSOrderedSame || result == NSOrderedDescending) {
+        [self removeConstraint:self.filterVPaddingFiltersBar];
+        [self removeConstraint:self.filterVPaddingPhotosBar];
+        [self addConstraint:self.filterVPaddingZero];
+        [self setNeedsUpdateConstraints];
+    }
+}
+
+//加载照片选择器
+- (void)showPhotos {
+    //处理handBoard
+    if (!self.filterBar.hidden) {
+        self.filterBar.hidden = !self.filterBar.hidden;
+    }
+
+    self.photosBar.hidden = !self.photosBar.hidden;
+    if (!self.photosBar.hidden) {
+        NSComparisonResult result = [[UIDevice currentDevice].systemVersion compare:@"8.0"];
+        if (result == NSOrderedSame || result == NSOrderedDescending) {
+            [self removeConstraint:self.filterVPaddingZero];
+            [self removeConstraint:self.filterVPaddingFiltersBar];
+            [self addConstraint:self.filterVPaddingPhotosBar];
+            [self setNeedsUpdateConstraints];
+        }
+
+        [self.photoCollectionView reloadPhotos];
+
+    } else {
+        NSComparisonResult result = [[UIDevice currentDevice].systemVersion compare:@"8.0"];
+        if (result == NSOrderedSame || result == NSOrderedDescending) {
+            [self removeConstraint:self.filterVPaddingFiltersBar];
+            [self removeConstraint:self.filterVPaddingPhotosBar];
+            [self addConstraint:self.filterVPaddingZero];
+            [self setNeedsUpdateConstraints];
+        }
+    }
+
+    LWDataManager *dm = [LWDataManager sharedInstance];
+    self.currentMode = ImageMode;
+    [self reloadImage:dm.currentImage];
+
+}
+
+
+//加载滤镜
+- (void)showFilters {
+
+    //处理handBoard
+    if (!self.photosBar.hidden) {
+        self.photosBar.hidden = !self.photosBar.hidden;
+    }
+
+    self.filterBar.hidden = !self.filterBar.hidden;
+    if (!self.filterBar.hidden) {
+        NSComparisonResult result = [[UIDevice currentDevice].systemVersion compare:@"8.0"];
+        if (result == NSOrderedSame || result == NSOrderedDescending) {
+            [self removeConstraint:self.filterVPaddingZero];
+            [self removeConstraint:self.filterVPaddingPhotosBar];
+            [self addConstraint:self.filterVPaddingFiltersBar];
+            [self setNeedsUpdateConstraints];
+        }
+
+        [self.filterCollectionView reloadFilters];
+        self.currentMode = FilterMode;
+    } else {
+        NSComparisonResult result = [[UIDevice currentDevice].systemVersion compare:@"8.0"];
+        if (result == NSOrderedSame || result == NSOrderedDescending) {
+            [self removeConstraint:self.filterVPaddingFiltersBar];
+            [self removeConstraint:self.filterVPaddingPhotosBar];
+            [self addConstraint:self.filterVPaddingZero];
+            [self setNeedsUpdateConstraints];
+        }
+        self.currentMode = ImageMode;
+    }
+
+    LWDataManager *dm = [LWDataManager sharedInstance];
+    [self reloadImage:dm.currentImage];
+}
+
+
+//显示涂鸦视图
+- (void)showDrawView {
+    //处理handBoard(隐藏)
+    if (!self.photosBar.hidden) {
+        self.photosBar.hidden = !self.photosBar.hidden;
+    }
+    //处理handBoard(隐藏)
+    if (!self.filterBar.hidden) {
+        self.filterBar.hidden = !self.filterBar.hidden;
+    }
+
+    DIYMode oldMode = self.currentMode;
+    BOOL oldStatus = self.drawView.drawBar.hidden;
+    
+    self.drawView.oldDrawMode = oldMode;
+    self.drawView.oldHiddenStatus = oldStatus;
+
+    self.currentMode = DrawMode;
+    LWDataManager *dm = [LWDataManager sharedInstance];
+    [self reloadImage:dm.currentImage];
+}
+
+#pragma mark -
+
+- (void)reloadImage:(UIImage *)image {
+
+    LWDataManager *dm = [LWDataManager sharedInstance];
+    dm.currentImage = image;
+    ViewController *vc = (ViewController *) self.viewController;
+
+    switch (self.currentMode) {
+        case FilterMode: {
+            self.zoomView.hidden = YES;
+            self.filterView.hidden = NO;
+            self.cropView.hidden = YES;
+            self.drawView.hidden = YES;
+            [self.filterView loadImage2GPUImagePicture:image];
+            vc.previewIcon.image = [UIImage imageNamed:@"filter"];
+            break;
+        }
+        case CropMode: {
+            self.zoomView.hidden = YES;
+            self.filterView.hidden = YES;
+            self.cropView.hidden = NO;
+            self.drawView.hidden = YES;
+            [self.cropView setImage:image];
+            vc.previewIcon.image = [UIImage imageNamed:@"cropButton"];
+            break;
+        }
+        case DrawMode: {
+            self.zoomView.hidden = YES;
+            self.filterView.hidden = YES;
+            self.cropView.hidden = YES;
+            self.drawView.hidden = NO;
+            [self.drawView setImage:image];
+
+            if(self.drawView.oldDrawMode == DrawMode){
+                self.drawView.drawBar.hidden = !self.drawView.oldHiddenStatus;
+                if(self.drawView.oldHiddenStatus){
+                    self.drawView.okBottomConstrant.constant = 88;
+                    self.drawView.clearBottomConstrant.constant = 88;
+                }else{
+                    self.drawView.okBottomConstrant.constant = 8;
+                    self.drawView.clearBottomConstrant.constant = 8;
+                }
+            }
+            vc.previewIcon.image = [UIImage imageNamed:@"doodleButton"];
+            break;
+        }
+        case ImageMode:
+        default: {
+            self.zoomView.hidden = NO;
+            self.filterView.hidden = YES;
+            self.cropView.hidden = YES;
+            self.drawView.hidden = YES;
+            self.zoomView.image = image;
+            [self setNeedsUpdateConstraints];
+            vc.previewIcon.image = [UIImage imageNamed:@"albumButton"];
+            break;
+        }
+    }
+}
+
+
+- (void)saveImage {
+    LWDataManager *dm = [LWDataManager sharedInstance];
+    switch (self.currentMode) {
+        case FilterMode: {
+            [self.filterView.filter forceProcessingAtSize:dm.currentImage.size];
+            [self.filterView.sourcePicture processImageUpToFilter:self.filterView.filter
+                                            withCompletionHandler:^(UIImage *processedImage) {
+                                                if (!processedImage) {
+                                                    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul), ^{
+                                                        UIImageWriteToSavedPhotosAlbum(dm.currentImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+                                                    });
+                                                } else {
+                                                    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul), ^{
+                                                        UIImageWriteToSavedPhotosAlbum(processedImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+                                                    });
+                                                }
+                                            }];
+            break;
+        }
+        case DrawMode:{
+            dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul), ^{
+                [self.drawView cacheDrawImage];
+                UIImageWriteToSavedPhotosAlbum(dm.currentImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+            });
+            break;
+        }
+        default: {
+            dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul), ^{
+                UIImageWriteToSavedPhotosAlbum(dm.currentImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+            });
+            break;
+        }
+
+    }
+
+}
+
+//获取同步的图片
+-(UIImage *)getSyncImage{
+    LWDataManager *dm = [LWDataManager sharedInstance];
+    __block UIImage *image = dm.currentImage;
+    if (self.currentMode == FilterMode) {
+        [self.filterView.filter forceProcessingAtSize:dm.currentImage.size];
+        [self.filterView.sourcePicture processImageUpToFilter:self.filterView.filter
+                                        withCompletionHandler:^(UIImage *processedImage) {
+                                            if (processedImage) {
+                                                image = processedImage;
+                                            }
+                                        }];
+    }
+    return image;
+}
+
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(id)contextInfo {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
+    hud.mode = MBProgressHUDModeText;
+    if (error != nil) {
+        //保存失败
+        hud.label.text = NSLocalizedString(@"Error", nil);
+        [hud hideAnimated:YES afterDelay:2.0];
+    } else {
+        hud.label.text = NSLocalizedString(@"Save Success", nil);
+        [hud hideAnimated:YES afterDelay:2.0];
+    }
+}
+
+
+- (void)recovery {
+    LWDataManager *dm = [LWDataManager sharedInstance];
+    [self reloadImage:dm.originImage];
+
+    if (self.filterBar) {
+        NSArray *selectedItems = self.filterCollectionView.indexPathsForSelectedItems;
+        for (NSIndexPath *path in selectedItems) {
+            LWFilterCollectionCell *cell = (LWFilterCollectionCell *) [self.filterCollectionView cellForItemAtIndexPath:path];
+            [self.filterCollectionView deselectItemAtIndexPath:path animated:NO];
+            cell.selected = NO;
+            cell.selectIcon.hidden = YES;
+        }
+        self.filterCollectionView.selectedIndexPath = nil;
+        [self.filterCollectionView reloadItemsAtIndexPaths:selectedItems];
+    }
+}
+
+
+- (void)showOrHideCropView {
+    [self hiddenHandBoard];
+    LWDataManager *dm = [LWDataManager sharedInstance];
+
+    self.cropView.hidden = !self.cropView.hidden;
+    self.currentMode = self.cropView.hidden ? ImageMode : CropMode;
+    [self reloadImage:dm.currentImage];
+}
+
+- (void)cropImageOk {
+    LWDataManager *dm = [LWDataManager sharedInstance];
+    if (dm.currentImage) {
+        CGRect CropRect = self.cropView.cropAreaInImage;
+        CGImageRef imageRef = CGImageCreateWithImageInRect([self.cropView.imageView.image CGImage], CropRect);
+        UIImage *croppedImg = [UIImage imageWithCGImage:imageRef];
+
+        self.currentMode = ImageMode;
+        dm.originImage = croppedImg;
+        [self reloadImage:croppedImg];
+
+        CGImageRelease(imageRef);
+    } else {
+        [self showErrorHud];
+    }
+}
+
+- (void)cancelCropImage {
+    LWDataManager *dm = [LWDataManager sharedInstance];
+    self.currentMode = ImageMode;
+    [self reloadImage:dm.currentImage];
+}
+
+
+@end
+
+
+@implementation LWPhotosBar
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+
+    UIImage *flipImg = [UIImage imageNamed:@"flip"];
+    UIImage *recovationImg = [UIImage imageNamed:@"revocation"];
+    UIImage *leftRotateImg = [UIImage imageNamed:@"undoButton"];
+    UIImage *rightRotateImg = [UIImage imageNamed:@"redoButton"];
+
+    [self.flipBtn setImage:[flipImg imageWithOverlayColor:[UIColor whiteColor]] forState:UIControlStateNormal];
+    [self.flipBtn setImage:[flipImg imageWithOverlayColor:[UIColor colorWithRed:0.07 green:0.42 blue:0.84 alpha:1]] forState:UIControlStateHighlighted];
+    [self.recovationBtn setImage:[recovationImg imageWithOverlayColor:[UIColor whiteColor]] forState:UIControlStateNormal];
+    [self.recovationBtn setImage:[recovationImg imageWithOverlayColor:[UIColor colorWithRed:0.07 green:0.42 blue:0.84 alpha:1]] forState:UIControlStateHighlighted];
+    [self.leftRotateBtn setImage:[leftRotateImg imageWithOverlayColor:[UIColor whiteColor]] forState:UIControlStateNormal];
+    [self.leftRotateBtn setImage:[leftRotateImg imageWithOverlayColor:[UIColor colorWithRed:0.07 green:0.42 blue:0.84 alpha:1]] forState:UIControlStateHighlighted];
+    [self.rightRotateBtn setImage:[rightRotateImg imageWithOverlayColor:[UIColor whiteColor]] forState:UIControlStateNormal];
+    [self.rightRotateBtn setImage:[rightRotateImg imageWithOverlayColor:[UIColor colorWithRed:0.07 green:0.42 blue:0.84 alpha:1]] forState:UIControlStateHighlighted];
+
+}
+
+
+@end
+
+
+@implementation LWFilterBar
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+
+    [self.slider setThumbImage:[UIImage imageNamed:@"slider_circel"] forState:UIControlStateNormal];
+    [self.slider setThumbImage:[UIImage imageNamed:@"slider_circel_highlight"] forState:UIControlStateHighlighted];
+}
+
+
+@end
