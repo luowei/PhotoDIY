@@ -21,6 +21,9 @@ class ContentViewModel: ObservableObject {
     @Published var editingMode: EditingMode = .none
     @Published var selectedPhoto: PhotosPickerItem?
 
+    // 工具分类
+    @Published var selectedToolCategory: ToolCategory = .regular
+
     // 缩放和平移
     @Published var zoomScale: CGFloat = 1.0
     @Published var panOffset: CGSize = .zero
@@ -189,14 +192,69 @@ class ContentViewModel: ObservableObject {
     }
 }
 
+// MARK: - 工具分类系统
+enum ToolCategory: String, CaseIterable {
+    case regular = "常规"
+    case style = "风格"
+}
+
 enum EditingMode {
     case none
+    // 常规工具
     case filter
     case adjust
     case crop
     case text
     case sticker
     case draw
+    // 风格工具
+    case portrait        // 人像
+    case idPhoto        // 证件照
+    case landscape      // 风景
+    case food           // 美食
+    case ecommerce      // 电商
+    case portrait_art   // 写真
+    case emoji          // 表情包
+    case artistic       // 艺术创作
+    case vintage        // 复古
+    case comic          // 漫画
+    case sketch         // 素描
+    case watercolor     // 水彩
+}
+
+// MARK: - 工具配置
+struct ToolItem {
+    let mode: EditingMode
+    let title: String
+    let icon: String
+    let category: ToolCategory
+
+    static let allTools: [ToolItem] = [
+        // 常规工具
+        ToolItem(mode: .filter, title: "滤镜", icon: "camera.filters", category: .regular),
+        ToolItem(mode: .adjust, title: "调整", icon: "slider.horizontal.3", category: .regular),
+        ToolItem(mode: .crop, title: "裁剪", icon: "crop", category: .regular),
+        ToolItem(mode: .text, title: "文字", icon: "textformat", category: .regular),
+        ToolItem(mode: .sticker, title: "贴纸", icon: "face.smiling", category: .regular),
+
+        // 风格工具
+        ToolItem(mode: .portrait, title: "人像", icon: "person.crop.circle", category: .style),
+        ToolItem(mode: .idPhoto, title: "证件照", icon: "person.text.rectangle", category: .style),
+        ToolItem(mode: .landscape, title: "风景", icon: "mountain.2", category: .style),
+        ToolItem(mode: .food, title: "美食", icon: "fork.knife", category: .style),
+        ToolItem(mode: .ecommerce, title: "电商", icon: "bag", category: .style),
+        ToolItem(mode: .portrait_art, title: "写真", icon: "camera.macro", category: .style),
+        ToolItem(mode: .emoji, title: "表情包", icon: "face.dashed", category: .style),
+        ToolItem(mode: .artistic, title: "艺术", icon: "paintbrush", category: .style),
+        ToolItem(mode: .vintage, title: "复古", icon: "camera.viewfinder", category: .style),
+        ToolItem(mode: .comic, title: "漫画", icon: "scribble.variable", category: .style),
+        ToolItem(mode: .sketch, title: "素描", icon: "pencil.line", category: .style),
+        ToolItem(mode: .watercolor, title: "水彩", icon: "paintbrush.pointed", category: .style)
+    ]
+
+    static func tools(for category: ToolCategory) -> [ToolItem] {
+        return allTools.filter { $0.category == category }
+    }
 }
 
 struct TextStyle {

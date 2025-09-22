@@ -5,82 +5,64 @@ struct EditingToolsPanel: View {
 
     var body: some View {
         VStack(spacing: 0) {
+            // 分类选择器
+            CategorySelectorView(viewModel: viewModel)
+
             // 主工具栏
-            HStack(spacing: 20) {
-                ToolButton(
-                    icon: "camera.filters",
-                    title: "Filters",
-                    isSelected: viewModel.editingMode == .filter
-                ) {
-                    viewModel.editingMode = viewModel.editingMode == .filter ? .none : .filter
+            HStack(spacing: 12) {
+                // 工具按钮区域
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 16) {
+                        ForEach(ToolItem.tools(for: viewModel.selectedToolCategory), id: \.mode) { tool in
+                            ToolButton(
+                                icon: tool.icon,
+                                title: tool.title,
+                                isSelected: viewModel.editingMode == tool.mode
+                            ) {
+                                viewModel.editingMode = viewModel.editingMode == tool.mode ? .none : tool.mode
+                            }
+                        }
+                    }
+                    .padding(.horizontal, 16)
                 }
-
-                ToolButton(
-                    icon: "slider.horizontal.3",
-                    title: "Adjust",
-                    isSelected: viewModel.editingMode == .adjust
-                ) {
-                    viewModel.editingMode = viewModel.editingMode == .adjust ? .none : .adjust
-                }
-
-                ToolButton(
-                    icon: "crop",
-                    title: "Crop",
-                    isSelected: viewModel.editingMode == .crop
-                ) {
-                    viewModel.editingMode = viewModel.editingMode == .crop ? .none : .crop
-                }
-
-                ToolButton(
-                    icon: "textformat",
-                    title: "Text",
-                    isSelected: viewModel.editingMode == .text
-                ) {
-                    viewModel.editingMode = viewModel.editingMode == .text ? .none : .text
-                }
-
-                ToolButton(
-                    icon: "face.smiling",
-                    title: "Sticker",
-                    isSelected: viewModel.editingMode == .sticker
-                ) {
-                    viewModel.editingMode = viewModel.editingMode == .sticker ? .none : .sticker
-                }
-
-                Spacer()
 
                 // 操作按钮
-                HStack(spacing: 16) {
+                HStack(spacing: 12) {
                     Button(action: viewModel.undo) {
                         Image(systemName: "arrow.uturn.backward")
+                            .font(.title3)
                             .foregroundColor(viewModel.canUndo ? .white : .gray)
                     }
                     .disabled(!viewModel.canUndo)
 
                     Button(action: viewModel.redo) {
                         Image(systemName: "arrow.uturn.forward")
+                            .font(.title3)
                             .foregroundColor(viewModel.canRedo ? .white : .gray)
                     }
                     .disabled(!viewModel.canRedo)
 
                     Button(action: viewModel.saveImage) {
                         Image(systemName: "square.and.arrow.down")
+                            .font(.title3)
                             .foregroundColor(.white)
                     }
 
                     Button(action: viewModel.shareImage) {
                         Image(systemName: "square.and.arrow.up")
+                            .font(.title3)
                             .foregroundColor(.white)
                     }
                 }
+                .padding(.trailing, 16)
             }
-            .padding(.horizontal, 16)
             .padding(.vertical, 12)
             .background(Color.black.opacity(0.8))
 
             // 动态工具面板
             Group {
                 switch viewModel.editingMode {
+                // 常规工具
                 case .filter:
                     if let image = viewModel.currentImage {
                         FilterSelectorView(
@@ -117,6 +99,12 @@ struct EditingToolsPanel: View {
 
                 case .sticker:
                     StickerToolsView(viewModel: viewModel)
+                        .transition(.move(edge: .bottom))
+
+                // 风格工具
+                case .portrait, .idPhoto, .landscape, .food, .ecommerce, .portrait_art,
+                     .emoji, .artistic, .vintage, .comic, .sketch, .watercolor:
+                    StyleProcessingView(viewModel: viewModel)
                         .transition(.move(edge: .bottom))
 
                 default:
@@ -329,6 +317,114 @@ struct StickerToolsView: View {
             }
             .padding(.vertical, 12)
             .background(Color.black.opacity(0.9))
+        }
+    }
+}
+
+// MARK: - 分类选择器
+struct CategorySelectorView: View {
+    @ObservedObject var viewModel: ContentViewModel
+
+    var body: some View {
+        HStack(spacing: 0) {
+            ForEach(ToolCategory.allCases, id: \.self) { category in
+                Button(action: {
+                    viewModel.selectedToolCategory = category
+                    viewModel.editingMode = .none
+                }) {
+                    Text(category.rawValue)
+                        .font(.subheadline)
+                        .fontWeight(.medium)
+                        .foregroundColor(viewModel.selectedToolCategory == category ? .black : .white)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 10)
+                        .background(
+                            viewModel.selectedToolCategory == category
+                                ? Color.white
+                                : Color.clear
+                        )
+                }
+            }
+        }
+        .background(Color.black.opacity(0.9))
+        .cornerRadius(8)
+        .padding(.horizontal, 16)
+        .padding(.vertical, 8)
+        .background(Color.black.opacity(0.6))
+    }
+}
+
+// MARK: - 风格处理视图
+struct StyleProcessingView: View {
+    @ObservedObject var viewModel: ContentViewModel
+    @State private var isProcessing = false
+
+    var body: some View {
+        VStack(spacing: 12) {
+            HStack {
+                Text(styleTitle)
+                    .font(.headline)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.white)
+
+                Spacer()
+
+                if isProcessing {
+                    ProgressView()
+                        .scaleEffect(0.8)
+                        .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                } else {
+                    Button("应用效果") {
+                        applyStyleEffect()
+                    }
+                    .font(.subheadline)
+                    .foregroundColor(.white)
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 8)
+                    .background(Color.blue)
+                    .cornerRadius(8)
+                }
+            }
+            .padding(.horizontal, 16)
+        }
+        .padding(.vertical, 16)
+        .background(Color.black.opacity(0.9))
+    }
+
+    private var styleTitle: String {
+        switch viewModel.editingMode {
+        case .portrait: return "人像美化"
+        case .idPhoto: return "证件照"
+        case .landscape: return "风景增强"
+        case .food: return "美食滤镜"
+        case .ecommerce: return "电商修图"
+        case .portrait_art: return "写真风格"
+        case .emoji: return "表情包制作"
+        case .artistic: return "艺术创作"
+        case .vintage: return "复古风格"
+        case .comic: return "漫画风格"
+        case .sketch: return "素描效果"
+        case .watercolor: return "水彩画风"
+        default: return "风格处理"
+        }
+    }
+
+    private func applyStyleEffect() {
+        guard let image = viewModel.currentImage else { return }
+        isProcessing = true
+
+        Task {
+            try? await Task.sleep(nanoseconds: 1_000_000_000)
+
+            await MainActor.run {
+                Task {
+                    if let processedImage = await ImageFilterManager.shared.adjustBrightness(image, value: 0.1) {
+                        viewModel.updateProcessedImage(processedImage)
+                    }
+                    isProcessing = false
+                    viewModel.editingMode = .none
+                }
+            }
         }
     }
 }

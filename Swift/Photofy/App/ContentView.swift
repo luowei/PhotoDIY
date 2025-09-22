@@ -5,6 +5,7 @@ struct ContentView: View {
     @EnvironmentObject private var appState: AppState
     @StateObject private var viewModel = ContentViewModel()
     @State private var showingImagePicker = false
+    @State private var showingCamera = false
     @State private var showingSettings = false
     @State private var showingAIFeatures = false
 
@@ -17,7 +18,6 @@ struct ContentView: View {
                     // 导航栏
                     NavigationBarView(
                         onSettingsAction: { showingSettings = true },
-                        onSelectPhotoAction: { showingImagePicker = true },
                         onAIFeaturesAction: { showingAIFeatures = true }
                     )
 
@@ -46,9 +46,10 @@ struct ContentView: View {
                             )
                         }
                     } else {
-                        EmptyStateView {
-                            showingImagePicker = true
-                        }
+                        EmptyStateView(
+                            onSelectPhoto: { showingImagePicker = true },
+                            onTakePhoto: { showingCamera = true }
+                        )
                     }
 
                     // 编辑工具面板
@@ -65,6 +66,20 @@ struct ContentView: View {
             selection: $viewModel.selectedPhoto,
             matching: .images
         )
+        .sheet(isPresented: $showingCamera) {
+            // 临时替代方案：使用PhotosPicker代替相机
+            Text("相机功能开发中...")
+                .foregroundColor(.white)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(Color.black)
+                .onAppear {
+                    // 暂时直接显示照片选择器
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        showingCamera = false
+                        showingImagePicker = true
+                    }
+                }
+        }
         .sheet(isPresented: $showingSettings) {
             SettingsView()
         }
@@ -83,10 +98,11 @@ struct ContentView: View {
 
 // MARK: - 空状态视图
 struct EmptyStateView: View {
-    let action: () -> Void
+    let onSelectPhoto: () -> Void
+    let onTakePhoto: () -> Void
 
     var body: some View {
-        VStack(spacing: 24) {
+        VStack(spacing: 32) {
             Image(systemName: "photo.badge.plus")
                 .font(.system(size: 80))
                 .foregroundColor(.gray)
@@ -97,23 +113,41 @@ struct EmptyStateView: View {
                     .fontWeight(.semibold)
                     .foregroundColor(.white)
 
-                Text("Select a photo to start editing")
+                Text("选择照片或拍照开始编辑")
                     .font(.body)
                     .foregroundColor(.gray)
             }
 
-            Button(action: action) {
-                HStack {
-                    Image(systemName: "photo.on.rectangle")
-                    Text("Select Photo")
+            VStack(spacing: 16) {
+                // 选择照片按钮
+                Button(action: onSelectPhoto) {
+                    HStack {
+                        Image(systemName: "photo.on.rectangle")
+                        Text("选择照片")
+                    }
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 16)
+                    .background(Color.blue)
+                    .cornerRadius(12)
                 }
-                .font(.headline)
-                .foregroundColor(.white)
-                .padding(.horizontal, 24)
-                .padding(.vertical, 12)
-                .background(Color.blue)
-                .cornerRadius(25)
+
+                // 拍照按钮
+                Button(action: onTakePhoto) {
+                    HStack {
+                        Image(systemName: "camera")
+                        Text("拍照")
+                    }
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 16)
+                    .background(Color.green)
+                    .cornerRadius(12)
+                }
             }
+            .padding(.horizontal, 40)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
@@ -122,25 +156,24 @@ struct EmptyStateView: View {
 // MARK: - 导航栏视图
 struct NavigationBarView: View {
     let onSettingsAction: () -> Void
-    let onSelectPhotoAction: () -> Void
     let onAIFeaturesAction: () -> Void
 
     var body: some View {
-        HStack(spacing: 16) {
-            Button(action: onSettingsAction) {
-                Image(systemName: "gear")
-                    .font(.title2)
-                    .foregroundColor(.white)
-            }
-
+        HStack {
+            // 左上角：AI智能处理
             Button(action: onAIFeaturesAction) {
-                Image(systemName: "brain.head.profile")
-                    .font(.title2)
-                    .foregroundColor(.white)
+                HStack(spacing: 4) {
+                    Image(systemName: "brain.head.profile")
+                        .font(.title3)
+                    Text("智能处理")
+                        .font(.caption)
+                }
+                .foregroundColor(.white)
             }
 
             Spacer()
 
+            // 中间：App标题
             Text("Photofy")
                 .font(.title2)
                 .fontWeight(.bold)
@@ -148,8 +181,9 @@ struct NavigationBarView: View {
 
             Spacer()
 
-            Button(action: onSelectPhotoAction) {
-                Image(systemName: "photo.on.rectangle")
+            // 右上角：设置
+            Button(action: onSettingsAction) {
+                Image(systemName: "gear")
                     .font(.title2)
                     .foregroundColor(.white)
             }

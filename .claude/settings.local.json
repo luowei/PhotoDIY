@@ -10,7 +10,13 @@
       "Bash(open:*)",
       "Bash(/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project Photofy.xcodeproj -scheme Photofy -destination \"platform=iOS Simulator,name=iPhone 17,OS=26.0\" build-for-testing)",
       "Bash(xcrun simctl install:*)",
-      "Bash(xcrun simctl launch:*)"
+      "Bash(xcrun simctl launch:*)",
+      "Bash(/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -typecheck -target arm64-apple-ios16.0-simulator /Users/luowei/projects/My_App/PhotoDIY/Swift/Photofy/Views/CropView.swift -I /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.0.sdk/usr/include -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.0.sdk)",
+      "Bash(/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -typecheck -target arm64-apple-ios16.0-simulator /Users/luowei/projects/My_App/PhotoDIY/Swift/Photofy/Views/StyleToolsView.swift -I /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.0.sdk/usr/include -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.0.sdk)",
+      "Bash(/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project Photofy.xcodeproj -scheme Photofy -destination \"platform=iOS Simulator,name=iPhone 16,OS=18.6\" build)",
+      "Bash(/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project Photofy.xcodeproj -list)",
+      "Bash(xcrun simctl list:*)",
+      "Bash(xcrun simctl boot:*)"
     ],
     "deny": [],
     "ask": []
