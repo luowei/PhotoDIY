@@ -11,6 +11,15 @@ struct CameraView: UIViewControllerRepresentable {
         picker.delegate = context.coordinator
         picker.sourceType = .camera
         picker.allowsEditing = false
+
+        // 启用所有相机功能
+        picker.cameraDevice = .rear
+        picker.cameraFlashMode = .auto
+        picker.showsCameraControls = true
+
+        // 支持所有媒体类型
+        picker.mediaTypes = ["public.image"]
+
         return picker
     }
 

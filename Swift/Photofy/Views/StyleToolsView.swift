@@ -1,4 +1,5 @@
 import SwiftUI
+import Vision
 
 // MARK: - 分类选择器
 struct CategorySelector: View {
@@ -37,7 +38,15 @@ struct CategorySelector: View {
 struct StyleProcessingPanel: View {
     @ObservedObject var viewModel: ContentViewModel
     @State private var isProcessing = false
-    @State private var styleIntensity: Float = 0.8
+    @State private var processingMessage = ""
+
+    // 参数设置
+    @State private var portraitSettings = PortraitSettings()
+    @State private var landscapeSettings = LandscapeSettings()
+    @State private var ecommerceSettings = EcommerceSettings()
+    @State private var idPhotoSettings = IDPhotoSettings()
+
+    private let styleProcessor = AdvancedStyleProcessor.shared
 
     var body: some View {
         VStack(spacing: 12) {
@@ -60,7 +69,7 @@ struct StyleProcessingPanel: View {
                     }
                 } else {
                     Button("应用效果") {
-                        applyStyleEffect()
+                        applyAdvancedStyleEffect()
                     }
                     .font(.subheadline)
                     .foregroundColor(.white)
@@ -71,6 +80,15 @@ struct StyleProcessingPanel: View {
                 }
             }
 
+            // 处理结果消息
+            if !processingMessage.isEmpty {
+                Text(processingMessage)
+                    .font(.caption)
+                    .foregroundColor(.gray)
+                    .padding(.horizontal, 16)
+                    .multilineTextAlignment(.center)
+            }
+
             // 风格选项
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 12) {
@@ -79,31 +97,22 @@ struct StyleProcessingPanel: View {
                             option: option,
                             isSelected: false
                         ) {
-                            // TODO: 选中风格选项
+                            // 风格选项暂时保持原有功能
                         }
                     }
                 }
                 .padding(.horizontal, 16)
             }
 
-            // 强度调节
-            if !isProcessing {
-                VStack(spacing: 8) {
-                    HStack {
-                        Text("效果强度")
-                            .font(.caption)
-                            .foregroundColor(.gray)
-                        Spacer()
-                        Text("\(Int(styleIntensity * 100))%")
-                            .font(.caption)
-                            .foregroundColor(.white)
-                    }
+            // 参数自定义面板
+            StyleParametersView(
+                editingMode: viewModel.editingMode,
+                portraitSettings: $portraitSettings,
+                landscapeSettings: $landscapeSettings,
+                ecommerceSettings: $ecommerceSettings,
+                idPhotoSettings: $idPhotoSettings
+            )
 
-                    Slider(value: $styleIntensity, in: 0...1)
-                        .accentColor(.blue)
-                }
-                .padding(.horizontal, 16)
-            }
         }
         .padding(.vertical, 16)
         .background(Color.black.opacity(0.9))
@@ -222,59 +231,69 @@ struct StyleProcessingPanel: View {
         }
     }
 
-    private func applyStyleEffect() {
+    private func applyAdvancedStyleEffect() {
         guard let image = viewModel.currentImage else { return }
 
         isProcessing = true
+        processingMessage = ""
 
         Task {
-            // 模拟处理进度，实际处理
-            try? await Task.sleep(nanoseconds: 2_000_000_000) // 2秒
+            let result: ProcessingResult
 
-            let processedImage = await applyStyleProcessing(to: image, style: viewModel.editingMode, intensity: styleIntensity)
+            switch viewModel.editingMode {
+            case .portrait:
+                result = await styleProcessor.processPortrait(image, settings: portraitSettings)
+            case .idPhoto:
+                result = await styleProcessor.processIDPhoto(image, settings: idPhotoSettings)
+            case .landscape:
+                result = await styleProcessor.processLandscape(image, settings: landscapeSettings)
+            case .ecommerce:
+                result = await styleProcessor.processEcommerce(image, settings: ecommerceSettings)
+            default:
+                // 对于其他风格，使用原有的基础处理
+                result = await applyBasicStyleProcessing(to: image, style: viewModel.editingMode, intensity: portraitSettings.intensity)
+            }
 
             await MainActor.run {
-                if let result = processedImage {
-                    viewModel.updateProcessedImage(result)
-                }
+                viewModel.updateProcessedImage(result.image)
+                processingMessage = result.message
                 isProcessing = false
-                viewModel.editingMode = .none
+
+                // 延迟重置编辑模式，让用户看到结果消息
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                    processingMessage = ""
+                    if viewModel.editingMode != .none {
+                        viewModel.editingMode = .none
+                    }
+                }
             }
         }
     }
 
-    private func applyStyleProcessing(to image: UIImage, style: EditingMode, intensity: Float) async -> UIImage? {
-        // 根据不同风格应用不同的处理效果
+    private func applyBasicStyleProcessing(to image: UIImage, style: EditingMode, intensity: Float) async -> ProcessingResult {
+        // 基础风格处理逻辑保持不变
+        var processedImage: UIImage? = nil
+        var message = "风格效果已应用"
+
         switch style {
-        case .portrait:
-            // 人像美颜：调整亮度和对比度
-            if let brightened = await ImageFilterManager.shared.adjustBrightness(image, value: intensity * 0.3) {
-                return await ImageFilterManager.shared.adjustSaturation(brightened, value: 1.0 + intensity * 0.2)
-            }
         case .vintage:
-            // 复古效果：降低饱和度，增加暖色调
             if let desaturated = await ImageFilterManager.shared.adjustSaturation(image, value: 0.7) {
-                return await ImageFilterManager.shared.adjustHue(desaturated, angle: intensity * 0.1)
+                processedImage = await ImageFilterManager.shared.adjustHue(desaturated, angle: intensity * 0.1)
             }
-        case .landscape:
-            // 风景增强：增加饱和度和对比度
-            if let saturated = await ImageFilterManager.shared.adjustSaturation(image, value: 1.0 + intensity * 0.4) {
-                return await ImageFilterManager.shared.adjustContrast(saturated, value: 1.0 + intensity * 0.3)
-            }
+            message = "复古效果已应用：降低饱和度并增加暖色调"
         case .food:
-            // 美食滤镜：增加暖色调和饱和度
             if let warmed = await ImageFilterManager.shared.adjustHue(image, angle: intensity * 0.05) {
-                return await ImageFilterManager.shared.adjustSaturation(warmed, value: 1.0 + intensity * 0.3)
+                processedImage = await ImageFilterManager.shared.adjustSaturation(warmed, value: 1.0 + intensity * 0.3)
             }
+            message = "美食滤镜已应用：增加暖色调和饱和度"
         case .artistic, .sketch, .watercolor:
-            // 艺术效果：调整对比度
-            return await ImageFilterManager.shared.adjustContrast(image, value: 1.0 + intensity * 0.5)
+            processedImage = await ImageFilterManager.shared.adjustContrast(image, value: 1.0 + intensity * 0.5)
+            message = "艺术效果已应用：调整对比度增强视觉效果"
         default:
-            // 默认处理：轻微调整亮度
-            return await ImageFilterManager.shared.adjustBrightness(image, value: intensity * 0.2)
+            processedImage = await ImageFilterManager.shared.adjustBrightness(image, value: intensity * 0.2)
         }
 
-        return image
+        return ProcessingResult(image: processedImage ?? image, message: message)
     }
 }
 
@@ -306,6 +325,257 @@ struct StyleOptionButton: View {
                 isSelected ? Color.white : Color.gray.opacity(0.3)
             )
             .cornerRadius(8)
+        }
+    }
+}
+
+// MARK: - 参数自定义面板
+struct StyleParametersView: View {
+    let editingMode: EditingMode
+    @Binding var portraitSettings: PortraitSettings
+    @Binding var landscapeSettings: LandscapeSettings
+    @Binding var ecommerceSettings: EcommerceSettings
+    @Binding var idPhotoSettings: IDPhotoSettings
+
+    var body: some View {
+        VStack(spacing: 12) {
+            switch editingMode {
+            case .portrait:
+                PortraitParametersView(settings: $portraitSettings)
+            case .landscape:
+                LandscapeParametersView(settings: $landscapeSettings)
+            case .ecommerce:
+                EcommerceParametersView(settings: $ecommerceSettings)
+            case .idPhoto:
+                IDPhotoParametersView(settings: $idPhotoSettings)
+            default:
+                EmptyView()
+            }
+        }
+    }
+}
+
+// MARK: - 人像参数面板
+struct PortraitParametersView: View {
+    @Binding var settings: PortraitSettings
+
+    var body: some View {
+        VStack(spacing: 8) {
+            Text("人像参数调整")
+                .font(.subheadline)
+                .fontWeight(.medium)
+                .foregroundColor(.white)
+
+            VStack(spacing: 6) {
+                ParameterSlider(
+                    title: "效果强度",
+                    value: $settings.intensity,
+                    range: 0...1
+                )
+                ParameterSlider(
+                    title: "皮肤平滑",
+                    value: $settings.skinSmoothing,
+                    range: 0...1
+                )
+                ParameterSlider(
+                    title: "背景虚化",
+                    value: $settings.backgroundBlur,
+                    range: 0...1
+                )
+                ParameterSlider(
+                    title: "亮度调整",
+                    value: $settings.brightnessAdjust,
+                    range: -0.5...0.5
+                )
+                ParameterSlider(
+                    title: "饱和度",
+                    value: $settings.saturationBoost,
+                    range: 0...0.5
+                )
+            }
+        }
+        .padding(.horizontal, 16)
+    }
+}
+
+// MARK: - 风景参数面板
+struct LandscapeParametersView: View {
+    @Binding var settings: LandscapeSettings
+
+    var body: some View {
+        VStack(spacing: 8) {
+            Text("风景参数调整")
+                .font(.subheadline)
+                .fontWeight(.medium)
+                .foregroundColor(.white)
+
+            VStack(spacing: 6) {
+                ParameterSlider(
+                    title: "效果强度",
+                    value: $settings.intensity,
+                    range: 0...1
+                )
+                ParameterSlider(
+                    title: "饱和度增强",
+                    value: $settings.saturationBoost,
+                    range: 0...0.8
+                )
+                ParameterSlider(
+                    title: "对比度增强",
+                    value: $settings.contrastEnhance,
+                    range: 0...0.6
+                )
+                ParameterSlider(
+                    title: "清晰度",
+                    value: $settings.sharpness,
+                    range: 0...3
+                )
+                ParameterSlider(
+                    title: "暖色调",
+                    value: $settings.warmthAdjust,
+                    range: 0...1000
+                )
+                ParameterSlider(
+                    title: "晕影效果",
+                    value: $settings.vignetteIntensity,
+                    range: 0...1
+                )
+            }
+        }
+        .padding(.horizontal, 16)
+    }
+}
+
+// MARK: - 电商参数面板
+struct EcommerceParametersView: View {
+    @Binding var settings: EcommerceSettings
+
+    var body: some View {
+        VStack(spacing: 8) {
+            Text("电商参数调整")
+                .font(.subheadline)
+                .fontWeight(.medium)
+                .foregroundColor(.white)
+
+            VStack(spacing: 6) {
+                ParameterSlider(
+                    title: "效果强度",
+                    value: $settings.intensity,
+                    range: 0...1
+                )
+                ParameterSlider(
+                    title: "曝光增强",
+                    value: $settings.exposureBoost,
+                    range: 0...1
+                )
+                ParameterSlider(
+                    title: "饱和度",
+                    value: $settings.saturationEnhance,
+                    range: 0...0.5
+                )
+                ParameterSlider(
+                    title: "对比度",
+                    value: $settings.contrastBoost,
+                    range: 0...0.8
+                )
+                ParameterSlider(
+                    title: "高光调整",
+                    value: $settings.highlightAdjust,
+                    range: 0...0.6
+                )
+                ParameterSlider(
+                    title: "阴影调整",
+                    value: $settings.shadowAdjust,
+                    range: -0.3...0.1
+                )
+            }
+        }
+        .padding(.horizontal, 16)
+    }
+}
+
+// MARK: - 证件照参数面板
+struct IDPhotoParametersView: View {
+    @Binding var settings: IDPhotoSettings
+
+    var body: some View {
+        VStack(spacing: 8) {
+            Text("证件照参数调整")
+                .font(.subheadline)
+                .fontWeight(.medium)
+                .foregroundColor(.white)
+
+            // 背景颜色选择
+            VStack(spacing: 8) {
+                HStack {
+                    Text("背景颜色")
+                        .font(.caption)
+                        .foregroundColor(.gray)
+                    Spacer()
+                }
+
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 12) {
+                        ForEach(IDPhotoBackgroundColor.allCases, id: \.self) { color in
+                            Button(color.displayName) {
+                                settings.backgroundColor = color
+                            }
+                            .font(.caption)
+                            .foregroundColor(settings.backgroundColor == color ? .black : .white)
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 6)
+                            .background(
+                                settings.backgroundColor == color ? Color.white : Color.gray.opacity(0.3)
+                            )
+                            .cornerRadius(6)
+                        }
+                    }
+                    .padding(.horizontal, 16)
+                }
+            }
+
+            VStack(spacing: 6) {
+                ParameterSlider(
+                    title: "面部增强",
+                    value: $settings.faceEnhancement,
+                    range: 0...0.8
+                )
+                ParameterSlider(
+                    title: "皮肤平滑",
+                    value: $settings.skinSmoothing,
+                    range: 0...0.8
+                )
+                ParameterSlider(
+                    title: "亮度校正",
+                    value: $settings.brightnessCorrection,
+                    range: 0...0.5
+                )
+            }
+        }
+        .padding(.horizontal, 16)
+    }
+}
+
+// MARK: - 参数滑块组件
+struct ParameterSlider: View {
+    let title: String
+    @Binding var value: Float
+    let range: ClosedRange<Float>
+
+    var body: some View {
+        VStack(spacing: 4) {
+            HStack {
+                Text(title)
+                    .font(.caption)
+                    .foregroundColor(.gray)
+                Spacer()
+                Text(String(format: "%.2f", value))
+                    .font(.caption)
+                    .foregroundColor(.white)
+            }
+
+            Slider(value: $value, in: range)
+                .accentColor(.blue)
         }
     }
 }

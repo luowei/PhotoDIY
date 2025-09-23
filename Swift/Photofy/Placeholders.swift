@@ -190,6 +190,25 @@ class ContentViewModel: ObservableObject {
     func addSticker(_ sticker: String) {
         // 添加贴纸
     }
+
+    // MARK: - 清除画布功能
+    func clearCanvas() {
+        currentImage = nil
+        processedImage = nil
+        editingMode = .none
+        selectedPhoto = nil
+
+        // 重置所有编辑参数
+        zoomScale = 1.0
+        panOffset = .zero
+        brightness = 0
+        contrast = 1
+        saturation = 1
+        hue = 0
+
+        // 清除编辑历史
+        editingHistory = EditingHistory()
+    }
 }
 
 // MARK: - 工具分类系统
