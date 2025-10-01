@@ -3,12 +3,12 @@ name: OC Version - Build and Deploy to TestFlight
 on:
   push:
     branches:
-      - main
+      - master
     paths:
       - 'OC/**'
   pull_request:
     branches:
-      - main
+      - master
     paths:
       - 'OC/**'
   workflow_dispatch:
@@ -58,20 +58,23 @@ jobs:
           cd OC
           pod install --repo-update
 
-      - name: Import Code Signing Certificates
-        uses: apple-actions/import-codesign-certs@v3
-        with:
-          p12-file-base64: ${{ secrets.IOS_CERTIFICATE_P12 }}
-          p12-password: ${{ secrets.IOS_CERTIFICATE_PASSWORD }}
-
-      - name: Download Provisioning Profiles
+      - name: Setup App Store Connect API Key
         env:
-          PROVISIONING_PROFILE_BASE64: ${{ secrets.IOS_PROVISIONING_PROFILE }}
+          API_KEY_BASE64: ${{ secrets.APP_STORE_CONNECT_API_KEY }}
         run: |
-          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          echo "$PROVISIONING_PROFILE_BASE64" | base64 --decode > ~/Library/MobileDevice/Provisioning\ Profiles/profile.mobileprovision
+          # Create API key directory
+          mkdir -p ~/private_keys
+
+          # Decode and save API key
+          echo "$API_KEY_BASE64" | base64 --decode > ~/private_keys/AuthKey_${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}.p8
+
+          # Set proper permissions
+          chmod 600 ~/private_keys/AuthKey_${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}.p8
 
       - name: Build Archive
+        env:
+          ASC_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
         run: |
           xcodebuild archive \
             -workspace ${{ env.WORKSPACE_PATH }} \
@@ -79,12 +82,15 @@ jobs:
             -configuration Release \
             -archivePath ${{ runner.temp }}/PhotoDIY.xcarchive \
             -destination 'generic/platform=iOS' \
-            CODE_SIGN_STYLE=Manual \
-            DEVELOPMENT_TEAM=${{ secrets.APPLE_TEAM_ID }} \
-            CODE_SIGN_IDENTITY="${{ secrets.CODE_SIGN_IDENTITY }}" \
-            PROVISIONING_PROFILE_SPECIFIER="${{ secrets.PROVISIONING_PROFILE_NAME }}"
+            -allowProvisioningUpdates \
+            -authenticationKeyPath ~/private_keys/AuthKey_${ASC_KEY_ID}.p8 \
+            -authenticationKeyID ${ASC_KEY_ID} \
+            -authenticationKeyIssuerID ${ASC_ISSUER_ID}
 
       - name: Export IPA
+        env:
+          ASC_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
         run: |
           # Create export options plist
           cat > ${{ runner.temp }}/ExportOptions.plist << EOF
@@ -94,11 +100,11 @@ jobs:
           <dict>
             <key>method</key>
             <string>app-store</string>
-            <key>teamID</key>
-            <string>${{ secrets.APPLE_TEAM_ID }}</string>
             <key>uploadSymbols</key>
             <true/>
             <key>uploadBitcode</key>
+            <false/>
+            <key>manageAppVersionAndBuildNumber</key>
             <false/>
           </dict>
           </plist>
@@ -107,23 +113,22 @@ jobs:
           xcodebuild -exportArchive \
             -archivePath ${{ runner.temp }}/PhotoDIY.xcarchive \
             -exportPath ${{ runner.temp }}/export \
-            -exportOptionsPlist ${{ runner.temp }}/ExportOptions.plist
+            -exportOptionsPlist ${{ runner.temp }}/ExportOptions.plist \
+            -allowProvisioningUpdates \
+            -authenticationKeyPath ~/private_keys/AuthKey_${ASC_KEY_ID}.p8 \
+            -authenticationKeyID ${ASC_KEY_ID} \
+            -authenticationKeyIssuerID ${ASC_ISSUER_ID}
 
       - name: Upload to TestFlight
         env:
-          APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
-          APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
-          APP_STORE_CONNECT_API_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY }}
+          ASC_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
         run: |
-          # Create API key file
-          mkdir -p ~/private_keys
-          echo "$APP_STORE_CONNECT_API_KEY" | base64 --decode > ~/private_keys/AuthKey_$APP_STORE_CONNECT_API_KEY_ID.p8
-
           xcrun altool --upload-app \
             --type ios \
             --file ${{ runner.temp }}/export/*.ipa \
-            --apiKey $APP_STORE_CONNECT_API_KEY_ID \
-            --apiIssuer $APP_STORE_CONNECT_ISSUER_ID
+            --apiKey ${ASC_KEY_ID} \
+            --apiIssuer ${ASC_ISSUER_ID}
 
       - name: Upload IPA Artifact
         uses: actions/upload-artifact@v4

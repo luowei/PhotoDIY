@@ -2,136 +2,89 @@
 
 本文档说明如何为 PhotoDIY 项目配置 GitHub Actions CI/CD 所需的 Secrets。
 
-## 📋 必需的 Secrets
+## ✨ 简化配置说明
+
+本配置使用 **Xcode 自动管理签名（Automatic Signing）** 方式，仅需配置 **App Store Connect API Key**，无需手动管理证书和描述文件。
+
+## 📋 必需的 Secrets（仅 3 个！）
 
 在 GitHub 仓库的 **Settings → Secrets and variables → Actions** 中添加以下 secrets：
 
-### 1. 代码签名证书
+### App Store Connect API Key
 
-#### `IOS_CERTIFICATE_P12`
-- **描述**: iOS 开发者证书（.p12 文件）的 Base64 编码
-- **获取方式**:
-  1. 从 Keychain Access 导出 iOS Distribution 证书为 `.p12` 文件
-  2. 转换为 Base64:
-     ```bash
-     base64 -i certificate.p12 | pbcopy
-     ```
-  3. 粘贴到 GitHub Secret
-
-#### `IOS_CERTIFICATE_PASSWORD`
-- **描述**: .p12 证书的密码
-- **获取方式**: 导出证书时设置的密码
-
-#### `CODE_SIGN_IDENTITY`
-- **描述**: 代码签名身份名称
-- **示例**: `"Apple Distribution: Your Company Name (TEAM_ID)"`
-- **获取方式**:
-  ```bash
-  security find-identity -v -p codesigning
-  ```
-
-### 2. Provisioning Profile
-
-#### `IOS_PROVISIONING_PROFILE`
-- **描述**: iOS Provisioning Profile 的 Base64 编码
-- **获取方式**:
-  1. 从 Apple Developer 下载 App Store Distribution Profile (.mobileprovision)
-  2. 转换为 Base64:
-     ```bash
-     base64 -i YourProfile.mobileprovision | pbcopy
-     ```
-  3. 粘贴到 GitHub Secret
-
-#### `PROVISIONING_PROFILE_NAME`
-- **描述**: Provisioning Profile 的名称
-- **示例**: `"PhotoDIY App Store Profile"`
-- **获取方式**: 在 Apple Developer Portal 中查看
-
-### 3. Apple Developer 信息
-
-#### `APPLE_TEAM_ID`
-- **描述**: Apple Developer Team ID
-- **示例**: `"A1B2C3D4E5"`
-- **获取方式**:
-  - Apple Developer Portal → Membership → Team ID
-  - 或在 Xcode → Preferences → Accounts 中查看
-
-### 4. App Store Connect API
-
-需要创建 App Store Connect API Key 用于自动上传到 TestFlight。
+需要创建 App Store Connect API Key 用于自动签名、构建和上传到 TestFlight。
 
 #### 创建 API Key 步骤：
+
 1. 登录 [App Store Connect](https://appstoreconnect.apple.com)
 2. 进入 **Users and Access → Keys → App Store Connect API**
-3. 点击 **Generate API Key** 或使用现有的
-4. 选择角色: **Admin** 或 **App Manager**
-5. 下载 `.p8` 文件（只能下载一次，请妥善保管）
+3. 点击 **Generate API Key** 或使用现有的 Key
+4. 设置 Key 名称（如 "GitHub Actions CI/CD"）
+5. 选择访问权限:
+   - **推荐**: App Manager（可管理应用和 TestFlight）
+   - **或**: Admin（完整权限）
+6. 点击 **Generate**
+7. **重要**: 立即下载 `.p8` 文件（只能下载一次，请妥善保管！）
+8. 记录 **Key ID** 和 **Issuer ID**（显示在页面上）
 
-#### `APP_STORE_CONNECT_API_KEY_ID`
-- **描述**: API Key ID
+### 配置的 3 个 Secrets
+
+#### 1️⃣ `APP_STORE_CONNECT_API_KEY_ID`
+- **描述**: App Store Connect API Key ID
 - **示例**: `"AB12CD34EF"`
-- **获取方式**: App Store Connect → Keys 页面显示的 Key ID
+- **获取**: App Store Connect → Keys 页面显示的 Key ID（10 个字符）
 
-#### `APP_STORE_CONNECT_ISSUER_ID`
-- **描述**: Issuer ID
+#### 2️⃣ `APP_STORE_CONNECT_ISSUER_ID`
+- **描述**: App Store Connect Issuer ID
 - **示例**: `"12345678-1234-1234-1234-123456789012"`
-- **获取方式**: App Store Connect → Keys 页面顶部的 Issuer ID
+- **获取**: App Store Connect → Keys 页面顶部的 Issuer ID（UUID 格式）
 
-#### `APP_STORE_CONNECT_API_KEY`
-- **描述**: API Key 文件 (.p8) 的 Base64 编码
-- **获取方式**:
+#### 3️⃣ `APP_STORE_CONNECT_API_KEY`
+- **描述**: API Key 文件 (.p8) 的 Base64 编码内容
+- **获取**:
   ```bash
-  base64 -i AuthKey_KEYID.p8 | pbcopy
+  # 将下载的 .p8 文件转换为 Base64
+  base64 -i AuthKey_YOUR_KEY_ID.p8 | pbcopy
+  # 内容已复制到剪贴板，直接粘贴到 GitHub Secret
   ```
 
 ---
 
-## 🔧 配置步骤
+## 🔧 快速配置步骤
 
-### 步骤 1: 准备证书和 Profile
+### 步骤 1: 创建 App Store Connect API Key
 
-```bash
-# 1. 导出证书
-# 在 Keychain Access 中：
-# - 找到 "Apple Distribution" 证书
-# - 右键 → 导出为 certificate.p12
-# - 设置密码
+在 App Store Connect 创建 API Key 并下载 `.p8` 文件（参考上文步骤）。
 
-# 2. 下载 Provisioning Profile
-# 在 Apple Developer Portal：
-# - Certificates, Identifiers & Profiles
-# - Profiles → Distribution → App Store
-# - 下载对应的 .mobileprovision 文件
-
-# 3. 转换为 Base64
-base64 -i certificate.p12 -o certificate_base64.txt
-base64 -i YourProfile.mobileprovision -o profile_base64.txt
-```
-
-### 步骤 2: 创建 App Store Connect API Key
+### 步骤 2: 准备 API Key Base64
 
 ```bash
-# 1. 在 App Store Connect 创建 API Key（参考上文）
-# 2. 下载 .p8 文件
-# 3. 转换为 Base64
-base64 -i AuthKey_KEYID.p8 -o apikey_base64.txt
+# 转换 API Key 为 Base64
+base64 -i AuthKey_YOUR_KEY_ID.p8 | pbcopy
 ```
+
+内容自动复制到剪贴板。
 
 ### 步骤 3: 添加到 GitHub Secrets
 
-1. 访问: `https://github.com/YOUR_USERNAME/YOUR_REPO/settings/secrets/actions`
+1. 访问 GitHub 仓库设置:
+   ```
+   https://github.com/YOUR_USERNAME/YOUR_REPO/settings/secrets/actions
+   ```
+
 2. 点击 **New repository secret**
-3. 逐个添加上述所有 secrets
 
-### 步骤 4: 验证配置
+3. 添加以下 3 个 secrets:
 
-```bash
-# 在本地验证证书和 profile
-security find-identity -v -p codesigning
+   | Name | Value |
+   |------|-------|
+   | `APP_STORE_CONNECT_API_KEY_ID` | 你的 Key ID（如 `AB12CD34EF`） |
+   | `APP_STORE_CONNECT_ISSUER_ID` | 你的 Issuer ID（UUID 格式） |
+   | `APP_STORE_CONNECT_API_KEY` | 粘贴 Base64 编码的 .p8 内容 |
 
-# 查看 provisioning profile 信息
-security cms -D -i YourProfile.mobileprovision
-```
+### 步骤 4: 完成 ✅
+
+配置完成！GitHub Actions 将自动使用这些凭证进行构建和部署。
 
 ---
 
@@ -139,15 +92,11 @@ security cms -D -i YourProfile.mobileprovision
 
 使用此清单确保所有必需的 secrets 都已配置：
 
-- [ ] `IOS_CERTIFICATE_P12` - 证书 Base64
-- [ ] `IOS_CERTIFICATE_PASSWORD` - 证书密码
-- [ ] `CODE_SIGN_IDENTITY` - 签名身份
-- [ ] `IOS_PROVISIONING_PROFILE` - Profile Base64
-- [ ] `PROVISIONING_PROFILE_NAME` - Profile 名称
-- [ ] `APPLE_TEAM_ID` - Team ID
-- [ ] `APP_STORE_CONNECT_API_KEY_ID` - API Key ID
-- [ ] `APP_STORE_CONNECT_ISSUER_ID` - Issuer ID
-- [ ] `APP_STORE_CONNECT_API_KEY` - API Key Base64
+- [ ] `APP_STORE_CONNECT_API_KEY_ID` - API Key ID（10 字符）
+- [ ] `APP_STORE_CONNECT_ISSUER_ID` - Issuer ID（UUID 格式）
+- [ ] `APP_STORE_CONNECT_API_KEY` - API Key 文件 Base64 编码
+
+**仅需 3 个 Secrets！** ✨
 
 ---
 
@@ -169,42 +118,58 @@ security cms -D -i YourProfile.mobileprovision
 
 ## 🐛 故障排查
 
-### 问题 1: 证书验证失败
+### 问题 1: API Key 认证失败
 
 ```
-Error: Code signing is required
-```
-
-**解决方案**:
-- 确认 `IOS_CERTIFICATE_P12` 是正确的 Base64 编码
-- 确认 `IOS_CERTIFICATE_PASSWORD` 密码正确
-- 确认证书未过期
-
-### 问题 2: Provisioning Profile 不匹配
-
-```
-Error: No profiles for 'com.wodedata.PhotoDIY' were found
+Error: Authentication credentials are missing or invalid
 ```
 
 **解决方案**:
-- 确认 Bundle ID 匹配
-- 确认 Profile 类型为 App Store Distribution
-- 确认 Profile 包含正确的证书
-- 重新下载并转换 Profile
+- 确认 `APP_STORE_CONNECT_API_KEY` 是正确的 Base64 编码
+- 确认 Base64 编码时没有额外的空格或换行
+- 重新转换并复制 API Key:
+  ```bash
+  base64 -i AuthKey_KEYID.p8 | tr -d '\n' | pbcopy
+  ```
+- 确认 Key ID 和 Issuer ID 正确无误
 
-### 问题 3: TestFlight 上传失败
+### 问题 2: 自动签名失败
+
+```
+Error: No signing certificate "iOS Distribution" found
+```
+
+**解决方案**:
+- 确认 App Store Connect API Key 有足够权限（App Manager 或 Admin）
+- 在 Xcode 中启用 "Automatically manage signing"
+- 确认 Bundle ID 在 App Store Connect 中已注册
+- 检查 Apple Developer Program 会员资格是否有效
+
+### 问题 3: Provisioning Profile 下载失败
+
+```
+Error: Unable to download matching provisioning profiles
+```
+
+**解决方案**:
+- 确认 API Key 权限正确
+- 在 Apple Developer Portal 手动创建 App Store Distribution Profile
+- 确认设备和证书都添加到 Profile 中
+- 等待几分钟后重试（Apple 服务器同步延迟）
+
+### 问题 4: TestFlight 上传失败
 
 ```
 Error: Could not upload to TestFlight
 ```
 
 **解决方案**:
-- 确认 App Store Connect API Key 有效
-- 确认 Issuer ID 和 Key ID 正确
-- 确认 API Key 有 "App Manager" 或 "Admin" 权限
-- 检查 App Store Connect 中应用状态
+- 确认应用在 App Store Connect 中已创建
+- 确认 Bundle ID 匹配
+- 确认版本号和构建号未重复
+- 检查 API Key 是否过期或被撤销
 
-### 问题 4: CocoaPods 安装失败 (OC)
+### 问题 5: CocoaPods 安装失败 (OC)
 
 ```
 Error: pod install failed
@@ -213,18 +178,42 @@ Error: pod install failed
 **解决方案**:
 - 确认 `Podfile.lock` 已提交到仓库
 - 检查 pods 是否兼容当前 iOS 版本
-- 查看详细日志确定具体错误
+- 清除缓存重试:
+  ```bash
+  pod cache clean --all
+  pod install --repo-update
+  ```
 
 ---
 
 ## 🔐 安全建议
 
-1. **定期更新证书**: 在证书过期前续期
-2. **限制 API Key 权限**: 仅授予必要的权限
-3. **定期轮换 secrets**: 每 3-6 个月更新一次
-4. **保护 .p12 和 .p8 文件**: 不要提交到代码仓库
-5. **使用环境变量**: 不要在代码中硬编码敏感信息
-6. **监控构建日志**: 确保没有泄露敏感信息
+1. **保护 API Key 文件**:
+   - 不要将 `.p8` 文件提交到代码仓库
+   - 存储在安全的位置（如密码管理器）
+   - 只能下载一次，请妥善备份
+
+2. **限制 API Key 权限**:
+   - 优先使用 "App Manager" 而非 "Admin"
+   - 仅授予 CI/CD 所需的最小权限
+
+3. **定期轮换 API Keys**:
+   - 建议每 6-12 个月轮换一次
+   - 撤销不再使用的旧 Key
+
+4. **监控使用情况**:
+   - 在 App Store Connect 中查看 API Key 使用记录
+   - 发现异常立即撤销 Key
+
+5. **GitHub Secrets 安全**:
+   - 不要在日志中打印 secrets
+   - 限制仓库访问权限
+   - 启用双因素认证
+
+6. **审计构建日志**:
+   - 定期检查 GitHub Actions 日志
+   - 确保没有泄露敏感信息
+   - 使用私有仓库存储敏感项目
 
 ---
 

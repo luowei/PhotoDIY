@@ -98,23 +98,35 @@ git push origin swift
 
 ## ⚙️ 配置要求
 
+### ✨ 简化配置 - 自动管理签名
+
+本项目使用 **Xcode 自动管理签名**，仅需配置 **3 个 GitHub Secrets**！
+
 ### 必需的 GitHub Secrets
 
-在使用这些工作流之前，必须在 GitHub 仓库中配置以下 Secrets：
+| Secret 名称 | 描述 | 示例 |
+|------------|------|------|
+| `APP_STORE_CONNECT_API_KEY_ID` | API Key ID | `AB12CD34EF` |
+| `APP_STORE_CONNECT_ISSUER_ID` | Issuer ID | `12345678-1234-1234-1234-123456789012` |
+| `APP_STORE_CONNECT_API_KEY` | API Key 文件 (Base64) | Base64 编码的 .p8 文件内容 |
 
-| Secret 名称 | 描述 | 获取方式 |
-|------------|------|---------|
-| `IOS_CERTIFICATE_P12` | iOS Distribution 证书 (Base64) | 从 Keychain 导出 |
-| `IOS_CERTIFICATE_PASSWORD` | 证书密码 | 导出时设置 |
-| `CODE_SIGN_IDENTITY` | 代码签名身份 | `security find-identity` |
-| `IOS_PROVISIONING_PROFILE` | Provisioning Profile (Base64) | Apple Developer Portal |
-| `PROVISIONING_PROFILE_NAME` | Profile 名称 | Apple Developer Portal |
-| `APPLE_TEAM_ID` | Apple Team ID | Developer Portal Membership |
-| `APP_STORE_CONNECT_API_KEY_ID` | App Store Connect API Key ID | App Store Connect |
-| `APP_STORE_CONNECT_ISSUER_ID` | Issuer ID | App Store Connect |
-| `APP_STORE_CONNECT_API_KEY` | API Key 文件 (Base64) | App Store Connect |
+**仅需 3 个 Secrets！** 无需配置证书、描述文件、Team ID 等。
 
 **详细配置指南**: 请参阅 [SECRETS_SETUP.md](../SECRETS_SETUP.md)
+
+### 工作原理
+
+工作流使用 `xcodebuild` 的以下参数实现自动签名：
+- `-allowProvisioningUpdates`: 允许自动下载和更新 Provisioning Profiles
+- `-authenticationKeyPath`: App Store Connect API Key 路径
+- `-authenticationKeyID`: API Key ID
+- `-authenticationKeyIssuerID`: Issuer ID
+
+Xcode 会自动：
+1. 从 Apple Developer Portal 下载证书
+2. 创建和下载 Provisioning Profile
+3. 配置代码签名
+4. 构建和导出 IPA
 
 ---
 
@@ -201,13 +213,25 @@ env:
 
 ### 常见问题
 
-#### 1. 构建失败：证书问题
+#### 1. API Key 认证失败
 ```
-Error: Code signing is required
+Error: Authentication credentials are missing or invalid
 ```
-**解决**: 检查证书 Secrets 配置，参考 [SECRETS_SETUP.md](../SECRETS_SETUP.md)
+**解决**:
+- 确认所有 3 个 API Key Secrets 已正确配置
+- 检查 Base64 编码是否正确（无空格和换行）
+- 参考 [SECRETS_SETUP.md](../SECRETS_SETUP.md)
 
-#### 2. CocoaPods 安装失败 (OC)
+#### 2. 自动签名失败
+```
+Error: No signing certificate found
+```
+**解决**:
+- 确认 API Key 权限为 "App Manager" 或 "Admin"
+- 确认 Bundle ID 在 App Store Connect 中已注册
+- 检查 Apple Developer Program 会员资格是否有效
+
+#### 3. CocoaPods 安装失败 (OC)
 ```
 Error: [!] Unable to find a specification for...
 ```
@@ -215,16 +239,16 @@ Error: [!] Unable to find a specification for...
 - 确认 `Podfile.lock` 已提交
 - 尝试更新 pod specs: `pod repo update`
 
-#### 3. TestFlight 上传失败
+#### 4. TestFlight 上传失败
 ```
 Error: Could not upload to TestFlight
 ```
 **解决**:
 - 检查 API Key 权限
 - 确认 Bundle ID 在 App Store Connect 中存在
-- 检查版本号是否已存在
+- 确认版本号和构建号未重复
 
-#### 4. 测试失败 (Swift)
+#### 5. 测试失败 (Swift)
 ```
 Error: Test suite failed
 ```
@@ -244,23 +268,25 @@ Error: Test suite failed
 
 ## 🔒 安全最佳实践
 
-1. **不要在日志中打印敏感信息**
-   - 证书内容
-   - 密码
-   - API Keys
+1. **保护 API Key**
+   - 不要将 `.p8` 文件提交到仓库
+   - 使用私有仓库
+   - 定期轮换 API Keys（建议 6-12 个月）
 
-2. **定期更新 Secrets**
-   - 证书过期前续期
-   - 定期轮换 API Keys
+2. **限制 API Key 权限**
+   - 优先使用 "App Manager" 而非 "Admin"
+   - 仅授予必要的权限
 
-3. **限制工作流权限**
-   - 仅在必要的分支触发
-   - 使用最小权限的 API Keys
+3. **监控和审计**
+   - 定期检查 GitHub Actions 日志
+   - 在 App Store Connect 中监控 API Key 使用情况
+   - 发现异常立即撤销 Key
 
 4. **保护分支**
    - 为 `main` 和 `swift` 分支启用保护规则
    - 要求 PR 审查
    - 要求状态检查通过
+   - 启用双因素认证
 
 ---
 
