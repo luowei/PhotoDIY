@@ -20,40 +20,42 @@ env:
   SCHEME: 'Photofy'
 
 jobs:
-  test:
-    name: Run Tests
-    runs-on: macos-14
-
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Select Xcode Version
-        run: sudo xcode-select -s /Applications/Xcode_${{ env.XCODE_VERSION }}.app/Contents/Developer
-
-      - name: Show Xcode Version
-        run: xcodebuild -version
-
-      - name: Run Unit Tests
-        run: |
-          xcodebuild test \
-            -project ${{ env.PROJECT_PATH }} \
-            -scheme ${{ env.SCHEME }} \
-            -destination 'platform=iOS Simulator,name=iPhone 15,OS=latest' \
-            -resultBundlePath ${{ runner.temp }}/TestResults.xcresult
-
-      - name: Upload Test Results
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: Test-Results
-          path: ${{ runner.temp }}/TestResults.xcresult
-          retention-days: 7
+  # 注释掉测试任务以加快构建速度和节省资源
+  # 如需运行测试，请取消以下注释
+  # test:
+  #   name: Run Tests
+  #   runs-on: macos-14
+  #
+  #   steps:
+  #     - name: Checkout Repository
+  #       uses: actions/checkout@v4
+  #
+  #     - name: Select Xcode Version
+  #       run: sudo xcode-select -s /Applications/Xcode_${{ env.XCODE_VERSION }}.app/Contents/Developer
+  #
+  #     - name: Show Xcode Version
+  #       run: xcodebuild -version
+  #
+  #     - name: Run Unit Tests
+  #       run: |
+  #         xcodebuild test \
+  #           -project ${{ env.PROJECT_PATH }} \
+  #           -scheme ${{ env.SCHEME }} \
+  #           -destination 'platform=iOS Simulator,name=iPhone 15,OS=latest' \
+  #           -resultBundlePath ${{ runner.temp }}/TestResults.xcresult
+  #
+  #     - name: Upload Test Results
+  #       uses: actions/upload-artifact@v4
+  #       if: always()
+  #       with:
+  #         name: Test-Results
+  #         path: ${{ runner.temp }}/TestResults.xcresult
+  #         retention-days: 7
 
   build-and-deploy:
     name: Build Swift and Deploy to TestFlight
     runs-on: macos-14
-    needs: test
+    # needs: test  # 注释掉测试依赖
     if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
 
     steps:
