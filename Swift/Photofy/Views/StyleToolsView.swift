@@ -45,8 +45,10 @@ struct StyleProcessingPanel: View {
     @State private var landscapeSettings = LandscapeSettings()
     @State private var ecommerceSettings = EcommerceSettings()
     @State private var idPhotoSettings = IDPhotoSettings()
+    @State private var foodSettings = FoodSettings()
 
     private let styleProcessor = AdvancedStyleProcessor.shared
+    private let aiProcessor = AIEnhancedImageProcessor.shared
 
     var body: some View {
         VStack(spacing: 12) {
@@ -68,15 +70,23 @@ struct StyleProcessingPanel: View {
                             .foregroundColor(.white)
                     }
                 } else {
-                    Button("应用效果") {
+                    Button("AI智能处理") {
                         applyAdvancedStyleEffect()
                     }
                     .font(.subheadline)
+                    .fontWeight(.semibold)
                     .foregroundColor(.white)
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 8)
-                    .background(Color.blue)
-                    .cornerRadius(8)
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 10)
+                    .background(
+                        LinearGradient(
+                            gradient: Gradient(colors: [Color.blue, Color.purple]),
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        )
+                    )
+                    .cornerRadius(10)
+                    .shadow(color: .blue.opacity(0.3), radius: 4, x: 0, y: 2)
                 }
             }
 
@@ -110,7 +120,8 @@ struct StyleProcessingPanel: View {
                 portraitSettings: $portraitSettings,
                 landscapeSettings: $landscapeSettings,
                 ecommerceSettings: $ecommerceSettings,
-                idPhotoSettings: $idPhotoSettings
+                idPhotoSettings: $idPhotoSettings,
+                foodSettings: $foodSettings
             )
 
         }
@@ -242,13 +253,20 @@ struct StyleProcessingPanel: View {
 
             switch viewModel.editingMode {
             case .portrait:
-                result = await styleProcessor.processPortrait(image, settings: portraitSettings)
+                let aiResult = await aiProcessor.enhancePortrait(image, settings: portraitSettings)
+                result = ProcessingResult(image: aiResult.image, message: aiResult.message)
             case .idPhoto:
-                result = await styleProcessor.processIDPhoto(image, settings: idPhotoSettings)
+                let aiResult = await aiProcessor.createIntelligentIDPhoto(image, settings: idPhotoSettings)
+                result = ProcessingResult(image: aiResult.image, message: aiResult.message)
             case .landscape:
-                result = await styleProcessor.processLandscape(image, settings: landscapeSettings)
+                let aiResult = await aiProcessor.enhanceLandscape(image, settings: landscapeSettings)
+                result = ProcessingResult(image: aiResult.image, message: aiResult.message)
             case .ecommerce:
-                result = await styleProcessor.processEcommerce(image, settings: ecommerceSettings)
+                let aiResult = await aiProcessor.enhanceEcommerce(image, settings: ecommerceSettings)
+                result = ProcessingResult(image: aiResult.image, message: aiResult.message)
+            case .food:
+                let aiResult = await aiProcessor.enhanceFood(image, settings: foodSettings)
+                result = ProcessingResult(image: aiResult.image, message: aiResult.message)
             default:
                 // 对于其他风格，使用原有的基础处理
                 result = await applyBasicStyleProcessing(to: image, style: viewModel.editingMode, intensity: portraitSettings.intensity)
@@ -336,6 +354,7 @@ struct StyleParametersView: View {
     @Binding var landscapeSettings: LandscapeSettings
     @Binding var ecommerceSettings: EcommerceSettings
     @Binding var idPhotoSettings: IDPhotoSettings
+    @Binding var foodSettings: FoodSettings
 
     var body: some View {
         VStack(spacing: 12) {
@@ -348,6 +367,8 @@ struct StyleParametersView: View {
                 EcommerceParametersView(settings: $ecommerceSettings)
             case .idPhoto:
                 IDPhotoParametersView(settings: $idPhotoSettings)
+            case .food:
+                FoodParametersView(settings: $foodSettings)
             default:
                 EmptyView()
             }
@@ -577,5 +598,48 @@ struct ParameterSlider: View {
             Slider(value: $value, in: range)
                 .accentColor(.blue)
         }
+    }
+}
+
+// MARK: - 美食参数面板
+struct FoodParametersView: View {
+    @Binding var settings: FoodSettings
+
+    var body: some View {
+        VStack(spacing: 8) {
+            Text("美食参数调整")
+                .font(.subheadline)
+                .fontWeight(.medium)
+                .foregroundColor(.white)
+
+            VStack(spacing: 6) {
+                ParameterSlider(
+                    title: "效果强度",
+                    value: $settings.intensity,
+                    range: 0...1
+                )
+                ParameterSlider(
+                    title: "饱和度增强",
+                    value: $settings.saturationBoost,
+                    range: 0...0.8
+                )
+                ParameterSlider(
+                    title: "暖色调",
+                    value: $settings.warmthAdjust,
+                    range: 0...500
+                )
+                ParameterSlider(
+                    title: "对比度增强",
+                    value: $settings.contrastEnhance,
+                    range: 0...0.6
+                )
+                ParameterSlider(
+                    title: "食欲感增强",
+                    value: $settings.appetiteBoost,
+                    range: 0...1
+                )
+            }
+        }
+        .padding(.horizontal, 16)
     }
 }

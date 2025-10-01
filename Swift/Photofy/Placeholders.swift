@@ -40,26 +40,68 @@ class ContentViewModel: ObservableObject {
     @Published var availableStickers = ["😀", "😍", "🎉", "⭐️", "❤️", "👍", "🔥", "💯"]
 
     private let filterManager = ImageFilterManager.shared
-    private var editingHistory = EditingHistory()
+    private var undoRedoHistory = EditingHistory()
+    // TODO: Add persistent history when files are added to project
+    // private let persistentHistoryManager = EditingHistoryManager.shared
 
     var canUndo: Bool {
-        editingHistory.canUndo
+        undoRedoHistory.canUndo
     }
 
     var canRedo: Bool {
-        editingHistory.canRedo
+        undoRedoHistory.canRedo
     }
 
     func updateImage(_ image: UIImage) {
         currentImage = image
         processedImage = nil
-        editingHistory.add(image)
+        undoRedoHistory.add(image)
     }
 
     func updateProcessedImage(_ image: UIImage) {
         processedImage = image
-        editingHistory.add(image)
+        undoRedoHistory.add(image)
+
+        // TODO: Re-enable when EditingHistoryManager is added to project
+        // Save to persistent history manager
+        // if let originalImage = currentImage {
+        //     saveEditingSession(originalImage: originalImage, editedImage: image)
+        // }
     }
+
+    // TODO: Uncomment when EditingHistoryManager is added to project
+    /*
+    private func saveEditingSession(originalImage: UIImage, editedImage: UIImage) {
+        persistentHistoryManager.addEditingSession(
+            originalImage: originalImage,
+            editedImage: editedImage,
+            editingMode: editingMode,
+            settings: getCurrentEditingSettings()
+        )
+    }
+
+    private func getCurrentEditingSettings() -> [String: Any] {
+        var settings: [String: Any] = [:]
+
+        switch editingMode {
+        case .filter:
+            settings["filter"] = selectedFilter.rawValue
+        case .adjust:
+            settings["brightness"] = brightness
+            settings["contrast"] = contrast
+            settings["saturation"] = saturation
+            settings["hue"] = hue
+        case .crop:
+            if let ratio = selectedCropRatio {
+                settings["cropRatio"] = ratio
+            }
+        default:
+            break
+        }
+
+        return settings
+    }
+    */
 
     func loadSelectedPhoto() {
         guard let selectedPhoto = selectedPhoto else { return }
@@ -75,8 +117,8 @@ class ContentViewModel: ObservableObject {
     }
 
     func undo() {
-        if let previousImage = editingHistory.undo() {
-            if editingHistory.currentIndex == 0 {
+        if let previousImage = undoRedoHistory.undo() {
+            if undoRedoHistory.currentIndex == 0 {
                 currentImage = previousImage
                 processedImage = nil
             } else {
@@ -86,7 +128,7 @@ class ContentViewModel: ObservableObject {
     }
 
     func redo() {
-        if let nextImage = editingHistory.redo() {
+        if let nextImage = undoRedoHistory.redo() {
             processedImage = nextImage
         }
     }
@@ -207,7 +249,7 @@ class ContentViewModel: ObservableObject {
         hue = 0
 
         // 清除编辑历史
-        editingHistory = EditingHistory()
+        undoRedoHistory = EditingHistory()
     }
 }
 
@@ -344,6 +386,7 @@ func createEmojiImage(_ emoji: String) -> UIImage {
     return image
 }
 
+// MARK: - Temporary SettingsView placeholder
 struct SettingsView: View {
     @Environment(\.dismiss) private var dismiss
 
@@ -367,6 +410,12 @@ struct SettingsView: View {
                             .foregroundColor(.gray)
                     }
                 }
+
+                Section("TODO") {
+                    Text("Enhanced settings page with themes and editing history has been created but needs to be added to the Xcode project.")
+                        .foregroundColor(.orange)
+                        .font(.caption)
+                }
             }
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
@@ -380,3 +429,4 @@ struct SettingsView: View {
         }
     }
 }
+

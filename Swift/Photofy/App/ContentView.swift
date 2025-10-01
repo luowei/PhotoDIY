@@ -9,6 +9,8 @@ struct ContentView: View {
     @State private var showingSettings = false
     @State private var showingAIFeatures = false
     @State private var showingClearConfirmation = false
+    // TODO: Re-enable when EditingHistoryView is added to project
+    // @State private var showingEditingHistory = false
 
     var body: some View {
         NavigationView {
@@ -20,6 +22,10 @@ struct ContentView: View {
                     NavigationBarView(
                         onSettingsAction: { showingSettings = true },
                         onAIFeaturesAction: { showingAIFeatures = true },
+                        onHistoryAction: {
+                            // TODO: Re-enable when EditingHistoryView is added to project
+                            // showingEditingHistory = true
+                        },
                         onClearCanvasAction: {
                             if viewModel.currentImage != nil {
                                 showingClearConfirmation = true
@@ -89,6 +95,10 @@ struct ContentView: View {
                 }
             }
         }
+        // TODO: Re-enable when EditingHistoryView is added to project
+        // .sheet(isPresented: $showingEditingHistory) {
+        //     EditingHistoryView()
+        // }
         .onChange(of: viewModel.selectedPhoto) { _ in
             viewModel.loadSelectedPhoto()
         }
@@ -164,6 +174,7 @@ struct EmptyStateView: View {
 struct NavigationBarView: View {
     let onSettingsAction: () -> Void
     let onAIFeaturesAction: () -> Void
+    let onHistoryAction: () -> Void
     let onClearCanvasAction: () -> Void
     let hasImage: Bool
 
@@ -186,8 +197,14 @@ struct NavigationBarView: View {
 
             Spacer()
 
-            // 右上角：清除按钮（只在有图片时显示）和设置按钮
+            // 右上角：历史记录、清除按钮（只在有图片时显示）和设置按钮
             HStack(spacing: 16) {
+                Button(action: onHistoryAction) {
+                    Image(systemName: "clock.arrow.circlepath")
+                        .font(.title2)
+                        .foregroundColor(.white)
+                }
+
                 if hasImage {
                     Button(action: onClearCanvasAction) {
                         Image(systemName: "trash")
