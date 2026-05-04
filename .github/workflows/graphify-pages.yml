@@ -1,0 +1,83 @@
+name: Publish graphify knowledge graph
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+      - main
+      - swift
+    paths:
+      - 'graphify-out/**'
+      - '.github/workflows/graphify-pages.yml'
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: graphify-pages
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Prepare graphify artifact
+        shell: bash
+        run: |
+          test -f graphify-out/GRAPH_REPORT.md
+          test -f graphify-out/graph.json
+          mkdir -p _graphify_pages
+          cp -R graphify-out/. _graphify_pages/
+          if [ -f _graphify_pages/graph.html ]; then
+            cp _graphify_pages/graph.html _graphify_pages/index.html
+          else
+            cat > _graphify_pages/index.html <<'HTML'
+          <!doctype html>
+          <html lang="zh-CN">
+            <head>
+              <meta charset="utf-8" />
+              <meta name="viewport" content="width=device-width, initial-scale=1" />
+              <title>graphify knowledge graph</title>
+              <style>
+                body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 2rem; line-height: 1.6; color: #1f2937; }
+                main { max-width: 760px; }
+                a { color: #2563eb; }
+                code { background: #f3f4f6; padding: 0.1rem 0.25rem; border-radius: 4px; }
+              </style>
+            </head>
+            <body>
+              <main>
+                <h1>graphify knowledge graph</h1>
+                <p>This repository's graph is available as data and report artifacts. The interactive HTML graph was skipped because the graph is too large for graphify's HTML renderer.</p>
+                <ul>
+                  <li><a href="GRAPH_REPORT.md">GRAPH_REPORT.md</a></li>
+                  <li><a href="graph.json">graph.json</a></li>
+                  <li><a href="graph.html.skipped.txt">graph.html.skipped.txt</a></li>
+                </ul>
+              </main>
+            </body>
+          </html>
+          HTML
+          fi
+          touch _graphify_pages/.nojekyll
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _graphify_pages
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
