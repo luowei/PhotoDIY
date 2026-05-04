@@ -1,5 +1,12 @@
 # PhotoDIY - 图片编辑应用
 
+
+## graphify Knowledge Graph
+
+- Interactive graph: https://luowei.github.io/PhotoDIY/
+- Report: https://luowei.github.io/PhotoDIY/GRAPH_REPORT.md
+- Graph data: https://luowei.github.io/PhotoDIY/graph.json
+
 PhotoDIY 是一款功能强大的 iOS 照片编辑应用，提供滤镜、裁剪、文字叠加、绘图和社交分享等多种图像编辑功能。
 
 ## 📚 项目概览
