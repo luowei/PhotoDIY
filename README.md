@@ -1,3 +1,4 @@
+> ⚠️ **ARCHIVED** — This repository has been migrated to the mobile-workspace private monorepo (2026-08-07).
 # PhotoDIY - 图片编辑应用
 
 
